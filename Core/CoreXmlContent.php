@@ -87,4 +87,4 @@ class ClassCoreXmlContent implements InterfaceCoreXmlContent
 		return $this->propertyChildList;
 	}
 }
-?> :)
+?>
