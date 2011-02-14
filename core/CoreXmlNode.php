@@ -190,7 +190,6 @@ class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNo
 	}
 // ---------------------------------------------------------------------------------------
 	function __destruct() {
-		// TODO: Implement __destruct() method.
 		unset( $this->propertyParent );
 		$propertyChildList = (array)$this->propertyChildList();
 		foreach( $propertyChildList as $CoreXmlNode ){
