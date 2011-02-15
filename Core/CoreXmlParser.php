@@ -3,7 +3,7 @@ require_once( dirname(__FILE__).'/CoreXmlContent.php' );
 require_once( dirname(__FILE__).'/CoreXmlNode.php' );
 require_once( dirname(__FILE__).'/CoreXmlStack.php' );
 // ---------------------------------------------------------------------------------------
-//	InterfaceCoreXmlParser, ClassCoreXmlParser
+// InterfaceCoreXmlParser, ClassCoreXmlParser
 // ---------------------------------------------------------------------------------------
 interface InterfaceCoreXmlParser
 {

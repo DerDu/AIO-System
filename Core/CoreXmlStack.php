@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------------------------------
-//	InterfaceCoreXmlStack, ClassCoreXmlStack
+// InterfaceCoreXmlStack, ClassCoreXmlStack
 // ---------------------------------------------------------------------------------------
 interface InterfaceCoreXmlStack
 {
