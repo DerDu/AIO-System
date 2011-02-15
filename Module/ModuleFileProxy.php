@@ -48,9 +48,7 @@ class ClassModuleFileProxy implements InterfaceModuleFileProxy
 	private static $_propertyPort = null;
 	private static $_propertyUser = null;
 	private static $_propertyPass = null;
-
 	private static $_propertyTimeout = 5;
-
 	private static $_propertyErrorNumber = null;
 	private static $_propertyErrorString = null;
 // ---------------------------------------------------------------------------------------
