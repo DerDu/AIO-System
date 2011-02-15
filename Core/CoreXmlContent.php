@@ -83,7 +83,13 @@ class ClassCoreXmlContent implements InterfaceCoreXmlContent
 		return $this->propertyAttributeList;
 	}
 	public function propertyChildList( $propertyChildList = null ){
-		if( $propertyChildList !== null ) $this->propertyChildList = $propertyChildList;
+		if( $propertyChildList !== null ){
+			if( $propertyChildList === false ){
+				unset( $this->propertyChildList );
+			} else {
+				$this->propertyChildList = $propertyChildList;
+			}
+		}
 		return $this->propertyChildList;
 	}
 }
