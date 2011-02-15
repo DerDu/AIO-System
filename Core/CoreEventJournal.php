@@ -5,8 +5,7 @@ require_once( dirname(__FILE__).'/../Library/LibraryRegExp.php' );
 // ---------------------------------------------------------------------------------------
 // InterfaceCoreEventJournal, ClassCoreEventJournal
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreEventJournal
-{
+interface InterfaceCoreEventJournal{
 	public static function addEvent( $propertyEventContent, $propertyJournalName = 'DefaultEventJournal' );
 }
 // ---------------------------------------------------------------------------------------
@@ -42,8 +41,7 @@ interface InterfaceCoreEventJournal
 // ---------------------------------------------------------------------------------------
 class ClassCoreEventJournal implements InterfaceCoreEventJournal
 {
-	public static function addEvent( $propertyEventContent, $propertyJournalName = 'DefaultEventJournal' )
-	{
+	public static function addEvent( $propertyEventContent, $propertyJournalName = 'DefaultEventJournal' ){
 		$propertyJournalName = ClassCoreSystemDirectory::adjustDirectorySyntax( dirname( __FILE__ ).'/../Journal/' ).'Journal.'.$propertyJournalName.'.txt';
 		if( !is_dir( dirname( $propertyJournalName ) ) ){
 			ClassCoreSystemDirectory::createDirectory( dirname( $propertyJournalName ) );
