@@ -3,9 +3,9 @@ require_once( dirname(__FILE__).'/CoreSystemDirectory.php' );
 require_once( dirname(__FILE__).'/CoreSystemFile.php' );
 require_once( dirname(__FILE__).'/CoreSession.php' );
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreCache, ClassCoreCache
+// InterfaceCoreCacheDisc, ClassCoreCacheDisc
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreCache
+interface InterfaceCoreCacheDisc
 {
 	public static function isCached( $propertyCacheParameter, $propertyCacheName = 'DefaultCache', $isGlobal = false );
 	public static function getCache( $propertyCacheParameter, $propertyCacheName = 'DefaultCache', $isGlobal = false );
@@ -45,7 +45,7 @@ interface InterfaceCoreCache
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreCache implements InterfaceCoreCache
+class ClassCoreCacheDisc implements InterfaceCoreCacheDisc
 {
 	private static $_propertyDirectoryName = '../Cache';
 	private static $_propertyCacheTimeout = 3600;
