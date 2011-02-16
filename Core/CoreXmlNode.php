@@ -47,6 +47,7 @@ interface InterfaceCoreXmlNode{
 // ---------------------------------------------------------------------------------------
 class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNode
 {
+	/** @var ClassCoreXmlNode $_propertyParent */
 	private $_propertyParent = null;
 	private $_propertyHashCount = array();
 // ---------------------------------------------------------------------------------------
@@ -68,6 +69,7 @@ class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNo
 		return $CoreXmlNode;
 	}
 	public function removeCoreXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false ){
+		/** @var ClassCoreXmlNode $CoreXmlNodeChild */
 		if( ( $CoreXmlNode = $this->searchCoreXmlNode( $propertyName, $propertyAttributeList, $indexCoreXmlNode, $isSearchRoot ) ) != false ) {
 			$CoreXmlNodeChildList = $CoreXmlNode->propertyParent()->propertyChildList();
 			foreach( (array)$CoreXmlNodeChildList as $indexCoreXmlNodeChild => $CoreXmlNodeChild ) {
@@ -81,6 +83,7 @@ class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNo
 		} return false;
 	}
 	public function groupCoreXmlNode( $propertyName, $propertyAttributeList = array(), $isDescendant = null ){
+		/** @var ClassCoreXmlNode $CoreXmlNodeChild */
 		$groupCoreXmlNode = array();
 		// FIX: Respect Depth-Level for Group -> 1st Check Childs, 2nd Search Node4Root
 		$CoreXmlNodeChildList = $this->propertyChildList();
@@ -101,6 +104,7 @@ class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNo
 		return $groupCoreXmlNode;
 	}
 	public function searchCoreXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false ){
+		/** @var ClassCoreXmlNode $CoreXmlNodeChild */
 		$isSearchMatch = true;
 		// CHECK NODE NAME
 		if( $isSearchMatch == true
@@ -140,6 +144,7 @@ class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNo
 		return false;
 	}
 	public function codeCoreXmlNode( $isSubStructure = false, $indentLevel = 0 ){
+		/** @var ClassCoreXmlNode $CoreXmlNodeChild */
 		// BUILD ATTRIBUTES STRING
 		$propertyAttributeList = $this->propertyAttributeList();
 		$propertyAttributeString = ' ';
@@ -182,6 +187,7 @@ class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNo
 	}
 // ---------------------------------------------------------------------------------------
 	function __destruct(){
+		/** @var ClassCoreXmlNode $CoreXmlNode */
 		unset( $this->_propertyParent );
 		$propertyChildList = (array)$this->propertyChildList();
 		foreach( $propertyChildList as $CoreXmlNode ){

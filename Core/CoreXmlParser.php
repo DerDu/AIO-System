@@ -101,6 +101,10 @@ class ClassCoreXmlParser implements InterfaceCoreXmlParser
 	}
 	private static function _closeTag( $_readTag )
 	{
+		/**
+		 * @var ClassCoreXmlNode $CoreXmlNodeChild
+		 * @var ClassCoreXmlNode $CoreXmlNodeParent
+		 */
 		// Done ?
 		$CoreXmlNodeChild = ClassCoreXmlStack::popCoreXmlNode();
 		$CoreXmlNodeChild->propertyContent( $_readTag['TEXT'] );
@@ -115,6 +119,7 @@ class ClassCoreXmlParser implements InterfaceCoreXmlParser
 	}
 	private static function _openTag( $_readTag )
 	{
+		/** @var ClassCoreXmlNode $CoreXmlNode */
 		$_readTag = self::_readTag( $_readTag['ITEM'] );
 		$CoreXmlNode = ClassCoreXmlStack::pushCoreXmlNode( new ClassCoreXmlNode() );
 		$CoreXmlNode->propertyName( $_readTag['NAME'] );
