@@ -1,14 +1,16 @@
 <?php
-require_once( dirname(__FILE__).'/CoreEventJournal.php' );
-require_once( dirname(__FILE__).'/CoreEventException.php' );
-require_once( dirname(__FILE__).'/CoreEventError.php' );
-require_once( dirname(__FILE__).'/CoreEventTypehint.php' );
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreEventHandler, ClassCoreEventHandler
+require_once(dirname(__FILE__) . '/EventJournal.php');
+require_once(dirname(__FILE__) . '/EventException.php');
+require_once(dirname(__FILE__) . '/EventError.php');
+require_once(dirname(__FILE__) . '/EventTypehint.php');
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreEventHandler{
-	public static function registerCoreEventHandler( $propertyErrorReporting = E_ALL, $isDisplayError = true );
-	public static function _executeCoreEventShutdown();
+// InterfaceEventHandler, ClassEventHandler
+// ---------------------------------------------------------------------------------------
+interface InterfaceEventHandler {
+	public static function registerEventHandler( $propertyErrorReporting = E_ALL, $isDisplayError = true );
+	public static function _executeEventShutdown();
 }
 // ---------------------------------------------------------------------------------------
 // LICENSE (BSD)
@@ -41,55 +43,54 @@ interface InterfaceCoreEventHandler{
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreEventHandler implements InterfaceCoreEventHandler
-{
-	public static function registerCoreEventHandler( $propertyErrorReporting = E_ALL, $isDisplayError = true ){
+class ClassEventHandler implements InterfaceEventHandler {
+	public static function registerEventHandler( $propertyErrorReporting = E_ALL, $isDisplayError = true ){
 		if( $isDisplayError === true ) {
 			ini_set('display_errors',1);
 		} else {
 			ini_set('display_errors',0);
 		}
 		error_reporting( $propertyErrorReporting );
-		self::_registerCoreEventError();
-		self::_registerCoreEventException();
-		self::_registerCoreEventShutdown();
+		self::_registerEventError();
+		self::_registerEventException();
+		self::_registerEventShutdown();
 	}
 // ---------------------------------------------------------------------------------------
-	public static function _executeCoreEventShutdown(){
-		if( ($getLastError = error_get_last() ) !== null ){
-			ClassCoreEventJournal::addEvent(
+	public static function _executeEventShutdown() {
+		if( ($getLastError = error_get_last() ) !== null ) {
+			ClassEventJournal::addEvent(
 				'ShutDown Error: '."\n\n"
 				.strip_tags(str_replace(array('<br />','<br/>','<br>'),"\n",$getLastError['message']))."\n"
 				.'Code ['.$getLastError['type'].' ERROR]'
 				.' thrown in '.$getLastError['file']
 				.' at line '.$getLastError['line']
-				,'CoreEventShutdown'
+				,'ClassEventShutdown'
 			);
 		}
 	}
 // ---------------------------------------------------------------------------------------
-	private static function _registerCoreEventError(){
+	private static function _registerEventError() {
 		set_error_handler(
 			create_function(
 				'$propertyNumber, $propertyContent, $propertyLocation, $propertyPosition',
-				'if( ClassCoreEventTypehint::eventHandler( $propertyNumber, $propertyContent ) ) return true;'
-				.'ClassCoreEventError::eventHandler( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );'
+				'if( ClassEventTypehint::eventHandler( $propertyNumber, $propertyContent ) ) return true;'
+				.'ClassEventError::eventHandler( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );'
 			)
 		);
 	}
-	private static function _registerCoreEventException(){
+	private static function _registerEventException() {
 		set_exception_handler(
 			create_function(
-				'$CoreEventException',
-				'ClassCoreEventException::eventHandler( $CoreEventException->getCode(), $CoreEventException->getMessage().\'<br /><br /><span style="font-size: 12px;">\'.$CoreEventException->getTraceAsString()."</span><br />", $CoreEventException->getFile(), $CoreEventException->getLine() );'
+				'$EventException',
+				'ClassEventException::eventHandler( $EventException->getCode(), $EventException->getMessage().\'<br /><br /><span style="font-size: 12px;">\'.$EventException->getTraceAsString()."</span><br />", $EventException->getFile(), $EventException->getLine() );'
 			)
 		);
 	}
-	private static function _registerCoreEventShutdown(){
+	private static function _registerEventShutdown() {
 		register_shutdown_function(
 			create_function(
 				'',
-				'ClassCoreEventHandler::_executeCoreEventShutdown();'
+				'ClassEventHandler::_executeEventShutdown();'
 			)
 		);
 	}

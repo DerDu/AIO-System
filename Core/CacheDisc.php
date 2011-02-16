@@ -1,12 +1,13 @@
 <?php
-require_once( dirname(__FILE__).'/CoreSystemDirectory.php' );
-require_once( dirname(__FILE__).'/CoreSystemFile.php' );
-require_once( dirname(__FILE__).'/CoreSession.php' );
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreCacheDisc, ClassCoreCacheDisc
+require_once(dirname(__FILE__) . '/SystemDirectory.php');
+require_once(dirname(__FILE__) . '/SystemFile.php');
+require_once(dirname(__FILE__) . '/Session.php');
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreCacheDisc
-{
+// InterfaceCacheDisc, ClassCacheDisc
+// ---------------------------------------------------------------------------------------
+interface InterfaceCacheDisc {
 	public static function isCached( $propertyCacheParameter, $propertyCacheName = 'DefaultCache', $isGlobal = false );
 	public static function getCache( $propertyCacheParameter, $propertyCacheName = 'DefaultCache', $isGlobal = false );
 	public static function setCache( $propertyCacheParameter, $propertyCacheContent,
@@ -45,22 +46,21 @@ interface InterfaceCoreCacheDisc
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreCacheDisc implements InterfaceCoreCacheDisc
-{
+class ClassCacheDisc implements InterfaceCacheDisc {
 	private static $_propertyDirectoryName = '../Cache';
 	private static $_propertyCacheTimeout = 3600;
-
-	public static function isCached( $propertyCacheParameter, $propertyCacheName = 'DefaultCache', $isGlobal = false ){
+// ---------------------------------------------------------------------------------------
+	public static function isCached( $propertyCacheParameter, $propertyCacheName = 'DefaultCache', $isGlobal = false ) {
 		self::_runCacheTimeout();
 		$propertyCacheParameter = sha1( serialize( $propertyCacheParameter ) );
-		if( file_exists( self::getCacheLocation( $propertyCacheName, $isGlobal ).$propertyCacheParameter ) ){
+		if( file_exists( self::getCacheLocation( $propertyCacheName, $isGlobal ).$propertyCacheParameter ) ) {
 			return $propertyCacheParameter;
 		} else {
 			return false;
 		}
 	}
-	public static function getCache( $propertyCacheParameter, $propertyCacheName = 'DefaultCache', $isGlobal = false ){
-		if( false !== ( $propertyCacheParameter = self::isCached( $propertyCacheParameter ) ) ){
+	public static function getCache( $propertyCacheParameter, $propertyCacheName = 'DefaultCache', $isGlobal = false ) {
+		if( false !== ( $propertyCacheParameter = self::isCached( $propertyCacheParameter ) ) ) {
 			return file_get_contents( self::getCacheLocation( $propertyCacheName, $isGlobal ).$propertyCacheParameter );
 		} else {
 			return false;
@@ -69,45 +69,45 @@ class ClassCoreCacheDisc implements InterfaceCoreCacheDisc
 	public static function setCache(
 		$propertyCacheParameter, $propertyCacheContent,
 		$propertyCacheName = 'DefaultCache', $isGlobal = false, $isForcedRefresh = false
-	){
-		if( false !== ( $propertyCacheParameter = self::isCached( $propertyCacheParameter, $propertyCacheName, $isGlobal ) ) && !$isForcedRefresh ){
+	) {
+		if( false !== ( $propertyCacheParameter = self::isCached( $propertyCacheParameter, $propertyCacheName, $isGlobal ) ) && !$isForcedRefresh ) {
 			return false;
 		}
 		$propertyCacheParameter = sha1( serialize( $propertyCacheParameter ) );
 		$propertyCacheLocation = self::getCacheLocation( $propertyCacheName, $isGlobal ).$propertyCacheParameter;
-		$ClassCoreSystemFile = ClassCoreSystemFile::Instance( $propertyCacheLocation );
+		$ClassCoreSystemFile = ClassSystemFile::Instance( $propertyCacheLocation );
 		$ClassCoreSystemFile->writeFile();
 		return true;
 	}
-	public static function getCacheLocation( $propertyCacheName = 'DefaultCache', $isGlobal = false ){
+	public static function getCacheLocation( $propertyCacheName = 'DefaultCache', $isGlobal = false ) {
 		// Create Cache-Location
-		$propertyDirectoryName = ClassCoreSystemDirectory::createDirectory(
-			ClassCoreSystemDirectory::adjustDirectorySyntax(
+		$propertyDirectoryName = ClassSystemDirectory::createDirectory(
+			ClassSystemDirectory::adjustDirectorySyntax(
 				self::_getCacheDirectory().'/'.$propertyCacheName
-				.(!$isGlobal?'/'.ClassCoreSession::getSessionId():'')
+				.(!$isGlobal?'/'.ClassSession::getSessionId():'')
 			)
 		);
 		chmod( $propertyDirectoryName, 0777 );
 		return $propertyDirectoryName;
 	}
 // ---------------------------------------------------------------------------------------
-	private static function _runCacheTimeout(){
-		$getFileList = ClassCoreSystemDirectory::getFileList( self::_getCacheDirectory(), array(), true );
-		foreach( (array)$getFileList as $ClassCoreSystemFile ){
-			if( $ClassCoreSystemFile->propertyFileTime() < time() - self::$_propertyCacheTimeout ){
-				$ClassCoreSystemFile->removeFile();
+	private static function _runCacheTimeout() {
+		$getFileList = ClassSystemDirectory::getFileList( self::_getCacheDirectory(), array(), true );
+		/** @var ClassSystemFile $ClassSystemFile */
+		foreach( (array)$getFileList as $ClassSystemFile ) {
+			if( $ClassSystemFile->propertyFileTime() < time() - self::$_propertyCacheTimeout ) {
+				$ClassSystemFile->removeFile();
 			}
 		}
 	}
-	private static function _getCacheDirectory( $propertyDirectoryName = null ){
-		if( $propertyDirectoryName !== null ){
+	private static function _getCacheDirectory( $propertyDirectoryName = null ) {
+		if( $propertyDirectoryName !== null ) {
 			self::$_propertyDirectoryName = $propertyDirectoryName;
 		}
-		$propertyDirectoryName = ClassCoreSystemDirectory::adjustDirectorySyntax( dirname(__FILE__).'/'.self::$_propertyDirectoryName );
-		if( !is_dir( $propertyDirectoryName ) ){
-			ClassCoreSystemDirectory::createDirectory( $propertyDirectoryName );
-		}
-		return $propertyDirectoryName;
+		$propertyDirectoryName = ClassSystemDirectory::adjustDirectorySyntax( dirname(__FILE__).'/'.self::$_propertyDirectoryName );
+		if( !is_dir( $propertyDirectoryName ) ) {
+			ClassSystemDirectory::createDirectory( $propertyDirectoryName );
+		} return $propertyDirectoryName;
 	}
 }
 ?>

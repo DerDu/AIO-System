@@ -1,12 +1,17 @@
 <?php
-require_once( dirname(__FILE__).'/../Core/CoreSession.php' );
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceLibraryEncryption, ClassLibraryEncryption
+// InterfaceStackQueue, ClassStackQueue
 // ---------------------------------------------------------------------------------------
-interface InterfaceLibraryEncryption
-{
-	public static function encodeSessionEncryption( $string_plaintext );
-	public static function decodeSessionEncryption( $string_encrypted );
+interface InterfaceStackQueue {
+	public static function Instance();
+// ---------------------------------------------------------------------------------------
+	public function pushQueueData( $propertyQueueData );
+	public function popQueueData();
+	public function peekQueueData();
+	public function getQueueData( $propertyQueueIndex = 0 );
+	public function updateQueueData( $propertyQueueIndex, $propertyQueueData );
+	public function listQueueData();
 }
 // ---------------------------------------------------------------------------------------
 // LICENSE (BSD)
@@ -39,27 +44,34 @@ interface InterfaceLibraryEncryption
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassLibraryEncryption implements InterfaceLibraryEncryption
-{
-	public static function encodeSessionEncryption( $propertyPlainText ){
-		return base64_encode( self::_runSessionEncryption( $propertyPlainText ) );
-	}
-	public static function decodeSessionEncryption( $propertyEncryptedText ){
-		return self::_runSessionEncryption( base64_decode( $propertyEncryptedText ) );
+class ClassStackQueue implements InterfaceStackQueue {
+	private $_propertyStackQueue = array();
+// ---------------------------------------------------------------------------------------
+	public static function Instance() {
+		return new ClassStackQueue();
 	}
 // ---------------------------------------------------------------------------------------
-	private static function _runSessionEncryption( $propertyContent ){
-		$_runSessionEncryption = '';
-		$_codeSessionEncryption = self::_codeSessionEncryption( $propertyContent );
-		$countContentLength = strlen( $propertyContent );
-		for( $runContentLength = 0; $runContentLength < $countContentLength; $runContentLength++ ){
-			$_runSessionEncryption .= chr( ord( $propertyContent[$runContentLength] ) ^ ord( $_codeSessionEncryption[$runContentLength] ) );
-		}
-		return $_runSessionEncryption;
+	public function pushQueueData( $propertyQueueData ) {
+		array_push( $this->_propertyStackQueue, $propertyQueueData );
+		return ( count( $this->_propertyStackQueue ) - 1 );
 	}
-	private static function _codeSessionEncryption( $propertyContent ){
-		$getSessionId = ClassCoreSession::getSessionId();
-		return str_repeat( $getSessionId, ceil(strlen($propertyContent)/strlen($getSessionId)) );
+	public function popQueueData() {
+		return array_shift( $this->_propertyStackQueue );
+	}
+	public function getQueueData( $propertyQueueIndex = 0 ) {
+		if( ! isset( $this->_propertyStackQueue[$propertyQueueIndex] ) ) return null;
+		return $this->_propertyStackQueue[$propertyQueueIndex];
+	}
+	public function peekQueueData() {
+		if( ! isset( $this->_propertyStackQueue[0] ) ) return null;
+		return $this->_propertyStackQueue[0];
+	}
+	public function updateQueueData( $propertyQueueIndex, $propertyQueueData ) {
+		$this->_propertyStackQueue[$propertyQueueIndex] = $propertyQueueData;
+		return $this->getQueueData( $propertyQueueIndex );
+	}
+	public function listQueueData() {
+		return $this->_propertyStackQueue;
 	}
 }
 ?>

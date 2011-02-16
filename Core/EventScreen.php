@@ -1,11 +1,12 @@
 <?php
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreEventScreen, ClassCoreEventScreen
+// InterfaceEventScreen, ClassEventScreen
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreEventScreen{
+interface InterfaceEventScreen {
 	public static function addEvent(
 		$propertyNumber, $propertyContent, $propertyLocation = '', $propertyPosition = '',
-		$propertyEventScreenType = ClassCoreEventScreen::SCREEN_ERROR
+		$propertyEventScreenType = ClassEventScreen::SCREEN_ERROR
 	);
 }
 // ---------------------------------------------------------------------------------------
@@ -39,18 +40,17 @@ interface InterfaceCoreEventScreen{
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreEventScreen implements InterfaceCoreEventScreen
-{
+class ClassEventScreen implements InterfaceEventScreen {
 	const SCREEN_ERROR = 0;
 	const SCREEN_EXCEPTION = 1;
 // ---------------------------------------------------------------------------------------
 	public static function addEvent(
 		$propertyNumber, $propertyContent, $propertyLocation = '', $propertyPosition = '',
-		$propertyEventScreenType = ClassCoreEventScreen::SCREEN_ERROR
-	){
+		$propertyEventScreenType = ClassEventScreen::SCREEN_ERROR
+	) {
 		if( ! ini_get('display_errors') ) return false;
 
-		switch( $propertyEventScreenType ){
+		switch( $propertyEventScreenType ) {
 			case self::SCREEN_ERROR:{
 				print self::_screenError( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );
 				return true;
@@ -62,7 +62,7 @@ class ClassCoreEventScreen implements InterfaceCoreEventScreen
 		}
 	}
 // ---------------------------------------------------------------------------------------
-	private static function _screenError( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ){
+	private static function _screenError( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
 		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; overflow:auto;">'
 		."\n".$propertyContent.'<br />'
 			.'<span style="font-family: monospace; font-size: 10px;color:#DDA0A0;">'
@@ -72,7 +72,7 @@ class ClassCoreEventScreen implements InterfaceCoreEventScreen
 			.'</span>'
 		.'</div>'."\n";
 	}
-	private static function _screenException( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ){
+	private static function _screenException( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
 		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto; margin-bottom: 1px; background-color:#702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; overflow: auto;">'
 		."\n".'<strong style="color:#DDA0A0;">Unexpected Error:</strong><br /><br />'
 		.preg_replace_callback( '!\#([1-9]{1}|[0-9]{2,}) !is', create_function('$exception_replace','return str_replace("#","<br/>#",$exception_replace[0]);'), $propertyContent )

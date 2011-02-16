@@ -1,10 +1,11 @@
 <?php
-require_once( dirname(__FILE__).'/CoreSystemWrite.php' );
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreSystemFile, ClassCoreSystemFile
+require_once(dirname(__FILE__) . '/SystemWrite.php');
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreSystemFile
-{
+// InterfaceSystemFile, ClassSystemFile
+// ---------------------------------------------------------------------------------------
+interface InterfaceSystemFile {
 	public static function Instance( $propertyFileName );
 // ---------------------------------------------------------------------------------------
 	public function propertyFileName( $propertyFileName = null );
@@ -53,104 +54,110 @@ interface InterfaceCoreSystemFile
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreSystemFile implements InterfaceCoreSystemFile
-{
-	private $propertyFileName = null;
-	private $propertyFilePath = null;
-	private $propertyFileLocation = null;
-	private $propertyFileSize = null;
-	private $propertyFileTime = null;
-	private $propertyFileContent = null;
-	private $isChanged = false;
+class ClassSystemFile implements InterfaceSystemFile {
+	private $_propertyFileName = null;
+	private $_propertyFilePath = null;
+	private $_propertyFileLocation = null;
+	private $_propertyFileSize = null;
+	private $_propertyFileTime = null;
+	private $_propertyFileContent = null;
+	private $_isChanged = false;
 // ---------------------------------------------------------------------------------------
-	public static function Instance( $propertyFileName )
-	{
-		return new ClassCoreSystemFile( $propertyFileName );
+	public static function Instance( $propertyFileName ) {
+		return new ClassSystemFile( $propertyFileName );
 	}
-	public function __construct( $propertyFileLocation )
-	{
+	public function __construct( $propertyFileLocation ) {
 		$this->propertyFileLocation( $propertyFileLocation );
 		$this->_loadFileAttributeList();
-		if( ! file_exists( $this->propertyFileLocation() ) ) $this->touchFile();
+		if( ! file_exists( $this->propertyFileLocation() ) ) {
+			$this->touchFile();
+		}
 	}
 // ---------------------------------------------------------------------------------------
-	public function writeFile( $_writeMode = 'wb' )
-	{
-		ClassCoreSystemWrite::writeFile( $this->propertyFileLocation(), $this->propertyFileContent(), $_writeMode );
+	public function writeFile( $_writeMode = 'wb' ) {
+		ClassSystemWrite::writeFile( $this->propertyFileLocation(), $this->propertyFileContent(), $_writeMode );
 		$this->_loadFileAttributeList();
-		$this->isChanged = false;
+		$this->_isChanged = false;
 	}
-	public function writeFileAs( $propertyFileLocation, $_writeMode = 'wb' )
-	{
-		ClassCoreSystemWrite::writeFile( $propertyFileLocation, $this->propertyFileContent(), $_writeMode );
+	public function writeFileAs( $propertyFileLocation, $_writeMode = 'wb' ) {
+		ClassSystemWrite::writeFile( $propertyFileLocation, $this->propertyFileContent(), $_writeMode );
 		$this->propertyFileLocation( $propertyFileLocation );
 		$this->_loadFileAttributeList();
-		$this->isChanged = false;
+		$this->_isChanged = false;
 	}
 	public function readFile() {
-		if( is_file( $this->propertyFileLocation() ) ){
+		if( is_file( $this->propertyFileLocation() ) ) {
 			$this->propertyFileContent( file_get_contents( $this->propertyFileLocation() ) );
 		} else {
 			$this->propertyFileContent('');
 		}
-		$this->isChanged = false;
+		$this->_isChanged = false;
 		return $this->propertyFileContent();
 	}
-	public function moveFile( $propertyFileLocation )
-	{
-		if( file_exists( $this->propertyFileLocation() ) )
-		if( rename( $this->propertyFileLocation(), $propertyFileLocation ) ) {
-			$this->propertyFileLocation( $propertyFileLocation );
-			$this->_loadFileAttributeList();
+	public function moveFile( $propertyFileLocation ) {
+		if( file_exists( $this->propertyFileLocation() ) ) {
+			if( rename( $this->propertyFileLocation(), $propertyFileLocation ) ) {
+				$this->propertyFileLocation( $propertyFileLocation );
+				$this->_loadFileAttributeList();
+			}
 		}
 	}
-	public function copyFile( $propertyFileLocation )
-	{
-		if( file_exists( $this->propertyFileLocation() ) )
-		if( copy( $this->propertyFileLocation(), $propertyFileLocation ) ) {
-			$this->propertyFileLocation( $propertyFileLocation );
-			$this->_loadFileAttributeList();
+	public function copyFile( $propertyFileLocation ) {
+		if( file_exists( $this->propertyFileLocation() ) ) {
+			if( copy( $this->propertyFileLocation(), $propertyFileLocation ) ) {
+				$this->propertyFileLocation( $propertyFileLocation );
+				$this->_loadFileAttributeList();
+			}
 		}
 	}
-	public function removeFile()
-	{
-		if( file_exists( $this->propertyFileLocation() ) ){
+	public function removeFile() {
+		if( file_exists( $this->propertyFileLocation() ) ) {
 			unlink( $this->propertyFileLocation() );
 			unset($this);
 		}
 	}
-	public function touchFile()
-	{
-		if( strlen( $this->propertyFileLocation ) > 0 )
-		fclose( fopen( $this->propertyFileLocation, 'a' ) );
-	}
-// ---------------------------------------------------------------------------------------
-	public function propertyFileName( $propertyFileName = null ){
-		if( $propertyFileName !== null ) $this->propertyFileName = $propertyFileName; return $this->propertyFileName;
-	}
-	public function propertyFilePath( $propertyFilePath = null ){
-		if( $propertyFilePath !== null ) $this->propertyFilePath = str_replace( '\\', '/', $propertyFilePath ); return $this->propertyFilePath;
-	}
-	public function propertyFileLocation( $propertyFileLocation = null ){
-		if( $propertyFileLocation !== null ) $this->propertyFileLocation = str_replace( '\\', '/', $propertyFileLocation ); return $this->propertyFileLocation;
-	}
-	public function propertyFileSize( $propertyFileSize = null ){
-		if( $propertyFileSize !== null ) $this->propertyFileSize = $propertyFileSize; return $this->propertyFileSize;
-	}
-	public function propertyFileTime( $propertyFileTime = null ){
-		if( $propertyFileTime !== null ) $this->propertyFileTime = $propertyFileTime; return $this->propertyFileTime;
-	}
-	public function propertyFileContent( $propertyFileContent = null ){
-		if( $propertyFileContent !== null ) {
-			if( $this->propertyFileContent !== null ) $this->isChanged = true;
-			$this->propertyFileContent = $propertyFileContent;
+	public function touchFile() {
+		if( strlen( $this->_propertyFileLocation ) > 0 ) {
+			fclose( fopen( $this->_propertyFileLocation, 'a' ) );
 		}
-		if( $this->propertyFileContent === null ) $this->readFile();
-		return $this->propertyFileContent;
 	}
 // ---------------------------------------------------------------------------------------
-	private function _loadFileAttributeList()
-	{
+	public function propertyFileName( $propertyFileName = null ) {
+		if( $propertyFileName !== null ) {
+			$this->_propertyFileName = $propertyFileName;
+		} return $this->_propertyFileName;
+	}
+	public function propertyFilePath( $propertyFilePath = null ) {
+		if( $propertyFilePath !== null ) {
+			$this->_propertyFilePath = str_replace( '\\', '/', $propertyFilePath );
+		} return $this->_propertyFilePath;
+	}
+	public function propertyFileLocation( $propertyFileLocation = null ) {
+		if( $propertyFileLocation !== null ) {
+			$this->_propertyFileLocation = str_replace( '\\', '/', $propertyFileLocation );
+		} return $this->_propertyFileLocation;
+	}
+	public function propertyFileSize( $propertyFileSize = null ) {
+		if( $propertyFileSize !== null ) {
+			$this->_propertyFileSize = $propertyFileSize;
+		} return $this->_propertyFileSize;
+	}
+	public function propertyFileTime( $propertyFileTime = null ) {
+		if( $propertyFileTime !== null ) {
+			$this->_propertyFileTime = $propertyFileTime;
+		} return $this->_propertyFileTime;
+	}
+	public function propertyFileContent( $propertyFileContent = null ) {
+		if( $propertyFileContent !== null ) {
+			if( $this->_propertyFileContent !== null ) $this->_isChanged = true;
+			$this->_propertyFileContent = $propertyFileContent;
+		}
+		if( $this->_propertyFileContent === null ) {
+			$this->readFile();
+		} return $this->_propertyFileContent;
+	}
+// ---------------------------------------------------------------------------------------
+	private function _loadFileAttributeList() {
 		$this->propertyFileName( basename( $this->propertyFileLocation() ) );
 		$this->propertyFilePath( dirname( $this->propertyFileLocation() ) );
 		if( file_exists( $this->propertyFileLocation() ) ) {

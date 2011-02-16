@@ -1,18 +1,19 @@
 <?php
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreXmlNode, ClassCoreXmlNode
+// InterfaceXmlNode, ClassXmlNode
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreXmlNode{
+interface InterfaceXmlNode {
 	public static function Instance();
 // ---------------------------------------------------------------------------------------
-	public function propertyParent( ClassCoreXmlNode $propertyParent = null );
+	public function propertyParent( ClassXmlNode $propertyParent = null );
 // ---------------------------------------------------------------------------------------
-	public function appendCoreXmlNode( ClassCoreXmlNode $CoreXmlNode );
-	public function removeCoreXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false );
-	public function groupCoreXmlNode( $propertyName, $propertyAttributeList = array(), $isDescendant = null );
-	public function searchCoreXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false );
+	public function appendXmlNode( ClassXmlNode $CoreXmlNode );
+	public function removeXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false );
+	public function groupXmlNode( $propertyName, $propertyAttributeList = array(), $isDescendant = null );
+	public function searchXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false );
 // ---------------------------------------------------------------------------------------
-	public function codeCoreXmlNode( $isSubStructure = false, $indentLevel = 0 );
+	public function codeXmlNode( $isSubStructure = false, $indentLevel = 0 );
 }
 // ---------------------------------------------------------------------------------------
 // LICENSE (BSD)
@@ -45,22 +46,21 @@ interface InterfaceCoreXmlNode{
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNode
-{
-	/** @var ClassCoreXmlNode $_propertyParent */
+class ClassXmlNode extends ClassXmlContent implements InterfaceXmlNode {
+	/** @var ClassXmlNode $_propertyParent */
 	private $_propertyParent = null;
 	private $_propertyHashCount = array();
 // ---------------------------------------------------------------------------------------
-	public static function Instance(){
-		return new ClassCoreXmlNode();
+	public static function Instance() {
+		return new ClassXmlContent();
 	}
 // ---------------------------------------------------------------------------------------
-	public function propertyParent( ClassCoreXmlNode $propertyParent = null ){
+	public function propertyParent( ClassXmlNode $propertyParent = null ) {
 		if( $propertyParent !== null ) $this->_propertyParent = $propertyParent;
 		return $this->_propertyParent;
 	}
 // ---------------------------------------------------------------------------------------
-	public function appendCoreXmlNode( ClassCoreXmlNode $CoreXmlNode ){
+	public function appendXmlNode( ClassXmlNode $CoreXmlNode ) {
 		$CoreXmlNode->propertyParent( $this );
 		$propertyChildList = (array)$this->propertyChildList();
 		$propertyChildList[] = $CoreXmlNode;
@@ -68,9 +68,9 @@ class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNo
 		// REBUILD OBJECT-CHAIN
 		return $CoreXmlNode;
 	}
-	public function removeCoreXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false ){
-		/** @var ClassCoreXmlNode $CoreXmlNodeChild */
-		if( ( $CoreXmlNode = $this->searchCoreXmlNode( $propertyName, $propertyAttributeList, $indexCoreXmlNode, $isSearchRoot ) ) != false ) {
+	public function removeXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false ) {
+		/** @var ClassXmlNode $CoreXmlNodeChild */
+		if( ( $CoreXmlNode = $this->searchXmlNode( $propertyName, $propertyAttributeList, $indexCoreXmlNode, $isSearchRoot ) ) != false ) {
 			$CoreXmlNodeChildList = $CoreXmlNode->propertyParent()->propertyChildList();
 			foreach( (array)$CoreXmlNodeChildList as $indexCoreXmlNodeChild => $CoreXmlNodeChild ) {
 				if( $CoreXmlNodeChild === $CoreXmlNode ) {
@@ -82,29 +82,29 @@ class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNo
 			return $CoreXmlNode->propertyParent();
 		} return false;
 	}
-	public function groupCoreXmlNode( $propertyName, $propertyAttributeList = array(), $isDescendant = null ){
-		/** @var ClassCoreXmlNode $CoreXmlNodeChild */
+	public function groupXmlNode( $propertyName, $propertyAttributeList = array(), $isDescendant = null ) {
+		/** @var ClassXmlNode $CoreXmlNodeChild */
 		$groupCoreXmlNode = array();
 		// FIX: Respect Depth-Level for Group -> 1st Check Childs, 2nd Search Node4Root
 		$CoreXmlNodeChildList = $this->propertyChildList();
-		foreach( (array)$CoreXmlNodeChildList as $CoreXmlNodeChild ){
-			if( ( $CoreXmlNode = $CoreXmlNodeChild->searchCoreXmlNode( $propertyName, $propertyAttributeList, null, true ) ) !== false )
+		foreach( (array)$CoreXmlNodeChildList as $CoreXmlNodeChild ) {
+			if( ( $CoreXmlNode = $CoreXmlNodeChild->searchXmlNode( $propertyName, $propertyAttributeList, null, true ) ) !== false )
 			$groupCoreXmlNode[] = $CoreXmlNode;
 		}
 		if( !empty($groupCoreXmlNode) || $isDescendant === true ) return $groupCoreXmlNode;
 		// Search Node4Root
-		$rootCoreXmlNode = $this->searchCoreXmlNode( $propertyName, $propertyAttributeList );
+		$rootCoreXmlNode = $this->searchXmlNode( $propertyName, $propertyAttributeList );
 		if( !is_object( $rootCoreXmlNode ) ) return array();
 
 		$CoreXmlNodeChildList = $rootCoreXmlNode->propertyParent()->propertyChildList();
-		foreach( (array)$CoreXmlNodeChildList as $CoreXmlNodeChild ){
-			if( ( $CoreXmlNode = $CoreXmlNodeChild->searchCoreXmlNode( $propertyName, $propertyAttributeList, null, true ) ) !== false )
+		foreach( (array)$CoreXmlNodeChildList as $CoreXmlNodeChild ) {
+			if( ( $CoreXmlNode = $CoreXmlNodeChild->searchXmlNode( $propertyName, $propertyAttributeList, null, true ) ) !== false )
 			$groupCoreXmlNode[] = $CoreXmlNode;
 		}
 		return $groupCoreXmlNode;
 	}
-	public function searchCoreXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false ){
-		/** @var ClassCoreXmlNode $CoreXmlNodeChild */
+	public function searchXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false ) {
+		/** @var ClassXmlNode $CoreXmlNodeChild */
 		$isSearchMatch = true;
 		// CHECK NODE NAME
 		if( $isSearchMatch == true
@@ -118,33 +118,33 @@ class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNo
 		// TODO: [Fix] Index not working
 		if( $isSearchMatch == true && $indexCoreXmlNode !== null ){
 			$hashCoreXmlNode = sha1(serialize($propertyName).serialize($propertyAttributeList).serialize($indexCoreXmlNode));
-			if( !isset( $this->_propertyHashCount[$hashCoreXmlNode] ) ){
+			if( !isset( $this->_propertyHashCount[$hashCoreXmlNode] ) ) {
 				$this->_propertyHashCount[$hashCoreXmlNode] = 0;
 			} else {
 				$this->_propertyHashCount[$hashCoreXmlNode]++;
 			}
-			if( $this->_propertyHashCount[$hashCoreXmlNode] != $indexCoreXmlNode ){
+			if( $this->_propertyHashCount[$hashCoreXmlNode] != $indexCoreXmlNode ) {
 				$isSearchMatch = false;
 			}
 		}
 		// RETURN NODE
-		if( $isSearchMatch == true ){
+		if( $isSearchMatch == true ) {
 			return $this;
 		}
-		if( $isSearchRoot == true ){
+		if( $isSearchRoot == true ) {
 			return false;
 		}
 		// TRY CHILDS
 		$CoreXmlNodeChildList = $this->propertyChildList();
-		foreach( (array)$CoreXmlNodeChildList as $CoreXmlNodeChild ){
-			if( ( $CoreXmlNode = $CoreXmlNodeChild->searchCoreXmlNode( $propertyName, $propertyAttributeList, $indexCoreXmlNode )) != false )
+		foreach( (array)$CoreXmlNodeChildList as $CoreXmlNodeChild ) {
+			if( ( $CoreXmlNode = $CoreXmlNodeChild->searchXmlNode( $propertyName, $propertyAttributeList, $indexCoreXmlNode )) != false )
 			return $CoreXmlNode;
 		}
 		// RETURN FALSE
 		return false;
 	}
-	public function codeCoreXmlNode( $isSubStructure = false, $indentLevel = 0 ){
-		/** @var ClassCoreXmlNode $CoreXmlNodeChild */
+	public function codeXmlNode( $isSubStructure = false, $indentLevel = 0 ) {
+		/** @var ClassXmlNode $CoreXmlNodeChild */
 		// BUILD ATTRIBUTES STRING
 		$propertyAttributeList = $this->propertyAttributeList();
 		$propertyAttributeString = ' ';
@@ -156,7 +156,7 @@ class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNo
 				$propertyAttributeString .= $propertyAttributeName."='".$propertyAttributeValue."' ";
 			else
 			// ERROR
-			throw new Exception(
+			throw new \Exception(
 				'Structure malformed!<br />XML-Attribute-Name: '.$propertyAttributeName.'<br />XML-Attribute-Value: '.$propertyAttributeValue
 			);
 		}
@@ -178,7 +178,7 @@ class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNo
 			$codeCoreXmlNode .= '>';
 			$CoreXmlNodeChildList = $this->propertyChildList();
 			foreach( $CoreXmlNodeChildList as $CoreXmlNodeChild ) {
-				$codeCoreXmlNode .= $CoreXmlNodeChild->codeCoreXmlNode(true, $indentLevel + 1 );
+				$codeCoreXmlNode .= $CoreXmlNodeChild->codeXmlNode(true, $indentLevel + 1 );
 			}
 			$codeCoreXmlNode .= "\n".str_repeat( "\t", $indentLevel ).'</'.$this->propertyName().'>';
 		}
@@ -186,11 +186,11 @@ class ClassCoreXmlNode extends ClassCoreXmlContent implements InterfaceCoreXmlNo
 		return $codeCoreXmlNode;
 	}
 // ---------------------------------------------------------------------------------------
-	function __destruct(){
-		/** @var ClassCoreXmlNode $CoreXmlNode */
+	function __destruct() {
+		/** @var ClassXmlNode $CoreXmlNode */
 		unset( $this->_propertyParent );
 		$propertyChildList = (array)$this->propertyChildList();
-		foreach( $propertyChildList as $CoreXmlNode ){
+		foreach( $propertyChildList as $CoreXmlNode ) {
 			$CoreXmlNode->__destruct();
 		}
 		$this->propertyChildList(false);

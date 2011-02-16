@@ -1,12 +1,13 @@
 <?php
-require_once( dirname(__FILE__).'/CoreXmlContent.php' );
-require_once( dirname(__FILE__).'/CoreXmlNode.php' );
-require_once( dirname(__FILE__).'/CoreXmlStack.php' );
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreXmlParser, ClassCoreXmlParser
+require_once(dirname(__FILE__) . '/XmlContent.php');
+require_once(dirname(__FILE__) . '/XmlNode.php');
+require_once(dirname(__FILE__) . '/XmlStack.php');
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreXmlParser
-{
+// InterfaceXmlParser, ClassXmlParser
+// ---------------------------------------------------------------------------------------
+interface InterfaceXmlParser {
 	public static function parseXml( $string_file_name );
 }
 // ---------------------------------------------------------------------------------------
@@ -40,20 +41,18 @@ interface InterfaceCoreXmlParser
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreXmlParser implements InterfaceCoreXmlParser
-{
-	public static function parseXml( $propertyXml )
-	{
+class ClassXmlParser implements InterfaceXmlParser {
+	public static function parseXml( $propertyXml ) {
 		// Try File
 		if( is_string( $propertyXml ) && file_exists( $propertyXml ) ) {
 			$propertyXmlContent = file_get_contents( $propertyXml );
 		}
 		// Try String
-		elseif( is_string( $propertyXml ) && preg_match( '!\<\?xml.*?\?\>!is', $propertyXml ) ){
+		elseif( is_string( $propertyXml ) && preg_match( '!\<\?xml.*?\?\>!is', $propertyXml ) ) {
 			$propertyXmlContent = $propertyXml;
 		}
 		// Try Object
-		elseif( is_object( $propertyXml ) ){
+		elseif( is_object( $propertyXml ) ) {
 			return $propertyXml;
 		}
 		// Default Error
@@ -91,7 +90,7 @@ class ClassCoreXmlParser implements InterfaceCoreXmlParser
 					break;
 				}
 				default: {
-					throw new Exception('['.__METHOD__.'] XML-Document malformed!');
+					throw new \Exception('['.__METHOD__.'] XML-Document malformed!');
 				}
 			}
 			$propertyXmlContent = substr( $propertyXmlContent, $_searchTag['POS#']+$_searchTag['LEN#'] );
@@ -99,16 +98,15 @@ class ClassCoreXmlParser implements InterfaceCoreXmlParser
 		}
 		return false;
 	}
-	private static function _closeTag( $_readTag )
-	{
+	private static function _closeTag( $_readTag ) {
 		/**
-		 * @var ClassCoreXmlNode $CoreXmlNodeChild
-		 * @var ClassCoreXmlNode $CoreXmlNodeParent
+		 * @var ClassXmlNode $CoreXmlNodeChild
+		 * @var ClassXmlNode $CoreXmlNodeParent
 		 */
 		// Done ?
-		$CoreXmlNodeChild = ClassCoreXmlStack::popCoreXmlNode();
+		$CoreXmlNodeChild = ClassXmlStack::popXmlNode();
 		$CoreXmlNodeChild->propertyContent( $_readTag['TEXT'] );
-		$CoreXmlNodeParent = ClassCoreXmlStack::peekCoreXmlNode();
+		$CoreXmlNodeParent = ClassXmlStack::peekXmlNode();
 		if( ! is_object( $CoreXmlNodeParent ) ) return $CoreXmlNodeChild;
 		// No, not yet..
 		$CoreXmlNodeChild->propertyParent( $CoreXmlNodeParent );
@@ -117,16 +115,14 @@ class ClassCoreXmlParser implements InterfaceCoreXmlParser
 		$CoreXmlNodeParent->propertyChildList( $CoreXmlNodeChildList );
 		return null;
 	}
-	private static function _openTag( $_readTag )
-	{
-		/** @var ClassCoreXmlNode $CoreXmlNode */
+	private static function _openTag( $_readTag ) {
+		/** @var ClassXmlNode $CoreXmlNode */
 		$_readTag = self::_readTag( $_readTag['ITEM'] );
-		$CoreXmlNode = ClassCoreXmlStack::pushCoreXmlNode( new ClassCoreXmlNode() );
+		$CoreXmlNode = ClassXmlStack::pushXmlNode( new ClassXmlContent() );
 		$CoreXmlNode->propertyName( $_readTag['NAME'] );
 		$CoreXmlNode->propertyAttributeList( $_readTag['ATTR'] );
 	}
-	private static function _readTag( $_readTag )
-	{
+	private static function _readTag( $_readTag ) {
 		// Fetch Name
 		preg_match( '![a-z0-9_\.\-]+?(?=( |$))!is', $_readTag, $_readTagName );
 		// Fetch Attributes
@@ -139,8 +135,7 @@ class ClassCoreXmlParser implements InterfaceCoreXmlParser
 		} else $_readTagAttribute = array();
 		return array( 'NAME' => $_readTagName[0], 'ATTR' => $_readTagAttribute );
 	}
-	private static function _searchTag( $propertyXmlContent )
-	{
+	private static function _searchTag( $propertyXmlContent ) {
 		$_searchTag = array( 'TEXT'=>NULL, 'TYPE'=>NULL );
 		if( preg_match( '!(?<=\<)(\/|\w).+?(?=\>)!is', $propertyXmlContent, $_searchTagResult, PREG_OFFSET_CAPTURE ) )
 		{

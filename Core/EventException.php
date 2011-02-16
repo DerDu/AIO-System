@@ -1,15 +1,13 @@
 <?php
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreSession, ClassCoreSession
+require_once(dirname(__FILE__) . '/EventScreen.php');
+require_once(dirname(__FILE__) . '/EventJournal.php');
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreSession
-{
-	public static function propertySessionName( $string_name = null );
+// InterfaceEventException, ClassEventException
 // ---------------------------------------------------------------------------------------
-	public static function getSessionId();
-	public static function startSession();
-	public static function writeSession( $string_key, $mixed_value );
-	public static function readSession( $string_key = null );
+interface InterfaceEventException {
+	public static function eventHandler( $exception_number, $exception_content, $exception_filename, $exception_fileline );
 }
 // ---------------------------------------------------------------------------------------
 // LICENSE (BSD)
@@ -42,41 +40,40 @@ interface InterfaceCoreSession
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreSession implements InterfaceCoreSession
-{
-	private static $_propertySessionName = 'AIOSystemSession';
+class ClassEventException extends \Exception implements InterfaceEventException {
+	private static $_propertyNumberList = array(
+			0=>'SYSTEM',1=>'ERROR',2=>'WARNING',4=>'PARSER',
+			8=>'NOTICE',16=>'CORE ERROR',32=>'CORE WARNING',64=>'COMPILE ERROR',
+			128=>'COMPILE WARNING',256=>'USER ERROR',512=>'USER WARNING',1024=>'USER NOTICE',
+			2047=>'ALL',2048=>'STRICT'
+	);
 // ---------------------------------------------------------------------------------------
-	public static function propertySessionName( $propertySessionName = null ){
-		if( $propertySessionName !== null ) self::$_propertySessionName = $propertySessionName;
-		return self::$_propertySessionName;
+	public static function eventHandler( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
+		self::_eventToScreen(
+			$propertyNumber.' '.self::$_propertyNumberList[$propertyNumber],
+			$propertyContent, $propertyLocation, $propertyPosition
+		);
+		self::_eventToJournal(
+			$propertyNumber.' '.self::$_propertyNumberList[$propertyNumber],
+			$propertyContent, $propertyLocation, $propertyPosition
+		);
 	}
 // ---------------------------------------------------------------------------------------
-	public static function startSession(){
-		if( !strlen( session_id() ) > 0 ) {
-			session_start();
-			if( !isset( $_SESSION[self::propertySessionName()] ) ){
-				$_SESSION[self::propertySessionName()] = array();
-			}
-		}
-		return session_id();
+	private static function _eventToScreen( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
+		ClassEventScreen::addEvent(
+			$propertyNumber, $propertyContent, $propertyLocation, $propertyPosition,
+			ClassEventScreen::SCREEN_EXCEPTION
+		);
 	}
-	public static function getSessionId(){
-		self::startSession();
-		return session_id();
-	}
-	public static function writeSession( $propertyName, $propertyValue ){
-		self::startSession();
-		return $_SESSION[self::propertySessionName()][$propertyName] = $propertyValue;
-	}
-	public static function readSession( $propertyName = null ){
-		self::startSession();
-		if( $propertyName !== null ){
-			if( isset( $_SESSION[self::propertySessionName()][$propertyName] ) )
-			return $_SESSION[self::propertySessionName()][$propertyName];
-			else
-			return null;
-		}
-		return $_SESSION[self::propertySessionName()];
+	private static function _eventToJournal( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
+		ClassEventJournal::addEvent(
+			'Unexpected Error: '."\n\n"
+			.strip_tags(str_replace(array('<br />','<br/>','<br>'),"\n",$propertyContent))."\n"
+			.'Code ['.$propertyNumber.']'
+			.' thrown in '.$propertyLocation
+			.' at line '.$propertyPosition
+			,__CLASS__
+		);
 	}
 }
 ?>

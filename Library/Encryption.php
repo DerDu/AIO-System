@@ -1,13 +1,13 @@
 <?php
+namespace AioSystem\Library;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreXmlStack, ClassCoreXmlStack
+require_once(dirname(__FILE__) . '/../Core/Session.php');
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreXmlStack
-{
-	public static function pushCoreXmlNode( ClassCoreXmlNode $CoreXmlNode );
-	public static function peekCoreXmlNode();
-	public static function popCoreXmlNode();
-	public static function listCoreXmlNode();
+// InterfaceEncryption, ClassEncryption
+// ---------------------------------------------------------------------------------------
+interface InterfaceEncryption {
+	public static function encodeSessionEncryption( $string_plaintext );
+	public static function decodeSessionEncryption( $string_encrypted );
 }
 // ---------------------------------------------------------------------------------------
 // LICENSE (BSD)
@@ -40,22 +40,25 @@ interface InterfaceCoreXmlStack
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreXmlStack implements InterfaceCoreXmlStack
-{
-	private static $propertyStack = array();
+class ClassEncryption implements InterfaceEncryption {
+	public static function encodeSessionEncryption( $propertyPlainText ) {
+		return base64_encode( self::_runSessionEncryption( $propertyPlainText ) );
+	}
+	public static function decodeSessionEncryption( $propertyEncryptedText ) {
+		return self::_runSessionEncryption( base64_decode( $propertyEncryptedText ) );
+	}
 // ---------------------------------------------------------------------------------------
-	public static function pushCoreXmlNode( ClassCoreXmlNode $CoreXmlNode ) {
-		array_push( self::$propertyStack, $CoreXmlNode );
-		return self::peekCoreXmlNode();
+	private static function _runSessionEncryption( $propertyContent ) {
+		$_runSessionEncryption = '';
+		$_codeSessionEncryption = self::_codeSessionEncryption( $propertyContent );
+		$countContentLength = strlen( $propertyContent );
+		for( $runContentLength = 0; $runContentLength < $countContentLength; $runContentLength++ ) {
+			$_runSessionEncryption .= chr( ord( $propertyContent[$runContentLength] ) ^ ord( $_codeSessionEncryption[$runContentLength] ) );
+		} return $_runSessionEncryption;
 	}
-	public static function peekCoreXmlNode() {
-		return end( self::$propertyStack );
-	}
-	public static function popCoreXmlNode() {
-		return array_pop( self::$propertyStack );
-	}
-	public static function listCoreXmlNode() {
-		return self::$propertyStack;
+	private static function _codeSessionEncryption( $propertyContent ) {
+		$getSessionId = \AioSystem\Core\ClassSession::getSessionId();
+		return str_repeat( $getSessionId, ceil(strlen($propertyContent)/strlen($getSessionId)) );
 	}
 }
 ?>

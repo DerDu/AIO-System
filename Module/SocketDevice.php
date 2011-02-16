@@ -1,8 +1,9 @@
 <?php
+namespace AioSystem\Module;
 // ---------------------------------------------------------------------------------------
-// InterfaceModuleSocketDevice, ClassModuleSocketDevice
+// InterfaceSocketDevice, ClassSocketDevice
 // ---------------------------------------------------------------------------------------
-interface InterfaceModuleSocketDevice{
+interface InterfaceSocketDevice {
 	public function openSocketDevice();
 	public function readSocketDevice( $propertyLength = null );
 	public function writeSocketDevice( $propertyData );
@@ -39,55 +40,58 @@ interface InterfaceModuleSocketDevice{
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassModuleSocketDevice implements InterfaceModuleSocketDevice
-{
+class ClassSocketDevice implements InterfaceSocketDevice {
+	/** @var resource $_propertySocketDevice */
 	private $_propertySocketDevice = null;
 	private $_propertySocketDeviceHost = null;
 	private $_propertySocketDevicePort = null;
 // ---------------------------------------------------------------------------------------
-	public function __construct( resource $propertySocketDevice, $propertySocketDeviceHost, $propertySocketDevicePort = null ){
+	public function __construct( $propertySocketDevice, $propertySocketDeviceHost, $propertySocketDevicePort = null ) {
 		$this->_propertySocketDevice( $propertySocketDevice );
 		$this->_propertySocketDeviceHost( $propertySocketDeviceHost );
 		$this->_propertySocketDevicePort( $propertySocketDevicePort );
 	}
 // ---------------------------------------------------------------------------------------
-	public function openSocketDevice(){
+	public function openSocketDevice() {
 		return socket_connect(
 			$this->_propertySocketDevice(),
 			$this->_propertySocketDeviceHost(),
 			$this->_propertySocketDevicePort()
 		);
 	}
-	public function readSocketDevice( $propertyLength = null ){
+	public function readSocketDevice( $propertyLength = null ) {
 		$string_result = '';
-		if( $propertyLength !== null ){
+		if( $propertyLength !== null ) {
 			$string_result .= socket_read( $this->_propertySocketDevice(), (integer)$propertyLength );
 		} else {
-			while( ( $string_data = socket_read( $this->_propertySocketDevice(), 1024 ) ) ){
+			while( ( $string_data = socket_read( $this->_propertySocketDevice(), 1024 ) ) ) {
 				$string_result .= $string_data;
 			}
 		}
 		return $string_result;
 	}
-	public function writeSocketDevice( $propertyData ){
+	public function writeSocketDevice( $propertyData ) {
 		return socket_write( $this->_propertySocketDevice(), $propertyData, strlen( $propertyData ) );
 	}
-	public function closeSocketDevice(){
+	public function closeSocketDevice() {
 		socket_close( $this->_propertySocketDevice() );
 		unset( $this );
 	}
 // ---------------------------------------------------------------------------------------
-	private function _propertySocketDevice( resource $propertySocketDevice = null ){
-		if( $propertySocketDevice !== null ) $this->_propertySocketDevice = $propertySocketDevice;
-		return $this->_propertySocketDevice;
+	private function _propertySocketDevice( $propertySocketDevice = null ) {
+		if( $propertySocketDevice !== null ) {
+			$this->_propertySocketDevice = $propertySocketDevice;
+		} return $this->_propertySocketDevice;
 	}
-	private function _propertySocketDeviceHost( $propertySocketDeviceHost = null ){
-		if( $propertySocketDeviceHost !== null ) $this->_propertySocketDeviceHost = $propertySocketDeviceHost;
-		return $this->_propertySocketDeviceHost;
+	private function _propertySocketDeviceHost( $propertySocketDeviceHost = null ) {
+		if( $propertySocketDeviceHost !== null ) {
+			$this->_propertySocketDeviceHost = $propertySocketDeviceHost;
+		} return $this->_propertySocketDeviceHost;
 	}
-	private function _propertySocketDevicePort( $propertySocketDevicePort = null ){
-		if( $propertySocketDevicePort !== null ) $this->_propertySocketDevicePort = $propertySocketDevicePort;
-		return $this->_propertySocketDevicePort;
+	private function _propertySocketDevicePort( $propertySocketDevicePort = null ) {
+		if( $propertySocketDevicePort !== null ) {
+			$this->_propertySocketDevicePort = $propertySocketDevicePort;
+		} return $this->_propertySocketDevicePort;
 	}
 }
 ?>

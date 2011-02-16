@@ -1,10 +1,11 @@
 <?php
-require_once( dirname(__FILE__).'/LibraryPhpFunction.php' );
+namespace AioSystem\Library;
 // ---------------------------------------------------------------------------------------
-// InterfaceLibraryRegExp, ClassLibraryRegExp
+require_once(dirname(__FILE__) . '/PhpFunction.php');
 // ---------------------------------------------------------------------------------------
-interface InterfaceLibraryRegExp
-{
+// InterfaceRegExp, ClassRegExp
+// ---------------------------------------------------------------------------------------
+interface InterfaceRegExp {
 	public static function integerBetween( $propertyFromInteger, $propertyToInteger );
 }
 // ---------------------------------------------------------------------------------------
@@ -38,28 +39,29 @@ interface InterfaceLibraryRegExp
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassLibraryRegExp implements InterfaceLibraryRegExp
-{
-	public static function integerBetween( $propertyFromInteger, $propertyToInteger )
-	{
+class ClassRegExp implements InterfaceRegExp {
+	public static function integerBetween( $propertyFromInteger, $propertyToInteger ) {
 		$propertyFromList = str_split( str_pad_left( $propertyFromInteger, strlen( $propertyToInteger ), '0' ) );
 		$propertyToList = str_split( str_pad_left( $propertyToInteger, strlen( $propertyFromInteger ), '0' ) );
 		return str_replace( array("\n","\t",' '), '', self::_integerBetweenRule( $propertyFromList, $propertyToList ));
 	}
 // ---------------------------------------------------------------------------------------
-	private static function _integerBetweenRule( $propertyFromList, $propertyToList, $propertyFromParent = null, $propertyToParent = null, $currentStep = 0, $currentLevel = 0 )
-	{
-		if( empty( $propertyFromList ) || empty( $propertyToList ) ) return;
+	private static function _integerBetweenRule( $propertyFromList, $propertyToList, $propertyFromParent = null, $propertyToParent = null, $currentStep = 0, $currentLevel = 0 ) {
+		if( empty( $propertyFromList ) || empty( $propertyToList ) ) {
+			return;
+		}
 		$propertyFromInteger = array_shift( $propertyFromList );
 		$propertyToInteger = array_shift( $propertyToList );
 		$_integerBetweenRule = '';
 
-		if( ( $currentStep == 0 ) && $propertyFromInteger == $propertyToInteger ){
+		if( ( $currentStep == 0 ) && $propertyFromInteger == $propertyToInteger ) {
 			$_integerBetweenRule = $_integerBetweenRule
 				.$propertyFromInteger
 				.self::_integerBetweenRule( $propertyFromList, $propertyToList, $propertyFromInteger, $propertyToInteger, 0 );
-		} else if( $currentStep == 0 && $propertyFromInteger != $propertyToInteger ) $currentStep = 1;
-		if( $currentStep == 1 ){
+		} else if( $currentStep == 0 && $propertyFromInteger != $propertyToInteger ) {
+			$currentStep = 1;
+		}
+		if( $currentStep == 1 ) {
 			$_integerBetweenRule = $_integerBetweenRule
 				.'['.$propertyFromInteger.'-'.$propertyToInteger.']'."\n"
 				.self::_integerBetweenRule( $propertyFromList, $propertyToList, $propertyFromInteger, $propertyToInteger, 2 );
@@ -74,9 +76,10 @@ class ClassLibraryRegExp implements InterfaceLibraryRegExp
 					.'(?<='.$propertyToParent.')[0-'.$propertyToInteger.']'."\n"
 					.self::_integerBetweenRule( $propertyFromList, $propertyToList, $propertyFromInteger, $propertyToInteger, 4, ++$currentLevel );
 				// INT
-				if( abs( $propertyFromParent - $propertyToParent ) > 1 )
-				$_integerBetweenRule .= str_repeat("\t",$currentLevel-1)."|\n".str_repeat("\t",$currentLevel--)
+				if( abs( $propertyFromParent - $propertyToParent ) > 1 ) {
+					$_integerBetweenRule .= str_repeat("\t",$currentLevel-1)."|\n".str_repeat("\t",$currentLevel--)
 					.'(?<=['.($propertyFromParent+1).'-'.($propertyToParent-1).'])[0-9]*'."\n";
+				}
 			$_integerBetweenRule .= ')'."\n";
 		}
 		if( $currentStep == 3 ) {
@@ -85,8 +88,9 @@ class ClassLibraryRegExp implements InterfaceLibraryRegExp
 				$_integerBetweenRule .= str_repeat("\t",$currentLevel+1).'(?<='.$propertyFromParent.')['.$propertyFromInteger.']'."\n"
 					.self::_integerBetweenRule( $propertyFromList, $propertyToList, $propertyFromInteger, $propertyToInteger, 3, ++$currentLevel );
 				// [(MIN+1)-9]?[0-9]*
-				if( $propertyFromParent + 1 <= 9 )
-				$_integerBetweenRule .= str_repeat("\t",$currentLevel).'|(?<=['.($propertyFromParent+1).'-9])[0-9]*'."\n";
+				if( $propertyFromParent + 1 <= 9 ) {
+					$_integerBetweenRule .= str_repeat("\t",$currentLevel).'|(?<=['.($propertyFromParent+1).'-9])[0-9]*'."\n";
+				}
 				// (MIN)?[(MIN+1)-9][0-9]*
 				$_integerBetweenRule .= str_repeat("\t",$currentLevel).'|(?<='.$propertyFromParent.')['.($propertyFromInteger==9?$propertyFromInteger:$propertyFromInteger+1).'-9][0-9]*'."\n";
 			$_integerBetweenRule .= str_repeat("\t",$currentLevel-1).')'."\n";
@@ -97,8 +101,9 @@ class ClassLibraryRegExp implements InterfaceLibraryRegExp
 				$_integerBetweenRule .= str_repeat("\t",$currentLevel+1).'(?<='.$propertyToParent.')['.$propertyToInteger.']'."\n"
 					.self::_integerBetweenRule( $propertyFromList, $propertyToList, $propertyFromInteger, $propertyToInteger, 4, ++$currentLevel );
 				// (0-(MAX-1))?[0-9]*
-				if( $propertyToParent - 1 >= 0 )
-				$_integerBetweenRule .= str_repeat("\t",$currentLevel).'|(?<=[0-'.($propertyToParent-1).'])[0-9]*'."\n";
+				if( $propertyToParent - 1 >= 0 ) {
+					$_integerBetweenRule .= str_repeat("\t",$currentLevel).'|(?<=[0-'.($propertyToParent-1).'])[0-9]*'."\n";
+				}
 				// (MAX)?[0-(MAX-1)][0-9]*
 				$_integerBetweenRule .= str_repeat("\t",$currentLevel).'|(?<='.$propertyToParent.')[0-'.($propertyToInteger==0?$propertyToInteger:$propertyToInteger-1).'][0-9]*'."\n";
 			$_integerBetweenRule .= str_repeat("\t",$currentLevel-1).')'."\n";

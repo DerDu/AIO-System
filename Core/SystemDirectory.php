@@ -1,10 +1,11 @@
 <?php
-require_once( dirname(__FILE__).'/CoreSystemFile.php' );
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreSystemDirectory, ClassCoreSystemDirectory
+require_once(dirname(__FILE__) . '/SystemFile.php');
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreSystemDirectory
-{
+// InterfaceSystemDirectory, ClassSystemDirectory
+// ---------------------------------------------------------------------------------------
+interface InterfaceSystemDirectory {
 	public static function getFileList( $propertyDirectoryName, $propertyFileTypeList = array(), $isRecursive = false );
 	public static function applyFileListFilter( $propertyFileList, $propertyFilterList = array() );
 // ---------------------------------------------------------------------------------------
@@ -43,27 +44,22 @@ interface InterfaceCoreSystemDirectory
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreSystemDirectory implements InterfaceCoreSystemDirectory
-{
-	public static function getFileList( $propertyDirectoryName, $propertyFileTypeList = array(), $isRecursive = false )
-	{
+class ClassSystemDirectory implements InterfaceSystemDirectory {
+	public static function getFileList( $propertyDirectoryName, $propertyFileTypeList = array(), $isRecursive = false ) {
 		$getFileList = array();
-		if( !is_object( $directoryHandler = dir( $propertyDirectoryName ) ) ) return false;
-		while ( false !== ( $directoryEntryName = $directoryHandler->read() ) )
-		{
-			if( $directoryEntryName != '.' && $directoryEntryName != '..' )
-			{
-				if( is_dir( $propertyDirectoryName.'/'.$directoryEntryName ) )
-				{
+		if( !is_object( $directoryHandler = dir( $propertyDirectoryName ) ) ) {
+			return false;
+		}
+		while ( false !== ( $directoryEntryName = $directoryHandler->read() ) ) {
+			if( $directoryEntryName != '.' && $directoryEntryName != '..' ) {
+				if( is_dir( $propertyDirectoryName.'/'.$directoryEntryName ) ) {
 					if( $isRecursive ) {
 						$getFileList = array_merge( $getFileList, (array)self::getFileList( $propertyDirectoryName.'/'.$directoryEntryName, $propertyFileTypeList, $isRecursive ) );
 					}
-				}
-				else
-				{
-					if( ! empty( $propertyFileTypeList ) ){
+				} else {
+					if( ! empty( $propertyFileTypeList ) ) {
 						$directoryEntryFileType = explode( '.', $directoryEntryName );
-						if( in_array( array_pop( $directoryEntryFileType ), (array)$propertyFileTypeList ) ){
+						if( in_array( array_pop( $directoryEntryFileType ), (array)$propertyFileTypeList ) ) {
 							$isMatch = true;
 						} else {
 							$isMatch = false;
@@ -71,8 +67,8 @@ class ClassCoreSystemDirectory implements InterfaceCoreSystemDirectory
 					} else {
 						$isMatch = true;
 					}
-					if( $isMatch ){
-						$getFileList[] = new ClassCoreSystemFile( $propertyDirectoryName.'/'.$directoryEntryName );
+					if( $isMatch ) {
+						$getFileList[] = new ClassSystemFile( $propertyDirectoryName.'/'.$directoryEntryName );
 					}
 				}
 			}
@@ -80,11 +76,10 @@ class ClassCoreSystemDirectory implements InterfaceCoreSystemDirectory
 		$directoryHandler->close();
 		return $getFileList;
 	}
-	public static function applyFileListFilter( $propertyFileList, $propertyFilterList = array() )
-	{
-		foreach( (array)$propertyFileList as $indexFileList => $CoreSystemFile ){
-			foreach( (array)$propertyFilterList as $CoreSystemFileMethod => $filterRegExp ){
-				if( !preg_match( '!'.$filterRegExp.'!is', $CoreSystemFile->$CoreSystemFileMethod() ) ){
+	public static function applyFileListFilter( $propertyFileList, $propertyFilterList = array() ) {
+		foreach( (array)$propertyFileList as $indexFileList => $CoreSystemFile ) {
+			foreach( (array)$propertyFilterList as $CoreSystemFileMethod => $filterRegExp ) {
+				if( !preg_match( '!'.$filterRegExp.'!is', $CoreSystemFile->$CoreSystemFileMethod() ) ) {
 					unset( $propertyFileList[$indexFileList] );
 					break;
 				}
@@ -94,31 +89,29 @@ class ClassCoreSystemDirectory implements InterfaceCoreSystemDirectory
 	}
 // ---------------------------------------------------------------------------------------
 	// Convert e.g Path1\Path2//Path3/../Path4 -> Path1/Path2/Path4/
-	public static function adjustDirectorySyntax( $propertyDirectoryName )
-	{
+	public static function adjustDirectorySyntax( $propertyDirectoryName ) {
 		// CONVERT \ TO /
 		$propertyDirectoryName = str_replace( array('\\','//'), '/', $propertyDirectoryName );
 		// RESOLVE "../"
 		$countRelativeLevel = substr_count( $propertyDirectoryName, '../' );
-		for( $runRelativeLevel = 0; $runRelativeLevel < $countRelativeLevel; $runRelativeLevel++ ){
+		for( $runRelativeLevel = 0; $runRelativeLevel < $countRelativeLevel; $runRelativeLevel++ ) {
 			$propertyDirectoryName = preg_replace( '!\/?[^\/]*?\/\.\.!is', '', $propertyDirectoryName );
 		}
 		// HANDLE TRAILING /
-		if( substr( $propertyDirectoryName, -1, 1 ) != '/' ){
+		if( substr( $propertyDirectoryName, -1, 1 ) != '/' ) {
 			$propertyDirectoryName .= '/';
 		}
 		// BUILD CORRECT PATH
 		return str_replace( '//', '/', $propertyDirectoryName );
 	}
-	public static function createDirectory( $propertyDirectoryName )
-	{
+	public static function createDirectory( $propertyDirectoryName ) {
 		$directoryList = explode( "/", self::adjustDirectorySyntax( $propertyDirectoryName ) );
 		$directoryLocation = '';
-		foreach( (array)$directoryList as $directoryName ){
+		foreach( (array)$directoryList as $directoryName ) {
 			$directoryLocation .= $directoryName;
-			if( !empty( $directoryLocation ) ){
+			if( !empty( $directoryLocation ) ) {
 				$directoryLocation = self::adjustDirectorySyntax( $directoryLocation );
-				if( !is_dir( $directoryLocation ) ){
+				if( !is_dir( $directoryLocation ) ) {
 					@mkdir( $directoryLocation );
 				}
 			}
@@ -127,7 +120,7 @@ class ClassCoreSystemDirectory implements InterfaceCoreSystemDirectory
 	}
 	public static function relativeDirectory( $propertyDirectoryName, $propertyDirectoryLocation ) {
 		// Adjust Path2Relative
-		if( is_file( $propertyDirectoryName ) ){
+		if( is_file( $propertyDirectoryName ) ) {
 			$propertyDirectoryName = self::adjustDirectorySyntax( dirname( $propertyDirectoryName ) );
 			$propertyDirectoryFileName = basename( $propertyDirectoryName );
 		} else {
@@ -135,7 +128,7 @@ class ClassCoreSystemDirectory implements InterfaceCoreSystemDirectory
 			$propertyDirectoryFileName = '';
 		}
 		// Adjust PathBase
-		if( is_file( $propertyDirectoryLocation ) ){
+		if( is_file( $propertyDirectoryLocation ) ) {
 			$propertyDirectoryLocation = self::adjustDirectorySyntax( dirname( $propertyDirectoryLocation ) );
 		} else {
 			$propertyDirectoryLocation = self::adjustDirectorySyntax( $propertyDirectoryLocation );
@@ -145,8 +138,8 @@ class ClassCoreSystemDirectory implements InterfaceCoreSystemDirectory
 		$propertyDirectoryLocationList = explode('/',$propertyDirectoryLocation);
 
 		$relativeDirectory = '';
-		foreach( (array)$propertyDirectoryList as $indexDirectory => $propertyDirectory ){
-			if( isset($propertyDirectoryLocationList[$indexDirectory]) && $propertyDirectoryLocationList[$indexDirectory] == $propertyDirectory ){
+		foreach( (array)$propertyDirectoryList as $indexDirectory => $propertyDirectory ) {
+			if( isset($propertyDirectoryLocationList[$indexDirectory]) && $propertyDirectoryLocationList[$indexDirectory] == $propertyDirectory ) {
 				$relativeDirectory .= $propertyDirectory.'/../';
 			} else {
 				$relativeDirectory .= $propertyDirectory.'/';

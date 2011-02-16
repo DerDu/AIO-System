@@ -1,11 +1,14 @@
 <?php
-require_once( dirname(__FILE__).'/CoreEventScreen.php' );
-require_once( dirname(__FILE__).'/CoreEventJournal.php' );
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreEventError, ClassCoreEventError
+// InterfaceSession, ClassSession
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreEventError{
-	public static function eventHandler( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );
+interface InterfaceSession
+{
+	public static function getSessionId();
+	public static function startSession();
+	public static function writeSession( $string_key, $mixed_value );
+	public static function readSession( $string_key = null );
 }
 // ---------------------------------------------------------------------------------------
 // LICENSE (BSD)
@@ -38,40 +41,40 @@ interface InterfaceCoreEventError{
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreEventError implements InterfaceCoreEventError
-{
-	private static $_propertyNumberList = array(
-			0=>'SYSTEM',1=>'ERROR',2=>'WARNING',4=>'PARSER',
-			8=>'NOTICE',16=>'CORE ERROR',32=>'CORE WARNING',64=>'COMPILE ERROR',
-			128=>'COMPILE WARNING',256=>'USER ERROR',512=>'USER WARNING',1024=>'USER NOTICE',
-			2047=>'ALL',2048=>'STRICT',4096=>'RECOVERABLE ERROR',8192=>'DEPRECATED',
-			16384=>'USER DEPRECATED',30719=>'ALL'
-	);
+class ClassSession implements InterfaceSession {
+	private static $_propertyName = __CLASS__;
 // ---------------------------------------------------------------------------------------
-	public static function eventHandler( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition )
-	{
-		self::_eventToScreen(
-			$propertyNumber.(isset(self::$_propertyNumberList[$propertyNumber])?' '.self::$_propertyNumberList[$propertyNumber]:''),
-			$propertyContent, $propertyLocation, $propertyPosition
-		);
-		self::_eventToJournal(
-			$propertyNumber.(isset(self::$_propertyNumberList[$propertyNumber])?' '.self::$_propertyNumberList[$propertyNumber]:''),
-			$propertyContent, $propertyLocation, $propertyPosition
-		);
+	public static function startSession() {
+		if( !strlen( session_id() ) > 0 ) {
+			session_start();
+			if( !isset( $_SESSION[self::propertyName()] ) ) {
+				$_SESSION[self::propertyName()] = array();
+			}
+		} return session_id();
+	}
+	public static function getSessionId() {
+		self::startSession();
+		return session_id();
+	}
+	public static function writeSession( $propertyName, $propertyValue ) {
+		self::startSession();
+		return $_SESSION[self::propertyName()][$propertyName] = $propertyValue;
+	}
+	public static function readSession( $propertyName = null ) {
+		self::startSession();
+		if( $propertyName !== null ) {
+			if( isset( $_SESSION[self::propertyName()][$propertyName] ) ) {
+				return $_SESSION[self::propertyName()][$propertyName];
+			} else {
+				return null;
+			}
+		} return $_SESSION[self::propertyName()];
 	}
 // ---------------------------------------------------------------------------------------
-	private static function _eventToScreen( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ){
-		ClassCoreEventScreen::addEvent(
-			$propertyNumber, $propertyContent, $propertyLocation, $propertyPosition,
-			ClassCoreEventScreen::SCREEN_ERROR
-		);
-	}
-	private static function _eventToJournal( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ){
-		ClassCoreEventJournal::addEvent(
-			trim(strip_tags(str_replace(array('<br />','<br/>','<br>'),"\n",$propertyContent)))."\n"
-			.'Code ['.$propertyNumber.'] thrown in '.$propertyLocation.' at line '.$propertyPosition
-			,__CLASS__
-		);
+	private static function propertyName( $propertyName = null ) {
+		if( $propertyName !== null ) {
+			self::$_propertyName = $propertyName;
+		} return self::$_propertyName;
 	}
 }
 ?>

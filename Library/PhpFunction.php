@@ -38,21 +38,21 @@
 
 // ---------------------------------------------------------------------------------------
 // PHP CHECK : IS_?
-if( ! function_exists('is_num') ){
-	function is_num( $propertyValue ){
+if( ! function_exists('is_num') ) {
+	function is_num( $propertyValue ) {
 		return ( is_int( $propertyValue ) || is_double( $propertyValue ) );
 	}
 }
-if( ! function_exists('is_box') ){
-	function is_box( $propertyValue ){
+if( ! function_exists('is_box') ) {
+	function is_box( $propertyValue ) {
 		return ( is_array( $propertyValue ) || is_object( $propertyValue ) );
 	}
 }
 
 // ---------------------------------------------------------------------------------------
 // PHP CHECK : IN_?
-if( ! function_exists('in_string') ){
-	function in_string( $propertyHaystack, $propertyNeedle ){
+if( ! function_exists('in_string') ) {
+	function in_string( $propertyHaystack, $propertyNeedle ) {
 		if( strpos( $propertyHaystack, $propertyNeedle ) === false ) return false;
 		return true;
 	}
@@ -60,16 +60,16 @@ if( ! function_exists('in_string') ){
 
 // ---------------------------------------------------------------------------------------
 // PHP CONVERT : ?2?
-if( ! function_exists('bin2str') ){
-	function bin2str( $propertyBinary ){
+if( ! function_exists('bin2str') ) {
+	function bin2str( $propertyBinary ) {
 		$propertyBinary = explode(' ',trim(chunk_split($propertyBinary,8,' ')));
 		$propertyBinary = array_map( 'bindec', $propertyBinary );
 		$propertyBinary = array_map( 'chr', $propertyBinary );
 		return implode($propertyBinary);
 	}
 }
-if( ! function_exists('str2bin') ){
-	function str2bin( $propertyString ){
+if( ! function_exists('str2bin') ) {
+	function str2bin( $propertyString ) {
 		$propertyString = str_split( $propertyString, 1 );
 		$propertyString = array_map( 'ord', $propertyString );
 		$propertyString = array_map( 'decbin', $propertyString );
@@ -79,15 +79,15 @@ if( ! function_exists('str2bin') ){
 
 // ---------------------------------------------------------------------------------------
 // PHP ARRAY : ARRAY_?
-if( ! function_exists('array_peek') ){
-	function array_peek( array &$referenceArray ){
+if( ! function_exists('array_peek') ) {
+	function array_peek( array &$referenceArray ) {
 		$peekArray = array_pop( $referenceArray );
 		array_push( $referenceArray, $peekArray );
 		return $peekArray;
 	}
 }
-if (!function_exists('array_intersect_key')){
-	function array_intersect_key(){
+if (!function_exists('array_intersect_key')) {
+	function array_intersect_key() {
 		$array_args = func_get_args();
 		$array_result = array_shift( $array_args );
 		foreach( (array)$array_args as $array_check ) {
@@ -103,26 +103,26 @@ if (!function_exists('array_intersect_key')){
 
 // ---------------------------------------------------------------------------------------
 // PHP STRING : STR_PAD_?
-if( ! function_exists('str_pad_right') ){
-	function str_pad_right( $propertyInput, $propertyLength, $propertyPad = " " ){
+if( ! function_exists('str_pad_right') ) {
+	function str_pad_right( $propertyInput, $propertyLength, $propertyPad = " " ) {
 		return str_pad( $propertyInput, $propertyLength, $propertyPad, STR_PAD_RIGHT );
 	}
 }
-if( ! function_exists('str_pad_left') ){
-	function str_pad_left( $propertyInput, $propertyLength, $propertyPad = " " ){
+if( ! function_exists('str_pad_left') ) {
+	function str_pad_left( $propertyInput, $propertyLength, $propertyPad = " " ) {
 		return str_pad( $propertyInput, $propertyLength, $propertyPad, STR_PAD_LEFT );
 	}
 }
-if( ! function_exists('str_pad_both') ){
-	function str_pad_both( $propertyInput, $propertyLength, $propertyPad = " " ){
+if( ! function_exists('str_pad_both') ) {
+	function str_pad_both( $propertyInput, $propertyLength, $propertyPad = " " ) {
 		return str_pad( $propertyInput, $propertyLength, $propertyPad, STR_PAD_BOTH );
 	}
 }
 
 // ---------------------------------------------------------------------------------------
 // PHP STRING : CHR_?
-if( ! function_exists('chr_unicode') ){
-	function chr_unicode( $propertyAsciiValue ){
+if( ! function_exists('chr_unicode') ) {
+	function chr_unicode( $propertyAsciiValue ) {
 		if ($propertyAsciiValue <= 0x7F)
 			{ return chr($propertyAsciiValue); }
 		else if ($propertyAsciiValue <= 0x7FF)

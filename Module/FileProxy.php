@@ -1,10 +1,11 @@
 <?php
-require_once( dirname(__FILE__).'/../Core/CoreSession.php' );
+namespace AioSystem\Module;
 // ---------------------------------------------------------------------------------------
-// InterfaceModuleFileProxy, ClassModuleFileProxy
+require_once(dirname(__FILE__) . '/../Core/Session.php');
 // ---------------------------------------------------------------------------------------
-interface InterfaceModuleFileProxy
-{
+// InterfaceFileProxy, ClassFileProxy
+// ---------------------------------------------------------------------------------------
+interface InterfaceFileProxy {
 	public static function isFileProxy();
 	public static function setFileProxy( $propertyHost, $propertyPort, $propertyUser = null, $propertyPass = null );
 	public static function getFileProxy( $propertyUrl );
@@ -42,8 +43,7 @@ interface InterfaceModuleFileProxy
 // ---------------------------------------------------------------------------------------
 //  Based on http://www.php.net/manual/de/function.fopen.php#47224
 // ---------------------------------------------------------------------------------------
-class ClassModuleFileProxy implements InterfaceModuleFileProxy
-{
+class ClassFileProxy implements InterfaceFileProxy {
 	private static $_propertyHost = null;
 	private static $_propertyPort = null;
 	private static $_propertyUser = null;
@@ -52,22 +52,22 @@ class ClassModuleFileProxy implements InterfaceModuleFileProxy
 	private static $_propertyErrorNumber = null;
 	private static $_propertyErrorString = null;
 // ---------------------------------------------------------------------------------------
-	public static function isFileProxy(){
-		if( ClassCoreSession::readSession('ClassModuleFileProxy[isSet]') === true ){
+	public static function isFileProxy() {
+		if( \AioSystem\Core\ClassSession::readSession('ClassFileProxy[isSet]') === true ) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	public static function setFileProxy( $propertyHost, $propertyPort, $propertyUser = null, $propertyPass = null ){
+	public static function setFileProxy( $propertyHost, $propertyPort, $propertyUser = null, $propertyPass = null ) {
 		self::propertyHost( $propertyHost );
 		self::propertyPort( $propertyPort );
 		self::propertyUser( $propertyUser );
 		self::propertyPass( $propertyPass );
-		ClassCoreSession::writeSession('ClassModuleFileProxy[isSet]',true);
+		\AioSystem\Core\ClassSession::writeSession('ClassFileProxy[isSet]',true);
 	}
-	public static function getFileProxy( $propertyUrl ){
-		if( !self::isFileProxy() ){
+	public static function getFileProxy( $propertyUrl ) {
+		if( !self::isFileProxy() ) {
 			if( $socketFileProxy = @fsockopen( parse_url( $propertyUrl, PHP_URL_HOST ), parse_url( $propertyUrl, PHP_URL_PORT ), self::$_propertyErrorNumber, self::$_propertyErrorString, self::$_propertyTimeout ) ) {
 				$getFileProxy = '';
 				fputs( $socketFileProxy, "GET ".$propertyUrl." HTTP/1.0\r\nHost: ".parse_url( $propertyUrl, PHP_URL_HOST )."\r\n\r\n");
@@ -102,21 +102,25 @@ class ClassModuleFileProxy implements InterfaceModuleFileProxy
 		return $getFileProxy;
 	}
 // ---------------------------------------------------------------------------------------
-	private static function propertyHost( $propertyHost = null ){
-		if( $propertyHost !== null ) self::$_propertyHost = $propertyHost;
-		return self::$_propertyHost;
+	private static function propertyHost( $propertyHost = null ) {
+		if( $propertyHost !== null ) {
+			self::$_propertyHost = $propertyHost;
+		} return self::$_propertyHost;
 	}
-	private static function propertyPort( $propertyPort = null ){
-		if( $propertyPort !== null ) self::$_propertyPort = $propertyPort;
-		return self::$_propertyPort;
+	private static function propertyPort( $propertyPort = null ) {
+		if( $propertyPort !== null ) {
+			self::$_propertyPort = $propertyPort;
+		} return self::$_propertyPort;
 	}
-	private static function propertyUser( $propertyUser = null ){
-		if( $propertyUser !== null ) self::$_propertyUser = $propertyUser;
-		return self::$_propertyUser;
+	private static function propertyUser( $propertyUser = null ) {
+		if( $propertyUser !== null ) {
+			self::$_propertyUser = $propertyUser;
+		} return self::$_propertyUser;
 	}
-	private static function propertyPass( $propertyPass = null ){
-		if( $propertyPass !== null ) self::$_propertyPass = $propertyPass;
-		return self::$_propertyPass;
+	private static function propertyPass( $propertyPass = null ) {
+		if( $propertyPass !== null ) {
+			self::$_propertyPass = $propertyPass;
+		} return self::$_propertyPass;
 	}
 }
 ?>

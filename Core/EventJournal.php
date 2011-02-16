@@ -1,11 +1,13 @@
 <?php
-require_once( dirname(__FILE__).'/CoreSystemDirectory.php' );
-require_once( dirname(__FILE__).'/CoreSystemFile.php' );
-require_once( dirname(__FILE__).'/../Library/LibraryRegExp.php' );
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreEventJournal, ClassCoreEventJournal
+require_once(dirname(__FILE__) . '/SystemDirectory.php');
+require_once(dirname(__FILE__) . '/SystemFile.php');
+require_once(dirname(__FILE__) . '/../Library/RegExp.php');
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreEventJournal{
+// InterfaceEventJournal, ClassEventJournal
+// ---------------------------------------------------------------------------------------
+interface InterfaceEventJournal {
 	public static function addEvent( $propertyEventContent, $propertyJournalName = 'DefaultEventJournal' );
 }
 // ---------------------------------------------------------------------------------------
@@ -39,18 +41,16 @@ interface InterfaceCoreEventJournal{
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreEventJournal implements InterfaceCoreEventJournal
-{
-	public static function addEvent( $propertyEventContent, $propertyJournalName = 'DefaultEventJournal' ){
-		$propertyJournalName = ClassCoreSystemDirectory::adjustDirectorySyntax( dirname( __FILE__ ).'/../Journal/' ).'Journal.'.$propertyJournalName.'.txt';
-		if( !is_dir( dirname( $propertyJournalName ) ) ){
-			ClassCoreSystemDirectory::createDirectory( dirname( $propertyJournalName ) );
+class ClassEventJournal implements InterfaceEventJournal {
+	public static function addEvent( $propertyEventContent, $propertyJournalName = 'DefaultEventJournal' ) {
+		$propertyJournalName = ClassSystemDirectory::adjustDirectorySyntax( dirname( __FILE__ ).'/../Journal/' ).'Journal.'.$propertyJournalName.'.txt';
+		if( !is_dir( dirname( $propertyJournalName ) ) ) {
+			ClassSystemDirectory::createDirectory( dirname( $propertyJournalName ) );
 		}
-		$CoreSystemFile = new ClassCoreSystemFile( $propertyJournalName );
-		if( date( 'Ymd', $CoreSystemFile->propertyFileTime() ) < date('Ymd') )
-		{
+		$CoreSystemFile = new ClassSystemFile( $propertyJournalName );
+		if( date( 'Ymd', $CoreSystemFile->propertyFileTime() ) < date('Ymd') ) {
 			$CoreSystemFile->moveFile( substr($propertyJournalName,0,-4).'.'.date('YmdHis').'.txt' );
-			$CoreSystemFile = new ClassCoreSystemFile( $propertyJournalName );
+			$CoreSystemFile = new ClassSystemFile( $propertyJournalName );
 		}
 		$CoreSystemFile->propertyFileContent(
 					( $CoreSystemFile->propertyFileSize() != 0 ? "\n" : '' )
@@ -61,14 +61,14 @@ class ClassCoreEventJournal implements InterfaceCoreEventJournal
 		);
 		$CoreSystemFile->writeFile('a');
 	}
-	public static function getJournalList( $propertyDayCountHistory = 15 ){
-		$regexpIntegerBetween = ClassLibraryRegExp::integerBetween(
+	public static function getJournalList( $propertyDayCountHistory = 15 ) {
+		$regexpIntegerBetween = \AioSystem\Library\ClassRegExp::integerBetween(
 			mktime( 0,0,0, date('m'), (date('d')-abs($propertyDayCountHistory)), date('Y') ),
 			time()
 		);
-		$directoryName = ClassCoreSystemDirectory::adjustDirectorySyntax( dirname( __FILE__ ).'/../Journal/' );
-		$directoryFileList = ClassCoreSystemDirectory::getFileList( $directoryName );
-		return ClassCoreSystemDirectory::applyFileListFilter( $directoryFileList,
+		$directoryName = ClassSystemDirectory::adjustDirectorySyntax( dirname( __FILE__ ).'/../Journal/' );
+		$directoryFileList = ClassSystemDirectory::getFileList( $directoryName );
+		return ClassSystemDirectory::applyFileListFilter( $directoryFileList,
 			array(
 				'propertyFileName'=>'^Journal\..*?\.txt',
 				'propertyFileContent'=>'([0-9]{2}\.[0-9]{2}\.[0-9]{4}) ([0-9]{2}:[0-9]{2}:[0-9]{2}) SID:',

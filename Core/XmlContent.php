@@ -1,9 +1,9 @@
 <?php
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreXmlContent, ClassCoreXmlContent
+// InterfaceXmlContent, ClassXmlContent
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreXmlContent
-{
+interface InterfaceXmlContent {
 	public function propertyName( $propertyName = null );
 	public function propertyAttribute( $propertyAttributeName, $propertyAttributeValue = null );
 	public function propertyContent( $propertyContent = null );
@@ -41,27 +41,24 @@ interface InterfaceCoreXmlContent
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreXmlContent implements InterfaceCoreXmlContent
-{
+class ClassXmlContent implements InterfaceXmlContent {
 	private $propertyName = null;
 	private $propertyAttributeList = array();
 	private $propertyContent = null;
 	private $propertyChildList = array();
 // ---------------------------------------------------------------------------------------
-	public function __construct( $propertyName = null, $propertyAttributeList = array(), $propertyContent = null, $propertyChildList = array() )
-	{
+	public function __construct( $propertyName = null, $propertyAttributeList = array(), $propertyContent = null, $propertyChildList = array() ) {
 		$this->propertyName( $propertyName );
 		$this->propertyAttributeList( $propertyAttributeList );
 		$this->propertyContent( $propertyContent );
 		$this->propertyChildList( $propertyChildList );
 	}
 // ---------------------------------------------------------------------------------------
-	public function propertyName( $propertyName = null ){
+	public function propertyName( $propertyName = null ) {
 		if( $propertyName !== null ) $this->propertyName = $propertyName;
 		return $this->propertyName;
 	}
-	public function propertyAttribute( $propertyAttributeName, $propertyAttributeValue = null )
-	{
+	public function propertyAttribute( $propertyAttributeName, $propertyAttributeValue = null ) {
 		$propertyAttributeList = $this->propertyAttributeList();
 		if( $propertyAttributeValue !== null ){
 			$propertyAttributeList[$propertyAttributeName] = $propertyAttributeValue;
@@ -71,18 +68,18 @@ class ClassCoreXmlContent implements InterfaceCoreXmlContent
 		return $propertyAttributeList[$propertyAttributeName];
 		return null;
 	}
-	public function propertyContent( $propertyContent = null ){
+	public function propertyContent( $propertyContent = null ) {
 		if( $propertyContent !== null ) {
 			$this->propertyContent = $propertyContent;
 		}
 		return $this->propertyContent;
 	}
 // ---------------------------------------------------------------------------------------
-	public function propertyAttributeList( $propertyAttributeList = null ){
+	public function propertyAttributeList( $propertyAttributeList = null ) {
 		if( $propertyAttributeList !== null ) $this->propertyAttributeList = $propertyAttributeList;
 		return $this->propertyAttributeList;
 	}
-	public function propertyChildList( $propertyChildList = null ){
+	public function propertyChildList( $propertyChildList = null ) {
 		if( $propertyChildList !== null ){
 			if( $propertyChildList === false ){
 				unset( $this->propertyChildList );

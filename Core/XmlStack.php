@@ -1,15 +1,14 @@
 <?php
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreStackQueue, ClassCoreStackQueue
+// InterfaceXmlStack, ClassXmlStack
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreStackQueue{
-	public static function Instance();
-// ---------------------------------------------------------------------------------------
-	public function pushQueueData( $propertyQueueData );
-	public function popQueueData();
-	public function peekQueueData( $propertyQueueIndex = 0 );
-	public function updateQueueData( $propertyQueueIndex, $propertyQueueData );
-	public function listQueueData();
+interface InterfaceXmlStack
+{
+	public static function pushXmlNode( ClassXmlNode $XmlNode );
+	public static function peekXmlNode();
+	public static function popXmlNode();
+	public static function listXmlNode();
 }
 // ---------------------------------------------------------------------------------------
 // LICENSE (BSD)
@@ -42,31 +41,21 @@ interface InterfaceCoreStackQueue{
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassCoreStackQueue implements InterfaceCoreStackQueue
-{
-	private $_propertyStackQueue = array();
+class ClassXmlStack implements InterfaceXmlStack {
+	private static $propertyStack = array();
 // ---------------------------------------------------------------------------------------
-	public static function Instance(){
-		return new ClassCoreStackQueue();
+	public static function pushXmlNode( ClassXmlNode $XmlNode ) {
+		array_push( self::$propertyStack, $XmlNode );
+		return self::peekXmlNode();
 	}
-// ---------------------------------------------------------------------------------------
-	public function pushQueueData( $propertyQueueData ){
-		array_push( $this->_propertyStackQueue, $propertyQueueData );
-		return ( count( $this->_propertyStackQueue ) - 1 );
+	public static function peekXmlNode() {
+		return end( self::$propertyStack );
 	}
-	public function popQueueData(){
-		return array_shift( $this->_propertyStackQueue );
+	public static function popXmlNode() {
+		return array_pop( self::$propertyStack );
 	}
-	public function peekQueueData( $propertyQueueIndex = 0 ){
-		if( ! isset( $this->_propertyStackQueue[$propertyQueueIndex] ) ) return null;
-		return $this->_propertyStackQueue[$propertyQueueIndex];
-	}
-	public function updateQueueData( $propertyQueueIndex, $propertyQueueData ){
-		$this->_propertyStackQueue[$propertyQueueIndex] = $propertyQueueData;
-		return $this->peekQueueData( $propertyQueueIndex );
-	}
-	public function listQueueData(){
-		return $this->_propertyStackQueue;
+	public static function listXmlNode() {
+		return self::$propertyStack;
 	}
 }
 ?>

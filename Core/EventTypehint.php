@@ -1,8 +1,9 @@
 <?php
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceCoreEventTypehint, ClassCoreEventTypehint
+// InterfaceEventTypehint, ClassEventTypehint
 // ---------------------------------------------------------------------------------------
-interface InterfaceCoreEventTypehint{
+interface InterfaceEventTypehint {
 	public static function eventHandler( $propertyNumber, $propertyContent );
 }
 // ---------------------------------------------------------------------------------------
@@ -38,8 +39,7 @@ interface InterfaceCoreEventTypehint{
 // ---------------------------------------------------------------------------------------
 //  Based on http://www.php.net/manual/de/language.oop5.typehinting.php#83442
 // ---------------------------------------------------------------------------------------
-class ClassCoreEventTypehint implements InterfaceCoreEventTypehint
-{
+class ClassEventTypehint implements InterfaceEventTypehint {
 	const TYPEHINT_REGEXP = '/Argument (\d)+ passed to (?:(\w+)::)?(\w+)\(\) must be an instance of (\w+), (instance of )?(\w+) given/';
 	private static $_propertyTypeList = array(
 		'boolean'   => 'is_bool',
@@ -52,11 +52,10 @@ class ClassCoreEventTypehint implements InterfaceCoreEventTypehint
 		'object'    => 'is_box'
 	);
 // ---------------------------------------------------------------------------------------
-	public static function eventHandler( $propertyNumber, $propertyContent )
-	{
-		if ( $propertyNumber == E_RECOVERABLE_ERROR ){
+	public static function eventHandler( $propertyNumber, $propertyContent ) {
+		if ( $propertyNumber == E_RECOVERABLE_ERROR ) {
 			$matchTypehintList = array();
-			if ( preg_match( self::TYPEHINT_REGEXP, $propertyContent, $matchTypehintList ) ){
+			if ( preg_match( self::TYPEHINT_REGEXP, $propertyContent, $matchTypehintList ) ) {
 				list(	$string_argument_match,
 						$propertyIndex,
 						$string_argument_class,
@@ -64,24 +63,23 @@ class ClassCoreEventTypehint implements InterfaceCoreEventTypehint
 						$propertyHint,
 						$string_argument_type
 				) = $matchTypehintList;
-				if ( isset( self::$_propertyTypeList[$propertyHint] ) ){
+				if ( isset( self::$_propertyTypeList[$propertyHint] ) ) {
 					$debugBacktraceList = debug_backtrace();
 					$propertyValue = null;
-					if ( self::_checkArgument( $debugBacktraceList, $propertyType, $propertyIndex, $propertyValue ) ){
+					if ( self::_checkArgument( $debugBacktraceList, $propertyType, $propertyIndex, $propertyValue ) ) {
 						if ( call_user_func( self::$_propertyTypeList[$propertyHint], $propertyValue ) ) return true;
 					}
 				}
-				throw new Exception( $propertyContent );
+				throw new \Exception( $propertyContent );
 			}
 		}
 		return false;
 	}
 // ---------------------------------------------------------------------------------------
-	private static function _checkArgument( $debugBacktraceList, $propertyType, $propertyIndex, &$propertyValue )
-	{
-		foreach ( $debugBacktraceList as $_propertyTypeList ){
+	private static function _checkArgument( $debugBacktraceList, $propertyType, $propertyIndex, &$propertyValue ) {
+		foreach ( $debugBacktraceList as $_propertyTypeList ) {
 			// FIX: STRICT
-			if( empty( $_propertyTypeList['args'] ) ){
+			if( empty( $_propertyTypeList['args'] ) ) {
 				$_propertyTypeList['args'] = array( 0 => null );
 			}
 			// Match the function; Note we could do more defensive error checking.

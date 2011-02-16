@@ -1,14 +1,13 @@
 <?php
-require_once( dirname(__FILE__).'/ModuleSocketDevice.php' );
+namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-// InterfaceModuleSocket, ClassModuleSocket
+require_once(dirname(__FILE__) . '/EventScreen.php');
+require_once(dirname(__FILE__) . '/EventJournal.php');
 // ---------------------------------------------------------------------------------------
-interface InterfaceModuleSocket{
-	public static function openSocket( $propertyHost, $propertyPort = null );
-	public static function readSocket( $propertyLength = null );
-	public static function writeSocket( $propertyData );
-	public static function closeSocket();
-	public static function propertySocketIdentifier( $propertySocketIdentifier = null );
+// InterfaceEventError, ClassEventError
+// ---------------------------------------------------------------------------------------
+interface InterfaceEventError {
+	public static function eventHandler( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );
 }
 // ---------------------------------------------------------------------------------------
 // LICENSE (BSD)
@@ -41,43 +40,38 @@ interface InterfaceModuleSocket{
 //	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
-class ClassModuleSocket implements InterfaceModuleSocket
-{
-	private static $_propertySocketList = array();
-	private static $_propertySocketIdentifier = null;
+class ClassEventError implements InterfaceEventError {
+	private static $_propertyNumberList = array(
+			0=>'SYSTEM',1=>'ERROR',2=>'WARNING',4=>'PARSER',
+			8=>'NOTICE',16=>'CORE ERROR',32=>'CORE WARNING',64=>'COMPILE ERROR',
+			128=>'COMPILE WARNING',256=>'USER ERROR',512=>'USER WARNING',1024=>'USER NOTICE',
+			2047=>'ALL',2048=>'STRICT',4096=>'RECOVERABLE ERROR',8192=>'DEPRECATED',
+			16384=>'USER DEPRECATED',30719=>'ALL'
+	);
 // ---------------------------------------------------------------------------------------
-	public static function openSocket( $propertyHost, $propertyPort = null ){
-		if( !$socketHandler = socket_create( AF_INET, SOCK_STREAM, SOL_TCP ) ){
-			throw new Exception( socket_strerror( socket_last_error() ) );
-		}
-		$ClassModuleSocketDevice = new ClassModuleSocketDevice(
-			$socketHandler,
-			$propertyHost,
-			$propertyPort
+	public static function eventHandler( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
+		self::_eventToScreen(
+			$propertyNumber.(isset(self::$_propertyNumberList[$propertyNumber])?' '.self::$_propertyNumberList[$propertyNumber]:''),
+			$propertyContent, $propertyLocation, $propertyPosition
 		);
-		self::propertySocketIdentifier( sha1( serialize( $ClassModuleSocketDevice ) ) );
-		self::$_propertySocketList[self::propertySocketIdentifier()] = $ClassModuleSocketDevice;
-		self::connectSocket();
-		return self::propertySocketIdentifier();
-	}
-	public static function connectSocket(){
-		return self::$_propertySocketList[self::propertySocketIdentifier()]->openSocketDevice();
-	}
-	public static function readSocket( $propertyLength = null ){
-		return self::$_propertySocketList[self::propertySocketIdentifier()]->readSocketDevice( $propertyLength );
-	}
-	public static function writeSocket( $propertyData ){
-		return self::$_propertySocketList[self::propertySocketIdentifier()]->writeSocketDevice( $propertyData );
-	}
-	public static function closeSocket(){
-		return self::$_propertySocketList[self::propertySocketIdentifier()]->closeSocketDevice();
+		self::_eventToJournal(
+			$propertyNumber.(isset(self::$_propertyNumberList[$propertyNumber])?' '.self::$_propertyNumberList[$propertyNumber]:''),
+			$propertyContent, $propertyLocation, $propertyPosition
+		);
 	}
 // ---------------------------------------------------------------------------------------
-	public static function propertySocketIdentifier( $propertySocketIdentifier = null ){
-		if( $propertySocketIdentifier !== null ) {
-			self::$_propertySocketIdentifier = $propertySocketIdentifier;
-		}
-		return strtoupper(self::$_propertySocketIdentifier);
+	private static function _eventToScreen( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
+		ClassEventScreen::addEvent(
+			$propertyNumber, $propertyContent, $propertyLocation, $propertyPosition,
+			ClassEventScreen::SCREEN_ERROR
+		);
+	}
+	private static function _eventToJournal( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ){
+		ClassEventJournal::addEvent(
+			trim(strip_tags(str_replace(array('<br />','<br/>','<br>'),"\n",$propertyContent)))."\n"
+			.'Code ['.$propertyNumber.'] thrown in '.$propertyLocation.' at line '.$propertyPosition
+			,__CLASS__
+		);
 	}
 }
 ?>
