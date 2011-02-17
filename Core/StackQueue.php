@@ -58,7 +58,7 @@ class ClassStackQueue implements InterfaceStackQueue {
 	public function popQueueData() {
 		return array_shift( $this->_propertyStackQueue );
 	}
-	public function getQueueData( $propertyQueueIndex = 0 ) {
+	public function getQueueData( $propertyQueueIndex = null ) {
 		if( ! isset( $this->_propertyStackQueue[$propertyQueueIndex] ) ) return null;
 		return $this->_propertyStackQueue[$propertyQueueIndex];
 	}
