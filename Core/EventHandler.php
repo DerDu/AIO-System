@@ -73,8 +73,8 @@ class ClassEventHandler implements InterfaceEventHandler {
 		set_error_handler(
 			create_function(
 				'$propertyNumber, $propertyContent, $propertyLocation, $propertyPosition',
-				'if( ClassEventTypehint::eventHandler( $propertyNumber, $propertyContent ) ) return true;'
-				.'ClassEventError::eventHandler( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );'
+				'if( \AioSystem\Core\ClassEventTypehint::eventHandler( $propertyNumber, $propertyContent ) ) return true;'
+				.'\AioSystem\Core\ClassEventError::eventHandler( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );'
 			)
 		);
 	}
@@ -82,7 +82,7 @@ class ClassEventHandler implements InterfaceEventHandler {
 		set_exception_handler(
 			create_function(
 				'$EventException',
-				'ClassEventException::eventHandler( $EventException->getCode(), $EventException->getMessage().\'<br /><br /><span style="font-size: 12px;">\'.$EventException->getTraceAsString()."</span><br />", $EventException->getFile(), $EventException->getLine() );'
+				'\AioSystem\Core\ClassEventException::eventHandler( $EventException->getCode(), $EventException->getMessage().\'<br /><br /><span style="font-size: 12px;">\'.$EventException->getTraceAsString()."</span><br />", $EventException->getFile(), $EventException->getLine() );'
 			)
 		);
 	}
@@ -90,7 +90,7 @@ class ClassEventHandler implements InterfaceEventHandler {
 		register_shutdown_function(
 			create_function(
 				'',
-				'ClassEventHandler::_executeEventShutdown();'
+				'\AioSystem\Core\ClassEventHandler::_executeEventShutdown();'
 			)
 		);
 	}
