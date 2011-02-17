@@ -1,8 +1,6 @@
 <?php
 namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-require_once(dirname(__FILE__) . '/SystemFile.php');
-// ---------------------------------------------------------------------------------------
 // InterfaceSystemDirectory, ClassSystemDirectory
 // ---------------------------------------------------------------------------------------
 interface InterfaceSystemDirectory {
@@ -75,6 +73,25 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 		}
 		$directoryHandler->close();
 		return $getFileList;
+	}
+	// TODO: getDirectoryList
+	public static function getDirectoryList( $propertyDirectoryName, $isRecursive = false ) {
+		$getDirectoryList = array();
+		if( !is_object( $directoryHandler = dir( $propertyDirectoryName ) ) ) {
+			return false;
+		}
+		while ( false !== ( $directoryEntryName = $directoryHandler->read() ) ) {
+			if( $directoryEntryName != '.' && $directoryEntryName != '..' ) {
+				if( is_dir( $propertyDirectoryName.'/'.$directoryEntryName ) ) {
+					if( $isRecursive ) {
+						$getDirectoryList = array_merge( $getDirectoryList, (array)self::getDirectoryList( $propertyDirectoryName.'/'.$directoryEntryName, $isRecursive ) );
+					}
+						$getDirectoryList[] = $propertyDirectoryName.'/'.$directoryEntryName;
+				}
+			}
+		}
+		$directoryHandler->close();
+		return $getDirectoryList;
 	}
 	public static function applyFileListFilter( $propertyFileList, $propertyFilterList = array() ) {
 		foreach( (array)$propertyFileList as $indexFileList => $CoreSystemFile ) {

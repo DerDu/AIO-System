@@ -58,7 +58,7 @@ class ClassEventTypehint implements InterfaceEventTypehint {
 			if ( preg_match( self::TYPEHINT_REGEXP, $propertyContent, $matchTypehintList ) ) {
 				list(	$string_argument_match,
 						$propertyIndex,
-						$string_argument_class,
+						$propertyClass,
 						$propertyType,
 						$propertyHint,
 						$string_argument_type

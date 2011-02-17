@@ -1,11 +1,6 @@
 <?php
 namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-require_once(dirname(__FILE__) . '/EventJournal.php');
-require_once(dirname(__FILE__) . '/EventException.php');
-require_once(dirname(__FILE__) . '/EventError.php');
-require_once(dirname(__FILE__) . '/EventTypehint.php');
-// ---------------------------------------------------------------------------------------
 // InterfaceEventHandler, ClassEventHandler
 // ---------------------------------------------------------------------------------------
 interface InterfaceEventHandler {
@@ -66,6 +61,7 @@ class ClassEventHandler implements InterfaceEventHandler {
 				.' at line '.$getLastError['line']
 				,'ClassEventShutdown'
 			);
+			ClassEventScreen::addEvent( $getLastError['type'], $getLastError['message'], $getLastError['file'], $getLastError['line'], ClassEventScreen::SCREEN_EXCEPTION );
 		}
 	}
 // ---------------------------------------------------------------------------------------

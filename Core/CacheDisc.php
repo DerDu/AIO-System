@@ -1,10 +1,6 @@
 <?php
 namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-require_once(dirname(__FILE__) . '/SystemDirectory.php');
-require_once(dirname(__FILE__) . '/SystemFile.php');
-require_once(dirname(__FILE__) . '/Session.php');
-// ---------------------------------------------------------------------------------------
 // InterfaceCacheDisc, ClassCacheDisc
 // ---------------------------------------------------------------------------------------
 interface InterfaceCacheDisc {
@@ -48,7 +44,7 @@ interface InterfaceCacheDisc {
 // ---------------------------------------------------------------------------------------
 class ClassCacheDisc implements InterfaceCacheDisc {
 	private static $_propertyDirectoryName = '../Cache';
-	private static $_propertyCacheTimeout = 3600;
+	private static $_propertyCacheTimeout = 30;
 // ---------------------------------------------------------------------------------------
 	public static function isCached( $propertyCacheParameter, $propertyCacheName = 'DefaultCache', $isGlobal = false ) {
 		self::_runCacheTimeout();
@@ -70,14 +66,16 @@ class ClassCacheDisc implements InterfaceCacheDisc {
 		$propertyCacheParameter, $propertyCacheContent,
 		$propertyCacheName = 'DefaultCache', $isGlobal = false, $isForcedRefresh = false
 	) {
-		if( false !== ( $propertyCacheParameter = self::isCached( $propertyCacheParameter, $propertyCacheName, $isGlobal ) ) && !$isForcedRefresh ) {
+		if( false !== ( self::isCached( $propertyCacheParameter, $propertyCacheName, $isGlobal ) ) && !$isForcedRefresh ) {
 			return false;
+		} else {
+			$propertyCacheParameter = sha1( serialize( $propertyCacheParameter ) );
+			$propertyCacheLocation = self::getCacheLocation( $propertyCacheName, $isGlobal ).$propertyCacheParameter;
+			$ClassCoreSystemFile = ClassSystemFile::Instance( $propertyCacheLocation );
+			$ClassCoreSystemFile->propertyFileContent( $propertyCacheContent );
+			$ClassCoreSystemFile->writeFile();
+			return true;
 		}
-		$propertyCacheParameter = sha1( serialize( $propertyCacheParameter ) );
-		$propertyCacheLocation = self::getCacheLocation( $propertyCacheName, $isGlobal ).$propertyCacheParameter;
-		$ClassCoreSystemFile = ClassSystemFile::Instance( $propertyCacheLocation );
-		$ClassCoreSystemFile->writeFile();
-		return true;
 	}
 	public static function getCacheLocation( $propertyCacheName = 'DefaultCache', $isGlobal = false ) {
 		// Create Cache-Location
@@ -104,7 +102,7 @@ class ClassCacheDisc implements InterfaceCacheDisc {
 		if( $propertyDirectoryName !== null ) {
 			self::$_propertyDirectoryName = $propertyDirectoryName;
 		}
-		$propertyDirectoryName = ClassSystemDirectory::adjustDirectorySyntax( dirname(__FILE__).'/'.self::$_propertyDirectoryName );
+		$propertyDirectoryName = ClassSystemDirectory::adjustDirectorySyntax( __DIR__.'/'.self::$_propertyDirectoryName );
 		if( !is_dir( $propertyDirectoryName ) ) {
 			ClassSystemDirectory::createDirectory( $propertyDirectoryName );
 		} return $propertyDirectoryName;

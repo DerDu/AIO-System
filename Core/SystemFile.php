@@ -1,8 +1,6 @@
 <?php
 namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-require_once(dirname(__FILE__) . '/SystemWrite.php');
-// ---------------------------------------------------------------------------------------
 // InterfaceSystemFile, ClassSystemFile
 // ---------------------------------------------------------------------------------------
 interface InterfaceSystemFile {
@@ -117,8 +115,9 @@ class ClassSystemFile implements InterfaceSystemFile {
 		}
 	}
 	public function touchFile() {
-		if( strlen( $this->_propertyFileLocation ) > 0 ) {
-			fclose( fopen( $this->_propertyFileLocation, 'a' ) );
+		if( strlen( $this->propertyFileLocation() ) > 0 ) {
+			fclose( fopen( $this->propertyFileLocation(), 'a' ) );
+			$this->_loadFileAttributeList();
 		}
 	}
 // ---------------------------------------------------------------------------------------

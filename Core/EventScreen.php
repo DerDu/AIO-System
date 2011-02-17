@@ -41,8 +41,9 @@ interface InterfaceEventScreen {
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
 class ClassEventScreen implements InterfaceEventScreen {
-	const SCREEN_ERROR = 0;
-	const SCREEN_EXCEPTION = 1;
+	const SCREEN_INFO = 0;
+	const SCREEN_ERROR = 1;
+	const SCREEN_EXCEPTION = 2;
 // ---------------------------------------------------------------------------------------
 	public static function addEvent(
 		$propertyNumber, $propertyContent, $propertyLocation = '', $propertyPosition = '',
@@ -51,6 +52,10 @@ class ClassEventScreen implements InterfaceEventScreen {
 		if( ! ini_get('display_errors') ) return false;
 
 		switch( $propertyEventScreenType ) {
+			case self::SCREEN_INFO:{
+				print self::_screenError( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );
+				return true;
+			}
 			case self::SCREEN_ERROR:{
 				print self::_screenError( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );
 				return true;
@@ -62,6 +67,16 @@ class ClassEventScreen implements InterfaceEventScreen {
 		}
 	}
 // ---------------------------------------------------------------------------------------
+	private static function _screenInfo( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
+		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; overflow:auto;">'
+		."\n".$propertyContent.'<br />'
+			.'<span style="font-family: monospace; font-size: 10px;color:#DDA0A0;">'
+				.'Code ['.$propertyNumber.']'
+				.' thrown in '.$propertyLocation
+				.' at line '.$propertyPosition
+			.'</span>'
+		.'</div>'."\n";
+	}
 	private static function _screenError( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
 		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; overflow:auto;">'
 		."\n".$propertyContent.'<br />'

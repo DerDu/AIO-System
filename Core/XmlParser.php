@@ -1,10 +1,6 @@
 <?php
 namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-require_once(dirname(__FILE__) . '/XmlContent.php');
-require_once(dirname(__FILE__) . '/XmlNode.php');
-require_once(dirname(__FILE__) . '/XmlStack.php');
-// ---------------------------------------------------------------------------------------
 // InterfaceXmlParser, ClassXmlParser
 // ---------------------------------------------------------------------------------------
 interface InterfaceXmlParser {
@@ -90,7 +86,7 @@ class ClassXmlParser implements InterfaceXmlParser {
 					break;
 				}
 				default: {
-					throw new \Exception('['.__METHOD__.'] XML-Document malformed!');
+					throw new \Exception('XML-Document malformed!');
 				}
 			}
 			$propertyXmlContent = substr( $propertyXmlContent, $_searchTag['POS#']+$_searchTag['LEN#'] );

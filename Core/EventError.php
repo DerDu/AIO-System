@@ -1,9 +1,6 @@
 <?php
 namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-require_once(dirname(__FILE__) . '/EventScreen.php');
-require_once(dirname(__FILE__) . '/EventJournal.php');
-// ---------------------------------------------------------------------------------------
 // InterfaceEventError, ClassEventError
 // ---------------------------------------------------------------------------------------
 interface InterfaceEventError {
@@ -70,7 +67,7 @@ class ClassEventError implements InterfaceEventError {
 		ClassEventJournal::addEvent(
 			trim(strip_tags(str_replace(array('<br />','<br/>','<br>'),"\n",$propertyContent)))."\n"
 			.'Code ['.$propertyNumber.'] thrown in '.$propertyLocation.' at line '.$propertyPosition
-			,__CLASS__
+			,'ClassEventError'
 		);
 	}
 }

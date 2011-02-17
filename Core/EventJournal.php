@@ -1,10 +1,6 @@
 <?php
 namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-require_once(dirname(__FILE__) . '/SystemDirectory.php');
-require_once(dirname(__FILE__) . '/SystemFile.php');
-require_once(dirname(__FILE__) . '/../Library/RegExp.php');
-// ---------------------------------------------------------------------------------------
 // InterfaceEventJournal, ClassEventJournal
 // ---------------------------------------------------------------------------------------
 interface InterfaceEventJournal {
@@ -43,7 +39,7 @@ interface InterfaceEventJournal {
 // ---------------------------------------------------------------------------------------
 class ClassEventJournal implements InterfaceEventJournal {
 	public static function addEvent( $propertyEventContent, $propertyJournalName = 'DefaultEventJournal' ) {
-		$propertyJournalName = ClassSystemDirectory::adjustDirectorySyntax( dirname( __FILE__ ).'/../Journal/' ).'Journal.'.$propertyJournalName.'.txt';
+		$propertyJournalName = ClassSystemDirectory::adjustDirectorySyntax( __DIR__.'/../Journal/' ).'Journal.'.$propertyJournalName.'.txt';
 		if( !is_dir( dirname( $propertyJournalName ) ) ) {
 			ClassSystemDirectory::createDirectory( dirname( $propertyJournalName ) );
 		}
@@ -66,7 +62,7 @@ class ClassEventJournal implements InterfaceEventJournal {
 			mktime( 0,0,0, date('m'), (date('d')-abs($propertyDayCountHistory)), date('Y') ),
 			time()
 		);
-		$directoryName = ClassSystemDirectory::adjustDirectorySyntax( dirname( __FILE__ ).'/../Journal/' );
+		$directoryName = ClassSystemDirectory::adjustDirectorySyntax( __DIR__.'/../Journal/' );
 		$directoryFileList = ClassSystemDirectory::getFileList( $directoryName );
 		return ClassSystemDirectory::applyFileListFilter( $directoryFileList,
 			array(

@@ -52,7 +52,7 @@ class ClassXmlNode extends ClassXmlContent implements InterfaceXmlNode {
 	private $_propertyHashCount = array();
 // ---------------------------------------------------------------------------------------
 	public static function Instance() {
-		return new ClassXmlContent();
+		return new ClassXmlNode();
 	}
 // ---------------------------------------------------------------------------------------
 	public function propertyParent( ClassXmlNode $propertyParent = null ) {

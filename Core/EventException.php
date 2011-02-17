@@ -1,9 +1,6 @@
 <?php
 namespace AioSystem\Core;
 // ---------------------------------------------------------------------------------------
-require_once(dirname(__FILE__) . '/EventScreen.php');
-require_once(dirname(__FILE__) . '/EventJournal.php');
-// ---------------------------------------------------------------------------------------
 // InterfaceEventException, ClassEventException
 // ---------------------------------------------------------------------------------------
 interface InterfaceEventException {
@@ -72,7 +69,7 @@ class ClassEventException extends \Exception implements InterfaceEventException 
 			.'Code ['.$propertyNumber.']'
 			.' thrown in '.$propertyLocation
 			.' at line '.$propertyPosition
-			,__CLASS__
+			,'ClassEventException'
 		);
 	}
 }
