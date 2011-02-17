@@ -118,7 +118,7 @@ class ClassXmlParser implements InterfaceXmlParser {
 	private static function _openTag( $_readTag ) {
 		/** @var ClassXmlNode $CoreXmlNode */
 		$_readTag = self::_readTag( $_readTag['ITEM'] );
-		$CoreXmlNode = ClassXmlStack::pushXmlNode( new ClassXmlContent() );
+		$CoreXmlNode = ClassXmlStack::pushXmlNode( ClassXmlNode::Instance() );
 		$CoreXmlNode->propertyName( $_readTag['NAME'] );
 		$CoreXmlNode->propertyAttributeList( $_readTag['ATTR'] );
 	}
