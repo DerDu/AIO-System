@@ -84,7 +84,9 @@ class ClassApi {
 			).'.php'
 		);
 		if( file_exists( $propertyClassLocation ) ) {
-			if( self::$propertySetup === false ) var_dump( 'Load:'.$propertyClassLocation );
+			if( self::$propertySetup === false ) {
+				var_dump( 'Load: '.$propertyClassLocation );
+			}
 			require_once( $propertyClassLocation );
 			return true;
 		} else {

@@ -54,6 +54,13 @@ class ClassEvent {
 	}
 	/**
 	 * @static
+	 * @param  string $Content
+	 */
+	public static function Debug( $Content ) {
+		\AioSystem\Core\ClassEventJournal::addEvent( $Content, 'Debug' );
+	}
+	/**
+	 * @static
 	 * @param  int $Id
 	 * @param  string $Content
 	 * @param  string $Location

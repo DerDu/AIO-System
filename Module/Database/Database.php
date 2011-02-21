@@ -194,7 +194,7 @@ class ClassDatabase implements InterfaceDatabase
 			self::database_stage()->closeAdodb();
 			self::database_stage($string_database_route);
 		} else {
-			self::database_stage()->closeAdodb()->closeAdodb();
+			self::database_stage()->closeAdodb();
 			self::database_stage(self::database_route());
 		}
 	}
@@ -204,7 +204,10 @@ class ClassDatabase implements InterfaceDatabase
 		if( !isset( self::$database_stage[self::database_route()] ) ){
 			throw new \Exception( 'Connection not available!<br/>'.self::database_route() );
 		}
-		if( $string_database_route2close !== null ) unset(self::$database_stage[$string_database_route2close]);
+		if( $string_database_route2close !== null ) {
+			unset(self::$database_stage[$string_database_route2close]);
+			return true;
+		}
 		return self::$database_stage[self::database_route()];
 	}
 	private static function database_mtimeout( $bool_set = true )

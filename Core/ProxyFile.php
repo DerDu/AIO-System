@@ -46,7 +46,7 @@ namespace AioSystem\Module;
  * @package AioSystem\Module
  * @subpackage Proxy
  */
-interface InterfaceFileProxy {
+interface InterfaceProxyFile {
 	public static function isFileProxy();
 	public static function setFileProxy( $propertyHost, $propertyPort, $propertyUser = null, $propertyPass = null );
 	public static function getFileProxy( $propertyUrl );
@@ -55,7 +55,7 @@ interface InterfaceFileProxy {
  * @package AioSystem\Module
  * @subpackage Proxy
  */
-class ClassFileProxy implements InterfaceFileProxy {
+class ClassProxyFile implements InterfaceProxyFile {
 	private static $_propertyHost = null;
 	private static $_propertyPort = null;
 	private static $_propertyUser = null;
@@ -69,7 +69,7 @@ class ClassFileProxy implements InterfaceFileProxy {
 	 * @return bool
 	 */
 	public static function isFileProxy() {
-		if( \AioSystem\Core\ClassSession::readSession('ClassFileProxy[isSet]') === true ) {
+		if( \AioSystem\Core\ClassSession::readSession('ClassProxyFile[isSet]') === true ) {
 			return true;
 		} else {
 			return false;
@@ -88,7 +88,7 @@ class ClassFileProxy implements InterfaceFileProxy {
 		self::propertyPort( $propertyPort );
 		self::propertyUser( $propertyUser );
 		self::propertyPass( $propertyPass );
-		\AioSystem\Core\ClassSession::writeSession('ClassFileProxy[isSet]',true);
+		\AioSystem\Core\ClassSession::writeSession('ClassProxyFile[isSet]',true);
 	}
 	/**
 	 * @static
