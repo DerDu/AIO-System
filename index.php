@@ -16,6 +16,7 @@ use AioSystem\Api\ClassEvent as AioEvent;
 use AioSystem\Api\ClassSocket as AioSocket;
 use AioSystem\Api\ClassCache as AioCache;
 use AioSystem\Api\ClassStack as AioStack;
+
 use AioSystem\Api\ClassExcel as AioExcel;
 use AioSystem\Api\ClassChart as AioChart;
 use AioSystem\Api\ClassPdf as AioPdf;
@@ -56,7 +57,6 @@ use AioSystem\Api\ClassDatabase as AioDatabase;
 	//var_dump( AioChart::Instance() );
 	//AioPdf::Open('testAioPdf.pdf');
 	//AioPdf::Close();
-	var_dump( AioDatabase::Open( 'mysql', 'localhost', 'root', '', 'test' ) );
 ?>
 </body>
 </html>
