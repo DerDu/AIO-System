@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetFontTTF</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetFontGD.html" title="SetFontGD" /><link rel="next" href="SetGridColor.html" title="SetGridColor" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetFontTTF</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetFontGD.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetGridColor.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetFontTTF"><a id="SetFontTTF"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetFontTTF</span></h2><p>SetFontTTF &#8212; Select a TrueType font to use for a plot element</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetFontTTF(<em class="parameter"><code>$elem</code></em>, <em class="parameter"><code>$font</code></em>, [<span class="optional"><em class="parameter"><code>$size</code></em></span>], [<span class="optional"><em class="parameter"><code>$line_spacing</code></em></span>])</pre></div><div class="refsect1" title="Description"><a id="id2603822"></a><h2>Description</h2><p>
+<code class="function">SetFontTTF</code> selects a TrueType font and size to use for one
+plot element (for example, the title).
+This function supplements <a class="xref" href="SetFont.html" title="SetFont"><span class="refentrytitle">SetFont</span></a>, which selects a GD or TTF
+font depending on the currently selected font type. SetFontTTF always selects
+a TrueType font, even if TrueType fonts are not the default font type.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2603848"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$elem</code></em></span></dt><dd><p>
+The name of the element to change the font for. Use one of the following
+strings: 'title', 'legend', 'generic', 'x_label', 'y_label', 'x_title',
+or 'y_title'. (The 'generic' font is currently used for pie chart
+percentage labels and error message images.)
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$font</code></em></span></dt><dd><p>
+Selects the TrueType font to use.
+This is either the full pathname of a TrueType font filename,
+or the filename (without path) if the font file is either located in the
+default TrueType font directory set with <a class="xref" href="SetTTFPath.html" title="SetTTFPath"><span class="refentrytitle">SetTTFPath</span></a>
+or can be found by GD using its default search rules.
+See <a class="xref" href="conc-text.html#conc-text-fonts" title="3.8.2. TrueType Font Selection">Section 3.8.2, &#8220;TrueType Font Selection&#8221;</a> for more information.
+An empty string or NULL can be specified to use the default TrueType font.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$size</code></em></span></dt><dd><p>
+The TrueType font size in points.
+If not specified, a default value of 12 is used.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$line_spacing</code></em></span></dt><dd><p>
+Optional line spacing adjustment for this text element.
+For TrueType text, this is an adjustment factor for the built-in font
+spacing.
+See <a class="xref" href="SetLineSpacing.html" title="SetLineSpacing"><span class="refentrytitle">SetLineSpacing</span></a> for details.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2603948"></a><h2>Notes</h2><p>
+See <a class="xref" href="SetFont.html" title="SetFont"><span class="refentrytitle">SetFont</span></a> for more information about fonts.
+See <a class="xref" href="SetLineSpacing.html" title="SetLineSpacing"><span class="refentrytitle">SetLineSpacing</span></a> for more information about line spacing.
+    </p><p>
+Use <a class="xref" href="SetUseTTF.html" title="SetUseTTF"><span class="refentrytitle">SetUseTTF</span></a>
+(or <a class="xref" href="SetDefaultTTFont.html" title="SetDefaultTTFont"><span class="refentrytitle">SetDefaultTTFont</span></a>, which calls it) to set the default
+font type.
+Use <a class="xref" href="SetFont.html" title="SetFont"><span class="refentrytitle">SetFont</span></a> to specify the font to use for an element
+using the default font type.
+Use <a class="xref" href="SetFontGD.html" title="SetFontGD"><span class="refentrytitle">SetFontGD</span></a> and SetFontTTF to
+specify the font of an element using the specific type of font.
+    </p></div><div class="refsect1" title="History"><a id="id2604000"></a><h2>History</h2><p>
+Starting with PHPlot-5.1.3, TrueType fonts are validated by trying to
+use the font with a non-drawing operation, rather than by seeing if the
+font file exists.
+See <a class="xref" href="conc-text.html#conc-text-fonts" title="3.8.2. TrueType Font Selection">Section 3.8.2, &#8220;TrueType Font Selection&#8221;</a> for more information.
+    </p><p>
+This function was added at PHPlot-5.0.6, along with <a class="xref" href="SetFontGD.html" title="SetFontGD"><span class="refentrytitle">SetFontGD</span></a>, to allow mixing GD and TrueType fonts
+in the same graph.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetFontGD.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetGridColor.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetFontGD </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetGridColor</td></tr></table></div></body></html>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>3.8. Text Fonts</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="concepts.html" title="Chapter 3. PHPlot Concepts" /><link rel="prev" href="conc-otherelements.html" title="3.7. Other Plot Elements" /><link rel="next" href="conc-errors.html" title="3.9. Error Handling" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.8. Text Fonts</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="conc-otherelements.html">Prev</a> </td><th width="60%" align="center">Chapter 3. PHPlot Concepts</th><td width="20%" align="right"> <a accesskey="n" href="conc-errors.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="3.8. Text Fonts"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="conc-text"></a>3.8. Text Fonts</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This section contains information about using text fonts in PHPlot.
+See <a class="xref" href="ref-textfonts.html" title="6.6. Text Fonts">Section 6.6, &#8220;Text Fonts&#8221;</a> for PHPlot functions used with text
+fonts.
+  </p></div><div class="sect2" title="3.8.1. Overview"><div class="titlepage"><div><div><h3 class="title"><a id="conc-text-overview"></a>3.8.1. Overview</h3></div></div></div><p>
+PHPlot supports both built-in GD fonts and TrueType fonts (if available on
+your system).
+TrueType fonts generally produce higher quality text, but using them
+requires more internal computations. The built-in GD fonts are faster
+to render, but are limited to one typeface and 5 available sizes.
+TrueType fonts can be drawn at any size and angle, and many typefaces are
+available.
+On most systems, TrueType fonts are anti-aliased for improved appearance,
+but under some conditions the GD fonts may be easier to read.
+TrueType fonts support much wider character sets, including special
+symbols, while the GD fonts are more limited.
+</p><p>
+
+The following figure shows the built-in GD fonts plus a sample TrueType
+font.  (Depending on how you are viewing this manual, the sizes of the
+fonts in this figure might differ from how they would look in a PHPlot
+image. For more on font sizes, see the notes with <a class="xref" href="SetFont.html" title="SetFont"><span class="refentrytitle">SetFont</span></a>.)
+</p><div class="informalfigure"><div class="mediaobject"><img src="images/fonts.png" alt="A sample of the fonts" /></div></div><p>
+</p></div><div class="sect2" title="3.8.2. TrueType Font Selection"><div class="titlepage"><div><div><h3 class="title"><a id="conc-text-fonts"></a>3.8.2. TrueType Font Selection</h3></div></div></div><p>
+PHPlot text can use built-in GD fonts or TrueType fonts. When using GD
+fonts, you specify a font name as a number between 1 and 5. This selects
+from 5 built-in GD fonts.
+When using TrueType fonts, you need to specify a font filename.
+The rest of this section discusses only TrueType fonts.
+</p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+The material on specifying font files for PHPlot applies to releases
+starting with PHPlot-5.1.3. Through PHPlot-5.1.2, you generally need to specify
+the full pathname of a font file, or the full path of a font directory.
+  </p></div><p>
+On Windows systems, you need to use the font filename, not the font name.
+You can get the font filename using Control Panel - Fonts.
+For example, Windows applications may display "Arial Black", or "Arial
+Black (TrueType)" as a font name, but the actual font filename is "ariblk.ttf".
+Since GD knows to look for fonts in the Windows font directory, you will
+not need to specify a full pathname to font files, unless the font is
+installed in some other directory.
+</p><p>
+On Windows, you can use the "Character Map" system tool to examine a font.
+This can also be used to find the Unicode character code of a special character.
+These will be displayed in hexadecimal, for example U+20AC for the Euro.
+See <a class="xref" href="conc-text.html#conc-text-special" title="3.8.4. Using Special Characters">Section 3.8.4, &#8220;Using Special Characters&#8221;</a>
+for more information on using special characters.
+</p><p>
+Here are some font selection examples for Windows:
+</p><pre class="programlisting"># For titles, use Arial Bold Italic at 14 points:
+   $plot-&gt;SetFontTTF('title', 'ARIALBI.TTF', 14)
+   # For X Title, use Verdana at 12 points:
+   $plot-&gt;SetFontTTF('x_title', 'VERDANA.TTF', 12)
+</pre><p>
+</p><p>
+On some Linux and similar systems, GD is able to find fonts specified
+without paths, but on other systems you will have to specify a font
+directory with either <a class="xref" href="SetTTFPath.html" title="SetTTFPath"><span class="refentrytitle">SetTTFPath</span></a> or as part of the
+font name in <a class="xref" href="SetFontTTF.html" title="SetFontTTF"><span class="refentrytitle">SetFontTTF</span></a>.
+If you specify a full pathname to a font, you must also supply the extension
+(.ttf); you may omit the extension when relying on GD to find the font.
+Remember that font filenames are case sensitive on most of these systems.
+</p><p>
+The font search path for GD (bundled with PHP) includes the following
+directories on Linux and similar systems:
+  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><code class="filename">/usr/X11R6/lib/X11/fonts/TrueType</code></p></li><li class="listitem"><p><code class="filename">/usr/X11R6/lib/X11/fonts/truetype</code></p></li><li class="listitem"><p><code class="filename">/usr/X11R6/lib/X11/fonts/TTF</code></p></li><li class="listitem"><p><code class="filename">/usr/share/fonts/TrueType</code></p></li><li class="listitem"><p><code class="filename">/usr/share/fonts/truetype</code></p></li><li class="listitem"><p><code class="filename">/usr/openwin/lib/X11/fonts/TrueType</code></p></li></ul></div><p>
+If your system has TrueType fonts in one of those directories, you can
+select them with a filename only. If not, you must use a full directory path
+in either the font name or with SetTTFPath.
+</p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+The environment variable <code class="envar">GDFONTPATH</code> can be defined to
+contain a list of directories (separated by a colon ':') to search for
+fonts. If defined, this replaces the above list.
+  </p></div><p>
+Your Linux system may include a tool for examining fonts. One such tool is
+<span class="application">gucharmap</span>.
+This can also be used to find the Unicode character code of a special character.
+These may be displayed in hexadecimal, for example U+20AC for the Euro.
+See the next section for more information on using special characters.
+</p><p>
+Here are some font selection examples for Linux:
+</p><pre class="programlisting"># On systems with fonts in an expected place, like Slackware Linux,
+   # just use the font filename:
+   # For titles, use Liberation Sans Bold Italic at 14 points:
+   $plot-&gt;SetFontTTF('title', 'LiberationSans-BoldItalic.ttf', 14)
+   # For X Title, use DejaVuSans Bold at 12 points:
+   $plot-&gt;SetFontTTF('x_title', 'DejaVuSans-Bold.ttf', 12)
+
+   # Ubuntu and Debian use subdirectories under a searched path.
+   # You can use a partial path here.
+   $plot-&gt;SetFontTTF('x_title', 'ttf-liberation/LiberationSans-Regular.ttf', 12)
+
+   # Fedora uses subdirectories which are not under a searched path.
+   # You must use full paths here.
+   $plot-&gt;SetTTFPath('/usr/share/fonts/liberation/');
+   $plot-&gt;SetFontTTF('x_title', 'LiberationSans-Regular.ttf', 12)
+</pre><p>
+</p></div><div class="sect2" title="3.8.3. Default TrueType Font"><div class="titlepage"><div><div><h3 class="title"><a id="conc-text-defaultfont"></a>3.8.3. Default TrueType Font</h3></div></div></div><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+This section applies starting with PHPlot-5.1.3.
+  </p></div><p>
+If you try to use TrueType text without specifying a font name, PHPlot will
+use the default font. You can set the default font with
+<a class="xref" href="SetDefaultTTFont.html" title="SetDefaultTTFont"><span class="refentrytitle">SetDefaultTTFont</span></a>. If you do not set a default font,
+PHPlot tries to locate a sans-serif font to use. Here are the font names
+that PHPlot tries in order. First it tries the filename alone, letting GD
+use its search path, and then it tries with the default font path, as set
+with <a class="xref" href="SetTTFPath.html" title="SetTTFPath"><span class="refentrytitle">SetTTFPath</span></a>.
+  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+<code class="filename">LiberationSans-Regular.ttf</code>
+- Likely to work on Linux and other systems with a correct GD font search path.
+      </p></li><li class="listitem"><p>
+<code class="filename">Verdana.ttf, Arial.ttf, Helvetica.ttf</code>
+- One of these is going to work on Windows, maybe other systems too.
+      </p></li><li class="listitem"><p>
+<code class="filename">ttf-liberation/LiberationSans-Regular.ttf</code>
+- This is for Debian, Ubuntu, and similar.
+      </p></li><li class="listitem"><p>
+<code class="filename">benjamingothic.ttf</code>
+- The original PHPlot default, for compatibility.
+      </p></li></ul></div><p>
+The last item on the list is used regardless of whether it can be found or
+not. This means if you enable TrueType fonts without setting a default, and
+get a fatal error from PHPlot that it can't find the font benjamingothic.ttf,
+this means PHPlot was unable to find any of the standard fonts in its list.
+On that system, then, you must provide either a font directory, or use full
+font pathnames.
+</p></div><div class="sect2" title="3.8.4. Using Special Characters"><div class="titlepage"><div><div><h3 class="title"><a id="conc-text-special"></a>3.8.4. Using Special Characters</h3></div></div></div><p>
+You can include special characters in your PHPlot labels and titles. This
+refers to characters which you may not be able to type with a single key
+on your keyboard, including accented characters and special symbols.
+</p><p>
+PHPlot itself does not do any special processing of text strings, so you
+should refer to the PHP GD and Image Functions reference for more
+information.
+</p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+This mostly only works with TrueType fonts. The built-in GD fonts do
+have some extended characters, but they are encoded in ISO8859-2 which is
+probably not what you might expect, and the GD font routines do not support
+special character entities.
+  </p></div><p>
+To use special characters in your PHPlot text strings, you need a TrueType
+font that contains the characters you want. Ideally, you want a Unicode
+font. You might have to examine the font using an operating system-specific
+tool to see if your characters are present and to find their numeric values.
+</p><p>
+There are two basic ways to include special characters in your text
+strings. The examples below use the Euro character, which is decimal
+Unicode value 8364.
+</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+Use HTML-type character entities with decimal numeric encoding. For
+example, the Unicode Euro symbol is: &amp;#8364;
+    </p></li><li class="listitem"><p>
+Include the UTF-8 encoding of the Unicode value in your string as a series
+of hex escapes. For example, the Euro symbol is: "\xe2\x82\xac".
+    </p></li></ul></div><p>
+</p><p>
+These are shown in the example below, both of which set the Y axis title to
+"Items per &#8364;100".
+</p><pre class="programlisting">$plot-&gt;SetYTitle("Items per &amp;#8364;100"); # Numeric character entity
+  $plot-&gt;SetYTitle("Items per \xe2\x82\xac100"); # UTF-8 encoding
+</pre><p>
+</p><p>
+You can also use PHP functions to encode your characters for including in
+PHPlot text strings. See the PHP documentation for the functions
+<code class="function">html_entity_decode()</code>
+and <code class="function">iconv()</code>.
+Here are some examples (sent in by Sourceforge user 'kalvaro'):
+</p><pre class="programlisting"># Encode the Euro symbol into UTF-8:
+$chars = html_entity_decode('&amp;euro;', ENT_NOQUOTES, 'UTF-8');
+
+# Use iconv() to convert a character value xA4 in ISO-8859-15 to UTF:
+$chars = iconv('iso-8859-15', 'utf-8', chr(0xA4));
+</pre><p>
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="conc-otherelements.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="concepts.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="conc-errors.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.7. Other Plot Elements </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3.9. Error Handling</td></tr></table></div></body></html>

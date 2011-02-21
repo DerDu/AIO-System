@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>GetDeviceXY</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="GetCallback.html" title="GetCallback" /><link rel="next" href="PHPlot.html" title="PHPlot" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">GetDeviceXY</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="GetCallback.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="PHPlot.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="GetDeviceXY"><a id="GetDeviceXY"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">GetDeviceXY</span></h2><p>GetDeviceXY &#8212; Translate world coordinates into device coordinates</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">list($x, $y) = $plot-&gt;GetDeviceXY(<em class="parameter"><code>$x_world</code></em>, <em class="parameter"><code>$y_world</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2598548"></a><h2>Description</h2><p>
+<code class="function">GetDeviceXY</code> translates values in
+<a class="link" href="concepts.html#def-worldcoor">world coordinates</a> into
+values in <a class="link" href="concepts.html#def-devcoor">device coordinates</a>.
+This is useful if you want to annotate a plot with text or graphics
+positioned relative to specific data values. Given the coordinates of a
+point in the coordinate space of your data values, this function returns
+the pixel coordinates of that point in the image.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2598584"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$x_world</code></em></span></dt><dd><p>
+The X coordinate to translate from world coordinates.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$y_world</code></em></span></dt><dd><p>
+The Y coordinate to translate from world coordinates.
+          </p></dd></dl></div></div><div class="refsect1" title="Return Value"><a id="id2598624"></a><h2>Return Value</h2><p>
+Returns an array of two values ($x, $y) in device coordinates which
+correspond to the world coordinate parameters.
+    </p></div><div class="refsect1" title="Notes"><a id="id2598636"></a><h2>Notes</h2><p>
+This function only works after scaling factors have been established, which
+happens in <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>. So it can only be used in two cases:
+      </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+From a drawing callback (see <a class="xref" href="callbacks.html" title="4.3. Callbacks">Section 4.3, &#8220;Callbacks&#8221;</a>) - that is, a
+callback whose name starts with 'draw'.
+          </p></li><li class="listitem"><p>
+If <a class="xref" href="SetPrintImage.html" title="SetPrintImage"><span class="refentrytitle">SetPrintImage</span></a>(False) is used to disable automatic
+output of the image file, then <code class="function">GetDeviceXY()</code> can be
+used after <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> returns.
+          </p></li></ul></div><p>
+    </p><p>
+<code class="function">GetDeviceXY()</code> will fail with an error message if it
+is called before scaling is set up.
+    </p><p>
+If the world coordinates represent a point that is not visible on the plot,
+the returned device coordinates will be outside the plot area, or even
+outside the image area.
+    </p><p>
+To see how this can be used in callbacks,
+see <a class="xref" href="callbacks.html#callbacks-drawing" title="4.3.5. Using Callbacks to Annotate Plots">Section 4.3.5, &#8220;Using Callbacks to Annotate Plots&#8221;</a>.
+    </p></div><div class="refsect1" title="History"><a id="id2598724"></a><h2>History</h2><p>
+This function was added in PHPlot-5.1.0.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="GetCallback.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PHPlot.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">GetCallback </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> PHPlot</td></tr></table></div></body></html>

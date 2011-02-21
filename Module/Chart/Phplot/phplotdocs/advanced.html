@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>Chapter 4. PHPlot Advanced Topics</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="part1.html" title="Part I. PHPlot Programming" /><link rel="prev" href="conc-errors.html" title="3.9. Error Handling" /><link rel="next" href="conc-truecolor.html" title="4.2. Truecolor Images" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 4. PHPlot Advanced Topics</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="conc-errors.html">Prev</a> </td><th width="60%" align="center">Part I. PHPlot Programming</th><td width="20%" align="right"> <a accesskey="n" href="conc-truecolor.html">Next</a></td></tr></table><hr /></div><div class="chapter" title="Chapter 4. PHPlot Advanced Topics"><div class="titlepage"><div><div><h2 class="title"><a id="advanced"></a>Chapter 4. PHPlot Advanced Topics</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This chapter documents advanced PHPlot programming topics, going beyond the
+material in <a class="xref" href="concepts.html" title="Chapter 3. PHPlot Concepts">Chapter 3, <i>PHPlot Concepts</i></a>.
+  </p></div><div class="sect1" title="4.1. Custom PHPlot Class"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="adv-customclass"></a>4.1. Custom PHPlot Class</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This section describes how to create a custom PHPlot class.
+  </p></div><p>
+If you have a number of applications that use PHPlot, and you want to
+standardize some of the PHPlot default settings, you can define your
+own class which extends the PHPlot class and changes the default settings.
+Here is a short example of a custom PHPlot class, which changes the
+following defaults:
+  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>Use a TrueType font for all text</p></li><li class="listitem"><p>Change the default image size to 800 x 600</p></li><li class="listitem"><p>Change the default title colors to red</p></li></ul></div><p>
+</p><p>
+To extend the PHPlot class, declare your class as shown below. Make sure
+your class constructor calls the PHPlot class constructor before changing
+any settings.
+</p><pre class="programlisting">&lt;?php
+# Define a custom PHPlot class
+
+// Load the PHPlot class first
+require_once 'phplot.php';
+
+// Define a class which extends PHPlot:
+class my_phplot extends PHPlot {
+  function __construct($width=800, $height=600, $out=NULL, $in=NULL)
+  {
+    parent::__construct($width, $height, $out, $in);
+    $this-&gt;SetDefaultTTFont('LiberationSans-Bold'); // System dependent
+    $this-&gt;SetTitleColor('red');
+  }
+}
+</pre><p>
+</p><p>
+To use this custom PHPlot class, use <code class="literal">require_once</code> to
+include the file containing the class definition, then create an instance
+of the custom class.
+</p><pre class="programlisting">$plot = new my_phplot();
+</pre><p>
+You can then use the <code class="literal">$plot</code> object exactly the same as
+you might use any other PHPlot object.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="conc-errors.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="part1.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="conc-truecolor.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.9. Error Handling </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.2. Truecolor Images</td></tr></table></div></body></html>

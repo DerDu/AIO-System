@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetNumberFormat</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetMarginsPixels.html" title="SetMarginsPixels" /><link rel="next" href="SetNumXTicks.html" title="SetNumXTicks" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetNumberFormat</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetMarginsPixels.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetNumXTicks.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetNumberFormat"><a id="SetNumberFormat"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetNumberFormat</span></h2><p>SetNumberFormat &#8212; Set the separators used when formatting number labels</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetNumberFormat(<em class="parameter"><code>$decimal_point</code></em>, <em class="parameter"><code>$thousands_sep</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2606163"></a><h2>Description</h2><p>
+<code class="function">SetNumberFormat</code> sets the separator characters used when
+formatting number labels. Labels are formatted as numbers when the 'data'
+format type is selected with
+<a class="xref" href="SetXLabelType.html" title="SetXLabelType"><span class="refentrytitle">SetXLabelType</span></a> or <a class="xref" href="SetYLabelType.html" title="SetYLabelType"><span class="refentrytitle">SetYLabelType</span></a>.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2606194"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$decimal_point</code></em></span></dt><dd><p>
+The character used as a decimal point, to separate the integer part of the
+label from the fraction part.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$thousands_sep</code></em></span></dt><dd><p>
+The character used as a thousands grouping separator (placed between every
+group of 3 digits left of the decimal point).
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2606236"></a><h2>Notes</h2><p>
+These separators are only used for labels when 'data' mode formatting is
+selected with
+<a class="xref" href="SetXLabelType.html" title="SetXLabelType"><span class="refentrytitle">SetXLabelType</span></a> or <a class="xref" href="SetYLabelType.html" title="SetYLabelType"><span class="refentrytitle">SetYLabelType</span></a>.
+    </p><p>
+If <code class="function">SetNumberFormat</code> is not used, PHPlot attempts to get
+the proper separator characters from your system locale. If this works and
+your locale is set correctly, you will probably not need to use this function.
+If locale information is not available, the default for decimal_point is
+a period, and the default for thousands_sep is a comma.
+    </p><p>
+If your system locale is set to "C" or "POSIX", you might find that there
+are no thousands separators in your formatted labels. This is the correct
+behavior for those locales. If you cannot select a more specific locale,
+use <code class="function">SetNumberFormat</code> to set the correct separators.
+    </p><p>
+To set the number of decimal places, use
+<a class="xref" href="SetPrecisionX.html" title="SetPrecisionX"><span class="refentrytitle">SetPrecisionX</span></a> and <a class="xref" href="SetPrecisionY.html" title="SetPrecisionY"><span class="refentrytitle">SetPrecisionY</span></a>.
+    </p><p>
+If you are trying to force a specific locale with setlocale(), it will not
+work, because PHPlot uses setlocale(LC_ALL, '') to import locale
+information from the system, and this overrides a forced locale from your
+script. On non-Windows platforms, you can force a locale using environment
+variables, but this does not work on Windows. To address this,
+PHPlot has (see the History section below) a special member variable
+<em class="parameter"><code>locale_override</code></em> that prevents PHPlot from importing
+locale settings from the system. For example, if the following code is used,
+numeric formatting will use the fr_CA locale settings, regardless of
+the system locale.
+      </p><pre class="programlisting">setlocale(LC_ALL, 'fr_CA');  # On Windows use: 'French_Canada'
+$plot = new PHPlot(800, 600);
+$plot-&gt;locale_override = True;
+</pre><p>
+    </p></div><div class="refsect1" title="History"><a id="id2606332"></a><h2>History</h2><p>
+The <em class="parameter"><code>locale_override</code></em> hook was added in PHPlot-5.1.0.
+Before that, there was no way to force a specific locale on Windows, and on
+other platforms a locale could be forced only by using environment variables.
+The hook was added primarily for testing on Windows, but could be needed in
+other situations too.
+    </p><p>
+This function was added to PHPlot-5.0.4. Versions up to and including 5.0rc3
+always used a period for decimal point, and comma for thousands separator.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetMarginsPixels.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetNumXTicks.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetMarginsPixels </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetNumXTicks</td></tr></table></div></body></html>

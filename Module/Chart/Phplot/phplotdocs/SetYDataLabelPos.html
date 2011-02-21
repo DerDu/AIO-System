@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetYDataLabelPos</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetYDataLabelAngle.html" title="SetYDataLabelAngle" /><link rel="next" href="SetYDataLabelType.html" title="SetYDataLabelType" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetYDataLabelPos</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetYDataLabelAngle.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetYDataLabelType.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetYDataLabelPos"><a id="SetYDataLabelPos"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetYDataLabelPos</span></h2><p>SetYDataLabelPos &#8212; Position and control Y data labels</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetYDataLabelPos(<em class="parameter"><code>$ydlp</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2614863"></a><h2>Description</h2><p>
+<code class="function">SetYDataLabelPos</code> determines if and where Y data labels
+are drawn.
+For horizontal plots, these are Y axis data labels, which display the label
+strings from your data array.
+The labels can be drawn at the left side of the plot (left of the Y axis),
+on the right side, in both positions, or neither.
+For vertical plots, these are Y data value labels, displaying the value of the
+data point within the plot area.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2614886"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$ydlp</code></em></span></dt><dd><p>
+A string indicating the desired position for the Y data labels:
+            </p><div class="informaltable"><table summary="Y data label position choices" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Position</th><th>Description</th></tr></thead><tbody><tr><td>plotleft</td><td>Data labels left of the plot.
+                        This is for horizontal plots.</td></tr><tr><td>plotright</td><td>Data labels right of the plot.
+                        This is for horizontal plots.</td></tr><tr><td>both</td><td>Data labels both left and right of the plot.
+                        This is for horizontal plots.</td></tr><tr><td>plotin</td><td>Data value labels within the plot area.
+                        For bar charts, this displays the value above (or
+                        below) each bar.
+                        For stacked bar charts, this displays only the bar total
+                        labels and not the bar segment labels.
+                        For other plot types, see notes below.
+                    </td></tr><tr><td>plotstack</td><td>Data value labels above (or below) each bar, and
+                      below the top of each bar segment.
+                      This is valid for vertical stacked bar plots only.
+                      It turns on both bar total labels (as with 'plotin')
+                      and bar segment labels.
+                    </td></tr><tr><td>none</td><td>No data labels or data value labels</td></tr></tbody></table></div><p>
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2615034"></a><h2>Notes</h2><p>
+With vertical plots, this function controls the Y data value labels.
+For examples, see <a class="xref" href="ex-bars4.html#example-bars4" title="Example 5.19. Bar Chart with Data Value Labels">Example 5.19, &#8220;Bar Chart with Data Value Labels&#8221;</a>,
+<a class="xref" href="ex-stackedbars3.html#example-stackedbars3" title="Example 5.20. Stacked Bars with Y Data Value Labels">Example 5.20, &#8220;Stacked Bars with Y Data Value Labels&#8221;</a>,
+and <a class="xref" href="ex-linepoints2.html#example-linepoints2" title="Example 5.33. Linepoints Plot with Data Value Labels">Example 5.33, &#8220;Linepoints Plot with Data Value Labels&#8221;</a>.
+With horizontal plots, this function controls the Y axis data labels.
+For examples, see <a class="xref" href="ex-horizbar.html#example-horizbar" title="Example 5.27. Horizontal Bar Chart">Example 5.27, &#8220;Horizontal Bar Chart&#8221;</a> 
+and <a class="xref" href="ex-horizstackedbar.html#example-horizstackedbar" title="Example 5.28. Horizontal Stacked Bar Chart">Example 5.28, &#8220;Horizontal Stacked Bar Chart&#8221;</a>,
+where the labels are enabled by default and displayed to the left of the Y axis.
+    </p><p>
+The default position for Y data labels (for horizontal plots) is left of the plot.
+However, PHPlot only enables the data labels if SetYDataLabelPos was used to
+position them, or if <a class="xref" href="SetYTickLabelPos.html" title="SetYTickLabelPos"><span class="refentrytitle">SetYTickLabelPos</span></a> was not used to
+enable the tick labels and the data labels are not all empty.
+    </p><p>
+The default position for Y data value labels (for vertical plots) is 'none',
+meaning no labels.
+For plot types 'bars' and 'stackedbars', Y data value labels are drawn
+(if enabled) at fixed positions within or above/below the bars.
+For plot types 'lines', 'points', 'linepoints', and 'squared', Y data labels
+are drawn (if enabled) above the data points by default.
+The position can be changed (see <a class="xref" href="conc-tuning.html#conc-tuning-labels" title="4.5.4. Label Tuning">Section 4.5.4, &#8220;Label Tuning&#8221;</a>), but
+PHPlot does not attempt to prevent interference between the labels and
+other plot elements.
+Y data value labels are not available with other plot types.
+    </p><p>
+For tick labels, see <a class="xref" href="SetYTickLabelPos.html" title="SetYTickLabelPos"><span class="refentrytitle">SetYTickLabelPos</span></a>.
+    </p><p>
+The bar segment labels, if enabled ('plotstack'), are drawn inside the bars
+and may not be very visible if dark colors are used for the bar fill.
+Bar segment labels will be omitted for segments which are too narrow.
+    </p><p>
+Y data value labels will be drawn below the bars for negative values.
+This only applies to vertical bar charts.
+Stacked bar charts are not allowed to have negative values.
+    </p><p>
+The Y data label text angle is set with <a class="xref" href="SetYDataLabelAngle.html" title="SetYDataLabelAngle"><span class="refentrytitle">SetYDataLabelAngle</span></a>.
+The Y data label text format can be controlled with
+<a class="xref" href="SetYDataLabelType.html" title="SetYDataLabelType"><span class="refentrytitle">SetYDataLabelType</span></a> or <a class="xref" href="SetYLabelType.html" title="SetYLabelType"><span class="refentrytitle">SetYLabelType</span></a>.
+    </p></div><div class="refsect1" title="History"><a id="id2615155"></a><h2>History</h2><p>
+Through PHPlot-5.2.0, data value labels were only available for bars and
+stackedbars plot types.
+Starting with PHPlot-5.3.0, data value labels are also implemented for
+lines, points, linepoints, and squared plot types.
+    </p><p>
+Horizontal plot types were added in PHPlot-5.1.2 and PHPlot-5.1.3, and
+the Y Data Labels were extended to include the Y axis data labels for
+horizontal plots in addition to the data value labels for vertical plots.
+    </p><p>
+The data value label feature for stacked bar graphs was added in PHPlot-5.1.1.
+    </p><p>
+The data value label feature for bar graphs was added to PHPlot-5.0rc3.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetYDataLabelAngle.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetYDataLabelType.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetYDataLabelAngle </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetYDataLabelType</td></tr></table></div></body></html>

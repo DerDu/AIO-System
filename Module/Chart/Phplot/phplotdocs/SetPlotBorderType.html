@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetPlotBorderType</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetPlotBgColor.html" title="SetPlotBgColor" /><link rel="next" href="SetPlotType.html" title="SetPlotType" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetPlotBorderType</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetPlotBgColor.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetPlotType.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetPlotBorderType"><a id="SetPlotBorderType"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetPlotBorderType</span></h2><p>SetPlotBorderType &#8212; Control how much of a border is drawn around the plot</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetPlotBorderType(<em class="parameter"><code>$pbt</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2607535"></a><h2>Description</h2><p>
+<code class="function">SetPlotBorderType</code> controls how much of a border is
+drawn around the plot. By default, left and right side borders are drawn.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2607553"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$pbt</code></em></span></dt><dd><p>
+A string or array indicating where to draw the plot borders. If a string,
+it must be one of the following values:
+            </p><div class="informaltable"><table summary="Border position values" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Value</th><th>Description</th></tr></thead><tbody><tr><td>bottom</td><td>Border on bottom plot</td></tr><tr><td>full</td><td>Border on all four sides of the plot</td></tr><tr><td>left</td><td>Border on left side of plot</td></tr><tr><td>none</td><td>No plot area border</td></tr><tr><td>right</td><td>Border on right side of plot</td></tr><tr><td>sides</td><td>Border on left and right sides of plot</td></tr><tr><td>top</td><td>Border on top of plot</td></tr></tbody></table></div><p>
+An array of strings can be used. Each element in the array must be one of
+the above values. For example, use either
+<code class="literal">array('left', 'right', 'bottom')</code>
+or <code class="literal">array('sides', 'bottom')</code>
+to get a plot border on the sides and bottom but not the top.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2607714"></a><h2>Notes</h2><p>
+Plot border color is set by <a class="xref" href="SetGridColor.html" title="SetGridColor"><span class="refentrytitle">SetGridColor</span></a> (this color
+also applies to the axes and other elements).
+The default color is black.
+    </p><p>
+The X and Y axis lines and the plot border are all drawn in the same color.
+Usually, the X axis line is drawn at the bottom of the plot area, and the Y
+axis line is drawn on the left side of the plot area.
+(See <a class="xref" href="SetXAxisPosition.html" title="SetXAxisPosition"><span class="refentrytitle">SetXAxisPosition</span></a> and <a class="xref" href="SetYAxisPosition.html" title="SetYAxisPosition"><span class="refentrytitle">SetYAxisPosition</span></a>
+for more information on the axis positions.)
+Enabling or disabling a plot border edge that corresponds to an axis line will
+have no visible effect because the axis line will be drawn there.
+    </p></div><div class="refsect1" title="History"><a id="id2607754"></a><h2>History</h2><p>
+Through PHPlot-5.1.1, the available choices were 'left', 'sides', 'full', or
+'none', and only a single string option was supported.
+Starting with PHPlot-5.1.2, the additional choices 'right', 'top', and
+'bottom' were added, as well as the ability to pass an array of choices.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetPlotBgColor.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetPlotType.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetPlotBgColor </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetPlotType</td></tr></table></div></body></html>

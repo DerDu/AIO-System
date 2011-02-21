@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetDrawXAxis</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetDrawPlotAreaBackground.html" title="SetDrawPlotAreaBackground" /><link rel="next" href="SetDrawXDataLabelLines.html" title="SetDrawXDataLabelLines" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetDrawXAxis</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetDrawPlotAreaBackground.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetDrawXDataLabelLines.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetDrawXAxis"><a id="SetDrawXAxis"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetDrawXAxis</span></h2><p>SetDrawXAxis &#8212; Enable or disable drawing of the X axis line</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetDrawXAxis(<em class="parameter"><code>$draw</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2601774"></a><h2>Description</h2><p>
+<code class="function">SetDrawXAxis</code> enables or disables drawing of the X axis
+line. Disabling the X axis line should be necessary only in special
+applications.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2601792"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$draw</code></em></span></dt><dd><p>
+True to draw the X axis line, False to not draw the X axis line.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2601817"></a><h2>Notes</h2><p>
+By default, the X axis line is drawn.
+    </p><p>
+Disabling the X axis line does not disable associated plot elements, nor
+change the plot margin calculation.  To produce a completely 'bare' plot,
+you must turn off the grid, tick marks, tick labels, and data labels.  You
+also need to turn off the plot area border, which defaults to left and
+right sides.  Lastly, you might want to reduce the margins, since the
+default minimum margin is 15 pixels on each side of the plot area, even if
+there are no axis lines, labels, or titles.  Here is an example:
+</p><pre class="programlisting">// 'Bare' plot partial code example
+$plot-&gt;SetXTickPos('none');          // Turn off X tick marks
+$plot-&gt;SetXTickLabelPos('none');     // Turn off X tick labels
+$plot-&gt;SetXDataLabelPos('none');     // Turn off X data labels
+$plot-&gt;SetYTickPos('none');          // Turn off Y tick marks
+$plot-&gt;SetYTickLabelPos('none');     // Turn off Y tick labels
+$plot-&gt;SetPlotBorderType('none');    // Turn off plot area border
+$plot-&gt;SetDrawXGrid(False);          // Turn off X grid lines
+$plot-&gt;SetDrawYGrid(False);          // Turn off Y grid lines
+$plot-&gt;SetDrawXAxis(False);          // Don't draw X axis line
+$plot-&gt;SetDrawYAxis(False);          // Don't draw Y axis line
+$plot-&gt;SetMarginsPixels(2, 2, 2, 2); // Reduce plot margins to 2 pixels
+</pre><p>
+    </p><p>
+See <a class="xref" href="ex-truecolor-histogram.html" title="5.24. Example - Using Truecolor To Make a Histogram">Section 5.24, &#8220;Example - Using Truecolor To Make a Histogram&#8221;</a> for an example of a plot
+where axis lines are not desired. (The configuration data as shown
+in the example draws a full plot area border, so the axis lines would be
+covered anyway. But if the border is turned off, the axis lines would be
+visible unless they are suppressed as shown.)
+    </p></div><div class="refsect1" title="History"><a id="id2601873"></a><h2>History</h2><p>
+This function was added in PHPlot-5.3.0.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetDrawPlotAreaBackground.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetDrawXDataLabelLines.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetDrawPlotAreaBackground </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetDrawXDataLabelLines</td></tr></table></div></body></html>

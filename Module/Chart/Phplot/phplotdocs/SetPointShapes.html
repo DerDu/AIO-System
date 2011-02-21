@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetPointShapes</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetPlotType.html" title="SetPlotType" /><link rel="next" href="SetPointSizes.html" title="SetPointSizes" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetPointShapes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetPlotType.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetPointSizes.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetPointShapes"><a id="SetPointShapes"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetPointShapes</span></h2><p>SetPointShapes &#8212; Select a point shape for each data set</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetPointShapes(<em class="parameter"><code>$pt</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2607990"></a><h2>Description</h2><p>
+<code class="function">SetPointShapes</code> assigns a point shape to each data set
+in a plot.
+'Point' here refers to the marker drawn at each data point in 'points' and
+'linepoints' type plots.
+For example, if each data row contains 4 Y values, the first
+point shape will be used for the first Y value, the second point shape for
+the second Y value, etc. There are 20 point shapes to chose from.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2608011"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$pt</code></em></span></dt><dd><p>
+An array of point shape names, or a string naming a single point shape.
+If a string, that shape name is used for all data sets.
+If an array, the array values name the point shapes for each subsequent
+data set in a plot.
+The following shapes are available:
+            </p><div class="informaltable"><table summary="Available shape names" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Shape</th><th>Shape Name</th><th>Description</th></tr></thead><tbody><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-bowtie.png" alt="bowtie shape" /></span>
+                    </td><td>bowtie</td><td>Two filled triangles pointing right and left towards the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-box.png" alt="box shape" /></span>
+                    </td><td>box</td><td>A square outline centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-circle.png" alt="circle shape" /></span>
+                    </td><td>circle</td><td>A hollow circle centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-cross.png" alt="cross shape" /></span>
+                    </td><td>cross</td><td>An X centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-delta.png" alt="delta shape" /></span>
+                    </td><td>delta</td><td>A filled triangle pointing up, centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-diamond.png" alt="diamond shape" /></span>
+                    </td><td>diamond</td><td>A filled diamond (square rotated 45 degrees), centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-dot.png" alt="dot shape" /></span>
+                    </td><td>dot</td><td>A filled circle centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-down.png" alt="down shape" /></span>
+                    </td><td>down</td><td>An unfilled triangle pointing down, centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-halfline.png" alt="halfline shape" /></span>
+                    </td><td>halfline</td><td>A short line from the point going left.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-home.png" alt="home shape" /></span>
+                    </td><td>home</td><td>A filled 5-sided shape, centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-hourglass.png" alt="hourglass shape" /></span>
+                    </td><td>hourglass</td><td>Two filled triangles pointing up and down towards the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-line.png" alt="line shape" /></span>
+                    </td><td>line</td><td>A horizontal line centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-plus.png" alt="plus shape" /></span>
+                    </td><td>plus</td><td>A plus sign centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-rect.png" alt="rect shape" /></span>
+                    </td><td>rect</td><td>A filled square centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-star.png" alt="star shape" /></span>
+                    </td><td>star</td><td>Four lines crossing at the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-target.png" alt="target shape" /></span>
+                    </td><td>target</td><td>A square outline with two filled squares and two open squares, centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-triangle.png" alt="triangle shape" /></span>
+                    </td><td>triangle</td><td>A filled triangle pointing down from the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-trianglemid.png" alt="trianglemid shape" /></span>
+                    </td><td>trianglemid</td><td>A filled triangle pointing down to the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-up.png" alt="up shape" /></span>
+                    </td><td>up</td><td>An unfilled triangle pointing up, centered on the point.</td></tr><tr><td align="center"> 
+                      <span class="inlinemediaobject"><img src="images/shape-yield.png" alt="yield shape" /></span>
+                    </td><td>yield</td><td>A filled triangle pointing down, centered on the point.</td></tr><tr><td> </td><td>none</td><td>No marker (see notes).</td></tr></tbody></table></div><p>
+<a class="xref" href="ex-linepoints1.html#example-linepoints1" title="Example 5.7. Line/Point Plot, Point Shapes">Example 5.7, &#8220;Line/Point Plot, Point Shapes&#8221;</a> also shows all of the point shapes.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2608837"></a><h2>Notes</h2><p>
+If an array is used for <em class="parameter"><code>$pt</code></em>, it
+must use zero based sequential integer indexes. This is what the PHP manual 
+calls 'the usual integer indices (starting from zero, increasing by one)'.
+    </p><p>
+This applies only to 'points' and 'linepoints' plot types.
+    </p><p>
+By default, ten shapes are used in order:
+diamond, dot, delta, home, yield, box, circle, up, down, and cross.
+    </p><p>
+A point shape can be set to 'none' to suppress the point markers for that
+data set.
+This is only useful with 'linepoints' plot types, and results in a 'lines'
+plot type for that data set: a line only, but no markers.
+    </p><p>
+PHPlot duplicates the entries in the shorter of the two arrays,
+point sizes (set by <a class="xref" href="SetPointSizes.html" title="SetPointSizes"><span class="refentrytitle">SetPointSizes</span></a>) and point shapes,
+to make both arrays the same size. Then it uses the entries in order,
+restarting at the beginning, for each data set at each X value.
+For example, if point sizes is (6, 10), and point shapes is ('diamond',
+'dot', 'rect'), then PHPlot first extends point sizes to (6, 10, 6) to
+match the point shapes. If there are 4 data sets to plot, PHPlot draws the
+point markers at each X value as: diamond (size 6), dot (size 10),
+rect (size 6), diamond (size 6).
+    </p></div><div class="refsect1" title="History"><a id="id2608891"></a><h2>History</h2><p>
+Through PHPlot-5.0.7, these ten shapes were available: halfline, line, plus,
+cross, rect, circle, dot, diamond, triangle, trianglemid, and none. The
+default shape for all data sets was 'diamond'.
+Starting with PHPlot-5.1.0, ten new point shapes were added, and different shape
+defaults were assigned for ten data sets.
+To restore the behavior in PHPlot-5.0.7 and earlier, call
+<code class="literal">SetPointShapes('diamond')</code>.
+    </p><p>
+Using 'none' as a point shape was added in PHPlot-5.0rc3.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetPlotType.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetPointSizes.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetPlotType </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetPointSizes</td></tr></table></div></body></html>

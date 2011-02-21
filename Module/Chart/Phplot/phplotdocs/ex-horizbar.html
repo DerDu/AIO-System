@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>5.27. Example - Horizontal Bar Chart</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="examples.html" title="Chapter 5. PHPlot Examples" /><link rel="prev" href="ex-colorcallbackbars.html" title="5.26. Example - Custom Bar Colors Using the Data Color Callback" /><link rel="next" href="ex-horizstackedbar.html" title="5.28. Example - Horizontal Stacked Bar Chart" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.27. Example - Horizontal Bar Chart</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ex-colorcallbackbars.html">Prev</a> </td><th width="60%" align="center">Chapter 5. PHPlot Examples</th><td width="20%" align="right"> <a accesskey="n" href="ex-horizstackedbar.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="5.27. Example - Horizontal Bar Chart"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ex-horizbar"></a>5.27. Example - Horizontal Bar Chart</h2></div></div></div><p>
+This example shows a horizontal bar chart.
+As always, the X axis is horizontal, and the Y axis is vertical.
+But the data array contains the X value for each implicit Y.
+The data type 'text-data-yx' indicates this is a
+horizontal plot.
+</p><p>
+This example also has a tiled background image under the plot area.
+</p><div class="example"><a id="example-horizbar"></a><p class="title"><b>Example 5.27. Horizontal Bar Chart</b></p><div class="example-contents"><div class="informalfigure"><div class="mediaobject"><img src="examples/horizbar.png" alt="Horizontal Bar Chart Example" /></div></div><pre class="programlisting">&lt;?php
+# PHPlot Example - Horizontal Bars
+require_once 'phplot.php';
+
+$data = array(
+  array('San Francisco CA', 20.11),
+  array('Reno NV', 7.5),
+  array('Phoenix AZ', 8.3),
+  array('New York NY', 49.7),
+  array('New Orleans LA', 64.2),
+  array('Miami FL', 52.3),
+  array('Los Angeles CA', 13.2),
+  array('Honolulu HI', 18.3),
+  array('Helena MT', 11.3),
+  array('Duluth MN', 31.0),
+  array('Dodge City KS', 22.4),
+  array('Denver CO', 15.8),
+  array('Burlington VT', 36.1),
+  array('Boston MA', 42.5),
+  array('Barrow AL', 4.2),
+);
+
+$plot = new PHPlot(800, 800);
+$plot-&gt;SetImageBorderType('plain'); // Improves presentation in the manual
+$plot-&gt;SetTitle("Average Annual Precipitation (inches)\n"
+              . "Selected U.S. Cities");
+$plot-&gt;SetBackgroundColor('gray');
+#  Set a tiled background image:
+$plot-&gt;SetPlotAreaBgImage('images/drop.png', 'centeredtile');
+#  Force the X axis range to start at 0:
+$plot-&gt;SetPlotAreaWorld(0);
+#  No ticks along Y axis, just bar labels:
+$plot-&gt;SetYTickPos('none');
+#  No ticks along X axis:
+$plot-&gt;SetXTickPos('none');
+#  No X axis labels. The data values labels are sufficient.
+$plot-&gt;SetXTickLabelPos('none');
+#  Turn on the data value labels:
+$plot-&gt;SetXDataLabelPos('plotin');
+#  No grid lines are needed:
+$plot-&gt;SetDrawXGrid(FALSE);
+#  Set the bar fill color:
+$plot-&gt;SetDataColors('salmon');
+#  Use less 3D shading on the bars:
+$plot-&gt;SetShading(2);
+$plot-&gt;SetDataValues($data);
+$plot-&gt;SetDataType('text-data-yx');
+$plot-&gt;SetPlotType('bars');
+$plot-&gt;DrawGraph();
+</pre></div></div><br class="example-break" /></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ex-colorcallbackbars.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="examples.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ex-horizstackedbar.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.26. Example - Custom Bar Colors Using the Data Color Callback </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.28. Example - Horizontal Stacked Bar Chart</td></tr></table></div></body></html>

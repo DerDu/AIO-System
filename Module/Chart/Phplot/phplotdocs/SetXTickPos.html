@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetXTickPos</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetXTickLength.html" title="SetXTickLength" /><link rel="next" href="SetXTimeFormat.html" title="SetXTimeFormat" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetXTickPos</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetXTickLength.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetXTimeFormat.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetXTickPos"><a id="SetXTickPos"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetXTickPos</span></h2><p>SetXTickPos &#8212; Position the X tick marks</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetXTickPos(<em class="parameter"><code>$tp</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2613845"></a><h2>Description</h2><p>
+<code class="function">SetXTickPos</code> determines where (and if) the
+X tick marks are drawn. The tick marks can be drawn at the bottom of the plot,
+above the plot, in both positions, at the X axis (even if it is in the
+middle of the plot), or not drawn at all.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2613865"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$xtp</code></em></span></dt><dd><p>
+A string indicating the desired position for the X tick marks:
+            </p><div class="informaltable"><table summary="X tick position choices" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Position</th><th>Description</th></tr></thead><tbody><tr><td>plotdown</td><td>Tick marks below the plot</td></tr><tr><td>plotup</td><td>Tick marks above the plot</td></tr><tr><td>both</td><td>Tick marks both below and above the plot</td></tr><tr><td>xaxis</td><td>Tick marks at X axis (even if the axis is in
+                      the middle of the plot)</td></tr><tr><td>none</td><td>No tick marks</td></tr></tbody></table></div><p>
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2613990"></a><h2>Notes</h2><p>
+The default position for the X tick marks is below the plot.
+    </p><p>
+This applies only to tick marks.
+You may want the tick labels to be in the same positions as the tick
+marks.  To position the tick labels, see <a class="xref" href="SetXTickLabelPos.html" title="SetXTickLabelPos"><span class="refentrytitle">SetXTickLabelPos</span></a>.
+    </p><p>
+See <a class="xref" href="SetXAxisPosition.html" title="SetXAxisPosition"><span class="refentrytitle">SetXAxisPosition</span></a> for positioning the X axis.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetXTickLength.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetXTimeFormat.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetXTickLength </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetXTimeFormat</td></tr></table></div></body></html>

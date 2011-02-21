@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>Appendix A. Change Log</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="index.html" title="PHPlot Reference Manual" /><link rel="prev" href="dev-var-notes.html" title="10.2. Member Variable Notes" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix A. Change Log</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="dev-var-notes.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> </td></tr></table><hr /></div><div class="appendix" title="Appendix A. Change Log"><div class="titlepage"><div><div><h2 class="title"><a id="changelog"></a>Appendix A. Change Log</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This is the summary change log for the PHPlot Reference Manual.
+(For a more detailed list of changes, see the ChangeLog file
+in the manual's CVS repository.  For changes to PHPlot itself,
+see the ChangeLog file inside the PHPlot distribution.)
+  </p></div><div class="variablelist"><dl><dt><span class="term">2011-01-15</span></dt><dd><p>
+Released updated version of the manual to correspond to PHPlot-5.3.1.
+      </p></dd><dt><span class="term">2011-01-11</span></dt><dd><p>
+Added a new section in the Advanced chapter on placing multiple plots
+on an image, and added a new example of overlay plots.
+      </p></dd><dt><span class="term">2011-01-05</span></dt><dd><p>
+Added a short new section in the Advanced chapter showing how to extend
+the PHPlot class to customize default settings.
+      </p></dd><dt><span class="term">2010-12-26</span></dt><dd><p>
+New sub-section in Concepts chapter, Colors section, showing which function
+is used to set the color for each plot element.
+      </p></dd><dt><span class="term">2010-12-04</span></dt><dd><p>
+Released updated version of the manual to correspond to PHPlot-5.3.0.
+      </p></dd><dt><span class="term">2010-12-03</span></dt><dd><p>
+Document 2 new functions to control drawing of the axis lines.
+      </p></dd><dt><span class="term">2010-11-18</span></dt><dd><p>
+Restructuring.
+Too much advanced material was ending up in the basic programming chapter
+"Concepts". There is now a new chapter "Advanced", which includes the material
+on Callbacks (demoted from chapter to section), plus two sections previously
+in "Concepts": custom data color callback, and truecolor images.
+Also moved the Functions by Category chapter after Examples, not before.
+      </p><p>
+Added new section "Tuning Parameters" in the Advanced chapter, to provide
+more information about class variables that can be set to adjust plot
+appearance.
+      </p></dd><dt><span class="term">2010-11-16</span></dt><dd><p>
+Documented 3 new plot types - OHLC financial plots, with examples.
+      </p></dd><dt><span class="term">2010-10-03</span></dt><dd><p>
+Released updated version of the manual to correspond to PHPlot-5.2.0.
+      </p></dd><dt><span class="term">2010-09-30</span></dt><dd><p>
+Changes for new color processing. Mostly internal functions and methods,
+but also two new public methods were added for controlling title colors.
+      </p></dd><dt><span class="term">2010-09-27</span></dt><dd><p>
+Document new behavior of stackedbar plots with negative values.
+      </p></dd><dt><span class="term">2010-09-25</span></dt><dd><p>
+Changes for new X and Y axis position defaults.
+      </p></dd><dt><span class="term">2010-09-13</span></dt><dd><p>
+Documentation was added and changes made for horizontal plot types and their
+new data types.
+(This was previously an experimental feature, documented in a text file
+included in with the PHPlot release.)
+Three new examples were added, showing horizontal plot types.
+      </p><p>
+A terminology change was necessary due to the introduction of horizontal plots
+and dual use of Y data labels, which are now symmetrical with X data labels.
+Previously, <span class="emphasis"><em>data labels</em></span> referred to labels from the
+data array which were displayed along the X axis or top edge, and
+<span class="emphasis"><em>Y data labels</em></span> referred to the Y bar value labels
+displayed within the plot area.
+The manual now distinguishes these by type, not axis. <span class="emphasis"><em>Axis data
+labels</em></span> are labels from the data array which are displayed along the
+independent variable axis, and <span class="emphasis"><em>data value labels</em></span> show the
+value of a data point using the dependent variable. The general term
+<span class="emphasis"><em>data labels</em></span> is used to refer to both types of labels. (For
+example, SetXDataLabelAngle applies to data labels - both axis data labels
+and data value labels.)
+      </p></dd><dt><span class="term">2010-09-08</span></dt><dd><p>
+Changes were made throughout the manual to support production of a PDF
+version. The changes should have only a small impact on the HTML version.
+      </p></dd><dt><span class="term">2010-08-30</span></dt><dd><p>
+Released updated version of the manual to correspond to PHPlot-5.1.3.
+      </p></dd><dt><span class="term">2010-08-27</span></dt><dd><p>
+Rewrote and updated sections related to TrueType font handling. Starting
+after PHPlot-5.1.2 this works differently and hopefully better.
+      </p></dd><dt><span class="term">2010-08-19</span></dt><dd><p>
+Removed the Extra Data Processing section in the Concepts chapter, and
+removed the <code class="filename">phplot_data.php</code> file from the installation
+steps. This file has been removed from the release. (Reference bug report
+3048267.)
+      </p></dd><dt><span class="term">2010-07-29</span></dt><dd><p>
+Document the new data color customization callback with a new section in
+the Concepts chapter and two new examples.
+      </p></dd><dt><span class="term">2010-06-28</span></dt><dd><p>
+Released updated version of the manual to correspond to PHPlot-5.1.2.
+      </p></dd><dt><span class="term">2010-06-13</span></dt><dd><p>
+New section added to PHPlot Concepts chapter on using truecolor images. The
+reference and developer information were also updated, and a new example
+was added.
+      </p></dd><dt><span class="term">2010-05-30</span></dt><dd><p>
+Documented changes to image border and plot border functions.
+      </p></dd><dt><span class="term">2010-04-18</span></dt><dd><p>
+Added a new example to the examples chapter with a complete mini-application
+containing a web form and form handling script.
+      </p></dd><dt><span class="term">2010-04-03</span></dt><dd><p>
+Released updated version of the manual to correspond to PHPlot-5.1.1.
+      </p></dd><dt><span class="term">2010-03-25</span></dt><dd><p>
+Document new Y Data Labels for stacked bar charts.
+      </p><p>
+Document new plot type 'stackedarea'.
+      </p></dd><dt><span class="term">2009-12-24</span></dt><dd><p>
+Released updated version of the manual to correspond to PHPlot-5.1.0.
+      </p></dd><dt><span class="term">2009-12-14</span></dt><dd><p>
+Document 4 new functions and changes to existing functions related to new
+controls on data labels versus tick labels.
+      </p><p>
+Removed function list from Getting Started chapter, because it was out of
+date and duplicated material in another chapter.
+      </p></dd><dt><span class="term">2009-12-10</span></dt><dd><p>
+Added sections to the Concepts chapter about using TrueType fonts and
+special characters, because it didn't seem to have been documented anywhere
+else.
+      </p></dd><dt><span class="term">2009-11-18</span></dt><dd><p>
+Added a new section to the Callbacks chapter about using a callback for
+annotating a plot.
+This goes with a new example added to the Examples chapter.
+      </p></dd><dt><span class="term">2009-11-06</span></dt><dd><p>
+Added a new chapter to Part III Developer's Guide documenting the internal
+member class variables.
+The chapter on Callbacks has been moved from Part III up into Part I.
+      </p></dd><dt><span class="term">2009-10-12</span></dt><dd><p>
+Documented SetImageBorderType('none') and Set[XY]LabelType('').
+      </p></dd><dt><span class="term">2009-07-21</span></dt><dd><p>
+Updated SetNumberFormat to document a new hook variable to override locale,
+and fixed the example under SetXLabelType on rendering a Euro symbol.
+      </p></dd><dt><span class="term">2009-06-14</span></dt><dd><p>
+Released updated version of the manual to correspond to PHPlot-5.0.7.
+      </p><p>
+PHPlot license is now LGPL-2.1.
+      </p><p>
+Add information to SetRGBArray about using large and custom color maps.
+      </p><p>
+Updates to Developer's Guide and Reference sections to document new feature
+allowing partial margin specifications in SetMarginsPixels and
+SetPlotAreaPixels.
+      </p></dd><dt><span class="term">2009-01-21</span></dt><dd><p>
+Released updated version of the manual to correspond to PHPlot-5.0.6.
+      </p></dd><dt><span class="term">2008-09-21</span></dt><dd><p>
+Changes were made for the next PHPlot release, including new label
+formatting types and mixed GD/TTF text types.
+      </p></dd><dt><span class="term">2008-07-22</span></dt><dd><p>
+Reference sections were changed to add a History subsection, detailing
+behavior in previous releases. This information was previously in the Notes
+subsections, but is not usually relevant to users of the current release.
+      </p></dd><dt><span class="term">2008-01-12</span></dt><dd><p>
+Update copyright year to 2008.
+      </p><p>
+Updates to Part III, Developer's Guide for changes in internal functions
+used for text handling and margin/scale processing. Updated figure showing
+the plot layout.
+      </p><p>
+Added new chapter to Developer's Guide on the callbacks feature, and added
+documentation of the 3 public functions used with callbacks to the Function
+Reference. The text is based on the <code class="filename">Callbacks</code> file
+which was included with PHPlot-5.0.4 (and will removed in the next release).
+Although this is now documented in the manual,
+the callbacks feature is still considered experimental.
+      </p></dd><dt><span class="term">2007-11-22</span></dt><dd><p>
+Added new section to Concepts chapter on error handling.
+      </p></dd><dt><span class="term">2007-10-19</span></dt><dd><p>
+Released updated version of the manual to correspond to PHPlot-5.0.4, which
+should be released in the next few days.
+      </p><p>
+Added documentation for new function SetLegendStyle.
+      </p><p>
+Removed use of reference assignment (<code class="literal">=&amp;</code>)
+in all inline examples, external examples, and reference material when
+creating a PHPlot object. Added note to PHPlot constructor reference
+explaining why.
+      </p><p>
+Added documentation for new function SetNumberFormat.
+      </p><p>
+Added new Part III - PHPlot Developer's Guide. This includes two layout figures
+and a list of internal functions. This is mostly intended as reference
+material for maintainers of PHPlot, but may be of use to others as well.
+More text may be added to this part in the future.
+      </p><p>
+Document the requirement that style arrays use zero-based sequential integer
+indexes only. This includes colors, point shapes/sizes, line widths, and
+line styles.
+      </p></dd><dt><span class="term">2006-12-01</span></dt><dd><p>
+Released updated version of the manual to correspond to PHPlot-5.0rc3.
+Documented new Y data labels for bar charts and line/point suppression.
+Add a note on how to get borderless, unshaded bars (needed due to a recent
+bug fix).
+      </p><p>
+      </p><p>
+Updates were applied to the installation section to match the README
+included with 5.0rc3.  Minimum PHP level corrected to 4.3.0, and noted that
+PHP 5 works, as this has now been tested. Deleted note about included
+examples and documentation; these have been removed from the release.
+      </p><p>
+Three examples which use random data where changed to use a fixed seed,
+so the results are repeatable.
+      </p><p>
+A new example was added, showing a bar chart with data labels.
+      </p></dd><dt><span class="term">2006-11-11</span></dt><dd><p>
+Released manual dated 2006-11-11 to sourceforge.net. This is the first
+release of the manual on SourceForge. It corresponds to PHPlot-5.0rc2 with 
+several patches applied.
+      </p></dd><dt><span class="term">2006-09-24</span></dt><dd><p>
+Conversion of manual from DocBook-SGML to DocBook-XML. Reorganized, so the
+reference section is now alphabetical by function name, with a new chapter
+for category grouping of functions.
+      </p></dd><dt><span class="term">2005-02-27</span></dt><dd><p>
+Limited release of draft manual dated 2005-02-27.
+      </p></dd><dt><span class="term">2005-02-06</span></dt><dd><p>
+Limited release of draft manual dated 2005-02-06.
+      </p></dd></dl></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="dev-var-notes.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">10.2. Member Variable Notes </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

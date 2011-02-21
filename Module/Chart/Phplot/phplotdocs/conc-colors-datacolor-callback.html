@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>4.4. Custom Data Color Selection</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="advanced.html" title="Chapter 4. PHPlot Advanced Topics" /><link rel="prev" href="callbacks.html" title="4.3. Callbacks" /><link rel="next" href="conc-tuning.html" title="4.5. Tuning Parameters" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.4. Custom Data Color Selection</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="callbacks.html">Prev</a> </td><th width="60%" align="center">Chapter 4. PHPlot Advanced Topics</th><td width="20%" align="right"> <a accesskey="n" href="conc-tuning.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="4.4. Custom Data Color Selection"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="conc-colors-datacolor-callback"></a>4.4. Custom Data Color Selection</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This section describes customizing the selection of data colors using a
+PHPlot callback. The data color callback was added in PHPlot-5.1.3.
+  </p></div><div class="sect2" title="4.4.1. Standard Behavior of Data Color Selection"><div class="titlepage"><div><div><h3 class="title"><a id="conc-colors-datacolor-callback-standard"></a>4.4.1. Standard Behavior of Data Color Selection</h3></div></div></div><p>
+Before explaining how to customize data color selection, here is a review
+of how data color selection works by default.
+</p><p>
+Think of your data array as having rows and columns. The rows represent
+values of the independent variable (usually X), and the columns contain one
+or more values of the dependent variable (usually Y) for that value of the
+independent variable. For this discussion, ignore any additional entries in
+the data array, such as labels and X values.
+The set of values from a column in your data array is also referred to as a
+data set.
+</p><p>
+The standard behavior of PHPlot is to select a data color from the data
+colors array using the column index for the data point. The selected color
+will be used to draw a point marker, line segment, bar, etc.
+This was explained in <a class="xref" href="conc-colors.html#conc-colors-datacolors" title="3.5.3. Plotting Colors">Section 3.5.3, &#8220;Plotting Colors&#8221;</a>.
+</p><p>
+For example, if you have a data array with 12 rows and 3 columns for a bar
+chart, you are drawing 12 groups of 3 bars. Within each bar group, the first
+bar will be drawn with the first color in the data colors array (the color
+with index 0), the second bar will use the second color from
+the data colors array, and the third bar will use the third color.
+You can see this in <a class="xref" href="ex-bars1.html#example-bars1" title="Example 5.4. Bar Chart">Example 5.4, &#8220;Bar Chart&#8221;</a>, where the first three
+colors in the data colors array are SkyBlue, green, and orange.
+</p><p>
+There are two other color arrays: the error bar colors and data border
+colors. Error bar colors are used in error plots to indicate the positive
+and negative error range, and data border colors are used to outline bars
+in bar charts when 3D shading is off.
+The same index (but not necessarily the same color) is used to
+select the color for any of the three elements which are used in a plot.
+For example, the first data set in a points plot with error bars will use
+data color index 0 for the point markers, and error bar color index 0 for
+the error bars. The second bar in each group in an unshaded bar chart will
+use the second data color to fill the bar and the second data border color
+to outline it.
+</p><p>
+You can set the colors in the three color arrays with
+<a class="xref" href="SetDataColors.html" title="SetDataColors"><span class="refentrytitle">SetDataColors</span></a>, <a class="xref" href="SetErrorBarColors.html" title="SetErrorBarColors"><span class="refentrytitle">SetErrorBarColors</span></a>, and
+<a class="xref" href="SetDataBorderColors.html" title="SetDataBorderColors"><span class="refentrytitle">SetDataBorderColors</span></a>.
+PHPlot will pad all these arrays to the number of columns in your data
+array, by duplicating the earlier values. (For example, if you have 5 data
+sets and define 3 colors red, green, and blue, PHPlot will pad this to be a 5
+color array red, green, blue, red, green.)
+It will not truncate the arrays. This means you can define more data
+colors than there are data columns. These additional colors will not be
+used with the standard color selection method, but can be used with custom
+data color selection.
+</p></div><div class="sect2" title="4.4.2. Custom Data Color Selection"><div class="titlepage"><div><div><h3 class="title"><a id="conc-colors-datacolor-callback-custom"></a>4.4.2. Custom Data Color Selection</h3></div></div></div><p>
+If you need more control over data colors, you can use the PHPlot
+callback called <code class="literal">data_color</code>.
+(See <a class="xref" href="callbacks.html" title="4.3. Callbacks">Section 4.3, &#8220;Callbacks&#8221;</a> for general information about callbacks.)
+Some of the things you can do with custom data color selection are:
+  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+A bar chart with each bar having a different color.
+      </p></li><li class="listitem"><p>
+A linepoints plot with different colors for the line segments and the
+point markers.
+      </p></li><li class="listitem"><p>
+A bar chart where the bar color depends on the value of that data point.
+      </p></li></ul></div><p>
+</p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+Custom data color selection is not available for plot types
+<code class="literal">pie</code>, <code class="literal">area</code>, or
+<code class="literal">stackedarea</code>.
+These three plot types already provide full control over the data color
+selection, with no need for the callback function,
+because each color in the color array is only used once.
+  </p></div><p>
+To customize the use of data colors, you will define a function that
+accepts as arguments the data array row and column index numbers (0-based
+integers), and returns the color array index.  Register this function with
+PHPlot as a callback, and your function will be called whenever PHPlot
+needs to select a data color.
+</p><p>
+Note that your callback will return an array index, not a color value.
+For example, if it returns 0, the first color in the data colors array will
+be used, and the first color in the error bar colors array (if error bars
+are being drawn), and the first color in the data border colors array (if
+data borders are being drawn).
+You will most likely need to set up the data colors array (and possibly the
+error bar colors array and data border colors array too) in order to get
+the results you want.
+</p><p>
+A function to act as a data color callback might look like this:
+</p><pre class="programlisting">function pickcolor($img, $passthrough, $row, $col, $extra = 0)
+{
+  $color_index = ...;
+
+  return $color_index;
+}
+</pre><p>
+The first two arguments are common to all callbacks: the PHPlot image
+resource, and your passthrough argument (if any - see below).
+(You generally will not need to access the image resource from the data colors
+callback, but it is provided to all callbacks.)
+The second and third arguments specify which data value is being plotted.
+The $row corresponds to the independent variable (usually X), and
+$col corresponds to the data set - plot line, bar within a bar group, etc.
+Both $row and $col are zero based integers indexes.
+</p><p>
+Your callback is expected to return a color array index for this data
+point. This will be an integer greater than or equal to zero, where zero
+indicates the first color in the colors array should be used.
+Your returned index should be within the bounds of the color array being
+referenced, however PHPlot will use the value you return modulo the size of
+the array. For example, the default PHPlot data colors array has 16 colors.
+If your callback returns the value 20, the 5th color in the array will be
+used (because 20 % 16 = 4, and index 4 is the 5th value in the array).
+</p><p>
+The $extra argument to your callback is for extra information you may need
+to determine the color to use. Currently, this is only used for
+'linepoints' plots and 'linepoints' error plots. These plots are drawn in
+two stages: points and lines. In case you want different colors for the
+points and lines, use the $extra argument. It will have the value 1 when
+PHPlot is requesting the color of the point marker (shape), and the value
+will be 0 when requesting the color of the line segment.
+Note that the error bars of a linepoints error plot are drawn with the
+color index returned for the points (but using the error bars colors, not
+the data colors).
+</p><p>
+You do not need to specify the $extra argument in your callback function
+declaration if you do not need it. But if you do specify it, you must make
+it an optional argument with the value zero, because PHPlot does not always
+supply the value.
+</p><p>
+The above function would be established as a data color callback for a
+PHPlot object $plot like this:
+</p><pre class="programlisting">$plot-&gt;SetCallback('data_color', 'pickcolor', $passthru_arg);
+</pre><p>
+The first argument is the callback name, or 'reason':
+<code class="literal">data_color</code>.
+The second argument is the name of your callback function. An object and
+method can be used here instead - see <a class="xref" href="callbacks.html#callbacks-objects" title="4.3.4. Object Methods as Callbacks">Section 4.3.4, &#8220;Object Methods as Callbacks&#8221;</a>.
+The third argument is an optional pass-through value that will be sent to
+your callback function each time it is called.
+</p></div><div class="sect2" title="4.4.3. Custom Data Color Selection Examples"><div class="titlepage"><div><div><h3 class="title"><a id="conc-colors-datacolor-callback-examples"></a>4.4.3. Custom Data Color Selection Examples</h3></div></div></div><p>
+For examples of using a data color callback, see
+<a class="xref" href="ex-colorcallbackgradient.html" title="5.25. Example - Creative Use of the Data Color Callback">Section 5.25, &#8220;Example - Creative Use of the Data Color Callback&#8221;</a> and
+<a class="xref" href="ex-colorcallbackbars.html" title="5.26. Example - Custom Bar Colors Using the Data Color Callback">Section 5.26, &#8220;Example - Custom Bar Colors Using the Data Color Callback&#8221;</a>.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="callbacks.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="advanced.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="conc-tuning.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.3. Callbacks </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.5. Tuning Parameters</td></tr></table></div></body></html>

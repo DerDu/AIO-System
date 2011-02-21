@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>5.5. Example - Unshaded Bar Chart</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="examples.html" title="Chapter 5. PHPlot Examples" /><link rel="prev" href="ex-bars1.html" title="5.4. Example - Bar Chart" /><link rel="next" href="ex-bars3.html" title="5.6. Example - Bar Chart, Label Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.5. Example - Unshaded Bar Chart</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ex-bars1.html">Prev</a> </td><th width="60%" align="center">Chapter 5. PHPlot Examples</th><td width="20%" align="right"> <a accesskey="n" href="ex-bars3.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="5.5. Example - Unshaded Bar Chart"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ex-bars2"></a>5.5. Example - Unshaded Bar Chart</h2></div></div></div><p>
+This is the same example as <a class="xref" href="ex-bars1.html#example-bars1" title="Example 5.4. Bar Chart">Example 5.4, &#8220;Bar Chart&#8221;</a> except shading has
+been turned off. Instead we get flat rectangles with borders for the bars.
+</p><div class="example"><a id="example-bars2"></a><p class="title"><b>Example 5.5. Bar Chart - Unshaded</b></p><div class="example-contents"><div class="informalfigure"><div class="mediaobject"><img src="examples/bars2.png" alt="Unshaded Bar Chart Example" /></div></div><pre class="programlisting">&lt;?php
+# PHPlot Example: Bar chart, 3 data sets, unshaded
+require_once 'phplot.php';
+
+$data = array(
+  array('Jan', 40, 2, 4), array('Feb', 30, 3, 4), array('Mar', 20, 4, 4),
+  array('Apr', 10, 5, 4), array('May',  3, 6, 4), array('Jun',  7, 7, 4),
+  array('Jul', 10, 8, 4), array('Aug', 15, 9, 4), array('Sep', 20, 5, 4),
+  array('Oct', 18, 4, 4), array('Nov', 16, 7, 4), array('Dec', 14, 3, 4),
+);
+
+$plot = new PHPlot(800, 600);
+$plot-&gt;SetImageBorderType('plain');
+
+$plot-&gt;SetPlotType('bars');
+$plot-&gt;SetDataType('text-data');
+$plot-&gt;SetDataValues($data);
+
+# Main plot title:
+$plot-&gt;SetTitle('Unshaded Bar Chart with 3 Data Sets');
+
+# No 3-D shading of the bars:
+$plot-&gt;SetShading(0);
+
+# Make a legend for the 3 data sets plotted:
+$plot-&gt;SetLegend(array('Engineering', 'Manufacturing', 'Administration'));
+
+# Turn off X tick labels and ticks because they don't apply here:
+$plot-&gt;SetXTickLabelPos('none');
+$plot-&gt;SetXTickPos('none');
+
+$plot-&gt;DrawGraph();
+</pre></div></div><br class="example-break" /></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ex-bars1.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="examples.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ex-bars3.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.4. Example - Bar Chart </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.6. Example - Bar Chart, Label Options</td></tr></table></div></body></html>

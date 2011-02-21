@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetYScaleType</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetYLabelType.html" title="SetYLabelType" /><link rel="next" href="SetYTickCrossing.html" title="SetYTickCrossing" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetYScaleType</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetYLabelType.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetYTickCrossing.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetYScaleType"><a id="SetYScaleType"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetYScaleType</span></h2><p>SetYScaleType &#8212; Select linear or logarithmic scale</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetYScaleType(<em class="parameter"><code>$st</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2616176"></a><h2>Description</h2><p>
+<code class="function">SetYScaleType</code> sets the scale type along the Y axis 
+to be either linear (the default) or logarithmic.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2616193"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$st</code></em></span></dt><dd><p>
+A string specifying the scale type: 'linear' or 'log'.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2616218"></a><h2>Notes</h2><p>
+No Y value may be less than or equal to 0 with logarithmic Y scale.
+    </p><p>
+Support for logarithmic scales in PHPlot is limited. One problem is that
+tick interval is fixed for the entire range of data, which is inappropriate
+for logarithmic scales where the data spans more than one magnitude.
+    </p><p>
+The default X and Y scale types are linear.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetYLabelType.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetYTickCrossing.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetYLabelType </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetYTickCrossing</td></tr></table></div></body></html>

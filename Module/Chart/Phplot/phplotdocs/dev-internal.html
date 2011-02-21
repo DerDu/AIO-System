@@ -1,0 +1,899 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>Chapter 9. PHPlot Class Internal Functions</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="part3.html" title="Part III. Developer's Guide to PHPlot" /><link rel="prev" href="dev-legend.html" title="Chapter 8. PHPlot Legend Layout" /><link rel="next" href="dev-vars.html" title="Chapter 10. PHPlot Class Member Variables" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 9. PHPlot Class Internal Functions</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="dev-legend.html">Prev</a> </td><th width="60%" align="center">Part III. Developer's Guide to PHPlot</th><td width="20%" align="right"> <a accesskey="n" href="dev-vars.html">Next</a></td></tr></table><hr /></div><div class="chapter" title="Chapter 9. PHPlot Class Internal Functions"><div class="titlepage"><div><div><h2 class="title"><a id="dev-internal"></a>Chapter 9. PHPlot Class Internal Functions</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This chapter documents PHPlot internal functions. These functions are
+intended to be used only by PHPlot itself.
+  </p></div><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+Starting with PHPlot-5.1.0, most of the internal functions are declared as
+<code class="literal">protected</code>, which limits their visibility to other member
+functions and inherited or parent classes. Some internal functions are
+still <code class="literal">public</code>, usually because they are needed for
+testing PHPlot. However, all functions documented in this chapter should be
+treated as private, for use only by PHPlot. If you feel you have a need to
+use one of these functions from outside PHPlot (or an inherited class),
+please report this via the available PHPlot support mechanisms.
+  </p></div><div class="variablelist"><dl><dt><span class="term"><a id="array_merge_php4"></a>array_merge_php4($array1,$array2)</span></dt><dd><p>
+This non-member function was removed at PHPlot-5.0.4.
+    </p></dd><dt><span class="term"><a id="array_pad_array"></a>array_pad_array(&amp;$arr, $size, $arr2=NULL)</span></dt><dd><p>
+This non-member function was removed at PHPlot-5.0.4 and replaced with
+the class member function <a class="xref" href="dev-internal.html#pad_array">pad_array</a>.
+    </p></dd><dt><span class="term"><a id="CalcAxisPositions"></a>CalcAxisPositions()</span></dt><dd><p>
+Calculates the X and Y axis positions in world coordinates. These can be
+supplied by the user, in which case they are only changed if they are
+outside the data range. If axis positions are not supplied by the user, 
+CalcAxisPositions applies defaults as described in
+<a class="xref" href="SetXAxisPosition.html" title="SetXAxisPosition"><span class="refentrytitle">SetXAxisPosition</span></a> and <a class="xref" href="SetYAxisPosition.html" title="SetYAxisPosition"><span class="refentrytitle">SetYAxisPosition</span></a>.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+Note: This code was moved out of CalcTranslation at PHPlot-5.0.5.
+    </p></dd><dt><span class="term"><a id="CalcBarWidths"></a>CalcBarWidths($stacked, $verticals)</span></dt><dd><p>
+Calculates values for <code class="literal">bars</code> and <code class="literal">stackedbars</code>
+plot types.
+It calculates the width of the bars and the margins around and between them.
+An argument was added in PHPlot-5.1.2 to support horizontal plots.
+Arguments were changed in PHPlot-5.3.0 to explicitly select stacked or
+grouped bars, and vertical or horizontal plots.
+This is called by the bar chart drawing functions
+<a class="xref" href="dev-internal.html#DrawBars">DrawBars</a>, <a class="xref" href="dev-internal.html#DrawStackedBars">DrawStackedBars</a>,
+<a class="xref" href="dev-internal.html#DrawHorizBars">DrawHorizBars</a>, and <a class="xref" href="dev-internal.html#DrawHorizStackedBars">DrawHorizStackedBars</a>.
+(Through PHPlot-5.1.2 this was called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> before a
+bars or stackedbars plot.)
+    </p></dd><dt><span class="term"><a id="CalcGridSettings"></a>CalcGridSettings()</span></dt><dd><p>
+Applies defaults to the X and Y grid settings if not user specified.
+This was added in PHPlot-5.1.2 when the previous, static defaults (X grid
+off, Y grid on) needed to be dependent on the plot type.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+    </p></dd><dt><span class="term"><a id="CalcMargins"></a>CalcMargins($maximize)</span></dt><dd><p>
+Calculates the size of the four margins around the plot area:
+x_left_margin, x_right_margin, y_top_margin, and y_bot_margin.
+It does this by trying to determine how much space is needed for titles,
+labels, and tick marks.
+Starting with PHPlot-5.0.5, this is only called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>,
+and it also calculates position offsets for titles and labels. It is called
+even in case of a user-supplied plot area (SetPlotAreaPixels or
+SetMarginsPixels was used). If the $maximize argument is true, then the
+plot area does not leave room for X or Y axis, labels, or titles; this is
+used for pie charts.
+    </p><p>
+Through PHPlot-5.0.6, all 4 margins are either user-defined or all 4 are
+automatically calculated. Starting with PHPlot-5.0.7, the 4 margins can be
+independently set or defaulted to automatic. CalcMargins calculates values
+for all 4 margins, but only saves those that have not been set using either
+<a class="xref" href="SetMarginsPixels.html" title="SetMarginsPixels"><span class="refentrytitle">SetMarginsPixels</span></a> or <a class="xref" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels"><span class="refentrytitle">SetPlotAreaPixels</span></a>.
+Note that other than the overall plot title, elements are drawn relative to
+the plot area, which is calculated based on the actual margins. If the top
+margin is increased, for example, the plot title stays at the top of the
+image, but top tick marks and labels move down against the graph.
+    </p></dd><dt><span class="term"><a id="CalcMaxDataLabelSize"></a>CalcMaxDataLabelSize($which = 'x')</span></dt><dd><p>
+Calculates the size of the biggest X or Y data label.
+For 'x' it returns the height along the Y axis of the tallest data label.
+For 'y' it returns the width along the sides of the widest data label.
+This is used to allocate space for margins.
+This was added to PHPlot-5.0.5.
+The argument supporting Y label width was added in PHPlot-5.1.2.
+Called by <a class="xref" href="dev-internal.html#CalcMargins">CalcMargins</a>.
+    </p></dd><dt><span class="term"><a id="CalcMaxTickLabelSize"></a>CalcMaxTickLabelSize($which)</span></dt><dd><p>
+Calculates the size of the biggest tick label. The $which argument is 'x'
+or 'y' to indicate which labels to work with. For 'x', it returns the
+height along the Y axis; for 'y' it returns the width along the X axis.
+This is used to allocate space for margins.
+This was added to PHPlot-5.0.5.
+Calls <a class="xref" href="dev-internal.html#CalcTicks">CalcTicks</a> to determine the tick value parameters.
+Called by <a class="xref" href="dev-internal.html#CalcMargins">CalcMargins</a>.
+    </p></dd><dt><span class="term"><a id="CalcPlotAreaPixels"></a>CalcPlotAreaPixels()</span></dt><dd><p>
+Calculates the pixel coordinates of the plot area.
+This was added to PHPlot-5.0.5 by moving the parts of the calculations out of
+SetPlotAreaPixels and SetMarginsPixels. Those two functions now simply
+record their arguments, and make no attempt to calculate any parameters.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>, after <a class="xref" href="dev-internal.html#CalcMargins">CalcMargins</a>
+is used to calculate margins.
+    </p></dd><dt><span class="term"><a id="CalcPlotAreaWorld"></a>CalcPlotAreaWorld()</span></dt><dd><p>
+Calculates the world coordinate limits of the plot area.
+This was added to PHPlot-5.0.5 by moving the calculations out of
+<a class="xref" href="SetPlotAreaWorld.html" title="SetPlotAreaWorld"><span class="refentrytitle">SetPlotAreaWorld</span></a>.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>, after <a class="xref" href="dev-internal.html#FindDataLimits">FindDataLimits</a>
+is used to examine the data array values.
+    </p></dd><dt><span class="term"><a id="CalcTicks"></a>CalcTicks($which)</span></dt><dd><p>
+Calculates the tick parameters. $which is 'x' or 'y'. Returns an array of 3
+values: start, end, and interval.
+This was added to PHPlot-5.0.5, although it still uses the same method
+of just dividing the interval by 10 if there is no user-supplied interval
+or tick count.
+Called by <a class="xref" href="dev-internal.html#CalcMaxTickLabelSize">CalcMaxTickLabelSize</a>,
+<a class="xref" href="dev-internal.html#DrawYTicks">DrawYTicks</a>, and <a class="xref" href="dev-internal.html#DrawXTicks">DrawXTicks</a>.
+    </p></dd><dt><span class="term"><a id="CalcTranslation"></a>CalcTranslation()</span></dt><dd><p>
+Calculates the parameters for transforming world to pixel coordinates.
+This function calculates the scale (xscale, yscale) and origin
+(plot_origin_x, plot_origin_y) for X and Y translations, which
+are used by the xtr() and ytr() functions.
+Starting with PHPlot-5.0.5, this is only called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>, as nothing else uses the parameters until
+the graph is ready to be drawn.
+    </p></dd><dt><span class="term"><a id="CheckDataArray"></a>CheckDataArray()</span></dt><dd><p>
+Checks that there is a valid data array for the plot, and calculates values
+that depend on the data type.
+Called very early by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+This was added in PHPlot-5.1.3, moving the checking out of DrawGraph
+and adding the data_columns calculation.
+    </p></dd><dt><span class="term"><a id="CheckDataType"></a>CheckDataType($valid_types)</span></dt><dd><p>
+Used to validate the data_type for a plot_type. This works like a specialized
+version of <a class="xref" href="dev-internal.html#CheckOption">CheckOption</a>.  $valid_types contains the valid
+data type(s) for the current plot_type, separated by a comma and space if more
+than one is supported. If the current data_type is in the list, returns TRUE,
+else produces an error.  This was added in PHPlot-5.1.2 to unify the way
+the plot drawing functions check the data type.
+    </p></dd><dt><span class="term"><a id="CheckDataValueLabels"></a>CheckDataValueLabels($label_control, &amp;$x_adj, &amp;$y_adj, &amp;$h_align, &amp;$v_align)</span></dt><dd><p>
+Checks to see if data value labels should be drawn, based on $label_control
+(which is always <code class="literal">$this-&gt;y_data_label_pos</code>, since only
+vertical plot functions currently use this).
+Returns FALSE if the labels are off, else returns TRUE and sets 4 variables
+which are used by <a class="xref" href="dev-internal.html#DrawDataValueLabel">DrawDataValueLabel</a> to position the label.
+$x_adj and $y_adj are pixel offsets for the label,
+and $h_align and $v_align set the text alignment.
+Called by plot type drawing functions such as <a class="xref" href="dev-internal.html#DrawDots">DrawDots</a>
+which do data value labels, other than bars and stackedbars.
+This was added in PHPlot-5.3.0.
+    </p></dd><dt><span class="term"><a id="CheckLabels"></a>CheckLabels()</span></dt><dd><p>
+Fixes up the data and tick label position, angle, and format settings.
+This applies defaults to data label and tick label positions but avoids
+having them overlap unless the user deliberately positioned them that way.
+Also sets the default angle for X data labels, and the default formatting
+for X and Y data labels, to match the corresponding settings for tick
+labels if they were not already set.
+This is for compatibility with PHPlot-5.0.7 and earlier, when there was only
+one control for both types of labels.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> before calculating margins with
+<a class="xref" href="dev-internal.html#CalcMargins">CalcMargins</a>.
+This was added in PHPlot-5.1.0.
+    </p></dd><dt><span class="term"><a id="CheckLabelsAllEmpty"></a>CheckLabelsAllEmpty()</span></dt><dd><p>
+Returns TRUE if all of the labels in the data array are empty strings.
+This is used by <a class="xref" href="dev-internal.html#CheckLabels">CheckLabels</a> to determine whether tick or
+axis data labels should default on if both are left off.
+This was added in PHPlot-5.1.2.
+    </p></dd><dt><span class="term"><a id="CheckOption"></a>CheckOption($which_opt, $which_acc, $which_func)</span></dt><dd><p>
+Checks the validity of an option passed to a PHPlot member function.
+$which_opt is the string to check, and $which_acc is a string of acceptable
+choices (with a comma and then a space between choices).
+If the string to check is not found in the string of acceptable choices, a
+fatal error will be reported using <a class="xref" href="dev-internal.html#DrawError">DrawError</a>.
+The error message will include $which_func which should
+be the name of the calling function (using the PHP __FUNCTION__ magic constant).
+Note that this is used to catch programming errors, not run-time or user errors.
+If the string to check is acceptable, it is returned down-cased and trimmed
+of leading and trailing spaces.
+Note: At PHPlot-5.0.5, this function was changed to require exactly ', '
+(comma space) between acceptable choices, and reject empty strings for
+$which_opt and disallow partial matches.
+    </p></dd><dt><span class="term"><a id="CheckOptionArray"></a>CheckOptionArray($opt, $acc, $func)</span></dt><dd><p>
+Checks the validity of an option argument passed to a PHPlot member function
+that can accept its argument as either a string or an array of strings.
+$opt is the string or array to check, and $acc is a string of acceptable
+choices (with a comma and then a space between choices).
+If the $opt argument is supplied as a string, it is first converted to an
+array with one element. Then the elements of the array are each checked
+for validity. If any element of the array of strings to check is not
+found in the string of acceptable choices, a fatal error will be reported
+using <a class="xref" href="dev-internal.html#DrawError">DrawError</a>.  The error message will include $func
+which should be the name of the calling function (using the PHP
+__FUNCTION__ magic constant).  Note that this is used to catch programming
+errors, not run-time or user errors.  If all of the array elements to check
+are acceptable, the array is returned with each element down-cased and
+trimmed of leading and trailing spaces.  Note that an array is always
+returned, even if the opt argument is a string.
+This was added in PHPlot-5.1.2.
+    </p></dd><dt><span class="term"><a id="CheckPointParams"></a>CheckPointParams()</span></dt><dd><p>
+Adjusts the point_shapes and point_sizes arrays so they have the same size,
+and stores the size in a class variable. This handles processing deferred
+from <a class="xref" href="SetPointShapes.html" title="SetPointShapes"><span class="refentrytitle">SetPointShapes</span></a> and <a class="xref" href="SetPointSizes.html" title="SetPointSizes"><span class="refentrytitle">SetPointSizes</span></a>
+until graph drawing time. It must be called from internal functions that
+produce plots that use point shapes: currently <a class="xref" href="dev-internal.html#DrawDots">DrawDots</a> and
+<a class="xref" href="dev-internal.html#DrawDotsError">DrawDotsError</a>.
+This was added in PHPlot-5.1.0.
+    </p></dd><dt><span class="term"><a id="DecodeDataType"></a>DecodeDataType()</span></dt><dd><p>
+Analyzes the data type and sets several member variables that other functions
+can use to understand how to process the data array. The variables it sets
+all have names starting with "datatype_" (refer to <a class="xref" href="dev-vars.html" title="Chapter 10. PHPlot Class Member Variables">Chapter 10, <i>PHPlot Class Member Variables</i></a>).
+This is called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+It was added in PHPlot-5.1.2 (where it returned an array of 4 flags, and
+was called by several functions that needed to know the structure of the
+data array.)
+In PHPlot-5.1.3, it was changed to set member variables instead.
+It is now called just once, and the other functions reference the variables
+as needed.
+    </p></dd><dt><span class="term"><a id="DoCallback"></a>DoCallback($reason, ...)</span></dt><dd><p>
+Call a callback (hook) function.  $reason is the name given to the
+callback, for example <code class="literal">draw_titles</code>
+(meaning: call after drawing titles).
+The reasons are array indexes in the $callbacks class variable. Following
+that are zero or more arguments to pass to the callback, after the image
+resource and passthrough arguments. DoCallback does nothing if there is no
+callback registered for the given reason, otherwise it calls the callback
+function. See <a class="xref" href="callbacks.html" title="4.3. Callbacks">Section 4.3, &#8220;Callbacks&#8221;</a> for more information on callbacks.
+Starting with PHPlot-5.1.3, DoCallback returns the value returned by the
+callback function, if any.
+    </p></dd><dt><span class="term"><a id="DrawArea"></a>DrawArea($do_stacked = False)</span></dt><dd><p>
+Draws an area plot, or a stacked area plot (if the optional argument is True).
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> when the plot type is
+<code class="literal">area</code> or <code class="literal">stackedarea</code>.
+Stacked area plots were added in PHPlot-5.1.1; through PHPlot-5.1.0 this
+function did not have a parameter and was used only for area plots.
+    </p></dd><dt><span class="term"><a id="DrawBackground"></a>DrawBackground()</span></dt><dd><p>
+Draws the image background, either an image file or solid fill or nothing.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+    </p></dd><dt><span class="term"><a id="DrawBar"></a>DrawBar($x1, $y1, $x2, $y2, $data_color, $alt_color, $shade_top = TRUE, $shade_side = TRUE)</span></dt><dd><p>
+Draws a single bar (or bar segment), with either shading or border.
+Four corner coordinates and 2 color indexes are provided.
+The first color $data_color is the bar fill color.
+The second color $alt_color is either the shading color or the border color,
+depending on whether shading is on or not (see <a class="xref" href="dev-internal.html#GetBarColors">GetBarColors</a>).
+The last two arguments are flags used to suppress the top or side shading
+for certain cases of stacked bar segments.
+Called by <a class="xref" href="dev-internal.html#DrawBars">DrawBars</a> and <a class="xref" href="dev-internal.html#DrawHorizBars">DrawHorizBars</a>
+to draw each bar.
+Called by <a class="xref" href="dev-internal.html#DrawStackedBars">DrawStackedBars</a> and
+<a class="xref" href="dev-internal.html#DrawHorizStackedBars">DrawHorizStackedBars</a> to draw each bar segment.
+This was added in PHPlot-5.2.0, moving common code from those 4 functions.
+    </p></dd><dt><span class="term"><a id="DrawBars"></a>DrawBars()</span></dt><dd><p>
+Draws a bar chart plot.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> when the plot type is
+<code class="literal">bars</code>.
+If the data type indicates a horizontal bar chart,
+calls <a class="xref" href="dev-internal.html#DrawHorizBars">DrawHorizBars</a> instead.
+    </p></dd><dt><span class="term"><a id="DrawDataLabel"></a>DrawDataLabel($which_font, $which_angle, $x_world, $y_world, $which_color, $which_text, $which_halign = 'center', $which_valign = 'top', $x_adjustment=0, $y_adjustment=0)</span></dt><dd><p>
+This function was removed in PHPlot-5.1.3 and replaced
+by <a class="xref" href="dev-internal.html#DrawDataValueLabel">DrawDataValueLabel</a>.
+    </p></dd><dt><span class="term"><a id="DrawDataValueLabel"></a>DrawDataValueLabel($x_or_y, $x_world, $y_world, $text, $halign, $valign, $x_adjustment=0, $y_adjustment=0, $min_width=NULL, min_height=NULL)</span></dt><dd><p>
+Draws a data value label (previously called "Y data label").
+These are the above-bar or in-bar labels on bar and stackedbar charts.
+</p><p>
+x_or_y is 'x' or 'y' to select the font, angle, and formatting type.
+The label is drawn at world coordinates (x_world, y_world) after device
+coordinate offset (x_adjustment, y_adjustment) is applied.
+Two arguments halign and valign specify the text alignment relative
+to the plotting point (see <a class="xref" href="dev-internal.html#DrawText">DrawText</a>).
+The text argument is formatted with <a class="xref" href="dev-internal.html#FormatLabel">FormatLabel</a> before
+drawing.
+The final arguments min_width and min_height are used to prevent labels
+from overlapping their allocated space. If either of these is supplied, the
+text is sized before drawing, and if it won't fit in the space the text is
+not drawn. This is used to suppress labels that are too wide to be drawn
+inside their bars, for example.
+</p><p>
+This function was added in PHPlot-5.1.3 and replaced
+<a class="xref" href="dev-internal.html#DrawDataLabel">DrawDataLabel</a>.
+It is called by the bar chart drawing functions including
+<a class="xref" href="dev-internal.html#DrawBars">DrawBars</a> and <a class="xref" href="dev-internal.html#DrawStackedBars">DrawStackedBars</a>
+if these labels are enabled.
+    </p></dd><dt><span class="term"><a id="DrawDot"></a>DrawDot($x_world, $y_world, $record, $color)</span></dt><dd><p>
+Draws a single marker point ('dot') at the given X and Y world coordinates,
+using the given color. The $record parameter selects the marker shape and size
+using the arrays set up with SetPointSizes() and SetPointShapes(); they are
+not passed as arguments themselves.
+Called by those plotting routines that include dots:
+<a class="xref" href="dev-internal.html#DrawDotsError">DrawDotsError</a> and <a class="xref" href="dev-internal.html#DrawDots">DrawDots</a>.
+    </p></dd><dt><span class="term"><a id="DrawDots"></a>DrawDots($paired = False)</span></dt><dd><p>
+Draws a dot plot.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> when the plot type is 
+<code class="literal">points</code>, and by <a class="xref" href="dev-internal.html#DrawLinePoints">DrawLinePoints</a> for the
+points portion of a <code class="literal">linepoints</code> plot.
+If the data type indicates an error bar plot,
+it calls <a class="xref" href="dev-internal.html#DrawDotsError">DrawDotsError</a> instead.
+(Through PHPlot-5.1.2, this was called directly from DrawGraph for both
+<code class="literal">lines</code> and <code class="literal">linepoints</code> plots,
+but not for error bar plots.)
+$paired is true for linepoints plots, to suppress drawing elements that
+would be duplicated by the 'lines' part of the plot.
+(This argument was added in PHPlot-5.1.3.)
+    </p></dd><dt><span class="term"><a id="DrawDotsError"></a>DrawDotsError($paired = False)</span></dt><dd><p>
+Draws a dot plot with error bars.
+Called by <a class="xref" href="dev-internal.html#DrawDots">DrawDots</a>
+(and indirectly from <a class="xref" href="dev-internal.html#DrawLinePoints">DrawLinePoints</a>)
+when the data type indicates an error bar plot.
+(Through PHPlot-5.1.2 this was called directly by DrawGraph.)
+$paired is true for linepoints error plots, and defaults to false for
+points error plots. If true, it suppress drawing elements that
+would be duplicated by <a class="xref" href="dev-internal.html#DrawLinesError">DrawLinesError</a>.
+(This argument was added in PHPlot-5.1.3.)
+    </p></dd><dt><span class="term"><a id="DrawError"></a>DrawError($error_message, [$where_x], [$where_y])</span></dt><dd><p>
+Starting with PHPlot-5.0.5, this function is an alias for
+<a class="xref" href="dev-internal.html#PrintError">PrintError</a> and is retained for compatibility.
+The $where_x and $where_arguments are now ignored. (Previously they
+positioned the error message on the image, but were never used.)
+    </p><p>
+(Through PHPlot-5.0.4, DrawError wrote the error message to an image,
+wrote the image, and exited.)
+    </p></dd><dt><span class="term"><a id="DrawHorizBars"></a>DrawHorizBars()</span></dt><dd><p>
+Draws a horizontal bars plot.
+Called by <a class="xref" href="dev-internal.html#DrawBars">DrawBars</a> when the data type indicates a
+horizontal plot.
+This was added in PHPlot-5.1.2 (but was called by DrawGraph).
+In PHPlot-5.1.3 it was changed to be called by DrawBars.
+    </p></dd><dt><span class="term"><a id="DrawHorizStackedBars"></a>DrawHorizStackedBars()</span></dt><dd><p>
+Draws a horizontal stacked bars plot.
+Called by <a class="xref" href="dev-internal.html#DrawStackedBars">DrawStackedBars</a> when the data type indicates a
+horizontal plot.
+This was added in PHPlot-5.1.3.
+    </p></dd><dt><span class="term"><a id="DrawImageBorder"></a>DrawImageBorder()</span></dt><dd><p>
+Draws a border around the image, if enabled by
+<a class="xref" href="SetImageBorderType.html" title="SetImageBorderType"><span class="refentrytitle">SetImageBorderType</span></a>.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+    </p></dd><dt><span class="term"><a id="DrawLegend"></a>DrawLegend(x,y,type)</span></dt><dd><p>
+Draws the plot legend. This includes the box, text labels, and color boxes.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>,
+but only if legend text has been set using <a class="xref" href="SetLegend.html" title="SetLegend"><span class="refentrytitle">SetLegend</span></a>.
+    </p></dd><dt><span class="term"><a id="DrawLinePoints"></a>DrawLinePoints()</span></dt><dd><p>
+Draws a linepoints plot, with or without error bars.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> when the plot type is
+<code class="literal">linepoints</code>.
+It simply calls <a class="xref" href="dev-internal.html#DrawLines">DrawLines</a> and <a class="xref" href="dev-internal.html#DrawDots">DrawDots</a>,
+which handle both the plain and error bar cases.
+This was added in PHPlot-5.1.3 to provide a function specific to this
+plot type.
+    </p></dd><dt><span class="term"><a id="DrawLines"></a>DrawLines($paired = False)</span></dt><dd><p>
+Draws a line plot.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> when the plot type is
+<code class="literal">lines</code>, and by <a class="xref" href="dev-internal.html#DrawLinePoints">DrawLinePoints</a> for the
+lines portion of a <code class="literal">linepoints</code> plot.
+If the data type indicates an error bar plot,
+it calls <a class="xref" href="dev-internal.html#DrawLinesError">DrawLinesError</a> instead.
+(Through PHPlot-5.1.2, this was called directly from DrawGraph for both
+<code class="literal">lines</code> and <code class="literal">linepoints</code> plots,
+but not for error bar plots.)
+$paired is true for <code class="literal">linepoints</code> plots,
+to suppress drawing elements that
+would be duplicated by the <code class="literal">points</code> part of the plot.
+(This argument was added in PHPlot-5.1.3.)
+    </p></dd><dt><span class="term"><a id="DrawLinesError"></a>DrawLinesError($paired = False)</span></dt><dd><p>
+Draws a lines plot with error bars.
+Called by <a class="xref" href="dev-internal.html#DrawLines">DrawLines</a>
+(and indirectly from <a class="xref" href="dev-internal.html#DrawLinePoints">DrawLinePoints</a>)
+when the data type indicates an error bar plot.
+(Through PHPlot-5.1.2 this was called directly by DrawGraph.)
+$paired is true for linepoints error plots, to suppress drawing elements that
+would be duplicated by <a class="xref" href="dev-internal.html#DrawDotsError">DrawDotsError</a>.
+(This argument was added in PHPlot-5.1.3.)
+    </p></dd><dt><span class="term"><a id="DrawOHLC"></a>DrawOHLC($draw_candles, $always_fill = FALSE)</span></dt><dd><p>
+Draws one of the three types of OHLC (Open/High/Low/Close) plots.
+If $draw_candles is FALSE, draws a basic OHLC plot
+(plot type <code class="literal">ohlc</code>).
+If $draw_candles is TRUE and $always_fill is FALSE,
+draws a candlestick OHLC plot
+(plot type <code class="literal">candlesticks</code>).
+If $draw_candles is TRUE and $always_fill is TRUE,
+draws a filled candlestick OHLC plot
+(plot type <code class="literal">candlesticks2</code>).
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> when the plot type is one of those
+three types.
+This was added in PHPlot-5.3.0.
+    </p></dd><dt><span class="term"><a id="DrawPieChart"></a>DrawPieChart()</span></dt><dd><p>
+Draws a pie chart plot.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> with the plot type is
+<code class="literal">pie</code>.
+    </p></dd><dt><span class="term"><a id="DrawPlotAreaBackground"></a>DrawPlotAreaBackground()</span></dt><dd><p>
+Draws the plot area background, either an image file set with
+<a class="xref" href="SetPlotAreaBgImage.html" title="SetPlotAreaBgImage"><span class="refentrytitle">SetPlotAreaBgImage</span></a>,
+or else a solid fill color selected by <a class="xref" href="SetPlotBgColor.html" title="SetPlotBgColor"><span class="refentrytitle">SetPlotBgColor</span></a>
+if enabled with <a class="xref" href="SetDrawPlotAreaBackground.html" title="SetDrawPlotAreaBackground"><span class="refentrytitle">SetDrawPlotAreaBackground</span></a>
+or else nothing.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+    </p></dd><dt><span class="term"><a id="DrawPlotBorder"></a>DrawPlotBorder()</span></dt><dd><p>
+Draws the border around the plot area.
+This draws zero to four lines around the plot area (depending on
+<a class="xref" href="SetPlotBorderType.html" title="SetPlotBorderType"><span class="refentrytitle">SetPlotBorderType</span></a>). It only draws the outline; other functions
+draw the tick marks and labels for the X axis and Y axis.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+    </p></dd><dt><span class="term"><a id="DrawSquared"></a>DrawSquared()</span></dt><dd><p>
+Draws a squared (stepped lines) plot.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> when the plot type is
+<code class="literal">squared</code>.
+    </p></dd><dt><span class="term"><a id="DrawStackedBars"></a>DrawStackedBars()</span></dt><dd><p>
+Draws a stacked bars chart plot.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> when the plot type is
+<code class="literal">stackedbars</code>.
+If the data type indicates a horizontal plot,
+calls <a class="xref" href="dev-internal.html#DrawHorizStackedBars">DrawHorizStackedBars</a> instead.
+    </p></dd><dt><span class="term"><a id="DrawText"></a>DrawText($which_font, $which_angle, $which_xpos, $which_ypos, $which_color, $which_text, $which_halign = 'left', $which_valign = 'bottom')</span></dt><dd><p>
+Draws a string of text $which_text, at position ($which_xpos, $which_ypos).
+The font is selected with $which_font, which is one of the font arrays in
+the object.
+The text is drawn at angle $which_angle (built-in fonts can be used at 0
+and 90 degrees only, TrueType at any angle). $which_color is a GD color
+index for the image. Text alignment relative to the (x,y) point is
+controlled with $which_halign (<code class="literal">center</code>,
+<code class="literal">left</code>, or <code class="literal">right</code>)
+and $which_valign (<code class="literal">center</code>, <code class="literal">bottom</code>,
+or <code class="literal">top</code>).
+Multi-line text strings are supported. This function accounts for the
+limitations and differences in GD text drawing routines for built-in and
+TrueType fonts.
+Called by numerous functions which place text on the plot.
+    </p><p>
+Starting with PHPlot-5.0.5, this function just calls
+<a class="xref" href="dev-internal.html#ProcessText">ProcessText</a> in text drawing mode. DrawText should be used
+by all internal PHPlot code that needs to draw text, and ProcessText should
+only be used by DrawText and SizeText.
+    </p><p>
+There are 7 font array variables in the PHPlot object.
+Through PHPlot-5.0.5, these were separate variables: generic_font,
+title_font, legend_font, x_label_font, y_label_font, x_title_font, and
+y_title_font. Starting with PHPlot-5.0.6, these were combined into a
+single class array variable <code class="literal">fonts</code>,
+indexed by the element name, for example $fonts['generic'].
+    </p><p>
+Starting with PHPlot-5.1.0, $which_font can be NULL or an empty string to
+use the <span class="emphasis"><em>generic</em></span> font.
+This was intended to allow callbacks to avoid
+having to reference the internal class array variable which stores font
+information.
+    </p></dd><dt><span class="term"><a id="DrawThinBarLines"></a>DrawThinBarLines()</span></dt><dd><p>
+Draws a thin bar lines plot. This is sometimes called an impulse plot.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> when the plot type is
+<code class="literal">thinbarline</code>.
+This function draws both vertical and horizontal variants of this plot type.
+    </p></dd><dt><span class="term"><a id="DrawTitle"></a>DrawTitle()</span></dt><dd><p>
+Draws the main plot title as set with <a class="xref" href="SetTitle.html" title="SetTitle"><span class="refentrytitle">SetTitle</span></a>. This is centered at the
+very top of the image.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+    </p></dd><dt><span class="term"><a id="DrawXAxis"></a>DrawXAxis()</span></dt><dd><p>
+Draws the X (horizontal) axis, including the axis line,
+tick marks and labels,
+and also draws the vertical grid lines.
+All of these except the axis line are done in <a class="xref" href="dev-internal.html#DrawXTicks">DrawXTicks</a>.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+    </p></dd><dt><span class="term"><a id="DrawXDataLabel"></a>DrawXDataLabel($xlab, $xpos, $row=FALSE)</span></dt><dd><p>
+Draws an axis data label for an X value. The labels are above or below the plot
+area or both, depending on the value set with
+<a class="xref" href="SetXDataLabelPos.html" title="SetXDataLabelPos"><span class="refentrytitle">SetXDataLabelPos</span></a>.
+This also calls <a class="xref" href="dev-internal.html#DrawXDataLine">DrawXDataLine</a> to draw a line from the
+label to the point, if enabled.
+This is used by vertical plots.
+Called by plot drawing routines for all plot types except
+<code class="literal">pie</code>:
+<a class="xref" href="dev-internal.html#DrawArea">DrawArea</a>, 
+<a class="xref" href="dev-internal.html#DrawBars">DrawBars</a>,
+<a class="xref" href="dev-internal.html#DrawDots">DrawDots</a>, 
+<a class="xref" href="dev-internal.html#DrawDotsError">DrawDotsError</a>, 
+<a class="xref" href="dev-internal.html#DrawThinBarLines">DrawThinBarLines</a>, 
+<a class="xref" href="dev-internal.html#DrawLines">DrawLines</a>, 
+<a class="xref" href="dev-internal.html#DrawLinesError">DrawLinesError</a>, 
+<a class="xref" href="dev-internal.html#DrawSquared">DrawSquared</a>, and
+<a class="xref" href="dev-internal.html#DrawStackedBars">DrawStackedBars</a>.
+    </p></dd><dt><span class="term"><a id="DrawXDataLine"></a>DrawXDataLine($xpos, $row)</span></dt><dd><p>
+Draws X data lines, which are vertical lines from the bottom or top of the
+plot to the data points. This is enabled with
+<a class="xref" href="SetDrawXDataLabelLines.html" title="SetDrawXDataLabelLines"><span class="refentrytitle">SetDrawXDataLabelLines</span></a>. The lines are drawn from the
+position (above, below, or both) of the X axis data labels, which are set with
+<a class="xref" href="SetXDataLabelPos.html" title="SetXDataLabelPos"><span class="refentrytitle">SetXDataLabelPos</span></a>.
+Called by <a class="xref" href="dev-internal.html#DrawXDataLabel">DrawXDataLabel</a>.
+    </p></dd><dt><span class="term"><a id="DrawXTick"></a>DrawXTick($which_xlab, $which_xpix)</span></dt><dd><p>
+Draws a single X value tick mark and its label.
+These can appear on the bottom of the graph, top of the graph, along the
+X axis (even if it is in the middle somewhere), on both sides, or nowhere,
+as set with <a class="xref" href="SetXTickPos.html" title="SetXTickPos"><span class="refentrytitle">SetXTickPos</span></a> and
+<a class="xref" href="SetXTickLabelPos.html" title="SetXTickLabelPos"><span class="refentrytitle">SetXTickLabelPos</span></a>.
+Called by <a class="xref" href="dev-internal.html#DrawXTicks">DrawXTicks</a>.
+This was added at PHPlot-5.0.5 by splitting the code out of DrawXTicks,
+for symmetry with DrawYTicks.
+    </p></dd><dt><span class="term"><a id="DrawXTicks"></a>DrawXTicks()</span></dt><dd><p>
+Draws the vertical grid lines, the tick marks, and tick labels.
+Calls <a class="xref" href="dev-internal.html#CalcTicks">CalcTicks</a> to calculate the tick parameters.
+Calls <a class="xref" href="dev-internal.html#DrawXTick">DrawXTick</a> to draw each tick mark and its label.
+Called by <a class="xref" href="dev-internal.html#DrawXAxis">DrawXAxis</a>.
+    </p></dd><dt><span class="term"><a id="DrawXTitle"></a>DrawXTitle()</span></dt><dd><p>
+Draws the X axis title. There can be zero, one, or two of them depending on
+the position parameter specified in <a class="xref" href="SetXTitle.html" title="SetXTitle"><span class="refentrytitle">SetXTitle</span></a>.
+Calls <a class="xref" href="dev-internal.html#DrawText">DrawText</a> to actually draw the title(s).
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+    </p></dd><dt><span class="term"><a id="DrawYAxis"></a>DrawYAxis()</span></dt><dd><p>
+Draws the Y (vertical) axis, including the axis line,
+tick marks and labels,
+and also draws the horizontal grid lines.
+All of these except the axis line are done in <a class="xref" href="dev-internal.html#DrawYTicks">DrawYTicks</a>.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+    </p></dd><dt><span class="term"><a id="DrawYDataLabel"></a>DrawYDataLabel($ylab, $ypos)</span></dt><dd><p>
+Draws an axis data label for a Y value. The labels are along the Y axis or
+side of the plot, or both, depending on the value set with
+<a class="xref" href="SetYDataLabelPos.html" title="SetYDataLabelPos"><span class="refentrytitle">SetYDataLabelPos</span></a>.
+This is used by horizontal plots, and was added in PHPlot-5.1.2.
+Called by horizontal plot drawing functions such as
+<a class="xref" href="dev-internal.html#DrawHorizBars">DrawHorizBars</a>.
+    </p></dd><dt><span class="term"><a id="DrawYErrorBar"></a>DrawYErrorBar($x_world, $y_world, $error_height, $error_bar_type, $color)</span></dt><dd><p>
+Draws an error bar for the point at world coordinates ($x_world, $y_world).
+$error_height is the height (in world coordinates) of the error bar:
+positive for the upper range error, negative for the lower range error.
+The $error_bar_type is set to <code class="literal">tee</code> or <code class="literal">line</code>
+by <a class="xref" href="SetErrorBarShape.html" title="SetErrorBarShape"><span class="refentrytitle">SetErrorBarShape</span></a>.
+Called by <a class="xref" href="dev-internal.html#DrawDotsError">DrawDotsError</a> and <a class="xref" href="dev-internal.html#DrawLinesError">DrawLinesError</a>, twice for each point on the
+plot (upper range error and lower range error).
+    </p></dd><dt><span class="term"><a id="DrawYTick"></a>DrawYTick($which_ylab, $which_ypix)</span></dt><dd><p>
+Draws a single Y value tick mark and its label.
+These can appear on the left of the graph, right of the graph, along the
+Y axis (even if it is in the middle somewhere), on both sides, or nowhere,
+as set with <a class="xref" href="SetYTickPos.html" title="SetYTickPos"><span class="refentrytitle">SetYTickPos</span></a> and
+<a class="xref" href="SetYTickLabelPos.html" title="SetYTickLabelPos"><span class="refentrytitle">SetYTickLabelPos</span></a>.
+Called by <a class="xref" href="dev-internal.html#DrawYTicks">DrawYTicks</a>.
+    </p></dd><dt><span class="term"><a id="DrawYTicks"></a>DrawYTicks()</span></dt><dd><p>
+Draws the horizontal grid lines, the tick marks, and tick labels.
+Calls <a class="xref" href="dev-internal.html#DrawYTick">DrawYTick</a> to draw each tick mark and its label.
+Called by <a class="xref" href="dev-internal.html#DrawYAxis">DrawYAxis</a>.
+    </p></dd><dt><span class="term"><a id="DrawYTitle"></a>DrawYTitle()</span></dt><dd><p>
+Draws the Y axis title. There can be zero, one, or two of them depending on
+the position parameter specified in <a class="xref" href="SetYTitle.html" title="SetYTitle"><span class="refentrytitle">SetYTitle</span></a>.
+Calls <a class="xref" href="dev-internal.html#DrawText">DrawText</a> to actually draw the title(s).
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>.
+    </p></dd><dt><span class="term"><a id="FindDataLimits"></a>FindDataLimits()</span></dt><dd><p>
+Finds the limits of the data. Using the data_type and the data array, it
+goes through the points and determines the minimum and maximum X and Y values.
+It stores the min and max Y values for each row (plot line) in the
+class arrays data_min and data_max.
+(Before PHPlot-5.0.4, these were stored back into the data array
+with special index values MINY (-1) and MAXY (-2).)
+It also stores the overall min and max X and Y values as min_x, max_x,
+min_y, and max_y.
+It also stores the length of the longest data label in max_t.
+Starting with PHPlot-5.0.5, this is only called once by
+<a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a>. (In PHPlot-5.0.4 and earlier, this was called
+from various places, with a flag data_limits_done to indicate it was called.)
+    </p></dd><dt><span class="term"><a id="FormatLabel"></a>FormatLabel($which_pos, $which_lab)</span></dt><dd><p>
+Formats a value for use as a tick or data label. This implements the format
+type selected with
+<a class="xref" href="SetXLabelType.html" title="SetXLabelType"><span class="refentrytitle">SetXLabelType</span></a> ,<a class="xref" href="SetYLabelType.html" title="SetYLabelType"><span class="refentrytitle">SetYLabelType</span></a>,
+<a class="xref" href="SetXDataLabelType.html" title="SetXDataLabelType"><span class="refentrytitle">SetXDataLabelType</span></a> ,and <a class="xref" href="SetYDataLabelType.html" title="SetYDataLabelType"><span class="refentrytitle">SetYDataLabelType</span></a>.
+By default it returns the value as-is, or it can format it as a floating
+point number or date/time value.
+Called by several functions that need to format label values.
+Separation of data and tick label formatting was available starting with
+PHPlot-5.1.0.
+    </p></dd><dt><span class="term"><a id="GetBarColors"></a>GetBarColors($row, $idx, &amp;$vars, &amp;$data_color, &amp;$alt_color)</span></dt><dd><p>
+Gets the color indexes to be used for a bar plot.
+This is used by bar and stackedbar plot drawing functions, and
+accounts for a custom data color callback if defined.
+$row and $idx are the indexes for the current bar or bar segment.
+$vars is an array argument that maintains information across calls - the
+caller allocates an empty array, and this function updates it.
+The color index for bar filling is returned in $data_color.
+$alt_color is the color index to use for shading (if shading is on), else
+the color index to use for the bar border (if shading is off). (This dual
+use argument corresponds to the usage of <a class="xref" href="dev-internal.html#DrawBar">DrawBar</a>.)
+This was added in PHPlot-5.2.0, moving common code into a function.
+    </p></dd><dt><span class="term"><a id="GetColorIndex"></a>GetColorIndex($color)</span></dt><dd><p>
+Allocate a GD color index for a color given as a 4 component array (R,G,B,A).
+Returns a color index to be used in GD drawing functions.
+The color returned is the exact color requested if it already exists in the
+image, or if can be allocated.
+For palette images, if the color map is full, no new colors can be allocated,
+and this function will return an index to the closest existing color.
+For truecolor images, this function always returns an index for the exact
+requested color.
+This was added in PHPlot-5.2.0, replacing the second half of
+<a class="xref" href="dev-internal.html#SetIndexColor">SetIndexColor</a>.
+    </p></dd><dt><span class="term"><a id="GetColorIndexArray"></a>GetColorIndexArray($color_array, $max_colors)</span></dt><dd><p>
+Allocates GD color indexes for each color in the array $color_array, which are
+given as 4 component arrays (R,G,B,A). Up to $max_colors colors will be
+allocated. (This is used to limit the number of allocated data colors to the
+number of data sets in the plot, for example.)
+<a class="xref" href="dev-internal.html#GetColorIndex">GetColorIndex</a> is used to allocate each color.
+Returns an array of GD color indexes to be used in GD drawing functions.
+This was added in PHPlot-5.3.1.
+    </p></dd><dt><span class="term"><a id="GetDarkColorIndex"></a>GetDarkColorIndex($color)</span></dt><dd><p>
+Allocate a GD color index for a darker shade of a color given as a 4 component
+array (R,G,B,A).
+Returns a color index to be used in GD drawing functions.
+The method used is to subtract 48 from each red, green, and blue component
+(without letting any go negative).
+The alpha component is not adjusted.
+The color returned is the exact color requested if it already exists in the
+image, or if can be allocated, else the closest color available.
+This is used for shadow colors (for example, in bar charts and pie charts).
+This was added in PHPlot-5.2.0, replacing the second half of
+<a class="xref" href="dev-internal.html#SetIndexDarkColor">SetIndexDarkColor</a>.
+    </p></dd><dt><span class="term"><a id="GetDarkColorIndexArray"></a>GetDarkColorIndexArray($color_array, $max_colors)</span></dt><dd><p>
+Allocates GD color indexes for a darker shade of each color in the array
+$color_array, which are given as 4 component arrays (R,G,B,A). Up to
+$max_colors colors will be allocated. (This is used to limit the number of
+allocated dark-shade data colors to the number of data sets in the plot,
+for example.)
+<a class="xref" href="dev-internal.html#GetDarkColorIndex">GetDarkColorIndex</a> is used to allocate each color.
+Returns an array of GD color indexes to be used in GD drawing functions.
+This was added in PHPlot-5.3.1.
+    </p></dd><dt><span class="term"><a id="GetDataColor"></a>GetDataColor($row, $idx, &amp;$vars, &amp;$data_color, $extra=0)</span></dt><dd><p>
+Gets the color index to be used for a data element (a point or line
+segment, for example).
+This is used by multiple plot drawing functions to get the data color,
+accounting for a custom data color callback if defined.
+$row and $idx are the indexes for the data point. $vars is an array argument 
+that maintains information across calls - the caller allocates an empty
+array, and this function updates it.
+The color index to use is returned in $data_color.
+$extra contains extra information for a data color callback.
+This was added in PHPlot-5.2.0, moving common code into a function.
+    </p></dd><dt><span class="term"><a id="GetDataErrorColors"></a>GetDataErrorColors($row, $idx, &amp;$vars, &amp;$data_color, &amp;$error_color, $extra=0)</span></dt><dd><p>
+This is an extended version of <a class="xref" href="dev-internal.html#GetDataColor">GetDataColor</a> which is used
+for error bar plots. It returns two color index values: $data_color for the
+data element, and $error_color for the error bar.
+This is used by error plot drawing functions, and accounts for a custom
+data color callback if defined.
+$row and $idx are the indexes for the data point. $vars is an array argument 
+that maintains information across calls - the caller allocates an empty
+array, and this function updates it.
+$extra contains extra information for a data color callback.
+This was added in PHPlot-5.2.0, moving common code into a function.
+    </p></dd><dt><span class="term"><a id="GetDefaultTTFont"></a>GetDefaultTTFont()</span></dt><dd><p>
+Returns the default TrueType font name. If no default font has been set
+using <a class="xref" href="SetDefaultTTFont.html" title="SetDefaultTTFont"><span class="refentrytitle">SetDefaultTTFont</span></a>, the first time this is called it
+will go through a list of likely sans-serif fonts, trying to find one
+that works.  The first one that works, or the last one if none works, will
+be set as the default font.
+This was added in PHPlot-5.1.3, replacing the static initialization of
+default font.
+    </p></dd><dt><span class="term"><a id="GetImage"></a>GetImage($image_filename, &amp;$width, &amp;$height)</span></dt><dd><p>
+Reads an image file from $image_filename, stores the width and height
+(in pixels) in the $width and $height reference arguments, and returns
+a PHP GD image resource of the image.
+This is used by <a class="xref" href="dev-internal.html#SetInputFile">SetInputFile</a> and <a class="xref" href="dev-internal.html#tile_img">tile_img</a>.
+Errors go to <a class="xref" href="dev-internal.html#PrintError">PrintError</a>; there is no way for the script
+to recover. Possible errors include an image file type which is unsupported
+by PHP GD, or a corrupt image file.
+Note: This was added at PHPlot-5.0.4, by moving common code from the
+two calling functions.
+    </p></dd><dt><span class="term"><a id="GetImageBorderWidth"></a>GetImageBorderWidth()</span></dt><dd><p>
+This returns the image border width, as set with
+<a class="xref" href="SetImageBorderWidth.html" title="SetImageBorderWidth"><span class="refentrytitle">SetImageBorderWidth</span></a> or as defaulted.
+It is used by <a class="xref" href="dev-internal.html#CalcMargins">CalcMargins</a> to account for image border width,
+and by <a class="xref" href="dev-internal.html#DrawImageBorder">DrawImageBorder</a> when drawing the image border.
+This was added in PHPlot-5.1.2.
+    </p></dd><dt><span class="term"><a id="GetLineSpacing"></a>GetLineSpacing($font)</span></dt><dd><p>
+Given a font array variable, returns the proper spacing in pixels between lines
+of text using that font. This works for both GD and TrueType fonts. See also 
+<a class="xref" href="SetLineSpacing.html" title="SetLineSpacing"><span class="refentrytitle">SetLineSpacing</span></a>.
+Used by <a class="xref" href="dev-internal.html#ProcessTextGD">ProcessTextGD</a>, <a class="xref" href="dev-internal.html#ProcessTextTTF">ProcessTextTTF</a>,
+and <a class="xref" href="dev-internal.html#DrawLegend">DrawLegend</a>.
+Note: This was added at PHPlot-5.0.6, with support for mixing TTF and GD
+fonts.
+    </p></dd><dt><span class="term"><a id="NeedDataDarkColors"></a>NeedDataDarkColors()</span></dt><dd><p>
+Allocates darker data colors, which are used for shading.
+This is called by graph drawing functions such as <a class="xref" href="dev-internal.html#DrawPieChart">DrawPieChart</a>
+if they need to use these colors for shading.
+This was added in PHPlot-5.2.0.
+    </p></dd><dt><span class="term"><a id="NeedErrorBarColors"></a>NeedErrorBarColors()</span></dt><dd><p>
+Allocates colors used for error bars.
+This is called by any graph drawing functions that is going to draw error bars.
+This was added in PHPlot-5.2.0.
+    </p></dd><dt><span class="term"><a id="number_format"></a>number_format($number, $decimals=0)</span></dt><dd><p>
+Formats a floating point number, like PHP's number_format(), inserting
+a decimal separator and thousands groups separators. Unlike the PHP
+function, this uses variables in the PHPlot class to select the separators.
+The separators can be set with <a class="xref" href="SetNumberFormat.html" title="SetNumberFormat"><span class="refentrytitle">SetNumberFormat</span></a>, or by
+default PHPlot will attempt to get locale-specific values.
+For example, 1234+(56/100) will be returned as "1,234.56" if the locale is
+"en_US", and as "1.234,56" if the locale is "de_DE".
+As a fall-back, if locale information is not available, '.' is used for
+decimal point, and ',' for thousands separator. This fall-back is equivalent
+to the behavior in PHPlot 5.0rc3 and earlier.
+This is used by <a class="xref" href="dev-internal.html#FormatLabel">FormatLabel</a> when the formatting type is
+<code class="literal">data</code>, and also for the pie chart labels in
+<a class="xref" href="dev-internal.html#DrawPieChart">DrawPieChart</a>.
+    </p></dd><dt><span class="term"><a id="pad_array"></a>pad_array(&amp;$arr, $size)</span></dt><dd><p>
+Pads an array $arr with copies of itself until it reaches the given size.
+If $arr is a scalar, it will first be converted to an array with one
+element. Then, if $arr has fewer than $size elements, elements of $arr
+starting from the first will be appended until it reaches $size elements.
+This only works on zero-based sequential integer indexed arrays.
+Called by <a class="xref" href="dev-internal.html#PadArrays">PadArrays</a>, <a class="xref" href="SetPointShapes.html" title="SetPointShapes"><span class="refentrytitle">SetPointShapes</span></a>,
+and <a class="xref" href="SetPointSizes.html" title="SetPointSizes"><span class="refentrytitle">SetPointSizes</span></a>.
+This replaced <a class="xref" href="dev-internal.html#array_pad_array">array_pad_array</a> at PHPlot-5.0.4,
+however that had an unused 3rd argument, and worked on general indexed arrays.
+    </p></dd><dt><span class="term"><a id="PadArrays"></a>PadArrays()</span></dt><dd><p>
+Pads the style arrays (line_widths, line_styles, data_colors, etc.) so they
+are all large enough to contain an entry for each data set or plot line.
+This uses <a class="xref" href="dev-internal.html#pad_array">pad_array</a>.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> before drawing anything.
+    </p></dd><dt><span class="term"><a id="PrintError"></a>PrintError($error_message)</span></dt><dd><p>
+Handles a fatal error within PHPlot. Starting with PHPlot-5.0.5 this and
+<a class="xref" href="dev-internal.html#DrawError">DrawError</a> are identical. PrintError attempts to draw the
+error message $error_message into the image, and then output the image.
+This method is used because PHPlot is normally expected to output an image,
+and text output would not be displayed properly. (If no image resource was
+available, and the <a class="xref" href="SetIsInline.html" title="SetIsInline"><span class="refentrytitle">SetIsInline</span></a> flag is not on, PHPlot
+will send a 500 Internal Server Error header.) After this, PrintError uses
+the PHP trigger_error() function to signal a user error. This is normally
+fatal to the script, unless caught. This will also result in the error
+message written to the error output stream, which typically ends up in a
+web server error log.
+    </p><p>
+(Through PHPlot-5.0.4, PrintError wrote an error message to standard output
+and exited.)
+    </p></dd><dt><span class="term"><a id="ProcessText"></a>ProcessText($draw_it, $font, $angle, $x, $y, $color, $text, $halign, $valign)</span></dt><dd><p>
+This function acts as a bridge, or switch, between the two functions
+<a class="xref" href="dev-internal.html#SizeText">SizeText</a> and <a class="xref" href="dev-internal.html#DrawText">DrawText</a>, which handle
+both GD and TTF text,
+and the functions which specifically handle GD text or TTF text.
+The arguments to this function are the same as
+<a class="xref" href="dev-internal.html#DrawText">DrawText</a> except for an additional first argument
+$draw_it. If $draw_it is true, text is drawn. This is used by DrawText. If
+$draw_it is false, only the bounding box size of the text is calculated and
+returned. This is used by SizeText. In text sizing mode, the x, y, color,
+halign, and valign arguments are ignored, as they are not needed when
+calculating the text bounding box size.
+This function is only called by
+<a class="xref" href="dev-internal.html#SizeText">SizeText</a> and <a class="xref" href="dev-internal.html#DrawText">DrawText</a>, and calls either
+<a class="xref" href="dev-internal.html#ProcessTextTTF">ProcessTextTTF</a> or <a class="xref" href="dev-internal.html#ProcessTextGD">ProcessTextGD</a>.
+    </p></dd><dt><span class="term"><a id="ProcessTextGD"></a>ProcessTextGD($draw_it, $font, $angle, $x, $y, $color, $text, $h_factor, $v_factor)</span></dt><dd><p>
+Draws GD fixed-font text, or calculates the size of GD fixed-font text.
+This is only called by <a class="xref" href="dev-internal.html#ProcessText">ProcessText</a> after it determines
+that GD text is in use.
+If $draw_it is true, text is drawn;
+if $draw_it is false, only the bounding box size of the text is calculated and
+returned as a two-element array ($width, $height).
+Here $width is measured along the X axis, and $height along Y, regardless
+of the text angle. These are the size of an orthogonal bounding box that
+contains the text block.
+The $font argument is a PHPlot font array, which must reference a GD font.
+The $angle is 0 or 90 degrees, as GD text only supports those values.
+$x, $y are the reference point of the text $text, which is drawn in color
+$color.
+The text string can contain multiple lines, with a newline character between
+lines.
+The $h_factor and $v_factor arguments are translated from the
+alignment arguments supplied to DrawText or SizeText: 0, 0.5, or 1.0
+If $draw_it is false, for text sizing mode, the x, y, color,
+h_factor and v_factor arguments are ignored.
+    </p><p>
+Note: This was added at PHPlot-5.0.5. It was changed at PHPlot-5.0.6 to
+take a single font array argument, rather than 3 separate arguments for
+font number, width, and height.
+    </p></dd><dt><span class="term"><a id="ProcessTextTTF"></a>ProcessTextTTF($draw_it, $font, $angle, $x, $y, $color, $text, $h_factor, $v_factor)</span></dt><dd><p>
+Draws TTF text, or calculates the size of TTF text.
+This is only called by <a class="xref" href="dev-internal.html#ProcessText">ProcessText</a> after it determines
+that TTF text is in use.
+If $draw_it is true, text is drawn;
+if $draw_it is false, only the bounding box size of the text is calculated and
+returned as a two-element array ($width, $height).
+Here $width is measured along the X axis, and $height along Y, regardless
+of the text angle. These are the size of an orthogonal bounding box that
+contains the text block.
+The $font argument is a PHPlot font array, which must reference a TTF font.
+The text is drawn at $angle degrees; unlike GD text TTF text can be drawn
+at any angle.
+$x, $y are the reference point of the text $text, which is drawn in color
+$color.
+The text string can contain multiple lines, with a newline character between
+lines.
+The $h_factor and $v_factor arguments are translated from the
+alignment arguments supplied to DrawText or SizeText: 0, 0.5, or 1.0
+If $draw_it is false, for text sizing mode, the x, y, color,
+h_factor and v_factor arguments are ignored.
+    </p><p>
+Note that the interpretation of the alignment for text at arbitrary angles
+may not be what you expect. Rotation of text happens before alignment, and
+alignment and positioning use the orthogonal bounding box of the text.
+    </p><p>
+Note: This was added at PHPlot-5.0.5. It was changed in PHPlot-5.0.6 to
+take a single font array argument, rather than 2 separate arguments for
+font filename and size.
+    </p></dd><dt><span class="term"><a id="SetColorIndexes"></a>SetColorIndexes()</span></dt><dd><p>
+Allocates all the colors needed for a plot.
+Called by <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> before drawing anything.
+This was added in PHPlot-5.2.0.
+    </p></dd><dt><span class="term"><a id="SetDashedStyle"></a>SetDashedStyle($which_ndxcol)</span></dt><dd><p>
+Sets the GD line style to select a dashed line, in preparation for drawing
+a dashed line.  To understand how this works, it helps to look at the
+documentation for the PHP GD function ImageSetStyle() and also refer to
+<a class="xref" href="SetDefaultDashedStyle.html" title="SetDefaultDashedStyle"><span class="refentrytitle">SetDefaultDashedStyle</span></a>. GD expects a line style to be
+specified as an array of pixel values, which is awkward to deal with.
+PHPlot uses a shorthand notation with integer values indicating pairs of
+the number of color, then transparent pixels.
+SetDefaultDashedStyle creates a string of PHP code to generate an array
+of pixel values the way GD wants them, but defers filling in the
+exact color to use. SetDashedStyle evaluates this string with
+$which_ndx_color set to the color to use for the current line.
+The result is an array of pixel values for GD's ImageSetStyle.
+Called by <a class="xref" href="dev-internal.html#DrawXTicks">DrawXTicks</a> and <a class="xref" href="dev-internal.html#DrawYTicks">DrawYTicks</a>
+if a dashed grid is selected, as well as other line drawing functions
+such as <a class="xref" href="dev-internal.html#DrawLines">DrawLines</a> if dashed lines are used.
+    </p></dd><dt><span class="term"><a id="SetDefaultFonts"></a>SetDefaultFonts()</span></dt><dd><p>
+Selects all the default font values and sizes. See <a class="xref" href="SetFont.html" title="SetFont"><span class="refentrytitle">SetFont</span></a>
+for details of the font element names and default values.
+Called by <a class="xref" href="PHPlot.html" title="PHPlot"><span class="refentrytitle">PHPlot</span></a>, the class constructor, to initialize
+fonts in the plot object, and by <a class="xref" href="SetUseTTF.html" title="SetUseTTF"><span class="refentrytitle">SetUseTTF</span></a> to restore the
+defaults when changing from or to TrueType font usage.
+    </p></dd><dt><span class="term"><a id="SetDefaultStyles"></a>SetDefaultStyles()</span></dt><dd><p>
+Initializes default colors and styles for PHPlot objects. Mostly this calls
+the public member functions such as <a class="xref" href="SetDataColors.html" title="SetDataColors"><span class="refentrytitle">SetDataColors</span></a> but
+without specifying an array of colors, which causes the member functions
+to select default values.
+Called by <a class="xref" href="PHPlot.html" title="PHPlot"><span class="refentrytitle">PHPlot</span></a>, the class constructor, to initialize
+the plot object.
+    </p></dd><dt><span class="term"><a id="SetIndexColor"></a>SetIndexColor($which_color, $alpha = 0)</span></dt><dd><p>
+This function was removed in PHPlot-5.2.0.
+It parsed a color specification, and allocated a GD color index.
+The first part is replaced by calling <a class="xref" href="dev-internal.html#SetRGBColor">SetRGBColor</a> directly,
+and the second part is implemented with <a class="xref" href="dev-internal.html#GetColorIndex">GetColorIndex</a>
+at graph drawing time.
+    </p></dd><dt><span class="term"><a id="SetIndexDarkColor"></a>SetIndexDarkColor($which_color, $alpha = 0)</span></dt><dd><p>
+This function was removed in PHPlot-5.2.0.
+It parsed a color specification, and allocated a GD color index for a
+slightly darker shade of the color.
+The first part is replaced by calling <a class="xref" href="dev-internal.html#SetRGBColor">SetRGBColor</a> directly,
+and the second part is implemented with <a class="xref" href="dev-internal.html#GetDarkColorIndex">GetDarkColorIndex</a>
+at graph drawing time.
+    </p></dd><dt><span class="term"><a id="SetInputFile"></a>SetInputFile($which_input_file)</span></dt><dd><p>
+Sets an image file $which_input_file to be used as the background image for
+the graph. Also resets the graph size to the size of the image file.
+This is used by the constructor, <a class="xref" href="PHPlot.html" title="PHPlot"><span class="refentrytitle">PHPlot</span></a>.
+Note: In earlier releases, this was considered an externally available
+function. After a PHPlot object was created with the constructor,
+SetInputFile could be used to resize it and set the background image.
+Although this still works, it is deprecated. SetInputFile should be
+considered an internal-use-only function. Users should set the background
+image file using the 4th argument of <a class="xref" href="PHPlot.html" title="PHPlot"><span class="refentrytitle">PHPlot</span></a> when
+creating an instance of the object.
+    </p></dd><dt><span class="term"><a id="SetLabelType"></a>SetLabelType($mode, $args)</span></dt><dd><p>
+Sets the formatting used for tick and data labels. This implements
+<a class="xref" href="SetXLabelType.html" title="SetXLabelType"><span class="refentrytitle">SetXLabelType</span></a>, <a class="xref" href="SetYLabelType.html" title="SetYLabelType"><span class="refentrytitle">SetYLabelType</span></a>,
+<a class="xref" href="SetXDataLabelType.html" title="SetXDataLabelType"><span class="refentrytitle">SetXDataLabelType</span></a> ,and <a class="xref" href="SetYDataLabelType.html" title="SetYDataLabelType"><span class="refentrytitle">SetYDataLabelType</span></a>.
+$mode is either 'x', 'xd', 'y', or 'yd' and selects the axis to configure
+and type of label being drawn (x, y for tick labels; xd, yd for data labels).
+$args is an array of arguments, with $args[0] selecting the type of
+formatting (for example, <code class="literal">data</code>).
+Additional array elements depend on the formatting type.
+For more details, see the above-referenced functions.
+All arguments to those functions are combined into an array and passed to
+<code class="function">SetLabelType</code> as $args.
+Separation of data and tick label formatting was available starting with
+PHPlot-5.1.0.
+    </p></dd><dt><span class="term"><a id="SetRGBColor"></a>SetRGBColor($color_asked, $alpha = 0)</span></dt><dd><p>
+Converts a general color specification into a standard form as an array of
+4 components: red, green, blue, and alpha, and returns the array.  The 3
+color components are integers in the range 0-255, and the alpha component
+is an integer in the range 0-127 (where 0 means opaque).  The acceptable
+color specification forms are documented in <a class="xref" href="conc-colors.html#conc-colors-forms" title="3.5.1. Color Parameter Forms">Section 3.5.1, &#8220;Color Parameter Forms&#8221;</a> and <a class="xref" href="conc-truecolor.html#conc-truecolor-forms" title="4.2.4. Color Parameter Form Extensions">Section 4.2.4, &#8220;Color Parameter Form Extensions&#8221;</a>,
+and include color names, component arrays, and strings of the form #RRGGBB
+and #RRGGBBAA.  The alpha argument provides a default value if the color
+specification does not include alpha; the default 0 makes the color
+opaque.
+This is used directly by all functions that accept a color specification.
+Use of alpha in the color specification, the default alpha argument, and the
+4th component in the returned array were added in PHPlot-5.1.1.
+    </p></dd><dt><span class="term"><a id="SizeText"></a>SizeText($which_font, $which_angle, $which_text)</span></dt><dd><p>
+Calculates the size of a block of text. It works on both GD (fixed-font) and TTF
+text.
+$which_font is a PHPlot font array, $which_angle is the text angle in degrees,
+and $which_text is the text string. The text string can contain multiple lines,
+with a newline character between lines.
+This function just calls <a class="xref" href="dev-internal.html#ProcessText">ProcessText</a> in text sizing mode
+to do the work.
+It returns a two-element array with the text width and height. These are the
+width and height of an orthogonal bounding box (box aligned with the X
+and Y axes) which contains the rotated text block.
+Called by functions which need to determine text size for laying out
+plot elements, such as <a class="xref" href="dev-internal.html#CalcMargins">CalcMargins</a>.
+This function replaced <a class="xref" href="dev-internal.html#TTFBBoxSize">TTFBBoxSize</a> at PHPlot-5.0.5.
+    </p></dd><dt><span class="term"><a id="tile_img"></a>tile_img($file, $xorig, $yorig, $width, $height, $mode)</span></dt><dd><p>
+Tiles an image file over another the current plot image.
+$file is the filename of the image to use as the tile.
+($xorig, $yorig) are the origin point for the tiling,
+and ($width, $height) are the area to be tiled. These are used to tile just
+under the plot area versus the entire image. The $mode can be
+<code class="literal">centeredtile</code>, <code class="literal">tile</code>, or
+<code class="literal">scale</code>.  Scale mode scales the source image to
+fit the target area. Tile and centeredtile modes repeat the source image as
+needed to fit into the target area; the difference is that centeredtile
+offsets the tile start position by half its size, which works better for
+some tiles.
+Called by
+<a class="xref" href="dev-internal.html#DrawBackground">DrawBackground</a> and <a class="xref" href="dev-internal.html#DrawPlotAreaBackground">DrawPlotAreaBackground</a>
+if an image file is selected for the plot area or overall background.
+    </p></dd><dt><span class="term"><a id="truncate_array"></a>truncate_array(&amp;$array, $size)</span></dt><dd><p>
+This was added in PHPlot-5.2.0 and removed in PHPlot-5.3.1,
+when data color processing was changed to not truncate the color arrays.
+    </p></dd><dt><span class="term"><a id="TTFBBoxSize"></a>TTFBBoxSize($size, $angle, $font, $string)</span></dt><dd><p>
+This function was removed at PHPlot-5.0.5.
+It was replaced by <a class="xref" href="dev-internal.html#SizeText">SizeText</a>.
+    </p></dd><dt><span class="term"><a id="xtr"></a>xtr($x_world)</span></dt><dd><p>
+Translates an X world coordinate value into a pixel coordinate value.
+This uses the scale and translation set up by <a class="xref" href="dev-internal.html#CalcTranslation">CalcTranslation</a>.
+See <a class="xref" href="GetDeviceXY.html" title="GetDeviceXY"><span class="refentrytitle">GetDeviceXY</span></a> for a public interface.
+    </p></dd><dt><span class="term"><a id="ytr"></a>ytr($y_world)</span></dt><dd><p>
+Translates a Y world coordinate value into a pixel coordinate value.
+This uses the scale and translation set up by <a class="xref" href="dev-internal.html#CalcTranslation">CalcTranslation</a>.
+See <a class="xref" href="GetDeviceXY.html" title="GetDeviceXY"><span class="refentrytitle">GetDeviceXY</span></a> for a public interface.
+    </p></dd></dl></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="dev-legend.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="part3.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="dev-vars.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 8. PHPlot Legend Layout </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 10. PHPlot Class Member Variables</td></tr></table></div></body></html>

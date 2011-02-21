@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>5.30. Example - Basic OHLC (Open, High, Low, Close) Financial Plot</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="examples.html" title="Chapter 5. PHPlot Examples" /><link rel="prev" href="ex-horizthinbarline.html" title="5.29. Example - Horizontal Thin Bar Line Plot" /><link rel="next" href="ex-ohlccandlesticks.html" title="5.31. Example - Candlesticks OHLC (Open, High, Low, Close) Financial Plot" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.30. Example - Basic OHLC (Open, High, Low, Close) Financial Plot</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ex-horizthinbarline.html">Prev</a> </td><th width="60%" align="center">Chapter 5. PHPlot Examples</th><td width="20%" align="right"> <a accesskey="n" href="ex-ohlccandlesticks.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="5.30. Example - Basic OHLC (Open, High, Low, Close) Financial Plot"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ex-ohlcbasic"></a>5.30. Example - Basic OHLC (Open, High, Low, Close) Financial Plot</h2></div></div></div><p>
+This example shows an <a class="link" href="conc-plottypes.html#plottype-ohlc" title="3.4.7. Plot Type: ohlc (Basic OHLC Plot)">ohlc</a> plot, which
+is a basic form of the Open, High, Low, Close (OHLC) financial plot.
+Each X is a point in time or interval, and there are 4 corresponding Y values
+for the four prices (open, high, low, and close).
+Compare this with the next two examples,
+<a class="xref" href="ex-ohlccandlesticks.html#example-ohlccandlesticks" title="Example 5.31. Candlesticks OHLC Plot">Example 5.31, &#8220;Candlesticks OHLC Plot&#8221;</a>
+and <a class="xref" href="ex-ohlccandlesticks2.html#example-ohlccandlesticks2" title="Example 5.32. Filled Candlesticks OHLC Plot">Example 5.32, &#8220;Filled Candlesticks OHLC Plot&#8221;</a>,
+which show the same data but with a different presentation.
+</p><p>
+In this example, the data array is read from an external file in Comma
+Separated Value (CSV) format. (Financial data in this format is available
+for download from sites such as Yahoo! Finance.)
+An portion example of the data file can be found below.
+</p><p>
+This example uses the dates from the data file as row labels in the data
+array, with text-data data format. For this to work, the rows have to be sorted
+by increasing date, so the <code class="function">read_prices_text_data()</code>
+first reads the data into a temporary array, sorts by the date, then copies
+the data into a PHPlot data array. Compare this with the other two OHLC
+examples, where the same data is used differently.
+</p><div class="example"><a id="example-ohlcbasic"></a><p class="title"><b>Example 5.30. Basic OHLC Plot</b></p><div class="example-contents"><div class="informalfigure"><div class="mediaobject"><img src="examples/ohlcbasic.png" alt="Basic OHLC Financial Plot Example" /></div></div><pre class="programlisting">&lt;?php
+# PHPlot Example: OHLC (Financial) plot, basic lines, using
+# external data file, text-data format.
+define('DATAFILE', 'examples/ohlcdata.csv'); // External data file
+require_once 'phplot.php';
+
+/*
+  Read historical price data from a CSV data downloaded from Yahoo! Finance.
+  The first line is a header which must contain: Date,Open,High,Low,Close[...]
+  Each additional line has a date (YYYY-MM-DD), then 4 price values.
+  The rows have to be sorted by date, because the original is reversed.
+  This version of the function uses the date as a label, and returns a
+  text-data (implied X) PHPlot data array.
+*/
+function read_prices_text_data($filename)
+{
+    $f = fopen($filename, 'r');
+    if (!$f) {
+        fwrite(STDERR, "Failed to open data file: $filename\n");
+        return FALSE;
+    }
+    // Read and check the file header.
+    $row = fgetcsv($f);
+    if ($row === FALSE || $row[0] != 'Date' || $row[1] != 'Open'
+            || $row[2] != 'High' || $row[3] != 'Low' || $row[4] != 'Close') {
+        fwrite(STDERR, "Incorrect header in: $filename\n");
+        return FALSE;
+    }
+    // Read the rest of the file into array keyed by date for sorting.
+    while ($r = fgetcsv($f)) {
+        $d[$r[0]] = array($r[1], $r[2], $r[3], $r[4]);
+    }
+    fclose($f);
+    ksort($d);
+    // Convert to a PHPlot data array with label and 4 values per row.
+    foreach ($d as $date =&gt; $r) {
+        $data[] = array($date, $r[0], $r[1], $r[2], $r[3]);
+    }
+    return $data;
+}
+
+$plot = new PHPlot(800, 600);
+$plot-&gt;SetImageBorderType('plain'); // Improves presentation in the manual
+$plot-&gt;SetTitle("OHLC (Open/High/Low/Close) Financial Plot\nMSFT Q1 2009");
+$plot-&gt;SetDataType('text-data');
+$plot-&gt;SetDataValues(read_prices_text_data(DATAFILE));
+$plot-&gt;SetPlotType('ohlc');
+$plot-&gt;SetDataColors('black');
+$plot-&gt;SetXLabelAngle(90);
+$plot-&gt;SetXTickPos('none');
+$plot-&gt;DrawGraph();
+</pre></div></div><br class="example-break" /><p>
+Here is the top portion of the data file used for the three OHLC examples.
+This file is called <a class="ulink" href="ohlcdata.csv" target="_top">ohlcdata.csv</a>.
+</p><pre class="programlisting">Date,Open,High,Low,Close,Volume,Adj Close
+2009-03-31,17.83,18.79,17.78,18.37,92095500,17.81
+2009-03-30,17.74,17.76,17.27,17.48,49633000,16.95
+2009-03-27,18.54,18.62,18.05,18.13,47670400,17.58
+2009-03-26,18.17,18.88,18.12,18.83,63775100,18.26
+2009-03-25,17.98,18.31,17.52,17.88,73927100,17.34
+...
+</pre><p>
+</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ex-horizthinbarline.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="examples.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ex-ohlccandlesticks.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.29. Example - Horizontal Thin Bar Line Plot </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.31. Example - Candlesticks OHLC (Open, High, Low, Close) Financial Plot</td></tr></table></div></body></html>

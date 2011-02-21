@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetDataType</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetDataColors.html" title="SetDataColors" /><link rel="next" href="SetDataValues.html" title="SetDataValues" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetDataType</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetDataColors.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetDataValues.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetDataType"><a id="SetDataType"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetDataType</span></h2><p>SetDataType &#8212; Indicate the format of the data array</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetDataType(<em class="parameter"><code>$dt</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2600682"></a><h2>Description</h2><p>
+<code class="function">SetDataType</code> tells PHPlot how to interpret the data
+array set with <a class="xref" href="SetDataValues.html" title="SetDataValues"><span class="refentrytitle">SetDataValues</span></a>.
+More information on data types can be found in <a class="xref" href="conc-datatypes.html" title="3.3. PHPlot Data Types">Section 3.3, &#8220;PHPlot Data Types&#8221;</a>.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2600712"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$dt</code></em></span></dt><dd><p>
+The data array format type, which must be one of the following values:
+            </p><div class="informaltable"><table summary="Available data types" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Format</th><th>Description</th></tr></thead><tbody><tr><td>text-data</td><td>Each data array entry is an array with a label,
+                      followed by one or more Y values.</td></tr><tr><td>data-data</td><td>Each data array entry is an array with a label,
+                      an X value, then one or more Y values.</td></tr><tr><td>data-data-error</td><td>Each data array entry is an array with a label,
+                      an X value, then one or more triplets of Y value,
+                      error in the positive directory, and error in the
+                      negative direction.</td></tr><tr><td>text-data-single</td><td>This is used only for pie charts. Each data
+                      array entry is an array with a label and a single
+                      data value.</td></tr><tr><td>text-data-yx</td><td>Each data array entry is an array with a label,
+                      followed by one or more X values. The Y value is
+                      implied. This is used for horizontal plots.</td></tr><tr><td>data-data-yx</td><td>Each data array entry is an array with a label,
+                      a Y value, then one or more X values.
+                      This is used for horizontal plots.</td></tr></tbody></table></div><p>
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2600858"></a><h2>Notes</h2><p>
+The default data type is <code class="literal">text-data</code>.
+    </p><p>
+An example of a <code class="literal">text-data</code> data array is:
+      </p><pre class="programlisting">$data = array(  array('Jan', 100, 150, 200),
+                array('Feb', 110, 140, 210),
+                array('Mar', 120, 145, 200),
+                array('Apr', 110, 160, 220) );
+</pre><p>
+This defines the data for 3 plots with 4 points on each, and a month name
+as label for each point.
+This is also a valid data array for data type <code class="literal">text-data-yx</code>.
+    </p><p>
+An example of a <code class="literal">data-data</code> data array is:
+      </p><pre class="programlisting">$data = array(  array('', 2, 15),
+                array('', 4, 14),
+                array('', 6, 10),
+                array('', 8, 20) );
+</pre><p>
+Here the labels are empty strings, next are the X values, then a single
+set of Y values (1 plot).
+This is also a valid data array for data type <code class="literal">data-data-yx</code>,
+with each row containing a Y value, followed by a single X value.
+    </p><p>
+An example of a <code class="literal">data-data-error</code> data array is:
+      </p><pre class="programlisting">$data = array(  array('1999', 1, 23.5, 5, 3),
+                array('2000', 2, 20.1, 4, 4),
+                array('2001', 3, 19.1, 3, 4),
+                array('2002', 4, 16.8, 4, 3) );
+</pre><p>
+Here the labels are years, next are the X values 1-4, then a single
+set of Y values with error ranges between 3 and 5 for each point.
+    </p><p>
+An example of a <code class="literal">text-data-single</code> data array,
+used only for pie charts, is:
+      </p><pre class="programlisting">$data = array(  array('', 10),
+                array('', 40),
+                array('', 50) );
+</pre><p>
+Here the labels are empty (they aren't used with a pie chart anyway),
+and 3 slices with relative weights of 10, 40, and 50 are defined.
+    </p></div><div class="refsect1" title="History"><a id="id2600978"></a><h2>History</h2><p>
+Data type <code class="literal">text-data-yx</code> for horizontal plots was added
+in PHPlot-5.1.2.
+Data type <code class="literal">data-data-yx</code> for horizontal plots was added
+in PHPlot-5.1.3.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetDataColors.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetDataValues.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetDataColors </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetDataValues</td></tr></table></div></body></html>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetXLabelType</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetXLabelAngle.html" title="SetXLabelAngle" /><link rel="next" href="SetXScaleType.html" title="SetXScaleType" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetXLabelType</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetXLabelAngle.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetXScaleType.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetXLabelType"><a id="SetXLabelType"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetXLabelType</span></h2><p>SetXLabelType &#8212; Set formatting type for X tick labels</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetXLabelType(<em class="parameter"><code>$type</code></em>, [<span class="optional"><em class="parameter"><code>...</code></em></span>])</pre></div><div class="refsect1" title="Description"><a id="id2612339"></a><h2>Description</h2><p>
+<code class="function">SetXLabelType</code> sets the formatting type for X tick labels,
+and the default formatting type for X data labels.
+(If <a class="xref" href="SetXDataLabelType.html" title="SetXDataLabelType"><span class="refentrytitle">SetXDataLabelType</span></a> is never called,
+<code class="function">SetXLabelType</code> effectively sets the formatting type
+for both X tick labels and X data labels.)
+By default, there is no special formatting, so the labels are output as-is.
+Available format types are 'data', 'time', 'printf', and 'custom'.
+    </p><p>
+'data' formatting formats the labels as floating point numbers,
+with digits grouped into thousands (3 digit groups),
+and with user-defined precision.
+Grouping separator characters can be set with <a class="xref" href="SetNumberFormat.html" title="SetNumberFormat"><span class="refentrytitle">SetNumberFormat</span></a>.
+The precision (number of digits after the decimal point) can be set with
+<a class="xref" href="SetPrecisionX.html" title="SetPrecisionX"><span class="refentrytitle">SetPrecisionX</span></a>, or as an additional argument to SetXLabelType.
+A prefix and suffix string can also be specified.
+    </p><p>
+'time' formatting formats the labels as date/time values,
+using a format specifier set by <a class="xref" href="SetXTimeFormat.html" title="SetXTimeFormat"><span class="refentrytitle">SetXTimeFormat</span></a>
+or using an additional argument to SetXLabelType.
+    </p><p>
+'printf' formatting formats the labels using the standard
+<code class="function">sprintf</code> function, with the format string specified
+as an additional argument to SetXLabelType.
+    </p><p>
+'custom' formatting formats the labels using a caller-provided function,
+with an optional pass-through argument. This provides the maximum
+flexibility in formatting labels.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2612424"></a><h2>Parameters</h2><p>
+There is one required argument, $type. Other arguments depend on the value
+of the $type argument.
+      </p><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$type</code></em></span></dt><dd><p>
+A string indicating the desired formatting mode: 'data', 'time', 'printf',
+or 'custom'. Or, an empty string meaning revert to no formatting.
+            </p></dd></dl></div><p>
+    </p><p>
+For type 'data', there are three optional arguments:
+      </p><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$precision</code></em></span></dt><dd><p>
+The formatting precision, or number of decimal places (optional).
+If omitted, the value set with <a class="xref" href="SetPrecisionX.html" title="SetPrecisionX"><span class="refentrytitle">SetPrecisionX</span></a> is used,
+or if that was never called then the default is 1.
+            </p></dd><dt><span class="term"><em class="replaceable"><code>$prefix</code></em></span></dt><dd><p>
+A prefix string to be placed before the formatted label values. This could
+be used for a currency symbol, for example. The default is an empty string.
+            </p></dd><dt><span class="term"><em class="replaceable"><code>$suffix</code></em></span></dt><dd><p>
+A suffix string to be placed after the formatted label values. This could
+be used for a currency symbol, for example. The default is an empty string.
+            </p></dd></dl></div><p>
+    </p><p>
+For type 'time', there is one optional argument:
+      </p><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$format</code></em></span></dt><dd><p>
+Formatting string, used with <code class="function">strftime()</code>.
+For example, '%Y-%m-%d' results in formatting a <code class="literal">time_t</code>
+value as a year, month, and day numbers.
+If omitted, the value set with <a class="xref" href="SetXTimeFormat.html" title="SetXTimeFormat"><span class="refentrytitle">SetXTimeFormat</span></a> is used,
+or if that was never called then the default is '%H:%M:%S' (hours, minutes,
+and seconds).
+            </p></dd></dl></div><p>
+    </p><p>
+For type 'printf', there is one optional argument:
+      </p><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$format</code></em></span></dt><dd><p>
+Formatting string, used with <code class="function">sprintf()</code>.
+If omitted, the default value of '%e' uses scientific notation with default
+field sizes.
+            </p></dd></dl></div><p>
+    </p><p>
+For type 'custom', there is one required argument and one optional argument:
+      </p><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$callback</code></em></span></dt><dd><p>
+A callback function to format the label. This is either the name of a
+function (as a string), or a two-element array with an object instance and
+method name. (Refer to the PHP documentation for more information on the
+callback type.) The callback will be called with two arguments: the value
+of the label to be formatted, and the pass-through argument (see next).
+            </p></dd><dt><span class="term"><em class="replaceable"><code>$callback_arg</code></em></span></dt><dd><p>
+A pass-through argument for the callback function.
+If omitted, NULL is used.
+            </p></dd></dl></div><p>
+    </p></div><div class="refsect1" title="Notes"><a id="id2612637"></a><h2>Notes</h2><p>
+The default formatting mode is to do no special formatting of the labels.
+Strings will be output as-is, and numbers will be output using PHP's
+default formatting.
+If you need to change label formatting back to the default,
+use SetXLabelType without arguments, or with an empty string argument.
+    </p><p>
+A side effect of <a class="xref" href="SetPrecisionX.html" title="SetPrecisionX"><span class="refentrytitle">SetPrecisionX</span></a> is to call this function
+SetXLabelType and set the format type to 'data'.
+Note that <a class="xref" href="SetXTimeFormat.html" title="SetXTimeFormat"><span class="refentrytitle">SetXTimeFormat</span></a> does not have a corresponding
+side effect on the format type.
+    </p><p>
+When using a custom label formatting function, do not assume the labels are
+formatted in any particular order, or only once each.
+    </p></div><div class="refsect1" title="Examples"><a id="id2612676"></a><h2>Examples</h2><p>
+The following table shows some label formatting examples.
+These also apply to <code class="function">SetXLabelType</code>,
+<a class="xref" href="SetXDataLabelType.html" title="SetXDataLabelType"><span class="refentrytitle">SetXDataLabelType</span></a>, <a class="xref" href="SetYLabelType.html" title="SetYLabelType"><span class="refentrytitle">SetYLabelType</span></a>,
+and <a class="xref" href="SetYDataLabelType.html" title="SetYDataLabelType"><span class="refentrytitle">SetYDataLabelType</span></a>.
+      </p><div class="informaltable"><table summary="Examples of label formatting" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Code:</th><th>Value:</th><th>Result:</th></tr></thead><tbody><tr><td colspan="3">
+Data (numeric) formatting with two digits of precision.
+Grouping and decimal separators depend on locale.
+              </td></tr><tr><td><pre class="programlisting">$plot-&gt;SetXLabelType('data', 2);
+</pre></td><td>1234.56</td><td>1,234.56</td></tr><tr><td colspan="3">
+Data (numeric) formatting with prefix.
+&amp;#8364; is the entity code for the Euro sign in Unicode. (Numeric entity
+codes are handled by the GD library, but not named character entity codes.)
+Here we use it as a prefix, common usage for English.
+The Euro sign may appear differently in your browser. But when used with
+PHPlot it requires a Unicode font on the server.
+              </td></tr><tr><td><pre class="programlisting">$plot-&gt;SetXLabelType('data', 0, '&amp;amp;#8364;');
+</pre></td><td>100000</td><td>&#8364;1,000,000</td></tr><tr><td colspan="3">
+Data (numeric) formatting with suffix.
+Here we use the Euro as a suffix, common usage for French.
+Unlike the previous example, here we represent it as a 3 byte UTF-8
+sequence. You can use html_entity_decode() with UTF-8 as the character set
+to translate &amp;euro; into this sequence. (You cannot used named
+character entity codes in PHPlot strings that are processed by GD, as GD
+only handles UTF-8 sequences or numeric entity codes.)
+The thousands and decimal separator default to locale-dependent values,
+but here we set them ourselves with SetNumberFormat.
+The Euro sign may appear differently in your browser. But when used with
+PHPlot it requires a Unicode font on the server.
+              </td></tr><tr><td><pre class="programlisting">$plot-&gt;SetNumberFormat(',', '.');
+$plot-&gt;SetXLabelType('data', 2, '',
+                     '\xe2\x82\xac');
+</pre></td><td>100000</td><td>1.000.000,00&#8364;</td></tr><tr><td colspan="3">
+Date/time formatting.
+The given value is mktime(0,0,0,4,15,2008).
+The format string could be set with SetXTimeFormat instead.
+              </td></tr><tr><td><pre class="programlisting">$plot-&gt;SetXLabelType('time', '%m/%Y');
+</pre></td><td>1208232000</td><td>04/2008</td></tr><tr><td colspan="3">
+Formatting using printf.
+Note PHP printf may differ from the standard C library. For example, PHP
+outputs only a one digit exponent here.
+              </td></tr><tr><td><pre class="programlisting">$plot-&gt;SetXLabelType('printf', '%8.2e');
+</pre></td><td>1234</td><td>1.23e+3</td></tr><tr><td colspan="3">
+A custom formatting function is used to format values in decimal degrees as
+degrees, minutes, and seconds. (This only works for non-negative angles.)
+              </td></tr><tr><td><pre class="programlisting">function deg_min_sec($value)
+{
+  $deg = (int)$value;
+  $value = ($value - $deg) * 60;
+  $min = (int)$value;
+  $sec = (int)(($value - $min) * 60);
+  return "{$deg}d {$min}m {$sec}s";
+}
+$plot-&gt;SetXLabelType('custom', 'deg_min_sec');
+</pre></td><td>75.12345</td><td>75d 7m 24s</td></tr></tbody></table></div><p>
+
+    </p></div><div class="refsect1" title="History"><a id="id2612999"></a><h2>History</h2><p>
+Through PHPlot-5.0.7, this function set the format type for both X tick
+labels and X data labels.
+Starting with PHPlot-5.1.0, a new function <a class="xref" href="SetXDataLabelType.html" title="SetXDataLabelType"><span class="refentrytitle">SetXDataLabelType</span></a>
+was added to allow separate control of tick and data labels.
+<code class="function">SetXLabelType</code> now sets the format type for X tick labels,
+and the default format type for X data labels.
+    </p><p>
+New label format types 'printf' and 'custom' were added at PHPlot-5.0.6, 
+as well as all arguments after the first. In PHPlot-5.0.5 and earlier, you
+must use SetXTimeFormat and SetPrecisionX to set the formatting parameters.
+Starting with PHPlot-5.0.6, you have the choice of using those, or
+providing additional arguments to SetXLabelType.
+Also added was the ability to add a prefix and suffix to 'data' formatted
+labels. In PHPlot-5.0.5 and earlier, there was an undocumented class variable 
+<em class="parameter"><code>data_units_text</code></em> that was applied as a suffix to 'data'
+mode labels, for both X and Y. This continues to work, but is deprecated.
+    </p><p>
+Starting with PHPlot-5.0.6, you can use an empty string or no argument at all
+to reset to the default of no formatting.
+    </p><p>
+Starting with PHPlot-5.0.4, empty string data labels are ignored when
+formatting with 'data' or 'time' formats. You can use this to suppress
+some data labels, or control label density, with 'data' and 'time'
+formatted labels.
+    </p><p>
+Through PHPlot-5.0rc3, empty strings would still be formatted.  With 'data'
+format, an empty string would result in a zero value, and with 'time'
+format an empty string would cause an error. As a result, with older releases,
+if you don't want to use data labels when using 'data' or 'time' formats,
+you must  turn off X data label display with
+<a class="xref" href="SetXDataLabelPos.html" title="SetXDataLabelPos"><span class="refentrytitle">SetXDataLabelPos</span></a>,
+even if your data array labels are empty strings.
+    </p><p>
+Through PHPlot-5.0rc3, when the formatting mode is 'data'
+the thousands grouping separator was always a comma,
+and a period was used as a decimal point.
+Starting with 5.0.4, PHPlot attempts to get the correct values for your
+locale.  You can set the separator characters yourself instead with
+<a class="xref" href="SetNumberFormat.html" title="SetNumberFormat"><span class="refentrytitle">SetNumberFormat</span></a>.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetXLabelAngle.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetXScaleType.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetXLabelAngle </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetXScaleType</td></tr></table></div></body></html>

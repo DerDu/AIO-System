@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>3.5. Colors</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="concepts.html" title="Chapter 3. PHPlot Concepts" /><link rel="prev" href="conc-plottypes.html" title="3.4. PHPlot Plot Types" /><link rel="next" href="conc-labels.html" title="3.6. Labels" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.5. Colors</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="conc-plottypes.html">Prev</a> </td><th width="60%" align="center">Chapter 3. PHPlot Concepts</th><td width="20%" align="right"> <a accesskey="n" href="conc-labels.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="3.5. Colors"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="conc-colors"></a>3.5. Colors</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This section contains information about using colors in PHPlot.
+Functions described in <a class="xref" href="ref-colorstyle.html" title="6.3. Colors and Line Styles">Section 6.3, &#8220;Colors and Line Styles&#8221;</a> in the Reference
+chapter control the use of colors in PHPlot.
+  </p><p>
+This section describes <a class="link" href="concepts.html#def-palette">Palette images</a>.
+Starting with PHPlot-5.1.1, a second color model is available in
+PHPlot: <a class="link" href="concepts.html#def-truecolor">Truecolor images</a>.
+Refer to <a class="xref" href="conc-truecolor.html" title="4.2. Truecolor Images">Section 4.2, &#8220;Truecolor Images&#8221;</a> for more information.
+  </p></div><div class="sect2" title="3.5.1. Color Parameter Forms"><div class="titlepage"><div><div><h3 class="title"><a id="conc-colors-forms"></a>3.5.1. Color Parameter Forms</h3></div></div></div><p>
+Individual colors as arguments to PHPlot functions can take one of the
+following forms:
+</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+A color name, as defined by <a class="xref" href="SetRGBArray.html" title="SetRGBArray"><span class="refentrytitle">SetRGBArray</span></a> or from a built-in
+color map if SetRGBArray was not called.
+Note that color names are case sensitive.
+    </p></li><li class="listitem"><p>
+Numeric color component values, in the form <code class="literal">#rrggbb</code>.
+Here rr is red, gg is green, and bb is blue, and each component
+value is represented as a 2-digit hexadecimal number between 00 and ff.
+For example, <code class="literal">#0000ff</code> is full-saturation blue.
+    </p></li><li class="listitem"><p>
+A PHP array of red, green, and blue color component values, each value
+being in the range 0 to 255 inclusive, for example
+<code class="literal">array(0,0,255)</code> for blue.
+    </p></li></ol></div><p>
+Additional color forms can be found in <a class="xref" href="conc-truecolor.html#conc-truecolor-forms" title="4.2.4. Color Parameter Form Extensions">Section 4.2.4, &#8220;Color Parameter Form Extensions&#8221;</a>. 
+Those forms are more useful with truecolor images.
+</p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+You cannot use the (red, green, blue) array form as a color value in those
+functions (like <a class="xref" href="SetDataColors.html" title="SetDataColors"><span class="refentrytitle">SetDataColors</span></a>) which accept either a
+single color or an array of colors. The functions are unable to distinguish
+between an array of colors and a single color represented as an array.
+However, you can work around this restriction by using an array containing
+the array with the colors, for example:
+<code class="literal">array(array(102, 0, 192))</code>.
+  </p></div></div><div class="sect2" title="3.5.2. Built-in Color Maps"><div class="titlepage"><div><div><h3 class="title"><a id="conc-colors-map"></a>3.5.2. Built-in Color Maps</h3></div></div></div><p>
+There are 36 colors defined in the 'small' internal color map.
+This is the set of colors available by default, unless
+<a class="xref" href="SetRGBArray.html" title="SetRGBArray"><span class="refentrytitle">SetRGBArray</span></a> is used to load in a different color map.
+The colors and their names are shown in the figure below.
+  </p><div class="informalfigure"><div class="mediaobject"><img src="images/colors.png" alt="The 36 color 'small' color map" /></div></div><p>
+</p><p>
+Here are the color names again.
+
+</p><div class="informaltable"><table summary="Color names" border="0"><colgroup><col /><col /><col /><col /><col /><col /></colgroup><tbody><tr><td>DarkGreen</td><td>DimGrey</td><td>PeachPuff</td><td>SkyBlue</td><td>SlateBlue</td><td>YellowGreen</td></tr><tr><td>aquamarine1</td><td>azure1</td><td>beige</td><td>black</td><td>blue</td><td>brown</td></tr><tr><td>cyan</td><td>gold</td><td>gray</td><td>green</td><td>grey</td><td>ivory</td></tr><tr><td>lavender</td><td>magenta</td><td>maroon</td><td>navy</td><td>orange</td><td>orchid</td></tr><tr><td>peru</td><td>pink</td><td>plum</td><td>purple</td><td>red</td><td>salmon</td></tr><tr><td>snow</td><td>tan</td><td>violet</td><td>wheat</td><td>white</td><td>yellow</td></tr></tbody></table></div><p>
+</p><p>
+The color names and values in the 'small' internal color map are
+selected from the X11 RGB Color Database.
+If you use <a class="xref" href="SetRGBArray.html" title="SetRGBArray"><span class="refentrytitle">SetRGBArray</span></a> to pick the 'large' color map,
+PHPlot loads a much larger list of colors equivalent to the entire
+X11 RGB Color Database. Note that there are some duplicate colors in the
+maps, as they include alternate spellings (like 'gray' and 'grey').
+</p></div><div class="sect2" title="3.5.3. Plotting Colors"><div class="titlepage"><div><div><h3 class="title"><a id="conc-colors-datacolors"></a>3.5.3. Plotting Colors</h3></div></div></div><p>
+
+Each data set plotted on a graph uses the next color in the Data Colors list.
+By default, the Data Colors list contains the following 16 colors in order.
+  </p><div class="informaltable"><table summary="Default PHPlot Data Colors List" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Data Set:</th><th>Color Name:</th><th>Color Sample:</th></tr></thead><tbody><tr bgcolor="white"><td>1</td><td>SkyBlue</td><td bgcolor="#87ceeb">    </td></tr><tr bgcolor="white"><td>2</td><td>green</td><td bgcolor="#00ff00">    </td></tr><tr bgcolor="white"><td>3</td><td>orange</td><td bgcolor="#ffa500">    </td></tr><tr bgcolor="white"><td>4</td><td>blue</td><td bgcolor="#0000ff">    </td></tr><tr bgcolor="white"><td>5</td><td>red</td><td bgcolor="#ff0000">    </td></tr><tr bgcolor="white"><td>6</td><td>DarkGreen</td><td bgcolor="#006400">    </td></tr><tr bgcolor="white"><td>7</td><td>purple</td><td bgcolor="#a020f0">    </td></tr><tr bgcolor="white"><td>8</td><td>peru</td><td bgcolor="#cd853f">    </td></tr><tr bgcolor="white"><td>9</td><td>cyan</td><td bgcolor="#00ffff">    </td></tr><tr bgcolor="white"><td>10</td><td>salmon</td><td bgcolor="#fa8072">    </td></tr><tr bgcolor="white"><td>11</td><td>SlateBlue</td><td bgcolor="#6a5acd">    </td></tr><tr bgcolor="white"><td>12</td><td>YellowGreen</td><td bgcolor="#9acd32">    </td></tr><tr bgcolor="white"><td>13</td><td>magenta</td><td bgcolor="#ff00ff">    </td></tr><tr bgcolor="white"><td>14</td><td>aquamarine1</td><td bgcolor="#7fffd4">    </td></tr><tr bgcolor="white"><td>15</td><td>gold</td><td bgcolor="#ffd700">    </td></tr><tr bgcolor="white"><td>16</td><td>violet</td><td bgcolor="#ee82ee">    </td></tr></tbody></table></div><p>
+</p><p>
+An additional color list is used with error plots. These have data type
+data-data-error (see <a class="xref" href="conc-datatypes.html#conc-datatypes-types" title="3.3.1. Available Data Types">Section 3.3.1, &#8220;Available Data Types&#8221;</a>).
+The positive and negative error bars use a color map that is set using
+<a class="xref" href="SetErrorBarColors.html" title="SetErrorBarColors"><span class="refentrytitle">SetErrorBarColors</span></a>. By default, this color list contains
+the same colors as the data color list, so each data set and its error bars
+will be in the same color. If you change the data colors list with
+<a class="xref" href="SetDataColors.html" title="SetDataColors"><span class="refentrytitle">SetDataColors</span></a>, you probably want to use the same color
+list for the error bars.
+</p><p>
+For bar charts and stackedbar charts, if shading is off, the color of the
+bar borders can be set with <a class="xref" href="SetDataBorderColors.html" title="SetDataBorderColors"><span class="refentrytitle">SetDataBorderColors</span></a>. By
+default, unshaded bar charts use a black outline around the bars for all
+data sets.
+</p><p>
+Note: PHPlot through version 5.0.7 used 8 colors in the default Data Colors
+list: SkyBlue, green, orange, blue, orange, red, violet, and azure1.
+If plotting more than four data sets with PHPlot-5.0.7 or earlier, you should
+use <a class="xref" href="SetDataColors.html" title="SetDataColors"><span class="refentrytitle">SetDataColors</span></a> to define your own data colors list.
+Otherwise you will get two data sets plotted in the same color, orange.
+</p><p>
+Instead of using sequential data colors for plotted data sets, you can
+control exactly which data color is used for each data value using the
+data color callback.
+For more information, see <a class="xref" href="conc-colors-datacolor-callback.html" title="4.4. Custom Data Color Selection">Section 4.4, &#8220;Custom Data Color Selection&#8221;</a>.
+</p></div><div class="sect2" title="3.5.4. Transparency"><div class="titlepage"><div><div><h3 class="title"><a id="conc-colors-transparent"></a>3.5.4. Transparency</h3></div></div></div><p>
+You can designate one color in the color map to be transparent.
+This is most often used to make a plot with a transparent background.
+Use <a class="xref" href="SetTransparentColor.html" title="SetTransparentColor"><span class="refentrytitle">SetTransparentColor</span></a> to designate the color,
+and <a class="xref" href="SetBackgroundColor.html" title="SetBackgroundColor"><span class="refentrytitle">SetBackgroundColor</span></a> to use that color for the background.
+Use a color which is not otherwise used in the plot.
+</p><p>
+For transparency to work, the output format (see <a class="xref" href="SetFileFormat.html" title="SetFileFormat"><span class="refentrytitle">SetFileFormat</span></a>)
+must support transparency, and the the user's viewer or browser also must
+support transparency.
+If transparency is not supported, the user will see the actual color
+which was designated as transparent (so don't use red, for example).
+Most viewers support transparency in GIF format, and newer viewers should
+support transparency in PNG format.  JPEG format does not support
+transparency.
+</p></div><div class="sect2" title="3.5.5. Plot Element Colors"><div class="titlepage"><div><div><h3 class="title"><a id="conc-colors-elements"></a>3.5.5. Plot Element Colors</h3></div></div></div><p>
+The following table shows the function used to set the color of each
+element on a plot.
+</p><div class="informaltable"><table summary="Functions to set color of plot elements" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Plot element:</th><th>Function used to set color:</th></tr></thead><tbody><tr><td>Bar chart bar outlines</td><td><a class="xref" href="SetDataBorderColors.html" title="SetDataBorderColors"><span class="refentrytitle">SetDataBorderColors</span></a></td></tr><tr><td>Data elements (points, lines, bar fill, etc.)</td><td><a class="xref" href="SetDataColors.html" title="SetDataColors"><span class="refentrytitle">SetDataColors</span></a></td></tr><tr><td>Data value labels</td><td><a class="xref" href="SetTextColor.html" title="SetTextColor"><span class="refentrytitle">SetTextColor</span></a></td></tr><tr><td>Error bars</td><td><a class="xref" href="SetErrorBarColors.html" title="SetErrorBarColors"><span class="refentrytitle">SetErrorBarColors</span></a></td></tr><tr><td>Image background</td><td><a class="xref" href="SetBackgroundColor.html" title="SetBackgroundColor"><span class="refentrytitle">SetBackgroundColor</span></a></td></tr><tr><td>Image border</td><td><a class="xref" href="SetImageBorderColor.html" title="SetImageBorderColor"><span class="refentrytitle">SetImageBorderColor</span></a></td></tr><tr><td>Legend background</td><td><a class="xref" href="SetBackgroundColor.html" title="SetBackgroundColor"><span class="refentrytitle">SetBackgroundColor</span></a></td></tr><tr><td>Legend color box fill</td><td><a class="xref" href="SetDataColors.html" title="SetDataColors"><span class="refentrytitle">SetDataColors</span></a></td></tr><tr><td>Legend color box outline</td><td><a class="xref" href="SetTextColor.html" title="SetTextColor"><span class="refentrytitle">SetTextColor</span></a></td></tr><tr><td>Legend outline</td><td><a class="xref" href="SetGridColor.html" title="SetGridColor"><span class="refentrytitle">SetGridColor</span></a></td></tr><tr><td>Legend text</td><td><a class="xref" href="SetTextColor.html" title="SetTextColor"><span class="refentrytitle">SetTextColor</span></a></td></tr><tr><td>Main title</td><td><a class="xref" href="SetTitleColor.html" title="SetTitleColor"><span class="refentrytitle">SetTitleColor</span></a></td></tr><tr><td>Pie chart data labels</td><td><a class="xref" href="SetGridColor.html" title="SetGridColor"><span class="refentrytitle">SetGridColor</span></a></td></tr><tr><td>Pie slice fill</td><td><a class="xref" href="SetDataColors.html" title="SetDataColors"><span class="refentrytitle">SetDataColors</span></a></td></tr><tr><td>Pie slice outlines</td><td><a class="xref" href="SetGridColor.html" title="SetGridColor"><span class="refentrytitle">SetGridColor</span></a></td></tr><tr><td>Plot area background</td><td><a class="xref" href="SetPlotBgColor.html" title="SetPlotBgColor"><span class="refentrytitle">SetPlotBgColor</span></a></td></tr><tr><td>Plot border</td><td><a class="xref" href="SetGridColor.html" title="SetGridColor"><span class="refentrytitle">SetGridColor</span></a></td></tr><tr><td>X axis line</td><td><a class="xref" href="SetGridColor.html" title="SetGridColor"><span class="refentrytitle">SetGridColor</span></a></td></tr><tr><td>X axis data labels</td><td><a class="xref" href="SetTextColor.html" title="SetTextColor"><span class="refentrytitle">SetTextColor</span></a></td></tr><tr><td>X data lines</td><td><a class="xref" href="SetLightGridColor.html" title="SetLightGridColor"><span class="refentrytitle">SetLightGridColor</span></a></td></tr><tr><td>X grid lines</td><td><a class="xref" href="SetLightGridColor.html" title="SetLightGridColor"><span class="refentrytitle">SetLightGridColor</span></a></td></tr><tr><td>X tick labels</td><td><a class="xref" href="SetTextColor.html" title="SetTextColor"><span class="refentrytitle">SetTextColor</span></a></td></tr><tr><td>X tick marks</td><td><a class="xref" href="SetTickColor.html" title="SetTickColor"><span class="refentrytitle">SetTickColor</span></a></td></tr><tr><td>X title</td><td><a class="xref" href="SetXTitleColor.html" title="SetXTitleColor"><span class="refentrytitle">SetXTitleColor</span></a>, <a class="xref" href="SetTitleColor.html" title="SetTitleColor"><span class="refentrytitle">SetTitleColor</span></a></td></tr><tr><td>Y axis lines</td><td><a class="xref" href="SetGridColor.html" title="SetGridColor"><span class="refentrytitle">SetGridColor</span></a></td></tr><tr><td>Y axis data labels</td><td><a class="xref" href="SetTextColor.html" title="SetTextColor"><span class="refentrytitle">SetTextColor</span></a></td></tr><tr><td>Y grid lines</td><td><a class="xref" href="SetLightGridColor.html" title="SetLightGridColor"><span class="refentrytitle">SetLightGridColor</span></a></td></tr><tr><td>Y tick labels</td><td><a class="xref" href="SetTextColor.html" title="SetTextColor"><span class="refentrytitle">SetTextColor</span></a></td></tr><tr><td>Y tick marks</td><td><a class="xref" href="SetTickColor.html" title="SetTickColor"><span class="refentrytitle">SetTickColor</span></a></td></tr><tr><td>Y title</td><td><a class="xref" href="SetYTitleColor.html" title="SetYTitleColor"><span class="refentrytitle">SetYTitleColor</span></a>, <a class="xref" href="SetTitleColor.html" title="SetTitleColor"><span class="refentrytitle">SetTitleColor</span></a></td></tr></tbody></table></div><p>
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="conc-plottypes.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="concepts.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="conc-labels.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.4. PHPlot Plot Types </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3.6. Labels</td></tr></table></div></body></html>

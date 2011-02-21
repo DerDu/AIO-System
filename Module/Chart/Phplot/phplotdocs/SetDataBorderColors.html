@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetDataBorderColors</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetCallback.html" title="SetCallback" /><link rel="next" href="SetDataColors.html" title="SetDataColors" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetDataBorderColors</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetCallback.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetDataColors.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetDataBorderColors"><a id="SetDataBorderColors"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetDataBorderColors</span></h2><p>SetDataBorderColors &#8212; Set the rectangle border color on bars and stacked bars</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetDataBorderColors(<em class="parameter"><code>$border</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2600178"></a><h2>Description</h2><p>
+<code class="function">SetDataBorderColors</code> sets the colors used for the
+borders of the bars and stacked bars for plot types 'bars' and
+'stackedbars'. The borders are only drawn if shading is turned off
+with <a class="xref" href="SetShading.html" title="SetShading"><span class="refentrytitle">SetShading</span></a>; the default is to draw bars with
+a drop-shadow for a 3-D look and no borders.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2600204"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$border</code></em></span></dt><dd><p>
+An array of color values, one for the bar border of each data set.
+Or, a single color value (not an array) to use for all data sets.
+For other possibilities, see Notes.
+See <a class="xref" href="conc-colors.html" title="3.5. Colors">Section 3.5, &#8220;Colors&#8221;</a> for more on color values.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2600237"></a><h2>Notes</h2><p>
+If an array is used for <em class="parameter"><code>$border</code></em>, it
+must use zero based sequential integer indexes. This is what the PHP manual 
+calls 'the usual integer indices (starting from zero, increasing by one)'.
+    </p><p>
+If this function is never called, and <a class="xref" href="SetShading.html" title="SetShading"><span class="refentrytitle">SetShading</span></a> is called
+to turn shading off, a default color map is used which sets all data borders
+to black.
+    </p><p>
+This is only used for plot types 'bars' and 'stackedbars', and only if shading
+is turned off.
+    </p><p>
+If you want flat (unshaded), borderless bars, call SetShading(0) to turn
+off the shading, and call SetDataBorderColors with the same color (or color
+array) that you use with <a class="xref" href="SetDataColors.html" title="SetDataColors"><span class="refentrytitle">SetDataColors</span></a>.
+    </p><p>
+If <em class="parameter"><code>$border</code></em> is not an array, but a single color
+value, then that color will be used for all data sets.
+However, the array(r,g,b) notation is not allowed in
+this case (because it looks like an array of 3 separate color values).
+You can get around this restriction if you want to specify a single color 
+as an R, G, B array by wrapping the array in another array, for example:
+<code class="literal">array(array(102, 0, 192))</code>.
+    </p><p>
+Two special uses of the <em class="parameter"><code>$border</code></em> argument
+are available.
+If the argument is an empty string, or boolean False, the color map is reset
+to the defaults. This can be used to restore the default color map.
+If the argument is NULL or missing from the function call, the color map is
+reset to the defaults, but only if it has not already been set.
+This is used internal to PHPlot for one-time initialization.
+    </p><p>
+A data colors callback, as described in
+<a class="xref" href="conc-colors-datacolor-callback.html" title="4.4. Custom Data Color Selection">Section 4.4, &#8220;Custom Data Color Selection&#8221;</a>,
+also controls selection of the color for data borders (if used).
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetCallback.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetDataColors.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetCallback </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetDataColors</td></tr></table></div></body></html>

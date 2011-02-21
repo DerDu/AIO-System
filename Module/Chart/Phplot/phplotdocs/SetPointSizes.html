@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetPointSizes</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetPointShapes.html" title="SetPointShapes" /><link rel="next" href="SetPrecisionX.html" title="SetPrecisionX" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetPointSizes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetPointShapes.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetPrecisionX.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetPointSizes"><a id="SetPointSizes"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetPointSizes</span></h2><p>SetPointSizes &#8212; Sets the point size for each data set</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetPointSizes(<em class="parameter"><code>$ps</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2608958"></a><h2>Description</h2><p>
+<code class="function">SetPointSizes</code> assigns a point size to each data
+set in a plot.
+'Point' here refers to the marker drawn at each data point in 'points' and
+'linepoints' type plots.
+For example, if each data row contains 4 Y values, the first
+point size will be used for the first Y value, the second point size for
+the second Y value, etc.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2608979"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$ps</code></em></span></dt><dd><p>
+An array of point sizes, or a single value. All values are in pixels.
+If a single value, that size is used for all data sets.
+If an array, the array values are the sizes for each subsequent
+data set in a plot.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2609006"></a><h2>Notes</h2><p>
+If an array is used for <em class="parameter"><code>$ps</code></em>, it
+must use zero based sequential integer indexes. This is what the PHP manual 
+calls 'the usual integer indices (starting from zero, increasing by one)'.
+    </p><p>
+This applies only to 'points' and 'linepoints' plot types.
+    </p><p>
+PHPlot duplicates the entries in the shorter of the two arrays,
+point sizes and point shapes (set by <a class="xref" href="SetPointShapes.html" title="SetPointShapes"><span class="refentrytitle">SetPointShapes</span></a>),
+to make both arrays the same size. Then it uses the entries in order,
+restarting at the beginning, for each data set at each X value.
+For example, if point sizes is (6, 10), and point shapes is ('diamond',
+'dot', 'rect'), then PHPlot first extends point sizes to (6, 10, 6) to
+match the point shapes. If there are 4 data sets to plot, PHPlot draws the
+point markers at each X value as: diamond (size 6), dot (size 10),
+rect (size 6), diamond (size 6).
+    </p><p>
+By default, all point sizes are 6 pixels.
+    </p></div><div class="refsect1" title="History"><a id="id2609052"></a><h2>History</h2><p>
+Through PHPlot-5.0.7, the default size array was (5, 5, 3). However, there
+were bugs in processing the sizes of the point shapes and point sizes arrays.
+Also, for some point sizes, PHPlot rounded the size up to the next even number.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetPointShapes.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetPrecisionX.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetPointShapes </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetPrecisionX</td></tr></table></div></body></html>

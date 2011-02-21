@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetYAxisPosition</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetXTitleColor.html" title="SetXTitleColor" /><link rel="next" href="SetYDataLabelAngle.html" title="SetYDataLabelAngle" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetYAxisPosition</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetXTitleColor.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetYDataLabelAngle.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetYAxisPosition"><a id="SetYAxisPosition"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetYAxisPosition</span></h2><p>SetYAxisPosition &#8212; Move the Y axis</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetYAxisPosition(<code class="option"><em class="parameter"><code>$pos</code></em></code>)</pre></div><div class="refsect1" title="Description"><a id="id2614606"></a><h2>Description</h2><p>
+<code class="function">SetYAxisPosition</code> sets the position of the Y axis.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2614622"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$pos</code></em></span></dt><dd><p>
+The X position in world coordinates for the Y axis.
+(World coordinates are the coordinate space of your data points.)
+If the value is omitted or an empty string, the default behavior is restored.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2614650"></a><h2>Notes</h2><p>
+The given position is truncated (towards 0) to an integer value.
+    </p><p>
+The default axis position differs for vertical and horizontal plots.
+For vertical plots, the Y axis position defaults to the left side of the plot.
+For horizontal plots, the Y axis position defaults to X=0, provided X=0 is
+within the range of the graph. If X=0 is not within the range of the graph,
+the Y axis position will default to the edge with the smallest absolute X
+value.  This means the Y axis will be on the left side of the graph if all
+values of X are greater than zero, and on the right side of the graph if all
+values of X are less than zero.  (For log scale plots, however, the default
+Y axis position is X=1.)
+    </p></div><div class="refsect1" title="History"><a id="id2614675"></a><h2>History</h2><p>
+Through PHPlot-5.3.0, the argument was required, and there was no way to
+restore the default behavior (because the argument value was always converted
+to an integer).
+Starting with PHPlot-5.3.1, the argument may be given as an empty string,
+or omitted, to restore the default behavior.
+    </p><p>
+Through PHPlot-5.1.3, there was no special handling for horizontal plots.
+The Y axis always defaulted to the left side of the plot. When plotting
+negative data with horizontal plots, it was usually necessary to use
+<code class="literal">SetYAxisPosition(0)</code> to force the bars to start from X=0.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetXTitleColor.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetYDataLabelAngle.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetXTitleColor </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetYDataLabelAngle</td></tr></table></div></body></html>

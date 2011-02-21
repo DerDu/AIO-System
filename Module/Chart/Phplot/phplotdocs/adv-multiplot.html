@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>4.6. Multiple Plots Per Image</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="advanced.html" title="Chapter 4. PHPlot Advanced Topics" /><link rel="prev" href="conc-tuning.html" title="4.5. Tuning Parameters" /><link rel="next" href="examples.html" title="Chapter 5. PHPlot Examples" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.6. Multiple Plots Per Image</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="conc-tuning.html">Prev</a> </td><th width="60%" align="center">Chapter 4. PHPlot Advanced Topics</th><td width="20%" align="right"> <a accesskey="n" href="examples.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="4.6. Multiple Plots Per Image"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="adv-multiplot"></a>4.6. Multiple Plots Per Image</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This section contains information about producing more than one plot on an
+image.
+  </p></div><p>
+Using PHPlot, you can produce more than one plot on a single image.  These can
+be <span class="emphasis"><em>tiled plots</em></span> - separate plots manually positioned within
+the image, or <span class="emphasis"><em>overlay plots</em></span>.
+Tiled plots are used when you want to display more than one plot on a single
+image, for example side-by-side.
+Overlay plots are used when you want to show more than one type or range
+of data representation on a single plot.  For example, an overlay plot could
+be used to show two data sets with different Y scales, or to overlay a bar
+chart with a line plot.
+You can also combine tiled and overlay plots in a single image.
+</p><p>
+An example of two tiled plots on an image can be found in
+<a class="xref" href="ex-twoplot1.html" title="5.18. Example - Two Plots on One Image">Section 5.18, &#8220;Example - Two Plots on One Image&#8221;</a>.
+An example of an overlay plot can be found in
+<a class="xref" href="ex-outbreak.html" title="5.34. Example - Overlaying Plots">Section 5.34, &#8220;Example - Overlaying Plots&#8221;</a>
+</p><div class="sect2" title="4.6.1. Overview of Multiple Plots"><div class="titlepage"><div><div><h3 class="title"><a id="adv-multiplot-overview"></a>4.6.1. Overview of Multiple Plots</h3></div></div></div><p>
+When producing multiple plots on an image, a single PHPlot object is used.
+The overall steps to be followed are:
+  </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+Create a <code class="function">PHPlot</code> or <code class="function">PHPlot_truecolor</code>
+object (referred to here as <code class="literal">$plot</code>).
+      </p></li><li class="listitem"><p>
+Use <code class="literal">$plot-&gt;SetPrintImage(False)</code> to disable automatic
+output of the image after a plot is created.
+      </p></li><li class="listitem"><p>
+Prepare the first plot, including setting the data array, plot type, and any
+other applicable settings.
+      </p></li><li class="listitem"><p>
+Use <code class="literal">$plot-&gt;DrawGraph()</code> when complete. 
+This creates the plot, but does not produce any output.
+      </p></li><li class="listitem"><p>
+Repeat the previous two steps to prepare each additional plot, completing
+it with <code class="literal">$plot-&gt;DrawGraph()</code>.
+      </p></li><li class="listitem"><p>
+When all the plots are complete, use <code class="literal">$plot-&gt;PrintImage()</code> to
+output the completed image.
+      </p></li></ol></div><p>
+</p><p>
+The sections which follow contain additional information you will need
+to produce multiple plots on a single image.
+</p></div><div class="sect2" title="4.6.2. Plot Settings with Multiple Plots"><div class="titlepage"><div><div><h3 class="title"><a id="adv-multiplot-settings"></a>4.6.2. Plot Settings with Multiple Plots</h3></div></div></div><p>
+In general, PHPlot applies settings made for one plot as defaults for the
+next plot, when using the same PHPlot class instance.
+There are some special cases, however, which are discussed in the
+sections below.
+</p><div class="sect3" title="4.6.2.1. Global Settings"><div class="titlepage"><div><div><h4 class="title"><a id="adv-multiplot-global"></a>4.6.2.1. Global Settings</h4></div></div></div><p>
+Certain plot elements apply to the image as a whole, not to individual plots.
+PHPlot will draw these at most once per image. (That is, the element will be
+drawn only the first time <code class="literal">DrawGraph()</code> is called after the
+element has been set up.)
+</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+Main title (<a class="xref" href="SetTitle.html" title="SetTitle"><span class="refentrytitle">SetTitle</span></a>)
+    </p></li><li class="listitem"><p>
+Image background color (<a class="xref" href="SetBackgroundColor.html" title="SetBackgroundColor"><span class="refentrytitle">SetBackgroundColor</span></a>)
+or image background file (<a class="xref" href="SetBgImage.html" title="SetBgImage"><span class="refentrytitle">SetBgImage</span></a>)
+    </p></li><li class="listitem"><p>
+Image border (<a class="xref" href="SetImageBorderColor.html" title="SetImageBorderColor"><span class="refentrytitle">SetImageBorderColor</span></a> and
+<a class="xref" href="SetImageBorderType.html" title="SetImageBorderType"><span class="refentrytitle">SetImageBorderType</span></a>)
+    </p></li></ul></div><p>
+For example, the first plot on an image that has a main title will result in
+the main title being drawn. If any subsequent plot (using the same PHPlot
+instance) also sets a main title, that will be ignored.
+</p></div><div class="sect3" title="4.6.2.2. Data Scaling"><div class="titlepage"><div><div><h4 class="title"><a id="adv-multiplot-datascale"></a>4.6.2.2. Data Scaling</h4></div></div></div><p>
+Whether you use <a class="xref" href="SetPlotAreaWorld.html" title="SetPlotAreaWorld"><span class="refentrytitle">SetPlotAreaWorld</span></a> to set the plot area
+data range, or you let PHPlot calculate the plot area data range,
+that range applies to all subsequent plots unless overridden.
+Even if you set a new data array, the calculated or pre-set data range from
+the previous plot applies. Without being told otherwise, PHPlot will not
+re-examine the data array to recalculate the data range.
+This allows you to re-use an automatically calculated date range, if you want.
+</p><p>
+If instead you want PHPlot to automatically calculate the data range for
+additional plots, call <code class="literal">SetPlotAreaWorld()</code> (with no
+arguments), or <code class="literal">SetPlotAreaWorld(NULL, NULL, NULL, NULL)</code>.
+Either of these forms causes PHPlot to forget about a specified or
+calculated data range, and it will compute a new range.
+</p><p>
+Of course, you can also use <a class="xref" href="SetPlotAreaWorld.html" title="SetPlotAreaWorld"><span class="refentrytitle">SetPlotAreaWorld</span></a> with
+parameter values, to manually set all or part of the data range for each plot.
+Any parameters you do not set (or specify as NULL) will be calculated based
+on the data array for the current plot.
+That is, PHPlot will forget about the previous data range once you call
+<a class="xref" href="SetPlotAreaWorld.html" title="SetPlotAreaWorld"><span class="refentrytitle">SetPlotAreaWorld</span></a>, regardless of how many non-NULL parameters
+you use.
+</p><p>
+When overlaying plots, you will often want all the plots to use the same
+data scale, so the values can be read off of the axis. Another option is to
+have two separate Y scales, with one represented on the left side and one
+on the right side. (See <a class="xref" href="ex-outbreak.html" title="5.34. Example - Overlaying Plots">Section 5.34, &#8220;Example - Overlaying Plots&#8221;</a> for an example of
+overlaying plots with two different Y scales.)
+In some cases it may make sense to overlay plots with different scales and
+no separate axis, for example when using data value labels, or when the
+important information is the trend or shape shown by the graph rather than
+the actual values.
+</p></div><div class="sect3" title="4.6.2.3. Plot Area"><div class="titlepage"><div><div><h4 class="title"><a id="adv-multiplot-plotarea"></a>4.6.2.3. Plot Area</h4></div></div></div><p>
+You can specify a plot area (window) with <a class="xref" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels"><span class="refentrytitle">SetPlotAreaPixels</span></a>
+or <a class="xref" href="SetMarginsPixels.html" title="SetMarginsPixels"><span class="refentrytitle">SetMarginsPixels</span></a>, or you can let PHPlot calculate a
+plot area.
+Whether you set the plot area yourself, or you let PHPlot calculate
+it, those settings apply to all subsequent plots unless overridden.
+</p><p>
+This means that if you are doing side-by-side (tiled) plots on an image,
+you must use <a class="xref" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels"><span class="refentrytitle">SetPlotAreaPixels</span></a> or
+<a class="xref" href="SetMarginsPixels.html" title="SetMarginsPixels"><span class="refentrytitle">SetMarginsPixels</span></a> with each plot, to set
+the area of the image to be used for that plot.
+Remember that the plot area does not include the axis labels, tick marks,
+or titles, so you must leave enough room between and around plots for these.
+</p><p>
+If you are doing overlay plots, you can let PHPlot calculate the plot area
+for the first plot, or you can specify the area with
+<a class="xref" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels"><span class="refentrytitle">SetPlotAreaPixels</span></a> or <a class="xref" href="SetMarginsPixels.html" title="SetMarginsPixels"><span class="refentrytitle">SetMarginsPixels</span></a>.
+You need not use these for subsequent plots; PHPlot will continue to use the
+same window, overlaying the additional plots.
+</p><p>
+However, if you allow PHPlot to calculate the plot area, it will only use
+information in the first plot to determine the margins.
+This will not work well if subsequent plots require more margin space.
+For example, if the first plot has a Y axis title and tick labels only on the
+left side, and the second overlay plot has a Y axis title and tick labels
+on the right side, automatic plot area calculation will only leave enough
+margin space on the left side.  As a result, the right side Y axis title and
+tick labels may fall off the image edge.  To avoid this, use either
+<a class="xref" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels"><span class="refentrytitle">SetPlotAreaPixels</span></a> or <a class="xref" href="SetMarginsPixels.html" title="SetMarginsPixels"><span class="refentrytitle">SetMarginsPixels</span></a>
+to specify large enough margins.
+</p></div><div class="sect3" title="4.6.2.4. Tick Increment"><div class="titlepage"><div><div><h4 class="title"><a id="adv-multiplot-ticks"></a>4.6.2.4. Tick Increment</h4></div></div></div><p>
+Tick increments are recalculated for each plot, based on the data range, unless
+set with <a class="xref" href="SetXTickIncrement.html" title="SetXTickIncrement"><span class="refentrytitle">SetXTickIncrement</span></a>
+or <a class="xref" href="SetYTickIncrement.html" title="SetYTickIncrement"><span class="refentrytitle">SetYTickIncrement</span></a>.
+'Data range' here refers to that set with <a class="xref" href="SetPlotAreaWorld.html" title="SetPlotAreaWorld"><span class="refentrytitle">SetPlotAreaWorld</span></a>,
+or automatically calculated.
+This differs from the way PHPlot handles the data range, which is not
+recalculated by default after the first plot.
+</p><p>
+For overlay plots, if you want to use the same tick increments,
+you should either set the desired tick increment (doing this for the first
+plot is sufficient), or make sure the data ranges match.
+</p></div><div class="sect3" title="4.6.2.5. Grid Lines"><div class="titlepage"><div><div><h4 class="title"><a id="adv-multiplot-grid"></a>4.6.2.5. Grid Lines</h4></div></div></div><p>
+PHPlot defaults to drawing the dependent variable grid (usually Y), and the
+grid lines will be drawn at tick positions.
+As stated above, the tick positions by default will be recalculated for
+each plot, using the calculated or explicitly set data range.
+</p><p>
+For overlay plots, you generally do not want to have more than one set of
+grid lines in each of X and Y, or the results will be confusing.  Even if
+your plot overlays have the same tick increments, avoid having the grid
+lines drawn more than once. Otherwise, the grid lines for the second plot
+will overlay the plotted data from the first plot.
+You can turn off the grid lines with <code class="literal">SetDrawXGrid(False)</code>
+and <code class="literal">SetDrawYGrid(False)</code>.
+</p></div><div class="sect3" title="4.6.2.6. Legend Positioning"><div class="titlepage"><div><div><h4 class="title"><a id="adv-multiplot-legend"></a>4.6.2.6. Legend Positioning</h4></div></div></div><p>
+Legend position with multiple plots works differently depending on whether
+the position is defaulted, set with <a class="xref" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels"><span class="refentrytitle">SetPlotAreaPixels</span></a>,
+or set with <a class="xref" href="SetPlotAreaWorld.html" title="SetPlotAreaWorld"><span class="refentrytitle">SetPlotAreaWorld</span></a>.
+
+</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+If the legend position is defaulted, a legend will be drawn at the upper
+right corner of each plot.
+The same legend will be drawn in each position, unless the contents are
+changed with <code class="function">SetLegend()</code>.
+    </p></li><li class="listitem"><p>
+If the legend position is specified using device coordinates with
+<code class="function">SetLegendPixels()</code>,
+the legend will be drawn at those coordinates as measured on the image,
+once per plot, at the same location.
+This repeated over-drawing is usually harmless,
+but if you want to have it drawn only once,
+either use <code class="function">SetLegend()</code> only before the last plot,
+or use either <code class="literal">SetLegend(NULL)</code>
+or <code class="literal">SetLegend(array())</code>
+to cancel the legend after the first plot.
+    </p></li><li class="listitem"><p>
+If the legend position is specified using world coordinates with
+<code class="function">SetLegendWorld()</code>,
+the legend will be drawn at the specified world coordinates for each plot.
+This assumes the specified world coordinates are within the plot area for
+each plot.
+As with the default positioning case, the same legend will be drawn for
+each plot, unless the contents are changed with
+<code class="function">SetLegend()</code>.
+    </p></li></ul></div><p>
+</p></div><div class="sect3" title="4.6.2.7. Plot Area Background"><div class="titlepage"><div><div><h4 class="title"><a id="adv-multiplot-background"></a>4.6.2.7. Plot Area Background</h4></div></div></div><p>
+If you set a plot area background color with <a class="xref" href="SetPlotBgColor.html" title="SetPlotBgColor"><span class="refentrytitle">SetPlotBgColor</span></a>
+and <a class="xref" href="SetDrawPlotAreaBackground.html" title="SetDrawPlotAreaBackground"><span class="refentrytitle">SetDrawPlotAreaBackground</span></a>,
+or if you set a plot area background image with
+<a class="xref" href="SetPlotAreaBgImage.html" title="SetPlotAreaBgImage"><span class="refentrytitle">SetPlotAreaBgImage</span></a>,
+this will be applied to each plot until disabled.
+This works well for side-by-side (tiled) plots, as each will get the same
+background by default.
+</p><p>
+If you are overlaying multiple plots on an image, setting a plot area
+background color or image for one plot will result in that background
+hiding previous plots. Therefore, you need to set up the background for the
+first plot, then turn it off it for the second plot.
+If you previously set a plot area background image, you can disable it for
+subsequent plots with <code class="literal">SetPlotAreaBgImage(NULL)</code>.
+If you previously set and enabled a plot area background color, you can
+disable it for subsequent plots with
+<code class="literal">SetDrawPlotAreaBackground(FALSE)</code>.
+</p></div><div class="sect3" title="4.6.2.8. Axis Positioning"><div class="titlepage"><div><div><h4 class="title"><a id="adv-multiplot-axis"></a>4.6.2.8. Axis Positioning</h4></div></div></div><p>
+You can position the X and Y axis manually with
+<a class="xref" href="SetXAxisPosition.html" title="SetXAxisPosition"><span class="refentrytitle">SetXAxisPosition</span></a> and <a class="xref" href="SetYAxisPosition.html" title="SetYAxisPosition"><span class="refentrytitle">SetYAxisPosition</span></a>,
+or you can let PHPlot calculate the axis positions for you.
+Whether you set the positions yourself, or let PHPlot calculate them for you,
+those positions apply to subsequent plots unless overridden.
+Even if you set a new data array, PHPlot will not recalculate the axis
+positions unless told to.
+</p><p>
+If you want PHPlot to automatically re-calculate the X axis position for a
+subsequent plot, use <code class="literal">SetXAxisPosition()</code> (with no
+arguments), or <code class="literal">SetXAxisPosition('')</code>.
+To restore automatic Y axis position calculation, use
+<code class="literal">SetYAxisPosition()</code>
+or <code class="literal">SetYAxisPosition('')</code>.
+</p></div></div><div class="sect2" title="4.6.3. Summary - Tiled Multiple Plots"><div class="titlepage"><div><div><h3 class="title"><a id="adv-multiplot-tiled"></a>4.6.3. Summary - Tiled Multiple Plots</h3></div></div></div><p>
+Here are some guidelines for tiling multiple plots:
+</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+Unless all plots will use the same X and Y data ranges, use
+<a class="xref" href="SetPlotAreaWorld.html" title="SetPlotAreaWorld"><span class="refentrytitle">SetPlotAreaWorld</span></a> with each plot.
+Call the function with no arguments to have PHPlot automatically calculate
+the data range for the plot, or supply arguments to explicitly set a data range.
+    </p></li><li class="listitem"><p>
+Use <a class="xref" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels"><span class="refentrytitle">SetPlotAreaPixels</span></a> to set the area within the image
+for each plot. Remember to leave room for axis labels and titles.
+    </p></li><li class="listitem"><p>
+If you want a legend for each plot, use <a class="xref" href="SetLegendPixels.html" title="SetLegendPixels"><span class="refentrytitle">SetLegendPixels</span></a>
+or <a class="xref" href="SetLegendWorld.html" title="SetLegendWorld"><span class="refentrytitle">SetLegendWorld</span></a> to position it.
+Or let the position default to the upper right corner of each plot.
+    </p></li><li class="listitem"><p>
+You can only have one main title for the entire image.
+    </p></li></ul></div><p>
+</p></div><div class="sect2" title="4.6.4. Summary - Overlay Multiple Plots"><div class="titlepage"><div><div><h3 class="title"><a id="adv-multiplot-overlay"></a>4.6.4. Summary - Overlay Multiple Plots</h3></div></div></div><p>
+Here are some guidelines for overlaying multiple plots:
+</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+All plots will use the same data scaling by default, whether automatically
+calculated by PHPlot or set with <a class="xref" href="SetPlotAreaWorld.html" title="SetPlotAreaWorld"><span class="refentrytitle">SetPlotAreaWorld</span></a>.
+Use <a class="xref" href="SetPlotAreaWorld.html" title="SetPlotAreaWorld"><span class="refentrytitle">SetPlotAreaWorld</span></a> if you want different data scaling
+for subsequent plots.
+    </p></li><li class="listitem"><p>
+You can let PHPlot calculate the plot window by default, but it will not
+account for additional margin space needed by plots after the first.
+Instead, you can use <a class="xref" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels"><span class="refentrytitle">SetPlotAreaPixels</span></a> or
+<a class="xref" href="SetMarginsPixels.html" title="SetMarginsPixels"><span class="refentrytitle">SetMarginsPixels</span></a>
+to set a specific plot area to use for all plots.
+    </p></li><li class="listitem"><p>
+Set the tick increments you want for each plot, especially if the data
+ranges differ. You can have two sets of tick marks and labels if you position
+them on the opposite sides of the plot area.
+    </p></li><li class="listitem"><p>
+Draw grid lines, if you want them, only for the first plot, and turn them
+off for the second plot.
+    </p></li><li class="listitem"><p>
+If you want a single legend, either set it up for the last plot, or
+set it up for any plot and cancel it for the next plot.
+If you want multiple legends, one per overlay, position them
+manually with <a class="xref" href="SetLegendWorld.html" title="SetLegendWorld"><span class="refentrytitle">SetLegendWorld</span></a> or
+<a class="xref" href="SetLegendPixels.html" title="SetLegendPixels"><span class="refentrytitle">SetLegendPixels</span></a>.
+    </p></li><li class="listitem"><p>
+If you want a plot area background, you must set it for the first plot
+and cancel it for the second plot, or it will hide the plots.
+    </p></li></ul></div><p>
+</p></div><div class="sect2" title="4.6.5. Multiple Plots - History"><div class="titlepage"><div><div><h3 class="title"><a id="adv-multiplot-history"></a>4.6.5. Multiple Plots - History</h3></div></div></div><p>
+A number of fixes were made in PHPlot-5.3.1 that affect multiple plots
+per image. If you are creating multiple plot images using PHPlot-5.3.0 or
+earlier, you should upgrade to the latest release. If you are unable to
+upgrade, you may need to work around the following issues:
+
+</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+Color allocation: In PHPlot-5.2.0 and PHPlot-5.3.0, the data color array
+(whether defaulted or set with <a class="xref" href="SetDataColors.html" title="SetDataColors"><span class="refentrytitle">SetDataColors</span></a>) was truncated
+to the number of colors required for a plot.
+This means that the additional colors were not available for subsequent plots,
+so the data colors would repeat.
+For example, if plot #1 used 3 colors for 3 data sets, and plot #2 had 5
+data sets, only 3 colors were available and the first two colors would be
+reused for the 4th and 5th data sets.
+To work around this, you can reload the data colors before each subsequent plot.
+To reload the default data colors, use
+<code class="literal">$plot-&gt;SetDataColors(False)</code>.
+Another work-around is to define a custom data color callback, which
+turns off the color slot optimization.
+    </p></li><li class="listitem"><p>
+Legend positioning using <a class="xref" href="SetLegendWorld.html" title="SetLegendWorld"><span class="refentrytitle">SetLegendWorld</span></a> was not correctly
+applied to subsequent plots in an image through PHPlot-5.3.0.
+If you have multiple side-by-side plots and you want the legend in the same
+world coordinate position in each plot, you still need to use
+<code class="literal">SetLegendWorld(..., ...)</code> when creating each plot.
+    </p></li><li class="listitem"><p>
+Through PHPlot-5.3.0, there was no way to reset the X axis position or Y
+axis position to the default of automatic positioning.
+That is, <code class="literal">SetXAxisPosition()</code>,
+<code class="literal">SetXAxisPosition('')</code>,
+<code class="literal">SetYAxisPosition()</code>,
+and <code class="literal">SetYAxisPosition('')</code> did not work.
+There is no work-around to get automatic positioning of the axis lines.
+    </p></li><li class="listitem"><p>
+Through PHPlot-5.3.0, several functions had more restricted usage
+when resetting to defaults.
+      </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>
+Use <code class="literal">SetLegendPixels(NULL, NULL)</code>
+rather than <code class="literal">SetLegendPixels()</code>.
+          </p></li><li class="listitem"><p>
+Use <code class="literal">SetNumXTicks('')</code> and <code class="literal">SetNumYTicks('')</code>
+rather than <code class="literal">SetNumXTicks()</code> and
+<code class="literal">SetNumYTicks()</code>.
+          </p></li><li class="listitem"><p>
+Use <code class="literal">SetLegend(array())</code>
+rather than <code class="literal">SetLegend(NULL)</code>.
+          </p></li></ul></div><p>
+    </p></li></ul></div><p>
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="conc-tuning.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="advanced.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="examples.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.5. Tuning Parameters </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 5. PHPlot Examples</td></tr></table></div></body></html>

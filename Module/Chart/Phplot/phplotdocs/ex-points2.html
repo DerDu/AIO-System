@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>5.12. Example - Points Plot / Scatterplot</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="examples.html" title="Chapter 5. PHPlot Examples" /><link rel="prev" href="ex-points1.html" title="5.11. Example - Points Plot with Error Bars" /><link rel="next" href="ex-squared1.html" title="5.13. Example - Squared Plot" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.12. Example - Points Plot / Scatterplot</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ex-points1.html">Prev</a> </td><th width="60%" align="center">Chapter 5. PHPlot Examples</th><td width="20%" align="right"> <a accesskey="n" href="ex-squared1.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="5.12. Example - Points Plot / Scatterplot"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ex-points2"></a>5.12. Example - Points Plot / Scatterplot</h2></div></div></div><p>
+This is a rather contrived example of using a 'points' plot to make a
+scatterplot. The data array is a set of X/Y points. With 'points' plots,
+the data can be in any order and duplicate X values are allowed.
+The points here are generated from R = 0.5 * Theta.
+</p><p>
+For this example, the X and Y axes and tick marks were moved to 0,0, labels
+turned off, and plot borders enabled for all four sides.
+</p><div class="example"><a id="example-points2"></a><p class="title"><b>Example 5.12. Points Plot / Scatterplot</b></p><div class="example-contents"><div class="informalfigure"><div class="mediaobject"><img src="examples/points2.png" alt="Points Plot / Scatterplot Example" /></div></div><pre class="programlisting">&lt;?php
+# PHPlot Example: Point plot - scatter plot
+require_once 'phplot.php';
+
+$data = array();
+$a = 0.5;
+$d_theta = M_PI/48.0;
+for ($theta = M_PI * 7; $theta &gt;= 0; $theta -= $d_theta)
+  $data[] = array('', $a * $theta * cos($theta), $a * $theta * sin($theta));
+
+$plot = new PHPlot(800, 600);
+$plot-&gt;SetImageBorderType('plain');
+
+$plot-&gt;SetPlotType('points');
+$plot-&gt;SetDataType('data-data');
+$plot-&gt;SetDataValues($data);
+
+# Main plot title:
+$plot-&gt;SetTitle('Scatterplot (points plot)');
+
+# Need to set area and ticks to get reasonable choices.
+$plot-&gt;SetPlotAreaWorld(-12, -12, 12, 12);
+$plot-&gt;SetXTickIncrement(2);
+$plot-&gt;SetYTickIncrement(2);
+
+# Move axes and ticks to 0,0, but turn off tick labels:
+$plot-&gt;SetXAxisPosition(0); # Is default
+$plot-&gt;SetYAxisPosition(0);
+$plot-&gt;SetXTickPos('xaxis');
+$plot-&gt;SetXTickLabelPos('none');
+$plot-&gt;SetYTickPos('yaxis');
+$plot-&gt;SetYTickLabelPos('none');
+
+# Turn on 4 sided borders, now that axes are inside:
+$plot-&gt;SetPlotBorderType('full');
+
+# Draw both grids:
+$plot-&gt;SetDrawXGrid(True);
+$plot-&gt;SetDrawYGrid(True);  # Is default
+
+$plot-&gt;DrawGraph();
+</pre></div></div><br class="example-break" /></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ex-points1.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="examples.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ex-squared1.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.11. Example - Points Plot with Error Bars </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.13. Example - Squared Plot</td></tr></table></div></body></html>

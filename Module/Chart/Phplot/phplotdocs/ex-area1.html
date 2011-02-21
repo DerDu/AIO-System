@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>5.3. Example - Area Plot</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="examples.html" title="Chapter 5. PHPlot Examples" /><link rel="prev" href="ex-lines2.html" title="5.2. Example - Line Plot: Functions" /><link rel="next" href="ex-bars1.html" title="5.4. Example - Bar Chart" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.3. Example - Area Plot</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ex-lines2.html">Prev</a> </td><th width="60%" align="center">Chapter 5. PHPlot Examples</th><td width="20%" align="right"> <a accesskey="n" href="ex-bars1.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="5.3. Example - Area Plot"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ex-area1"></a>5.3. Example - Area Plot</h2></div></div></div><p>
+In the area plot, PHPlot fills the area from each data set down to the
+next data set, or to the X axis for the last data set.
+For this example, the data was prepared such that the data sets are
+cumulative percentages.
+(See also <a class="xref" href="ex-stackedarea1.html#example-stackedarea1" title="Example 5.21. Stacked Area Plot">Example 5.21, &#8220;Stacked Area Plot&#8221;</a> which produces a similar
+plot using a different data representation.)
+</p><div class="example"><a id="example-area1"></a><p class="title"><b>Example 5.3. Area Plot</b></p><div class="example-contents"><div class="informalfigure"><div class="mediaobject"><img src="examples/area1.png" alt="Area Plot Example" /></div></div><pre class="programlisting">&lt;?php
+# PHPlot Example: Area chart, 6 areas.
+require_once 'phplot.php';
+
+$data = array(
+  array('1960', 100, 70, 60, 54, 16,  2),
+  array('1970', 100, 80, 63, 54, 22, 20),
+  array('1980', 100, 80, 66, 54, 27, 25),
+  array('1990', 100, 95, 69, 54, 28, 10),
+  array('2000', 100, 72, 72, 54, 38,  5),
+);
+
+$plot = new PHPlot(800, 600);
+$plot-&gt;SetImageBorderType('plain');
+
+$plot-&gt;SetPlotType('area');
+$plot-&gt;SetDataType('text-data');
+$plot-&gt;SetDataValues($data);
+
+# Main plot title:
+$plot-&gt;SetTitle('Candy Sales by Flavor');
+
+# Set Y data limits, tick increment, and titles:
+$plot-&gt;SetPlotAreaWorld(NULL, 0, NULL, 100);
+$plot-&gt;SetYTickIncrement(10);
+$plot-&gt;SetYTitle('% of Total');
+$plot-&gt;SetXTitle('Year');
+
+# Colors are significant to this data:
+$plot-&gt;SetDataColors(array('red', 'green', 'blue', 'yellow', 'cyan', 'magenta'));
+$plot-&gt;SetLegend(array('Cherry', 'Lime', 'Lemon', 'Banana', 'Apple', 'Berry'));
+
+# Turn off X tick labels and ticks because they don't apply here:
+$plot-&gt;SetXTickLabelPos('none');
+$plot-&gt;SetXTickPos('none');
+
+$plot-&gt;DrawGraph();
+</pre></div></div><br class="example-break" /></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ex-lines2.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="examples.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ex-bars1.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.2. Example - Line Plot: Functions </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.4. Example - Bar Chart</td></tr></table></div></body></html>

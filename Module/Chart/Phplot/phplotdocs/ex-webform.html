@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>5.23. Example - Complete Web Form with Plot</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="examples.html" title="Chapter 5. PHPlot Examples" /><link rel="prev" href="ex-annotate.html" title="5.22. Example - Annotating a Plot Using a Callback" /><link rel="next" href="ex-truecolor-histogram.html" title="5.24. Example - Using Truecolor To Make a Histogram" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.23. Example - Complete Web Form with Plot</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ex-annotate.html">Prev</a> </td><th width="60%" align="center">Chapter 5. PHPlot Examples</th><td width="20%" align="right"> <a accesskey="n" href="ex-truecolor-histogram.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="5.23. Example - Complete Web Form with Plot"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ex-webform"></a>5.23. Example - Complete Web Form with Plot</h2></div></div></div><p>
+This section shows a complete mini-application which uses PHPlot to display
+a graph based on user input through a web form. The purpose of this example
+is to illustrate form handling and parameter passing from a form-handling
+script to an image-generating script.
+</p><p>
+Here a screen-shot of the application, as seen from a web browser.
+(The bottom section with the graph will only be shown after the form is
+submitted.)
+</p><div class="example"><a id="example-webform"></a><p class="title"><b>Example 5.23. Screen Shot of Web Form with Plot</b></p><div class="example-contents"><div class="informalfigure"><div class="mediaobject"><img src="images/webform.png" alt="Screen Shot of Web Form with Plot" /></div></div></div></div><br class="example-break" /><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+Unlike the other examples in this chapter, the web form example consists of
+two scripts, and only works with a web server. The two scripts are
+shown in their entirety, but are broken up into blocks, with comments
+preceding each block, for presentation purposes.
+  </p></div><div class="sect2" title="5.23.1. Web Form Main Script"><div class="titlepage"><div><div><h3 class="title"><a id="ex-webform-mainpage"></a>5.23.1. Web Form Main Script</h3></div></div></div><p>
+This section presents the main script <code class="filename">webform.php</code>
+which displays the web form and handles form submission.
+This script does not use PHPlot. When first accessed from a browser (with
+no parameters), it displays only the form and descriptive text. When the
+form is submitted, the same script runs again.  This time, the script receives
+form parameters, and displays the graph in addition to the form. To display
+the graph, the script generates an image (img) tag which references the
+second script (which is described in the next section).
+That second script actually generates the plot image.
+</p><p>
+The script begins with a descriptive comment, and then defines constants
+for the name of the other script, the image size, and the parameter defaults.
+</p><pre class="programlisting">&lt;?php
+/*  PHPlot web form example
+
+  Parameter names and parameter array keys:
+    'deposit' = Amount deposited per month.
+    'intrate' = Interest rate as a percentage (e.g. 4 means 4% or 0.04)
+*/
+
+# Name of script which generates the actual plot:
+define('GRAPH_SCRIPT', 'webform_img.php');
+# Image size. It isn't really necessary that this script know this image
+# size, but it improves page rendering.
+define('GRAPH_WIDTH', 600);
+define('GRAPH_HEIGHT', 400);
+
+# Default values for the form parameters:
+$param = array('deposit' =&gt; 100.00, 'intrate' =&gt; 4.0);
+</pre><p>
+</p><p>
+Function <code class="function">build_url()</code>
+is a general-purpose function used to generate a URL to a script with
+parameters. The parameters are in a PHP associative array. The return value
+is a relative or complete URL which might look like this:
+<code class="literal">webform_img.php?deposit=100&amp;intrate=4.0&amp;h=400&amp;w=600</code>.
+
+</p><pre class="programlisting"># Build a URL with escaped parameters:
+#   $url - The part of the URL up through the script name
+#   $param - Associative array of parameter names and values
+# Returns a URL with parameters. Note this must be HTML-escaped if it is
+# used e.g. as an href value. (The &amp; between parameters is not pre-escaped.)
+function build_url($url, $param)
+{
+    $sep = '?';  // Separator between URL script name and first parameter
+    foreach ($param as $name =&gt; $value) {
+        $url .= $sep . urlencode($name) . '=' . urlencode($value);
+        $sep = '&amp;';   // Separator between subsequent parameters
+    }
+    return $url;
+}
+</pre><p>
+</p><p>
+The function <code class="function">begin_page()</code>
+creates the HTML at the top of the page.
+In a real application, this might include a page header.
+</p><pre class="programlisting"># Output the start of the HTML page:
+function begin_page($title)
+{
+    echo &lt;&lt;&lt;END
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/loose.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;$title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;$title&lt;/h1&gt;
+
+END;
+}
+</pre><p>
+</p><p>
+The function <code class="function">end_page()</code>
+creates the HTML at the end of the page.
+In a real application, this might include a page footer.
+</p><pre class="programlisting"># Output the bottom of the HTML page:
+function end_page()
+{
+    echo &lt;&lt;&lt;END
+&lt;/body&gt;
+&lt;/html&gt;
+
+END;
+}
+</pre><p>
+</p><p>
+The function <code class="function">show_descriptive_text()</code>
+produces HTML text which describes the form.
+This will go above the form on the web page.
+</p><pre class="programlisting"># Output text which describes the form.
+function show_descriptive_text()
+{
+    echo &lt;&lt;&lt;END
+&lt;p&gt;
+This page calculates the balance over time in an interest-earning savings
+account when fixed monthly deposits are made and there are no withdrawals.
+&lt;/p&gt;
+&lt;p&gt;
+Fill in the values below and click on the button to display a
+graph of the account balance over time.
+&lt;/p&gt;
+
+END;
+}
+</pre><p>
+</p><p>
+The function <code class="function">show_form()</code>
+outputs the HTML form. This includes entry boxes for the two
+parameters and a submit button. The form action URL is this script
+itself, so we use the SCRIPT_NAME value to self-reference the script.
+</p><pre class="programlisting"># Output the web form.
+# The form resubmits to this same script for processing.
+# The $param array contains default values for the form.
+# The values have already been validated as containing numbers and
+# do not need escaping for HTML.
+function show_form($param)
+{
+    $action = htmlspecialchars($_SERVER['SCRIPT_NAME']);
+
+    echo &lt;&lt;&lt;END
+&lt;form name="f1" id="f1" method="get" action="$action"&gt;
+&lt;table cellpadding="5" summary="Entry form for balance calculation"&gt;
+&lt;tr&gt;
+  &lt;td align="right"&gt;&lt;label for="deposit"&gt;Monthly Deposit Amount:&lt;/label&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;input type="text" size="10" name="deposit" id="deposit"
+       value="{$param['deposit']}"&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td align="right"&gt;&lt;label for="intrate"&gt;Interest Rate:&lt;/label&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;input type="text" size="10" name="intrate" id="intrate"
+      value="{$param['intrate']}"&gt;%
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td colspan="2" align="center"&gt;&lt;input type="submit" value="Display Graph"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/form&gt;
+
+END;
+}
+</pre><p>
+</p><p>
+The function <code class="function">check_form_params()</code>
+performs the important task of validating the parameters received from a
+form submission. Each parameter is checked for presence and syntax, then
+converted to the appropriate PHP type. This function is also used to
+determine if a plot should be displayed. A plot is displayed only if valid
+form parameters were received.
+</p><pre class="programlisting"># Check for parameters supplied to this web page.
+# If there are valid parameters, store them in the array argument and
+# return True.
+# If there are no parameters, or the parameters are not valid, return False.
+function check_form_params(&amp;$param)
+{
+    $valid = True;
+
+    if (empty($_GET['deposit']) || !is_numeric($_GET['deposit'])
+           || ($deposit = floatval($_GET['deposit'])) &lt; 0)
+        $valid = False;
+
+    if (empty($_GET['intrate']) || !is_numeric($_GET['intrate'])
+           || ($intrate = floatval($_GET['intrate'])) &lt; 0 || $intrate &gt; 100)
+        $valid = False;
+
+    if ($valid) $param = compact('deposit', 'intrate');
+    return $valid;
+}
+</pre><p>
+</p><p>
+The function <code class="function">show_graph()</code>
+produces the HTML which will will invoke the second script to produce the
+graph. This is an image (img) tag which references the second script,
+including the parameters the script needs to generate the plot. This is one
+of several ways to pass parameters from the form handling script and the
+image generating script. The other way is using session variables. Using
+URL parameters is simpler, especially when there are only a few parameters.
+Note the HTML also specifies the width and height of the plot image. This
+is not necessary, however it helps the browser lay out the page without
+waiting for the image script to complete.
+</p><pre class="programlisting"># Display a graph.
+# The param array contains the validated values: deposit and intrate.
+# This function creates the portion of the page that contains the
+# graph, but the actual graph is generated by the $GRAPH_SCRIPT script.
+function show_graph($param)
+{
+    # Include the width and height as parameters:
+    $param['w'] = GRAPH_WIDTH;
+    $param['h'] = GRAPH_HEIGHT;
+    # URL to the graphing script, with parameters, escaped for HTML:
+    $img_url = htmlspecialchars(build_url(GRAPH_SCRIPT, $param));
+
+    echo &lt;&lt;&lt;END
+&lt;hr&gt;
+&lt;p&gt;
+Graph showing the account balance over time, with monthly deposits of
+{$param['deposit']} and earning annual interest of {$param['intrate']}%:
+
+&lt;p&gt;&lt;img src="$img_url" width="{$param['w']}" height="{$param['h']}"
+    alt="Account balance graph."&gt;
+
+END;
+}
+</pre><p>
+</p><p>
+Finally, with all the functions defined, the main code is just a few lines.
+</p><pre class="programlisting"># This is the main processing code.
+begin_page("PHPlot: Example of a Web Form and Plot");
+$params_supplied = check_form_params($param);
+show_descriptive_text();
+show_form($param);
+if ($params_supplied) show_graph($param);
+end_page();
+</pre><p>
+</p></div><div class="sect2" title="5.23.2. Web Form Image Script"><div class="titlepage"><div><div><h3 class="title"><a id="ex-webform-imgpage"></a>5.23.2. Web Form Image Script</h3></div></div></div><p>
+This section presents the second script <code class="filename">webform_img.php</code>,
+which generates the plot using PHPlot. The URL to this script, along with
+its parameters, is embedded in the web page produced by the main script in
+<a class="xref" href="ex-webform.html#ex-webform-mainpage" title="5.23.1. Web Form Main Script">Section 5.23.1, &#8220;Web Form Main Script&#8221;</a>.
+When the user's browser asks the web server for the image,
+this second script runs and generates the plot.
+</p><p>
+The script begins with a descriptive comment and then includes the PHPlot
+source.
+</p><pre class="programlisting">&lt;?php
+/*  PHPlot web form example - image generation
+
+    This draws the plot image for webform.php
+    It expects the following parameters:
+       'deposit' = Amount deposited per month. Must be &gt;= 0.
+       'intrate' = Interest rate as a percentage (e.g. 4 means 4% or 0.04)
+       'w', 'h' = image width and height. (Must be between 100 and 5000)
+*/
+require_once 'phplot.php';
+</pre><p>
+</p><p>
+Function <code class="function">check_form_params()</code>
+validates the parameters supplied to the script. Two parameters are
+required (intrate and deposit), and two are optional (h and w).
+Even though the main script validated the parameters it passes to this
+script, it is still necessary for the script to do its own validation. That
+is because any accessible script can be called from any other web page, or
+directly from a browser, with arbitrary parameters. (Error handling details
+can be found below.)
+
+</p><pre class="programlisting"># Check for parameters supplied to this web page.
+# Parameters must be checked here, even though the calling script checked them,
+# because there is nothing stopping someone from calling this script
+# directly with arbitrary parameters.
+# Parameter values are stored in the param[] array (valid or not).
+# If the parameters are valid, return True, else return False.
+function check_form_params(&amp;$param)
+{
+    $valid = True;
+    $depost = 0;
+    $intrate = 0;
+
+    if (empty($_GET['deposit']) || !is_numeric($_GET['deposit'])
+           || ($deposit = floatval($_GET['deposit'])) &lt; 0)
+        $valid = False;
+
+    if (empty($_GET['intrate']) || !is_numeric($_GET['intrate'])
+           || ($intrate = floatval($_GET['intrate'])) &lt; 0 || $intrate &gt; 100)
+        $valid = False;
+
+    # If width and height are missing or invalid, just use something reasonable.
+    if (empty($_GET['w']) || !is_numeric($_GET['w'])
+           || ($w = intval($_GET['w'])) &lt; 100 || $w &gt; 5000)
+        $w = 1024;
+    if (empty($_GET['h']) || !is_numeric($_GET['h'])
+           || ($h = intval($_GET['h'])) &lt; 100 || $h &gt; 5000)
+        $h = 768;
+
+    $param = compact('deposit', 'intrate', 'h', 'w');
+    return $valid;
+}
+</pre><p>
+</p><p>
+Function <code class="function">calculate_data()</code>
+computes the data for the plot. This uses the parameters supplied to
+the script, and populates a data array suitable for PHPlot. Because the
+script uses the data-data format, each row in the array consists of a label
+(unused), X value (this is the month number), and 2 Y values (account
+balance without interest, and account balance with interest).
+
+</p><pre class="programlisting"># Calculate the data for the plot:
+# This is only called if the parameters are valid.
+# The calculation is simple. Each month, two points are calculated: the
+# cumulative deposts (balance without interest), and balance with interest.
+# At time 0 the balance is 0. At the start of each month, 1/12th of
+# the annual interest rate is applied to the balance, and then the deposit
+# is added, and that is reported as the balance.
+# We calculate for a fixed amount of 120 months (10 years).
+function calculate_data($param, &amp;$data)
+{
+    $deposit = $param['deposit'];
+    $monthly_intrate = 1.0 + $param['intrate'] / 100.0 / 12.0;
+    $balance_without_interest = 0;
+    $balance = 0;
+    $data = array(array('', 0, 0, 0)); // Starting point
+    for ($month = 1; $month &lt;= 120; $month++) {
+        $balance_without_interest += $deposit;
+        $balance = $balance * $monthly_intrate + $deposit;
+        $data[] = array('', $month, $balance_without_interest, $balance);
+    }
+}
+</pre><p>
+</p><p>
+Function <code class="function">draw_graph()</code>
+uses PHPlot to actually produce the graph. This function is similar to the
+other code examples in this chapter. A PHPlot object is created, set up,
+and then told to draw the plot. If the script parameters are not valid,
+however, an attempt is made to draw the plot without a data array. This
+results in an error, which PHPlot handles by creating an image file with an
+error message. This method of error handling is used because the script
+cannot return a textual error message since it is referenced from a web
+page via an image (img) tag.  An alternative to this error handling is to
+have the script return an HTTP error code such as error 500 (server error).
+
+</p><pre class="programlisting"># Draw the graph:
+function draw_graph($valid_params, $param, $data)
+{
+    extract($param);
+
+    $plot = new PHPlot($w, $h);
+    $plot-&gt;SetTitle('Savings with Interest');
+    $plot-&gt;SetDataType('data-data');
+    # Don't set data values if parameters were not valid. This will result
+    # in PHPlot making an image with an error message.
+    if ($valid_params) {
+        $plot-&gt;SetDataValues($data);
+    }
+    $plot-&gt;SetLegend(array('Deposits only', 'Deposits with Interest'));
+    $plot-&gt;SetLegendPixels(100, 50); // Move legend to upper left
+    $plot-&gt;SetXTitle('Month');
+    $plot-&gt;SetXTickIncrement(12);
+    $plot-&gt;SetYTitle('Balance');
+    $plot-&gt;SetYLabelType('data', 2);
+    $plot-&gt;SetDrawXGrid(True);
+    $plot-&gt;SetPlotType('lines');
+    $plot-&gt;DrawGraph();
+}
+</pre><p>
+</p><p>
+Lastly, the main code for the image drawing script simply uses the above
+functions.
+</p><pre class="programlisting"># This is our main processing code.
+$valid_params = check_form_params($param);
+if ($valid_params) calculate_data($param, $data);
+draw_graph($valid_params, $param, $data);
+</pre><p>
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ex-annotate.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="examples.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ex-truecolor-histogram.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.22. Example - Annotating a Plot Using a Callback </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.24. Example - Using Truecolor To Make a Histogram</td></tr></table></div></body></html>

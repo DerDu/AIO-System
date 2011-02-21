@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>5.32. Example - Filled Candlesticks OHLC (Open, High, Low, Close) Financial Plot</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="examples.html" title="Chapter 5. PHPlot Examples" /><link rel="prev" href="ex-ohlccandlesticks.html" title="5.31. Example - Candlesticks OHLC (Open, High, Low, Close) Financial Plot" /><link rel="next" href="ex-linepoints2.html" title="5.33. Example - Linepoints Plot with Data Value Labels" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.32. Example - Filled Candlesticks OHLC (Open, High, Low, Close) Financial Plot</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ex-ohlccandlesticks.html">Prev</a> </td><th width="60%" align="center">Chapter 5. PHPlot Examples</th><td width="20%" align="right"> <a accesskey="n" href="ex-linepoints2.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="5.32. Example - Filled Candlesticks OHLC (Open, High, Low, Close) Financial Plot"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ex-ohlccandlesticks2"></a>5.32. Example - Filled Candlesticks OHLC (Open, High, Low, Close) Financial Plot</h2></div></div></div><p>
+This example shows a <a class="link" href="conc-plottypes.html#plottype-candlesticks2" title="3.4.4. Plot Type: candlesticks2 (OHLC Filled Candlesticks Plot)">candlesticks2</a>
+plot, which is a form of the Open, High, Low, Close (OHLC) financial plot.
+Each X is a point in time or interval, and there are 4 corresponding Y values
+for the four prices (open, high, low, and close).
+Compare this with <a class="xref" href="ex-ohlcbasic.html#example-ohlcbasic" title="Example 5.30. Basic OHLC Plot">Example 5.30, &#8220;Basic OHLC Plot&#8221;</a>
+and <a class="xref" href="ex-ohlccandlesticks.html#example-ohlccandlesticks" title="Example 5.31. Candlesticks OHLC Plot">Example 5.31, &#8220;Candlesticks OHLC Plot&#8221;</a>,
+which show the same data but with a different presentation.
+With the candlesticks2 plot type, all the candlestick bodies are filled in,
+meaning you must set meaningful data colors in order to be able to tell if
+a security closes up or down.
+</p><p>
+The data values for this example are read from an external file.
+Refer to <a class="xref" href="ex-ohlcbasic.html" title="5.30. Example - Basic OHLC (Open, High, Low, Close) Financial Plot">Section 5.30, &#8220;Example - Basic OHLC (Open, High, Low, Close) Financial Plot&#8221;</a> for more information.
+This example uses the data-data format, with the dates read from the file
+converted to X values in the data array.
+</p><div class="example"><a id="example-ohlccandlesticks2"></a><p class="title"><b>Example 5.32. Filled Candlesticks OHLC Plot</b></p><div class="example-contents"><div class="informalfigure"><div class="mediaobject"><img src="examples/ohlccandlesticks2.png" alt="Filled Candlesticks OHLC Financial Plot Example" /></div></div><pre class="programlisting">&lt;?php
+# PHPlot Example: OHLC (Financial) plot, Filled Candlesticks plot, using
+# external data file, data-data format with date-formatted labels.
+define('DATAFILE', 'examples/ohlcdata.csv'); // External data file
+require_once 'phplot.php';
+
+/*
+  Read historical price data from a CSV data downloaded from Yahoo! Finance.
+  The first line is a header which must contain: Date,Open,High,Low,Close[...]
+  Each additional line has a date (YYYY-MM-DD), then 4 price values.
+  Convert to PHPlot data-data data array with empty labels and time_t X
+  values and return the data array.
+*/
+function read_prices_data_data($filename)
+{
+    $f = fopen($filename, 'r');
+    if (!$f) {
+        fwrite(STDERR, "Failed to open data file: $filename\n");
+        return FALSE;
+    }
+    // Read and check the file header.
+    $row = fgetcsv($f);
+    if ($row === FALSE || $row[0] != 'Date' || $row[1] != 'Open'
+            || $row[2] != 'High' || $row[3] != 'Low' || $row[4] != 'Close') {
+        fwrite(STDERR, "Incorrect header in: $filename\n");
+        return FALSE;
+    }
+    // Read the rest of the file and convert.
+    while ($d = fgetcsv($f)) {
+        $data[] = array('', strtotime($d[0]), $d[1], $d[2], $d[3], $d[4]);
+    }
+    fclose($f);
+    return $data;
+}
+
+$plot = new PHPlot(800, 600);
+$plot-&gt;SetImageBorderType('plain'); // Improves presentation in the manual
+$plot-&gt;SetTitle("Filled Candlesticks Financial Plot (data-data)\nMSFT Q1 2009");
+$plot-&gt;SetDataType('data-data');
+$plot-&gt;SetDataValues(read_prices_data_data(DATAFILE));
+$plot-&gt;SetPlotType('candlesticks2');
+$plot-&gt;SetDataColors(array('red', 'DarkGreen', 'red', 'DarkGreen'));
+$plot-&gt;SetXLabelAngle(90);
+$plot-&gt;SetXLabelType('time', '%Y-%m-%d');
+$plot-&gt;SetXTickIncrement(7*24*60*60); // 1 week interval
+$plot-&gt;DrawGraph();
+</pre></div></div><br class="example-break" /></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ex-ohlccandlesticks.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="examples.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ex-linepoints2.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.31. Example - Candlesticks OHLC (Open, High, Low, Close) Financial Plot </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.33. Example - Linepoints Plot with Data Value Labels</td></tr></table></div></body></html>

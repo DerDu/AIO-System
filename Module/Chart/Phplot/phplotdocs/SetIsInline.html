@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetIsInline</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetImageBorderWidth.html" title="SetImageBorderWidth" /><link rel="next" href="SetLabelScalePosition.html" title="SetLabelScalePosition" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetIsInline</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetImageBorderWidth.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetLabelScalePosition.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetIsInline"><a id="SetIsInline"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetIsInline</span></h2><p>SetIsInline &#8212; Set the output image to be inline - without HTTP headers</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetIsInline(<em class="parameter"><code>$is_inline</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2604599"></a><h2>Description</h2><p>
+<code class="function">SetIsInline</code> determines if HTTP headers are sent along
+with the output image or not. By default, HTTP headers are sent,
+identifying the image type for browsers. If PHPlot output is not being
+directed to a browser, or in other special-purpose applications, you can
+turn off the HTTP content type header using this function.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2604620"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$is_inline</code></em></span></dt><dd><p>
+True to suppress HTTP content type headers, False to include the headers.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2604646"></a><h2>Notes</h2><p>
+The default is to include the headers. However, the PHP CLI (command line
+interface) never outputs headers, so using this function is not necessary
+if you are using the PHP CLI to create image files by redirecting standard
+output to a file.
+    </p><p>
+You must call SetIsInline(True) if you are sending PHPlot output to a file
+with <a class="xref" href="SetOutputFile.html" title="SetOutputFile"><span class="refentrytitle">SetOutputFile</span></a>, or by supplying a filename argument to
+the <a class="xref" href="PHPlot.html" title="PHPlot"><span class="refentrytitle">PHPlot</span></a> constructor.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetImageBorderWidth.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetLabelScalePosition.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetImageBorderWidth </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetLabelScalePosition</td></tr></table></div></body></html>

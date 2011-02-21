@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>3.7. Other Plot Elements</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="concepts.html" title="Chapter 3. PHPlot Concepts" /><link rel="prev" href="conc-labels.html" title="3.6. Labels" /><link rel="next" href="conc-text.html" title="3.8. Text Fonts" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.7. Other Plot Elements</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="conc-labels.html">Prev</a> </td><th width="60%" align="center">Chapter 3. PHPlot Concepts</th><td width="20%" align="right"> <a accesskey="n" href="conc-text.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="3.7. Other Plot Elements"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="conc-otherelements"></a>3.7. Other Plot Elements</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This section contains information about other elements which can be part of
+a plot.
+  </p></div><div class="sect2" title="3.7.1. Titles"><div class="titlepage"><div><div><h3 class="title"><a id="conc-titles"></a>3.7.1. Titles</h3></div></div></div><p>
+PHPlot can draw three types of titles:
+  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+The main plot title, which is centered at the top of the image.
+This is typically used to identify the plot as a whole.
+      </p></li><li class="listitem"><p>
+The X title, which is drawn horizontally and can appear below the plot,
+above the plot, or in both places.
+This is typically used to identify the values along the X axis.
+      </p></li><li class="listitem"><p>
+The Y title, which is drawn vertically and can appear to the left of the plot,
+to the right of the plot, or on both sides.
+This is typically used to identify the values along the Y axis.
+      </p></li></ul></div><p>
+For a list of functions used to control titles,
+see <a class="xref" href="ref-titles.html" title="6.7. Titles">Section 6.7, &#8220;Titles&#8221;</a>.
+</p><p>
+
+Here is a sample plot with the titles called out.
+</p><div class="informalfigure"><div class="mediaobject"><img src="images/typical-titles.png" alt="Titles on a plot" /></div></div><p>
+</p></div><div class="sect2" title="3.7.2. Legend"><div class="titlepage"><div><div><h3 class="title"><a id="conc-legend"></a>3.7.2. Legend</h3></div></div></div><p>
+PHPlot can draw a legend on the plot. This is normally used with multiple
+data sets, to identify the data sets by color.
+A legend can also be used with pie charts to identify the sections.
+For a list of functions used to control the legend,
+see <a class="xref" href="ref-legend.html" title="6.8. Legend">Section 6.8, &#8220;Legend&#8221;</a>.
+</p><p>
+
+Here is a sample plot with the legend called out.
+</p><div class="informalfigure"><div class="mediaobject"><img src="images/typical-legend.png" alt="Legend on a plot" /></div></div><p>
+</p></div><div class="sect2" title="3.7.3. Grid Lines"><div class="titlepage"><div><div><h3 class="title"><a id="conc-grid"></a>3.7.3. Grid Lines</h3></div></div></div><p>
+PHPlot can draw horizontal (Y) and/or vertical (X) grid lines on a plot.
+You can independently enable the horizontal (Y) and vertical (X)
+lines in the grid, and use dashed or solid lines.
+For a list of functions used to control the grid,
+see <a class="xref" href="ref-grid.html" title="6.10. Grid Controls">Section 6.10, &#8220;Grid Controls&#8221;</a>.
+</p><p>
+
+Here is a sample plot with the X Grid and Y Grid called out.
+</p><div class="informalfigure"><div class="mediaobject"><img src="images/typical-grid.png" alt="X and Y Grid" /></div></div><p>
+</p></div><div class="sect2" title="3.7.4. Tick Marks"><div class="titlepage"><div><div><h3 class="title"><a id="conc-ticks"></a>3.7.4. Tick Marks</h3></div></div></div><p>
+Tick marks are drawn by default along the bottom edge of the plot (X tick
+marks) and the left side of the plot (Y tick marks).
+These usually, but not always, correspond to the X and Y axis lines.
+You can set the tick interval or control the number of ticks, suppress the
+first or last tick on an axis, and control the tick mark size.
+For a list of functions used to control tick marks,
+see <a class="xref" href="ref-ticks.html" title="6.12. Ticks">Section 6.12, &#8220;Ticks&#8221;</a>.
+</p><p>
+Left to its own, PHPlot will determine tick values for X and Y axes, but it
+currently isn't too smart about choosing values and you may not be happy
+with the results. You can use PHPlot functions to set the desired tick
+interval or number of ticks, but you will most likely also
+have to call <a class="xref" href="SetPlotAreaWorld.html" title="SetPlotAreaWorld"><span class="refentrytitle">SetPlotAreaWorld</span></a> to set the X and/or Y data
+range limits. Otherwise, you get the tick intervals you want, but the
+actual values will depend on a somewhat arbitrary base value.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="conc-labels.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="concepts.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="conc-text.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.6. Labels </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3.8. Text Fonts</td></tr></table></div></body></html>

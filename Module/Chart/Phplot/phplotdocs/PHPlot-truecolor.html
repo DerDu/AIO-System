@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>PHPlot_truecolor</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="PHPlot.html" title="PHPlot" /><link rel="next" href="PrintImage.html" title="PrintImage" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">PHPlot_truecolor</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PHPlot.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="PrintImage.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="PHPlot_truecolor"><a id="PHPlot-truecolor"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">PHPlot_truecolor</span></h2><p>PHPlot_truecolor &#8212; Construct a new PHPlot Truecolor Class Object</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot = new PHPlot_truecolor([<span class="optional"><em class="parameter"><code>$width</code></em></span>], [<span class="optional"><em class="parameter"><code>$height</code></em></span>], [<span class="optional"><em class="parameter"><code>$output_file</code></em></span>], [<span class="optional"><em class="parameter"><code>$input_file</code></em></span>])</pre></div><div class="refsect1" title="Description"><a id="id2599035"></a><h2>Description</h2><p>
+This is the constructor for the PHPlot_truecolor class, which is an
+extended class that inherits from the PHPlot class. Like the PHPlot class,
+it creates a new plot object and initializes all internal settings to
+default values, but the resulting image will be a
+<a class="link" href="concepts.html#def-truecolor">truecolor</a> image, rather than a
+<a class="link" href="concepts.html#def-palette">palette</a> image.
+(See the notes below regarding an exception to this rule.)
+    </p></div><div class="refsect1" title="Parameters"><a id="id2599065"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$width</code></em></span></dt><dd><p>
+Optional width of the plot image, in pixels. Default is 600.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$height</code></em></span></dt><dd><p>
+Optional height of the plot image, in pixels. Default is 400.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$output_file</code></em></span></dt><dd><p>
+Optional name of a file where the image output will be written.
+This is the same as using <a class="xref" href="SetOutputFile.html" title="SetOutputFile"><span class="refentrytitle">SetOutputFile</span></a>.
+Default is no output file, meaning the image is written to standard output
+(that is, sent back to the browser).
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$input_file</code></em></span></dt><dd><p>
+Optional name of a file to use as a starting image. This becomes the
+background for the plot.  If an input_file is given, any width and height
+given to the constructor are ignored, and the size of the image in the
+named input_file are the plot image size.  Default is no input file,
+meaning a blank image will be created at the given or default width and
+height.
+          </p></dd></dl></div></div><div class="refsect1" title="Return Value"><a id="id2599151"></a><h2>Return Value</h2><p>
+Returns an object, an instance of the PHPlot_truecolor class, which
+inherits all the functions (methods) of the PHPlot class.
+    </p></div><div class="refsect1" title="Notes"><a id="id2599162"></a><h2>Notes</h2><p>
+Refer to <a class="xref" href="PHPlot.html" title="PHPlot"><span class="refentrytitle">PHPlot</span></a> for the base class constructor. Refer to
+<a class="xref" href="conc-truecolor.html" title="4.2. Truecolor Images">Section 4.2, &#8220;Truecolor Images&#8221;</a> for more information on truecolor images.
+    </p><p>
+The output_file will be ignored unless <a class="xref" href="SetIsInline.html" title="SetIsInline"><span class="refentrytitle">SetIsInline</span></a>(True) is
+called.
+    </p><p>
+If no input_file is supplied, the PHPlot_truecolor constructor creates
+a <a class="link" href="concepts.html#def-truecolor">truecolor</a> plot image,
+and the <a class="xref" href="PHPlot.html" title="PHPlot"><span class="refentrytitle">PHPlot</span></a> constructor creates
+a <a class="link" href="concepts.html#def-palette">palette</a> plot image.
+If an input_file is supplied, the two constructors are equivalent, and the
+type of the input file (truecolor or palette) determines the type of the
+plot image.
+    </p><p>
+The type of the plot image (truecolor or palette) might not be the same as
+the type of output file or stream which is generated by PHPlot. For
+example, a truecolor image is converted to palette if the output
+format (as set with <a class="xref" href="SetFileFormat.html" title="SetFileFormat"><span class="refentrytitle">SetFileFormat</span></a>) is GIF, which supports
+only palette images. A palette image is converted to truecolor if the
+output format is JPEG, which supports only truecolor images.
+More information can be found in <a class="xref" href="conc-truecolor.html#conc-truecolor-fileformats" title="4.2.5. Image Formats and File Formats, Palette and Truecolor">Section 4.2.5, &#8220;Image Formats and File Formats, Palette and Truecolor&#8221;</a>.
+    </p></div><div class="refsect1" title="History"><a id="id2599246"></a><h2>History</h2><p>
+The PHPlot_truecolor class and its constructor were added in PHPlot-5.1.1.
+For that release only, there was a greater dependency between which
+constructor was used and which features were available, but this was
+removed in the next release.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PHPlot.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PrintImage.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">PHPlot </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> PrintImage</td></tr></table></div></body></html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetXTimeFormat</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetXTickPos.html" title="SetXTickPos" /><link rel="next" href="SetXTitle.html" title="SetXTitle" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetXTimeFormat</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetXTickPos.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetXTitle.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetXTimeFormat"><a id="SetXTimeFormat"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetXTimeFormat</span></h2><p>SetXTimeFormat &#8212; Set date/time formatting string for X labels</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetXTimeFormat(<em class="parameter"><code>$xtf</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2614062"></a><h2>Description</h2><p>
+<code class="function">SetXTimeFormat</code> sets the formatting string for X tick
+and data labels when 'time' formatting mode for X labels is in effect.
+Use <a class="xref" href="SetXLabelType.html" title="SetXLabelType"><span class="refentrytitle">SetXLabelType</span></a> to select the formatting mode for labels.
+The formatting string is used with the PHP <code class="function">strftime</code>
+to format labels as date/time strings.
+    </p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+This function is retained for compatibility, but use of
+<a class="xref" href="SetXLabelType.html" title="SetXLabelType"><span class="refentrytitle">SetXLabelType</span></a> is preferred.
+      </p></div></div><div class="refsect1" title="Parameters"><a id="id2614108"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$xtf</code></em></span></dt><dd><p>
+Formatting string for X labels, used with <code class="function">strftime()</code>.
+For example, if the label value is 1104534000 (which is the
+<code class="literal">time_t</code> representation of 6:00 PM on the last day of 2004),
+'%Y-%m-%d.%H:%M:%S' results in '2004-12-31.18:00:00',
+and '%d %b %Y' results in '31 Dec 2004'.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2614148"></a><h2>Notes</h2><p>
+This applies to X tick labels, and also to X data labels unless overridden
+by <a class="xref" href="SetXDataLabelType.html" title="SetXDataLabelType"><span class="refentrytitle">SetXDataLabelType</span></a>.
+    </p><p>
+To use date/time formatting, the label values must be Unix time_t
+values (number of seconds since Unix epoch).
+    </p><p>
+Unlike <a class="xref" href="SetPrecisionX.html" title="SetPrecisionX"><span class="refentrytitle">SetPrecisionX</span></a>, SetXTimeFormat does not
+automatically enable the correct label formatting mode. You
+must call <code class="literal">SetXLabelType('time')</code> to use date/time
+formatting of labels.
+    </p><p>
+The default time format is '%H:%M:%S', showing hours, minutes, and seconds
+(and ignoring any date information).
+    </p></div><div class="refsect1" title="History"><a id="id2614194"></a><h2>History</h2><p>
+Starting with PHPlot-5.0.6, the time format can be set with
+<a class="xref" href="SetXLabelType.html" title="SetXLabelType"><span class="refentrytitle">SetXLabelType</span></a> instead.
+    </p><p>
+The default time format was undefined prior to PHPlot-5.0rc3.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetXTickPos.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetXTitle.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetXTickPos </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetXTitle</td></tr></table></div></body></html>

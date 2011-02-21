@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>5.24. Example - Using Truecolor To Make a Histogram</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="examples.html" title="Chapter 5. PHPlot Examples" /><link rel="prev" href="ex-webform.html" title="5.23. Example - Complete Web Form with Plot" /><link rel="next" href="ex-colorcallbackgradient.html" title="5.25. Example - Creative Use of the Data Color Callback" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.24. Example - Using Truecolor To Make a Histogram</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ex-webform.html">Prev</a> </td><th width="60%" align="center">Chapter 5. PHPlot Examples</th><td width="20%" align="right"> <a accesskey="n" href="ex-colorcallbackgradient.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="5.24. Example - Using Truecolor To Make a Histogram"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ex-truecolor-histogram"></a>5.24. Example - Using Truecolor To Make a Histogram</h2></div></div></div><p>
+This example creates a <a class="link" href="concepts.html#def-truecolor">Truecolor</a>
+plot containing a histogram of a photograph, then overlays the histogram on
+a scaled-down copy of the photograph. The histogram is partly transparent so
+you can still see the photograph below.
+Refer to <a class="xref" href="conc-truecolor.html" title="4.2. Truecolor Images">Section 4.2, &#8220;Truecolor Images&#8221;</a> for more information on using
+truecolor PHPlot images.
+</p><p>
+Here are some notes on the code example:
+  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+The main functions are <code class="function">get_histogram</code> and
+<code class="function">plot_histogram</code>. Parameters controlling the histogram
+and its placement on the image are in an array passed to
+<code class="function">plot_histogram</code>. For the purpose of this demo, the
+array <code class="literal">$param</code> is used, and there is no provision to
+change the parameters or the photograph filename.
+      </p></li><li class="listitem"><p>
+This isn't a 'true' histogram, because the Y values are automatically scaled
+by PHPlot so they fill the available height. This could be called a
+'relative histogram', with the heights indicating the relative count of
+pixels in the image with that value.
+      </p></li><li class="listitem"><p>
+The histogram is created by converting each pixel's R, G, B color values to
+a grayscale value between 0 and 255, and counting the number of times each
+value appears in the image.
+      </p></li><li class="listitem"><p>
+The photograph image is scaled by PHPlot to fit into the background of the
+plot image using <a class="xref" href="SetBgImage.html" title="SetBgImage"><span class="refentrytitle">SetBgImage</span></a>. The histogram is then
+drawn into an area restricted using <a class="xref" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels"><span class="refentrytitle">SetPlotAreaPixels</span></a>,
+leaving most of the background image unobscured. All labels and tick marks
+are turned off. The plot data colors are set to be partly transparent using
+the default alpha argument to <a class="xref" href="SetDataColors.html" title="SetDataColors"><span class="refentrytitle">SetDataColors</span></a>.
+      </p></li></ul></div><p>
+</p><p>
+  </p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3>
+This is a demonstration only. Processing individual pixels in
+nested loops this way using PHP code is not recommended, because it is very
+slow. A small image file (800x600) might be processed in a few seconds, but
+a larger file such as a 12 megapixel photograph could take 30 seconds, for
+example.
+  </div><p>
+</p><div class="example"><a id="example-truecolor-histogram"></a><p class="title"><b>Example 5.24. Truecolor Plot of Histogram</b></p><div class="example-contents"><div class="informalfigure"><div class="mediaobject"><img src="examples/histogram.jpg" alt="Truecolor Plot of Histogram Example" /></div></div><pre class="programlisting">&lt;?php
+# PHPlot Example - Histogram of a Photograph
+# Display a photo image with its value histogram overlaid
+# Note: This requires PHPlot-5.1.1 or higher for Truecolor support.
+# Unlike the other examples, and contrary to the usual PHPlot recommendation,
+# this scripts creates JPEG not PNG, because most of the image is the original
+# photograph and PNG results in an overlarge file.
+require_once 'phplot.php';
+
+# Tunable parameters:
+$param = array(
+    'plot_image_width' =&gt; 640,      # Width of final image
+    'plot_image_height' =&gt; 480,     # Height of final image
+    'histogram_color' =&gt; 'magenta', # Color to use for histogram lines
+    'histogram_alpha' =&gt; 50,        # Histogram transparency (0=opaque, 127=clear)
+    'draw_border' =&gt; True,          # If true, put a border around the histogram
+    'border_color' =&gt; 'red',        # Border color, if draw_border is true
+    'hx' =&gt; 0.6,                    # Upper left X relative position of histogram
+    'hy' =&gt; 0.0,                    # Upper left Y relative position of histogram
+    'h_width' =&gt; 0.4,               # Relative width of histogram
+    'h_height' =&gt; 0.35,             # Relative height of histogram
+);
+
+/*
+  Make a histogram from an image file, which can be palette or truecolor.
+  Returns an array $histogram[i] where i is from 0 to 255. Each histogram[i]
+  is the number of pixels in the image with grayscale value i.
+  (Grayscale is computed using the NTSC formula, but with integers.)
+*/
+function get_histogram($image_file)
+{
+    list($width, $height, $imtype) = getimagesize($image_file);
+    if (!empty($width)) {
+        switch ($imtype) {
+            case IMAGETYPE_JPEG:
+                $im = imagecreatefromjpeg($image_file);
+                break;
+            case IMAGETYPE_PNG:
+                $im = imagecreatefrompng($image_file);
+                break;
+            case IMAGETYPE_GIF:
+                $im = imagecreatefromgif($image_file);
+                break;
+        }
+    }
+    if (empty($width) || empty($im)) {
+        fwrite(STDERR, "Error invalid image file name: $image_file\n");
+        return NULL;
+    }
+
+    # Initialize the histogram counters:
+    $histogram = array_fill(0, 256, 0);
+
+    # Process every pixel. Get the color components and compute the gray value.
+    for ($y = 0; $y &lt; $height; $y++) {
+        for ($x = 0; $x &lt; $width; $x++) {
+            $pix = imagecolorsforindex($im, imagecolorat($im, $x, $y));
+            $value = (int)((30 * $pix['red'] + 59 * $pix['green']
+                          + 11 * $pix['blue']) / 100);
+            $histogram[$value]++;
+        }
+    }
+    return $histogram;
+}
+
+/*
+  Make a 'plot', containing a scaled-down version of an image with
+  a histogram overlay.
+*/
+function plot_histogram($image_filename, $param)
+{
+    extract($param);
+    $histo = get_histogram($image_filename);
+    if (empty($histo)) return;
+    for ($i = 0; $i &lt; 256; $i++) $data[$i] = array('', $histo[$i]);
+    $p = new PHPlot_truecolor($plot_image_width, $plot_image_height);
+    $p-&gt;SetFileFormat('jpg');
+    $p-&gt;SetBgImage($image_filename, 'scale');
+    $p-&gt;SetDataType('text-data');
+    $p-&gt;SetDrawXAxis(False);
+    $p-&gt;SetDrawYAxis(False);
+    $p-&gt;SetDataValues($data);
+    $p-&gt;SetXDataLabelPos('none');
+    $p-&gt;SetXTickLabelPos('none');
+    $p-&gt;SetYTickLabelPos('none');
+    $p-&gt;SetXTickPos('none');
+    $p-&gt;SetYTickPos('none');
+    $p-&gt;SetDrawYGrid(False);
+    $p-&gt;SetDataColors($histogram_color, NULL, $histogram_alpha);
+    $p-&gt;SetPlotType('thinbarline');
+    if ($draw_border) {
+        $p-&gt;SetGridColor($border_color);
+        $p-&gt;SetPlotBorderType('full');
+    }
+    # Compute the position of the histogram plot within the image.
+    $hx0 = (int)($hx * $plot_image_width);
+    $hy0 = (int)($hy * $plot_image_height);
+    $hx1 = (int)($h_width * $plot_image_width) + $hx0;
+    $hy1 = (int)($h_height * $plot_image_height) + $hy0;
+    $p-&gt;SetPlotAreaPixels($hx0, $hy0, $hx1, $hy1);
+    $p-&gt;DrawGraph();
+}
+
+/* Demo main. */
+plot_histogram('examples/geese.jpg', $param);
+</pre></div></div><br class="example-break" /></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ex-webform.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="examples.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ex-colorcallbackgradient.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.23. Example - Complete Web Form with Plot </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.25. Example - Creative Use of the Data Color Callback</td></tr></table></div></body></html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetLegendPixels</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetLegend.html" title="SetLegend" /><link rel="next" href="SetLegendStyle.html" title="SetLegendStyle" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetLegendPixels</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetLegend.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetLegendStyle.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetLegendPixels"><a id="SetLegendPixels"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetLegendPixels</span></h2><p>SetLegendPixels &#8212; Position the legend on the image (device coordinates)</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetLegendPixels([<span class="optional"><em class="parameter"><code>$x</code></em>, <em class="parameter"><code>$y</code></em></span>])</pre></div><div class="refsect1" title="Description"><a id="id2604963"></a><h2>Description</h2><p>
+<code class="function">SetLegendPixels</code> lets you position the legend on the
+image, using device coordinates, rather than letting PHPlot position it for you.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2604981"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$x</code></em>, </span><span class="term"><em class="replaceable"><code>$y</code></em></span></dt><dd><p>
+Absolute device coordinates of the upper left corner of the legend box.
+The units are pixels and the origin is in the upper left corner of the image.
+If the values are omitted or NULL, the default behavior is restored.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2605013"></a><h2>Notes</h2><p>
+The default behavior is for PHPlot to position the legend in the
+upper right corner of the plot area.
+    </p><p>
+See also <a class="xref" href="SetLegendWorld.html" title="SetLegendWorld"><span class="refentrytitle">SetLegendWorld</span></a>.
+    </p></div><div class="refsect1" title="History"><a id="id2605035"></a><h2>History</h2><p>
+Through PHPlot-5.3.0, the arguments were required.
+To restore the default behavior, it was necessary to use
+<code class="literal">SetLegendPixels(NULL, NULL)</code>.
+Starting with PHPlot-5.3.1, the arguments may be omitted to restore the
+default behavior.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetLegend.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetLegendStyle.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetLegend </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetLegendStyle</td></tr></table></div></body></html>

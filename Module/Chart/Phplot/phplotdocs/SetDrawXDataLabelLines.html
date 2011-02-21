@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetDrawXDataLabelLines</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetDrawXAxis.html" title="SetDrawXAxis" /><link rel="next" href="SetDrawXGrid.html" title="SetDrawXGrid" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetDrawXDataLabelLines</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetDrawXAxis.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetDrawXGrid.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetDrawXDataLabelLines"><a id="SetDrawXDataLabelLines"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetDrawXDataLabelLines</span></h2><p>SetDrawXDataLabelLines &#8212; Draw data lines</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetDrawXDataLabelLines(<em class="parameter"><code>$dxdl</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2601923"></a><h2>Description</h2><p>
+<code class="function">SetDrawXDataLabelLines</code> enables drawing of data label lines.
+Data label lines are vertical lines drawn from the X axis data label positions
+to the data points. In the usual case, with the X axis at the bottom of the
+plot and the data labels just below the X axis, the data label lines would be
+drawn up from the X axis to the data points. Depending on the data label
+locations set with <a class="xref" href="SetXDataLabelPos.html" title="SetXDataLabelPos"><span class="refentrytitle">SetXDataLabelPos</span></a>, the lines would be
+drawn down or up (or both, or neither) from the data points to the bottom
+or top of the plot area.
+    </p><p>
+To use data label lines, you generally want to turn off ticks, tick labels,
+and the X grid lines.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2601959"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$dxdl</code></em></span></dt><dd><p>
+True to draw the data label lines, False to not draw the lines.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2601984"></a><h2>Notes</h2><p>
+Data label lines only work with these plot types: lines, points, and linepoints.
+    </p><p>
+If a graph contains multiple data sets, data label lines drawn down will start
+at the maximum Y value for each X value. Data label lines drawn up will
+start at the minimum Y value for each X value.
+    </p><p>
+By default, data label lines are not drawn.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetDrawXAxis.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetDrawXGrid.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetDrawXAxis </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetDrawXGrid</td></tr></table></div></body></html>

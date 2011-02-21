@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetDrawBrokenLines</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetDefaultTTFont.html" title="SetDefaultTTFont" /><link rel="next" href="SetDrawDashedGrid.html" title="SetDrawDashedGrid" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetDrawBrokenLines</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetDefaultTTFont.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetDrawDashedGrid.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetDrawBrokenLines"><a id="SetDrawBrokenLines"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetDrawBrokenLines</span></h2><p>SetDrawBrokenLines &#8212; Sets whether lines should be broken at missing data</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetDrawBrokenLines(<em class="parameter"><code>$bl</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2601468"></a><h2>Description</h2><p>
+<code class="function">SetDrawBrokenLines</code> determines how to plot lines with
+missing data points (that is, missing Y values). By default, PHPlot will
+act as if the point does not exist, connecting the points before and after
+the missing datum in the usual way. Use SetDrawBrokenLines to leave a gap
+between the points before and after missing data instead.
+    </p><p>
+This only applies to 'lines' and 'squared' plot types.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2601493"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$bl</code></em></span></dt><dd><p>
+True to break the lines at missing Y data points. False to connect the
+lines around missing data.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2601519"></a><h2>Notes</h2><p>
+The default is to ignore missing data and connect lines around missing points.
+    </p><p>
+A missing Y value can be represented in the data array by an empty string.
+(Anything non-numeric works.)
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetDefaultTTFont.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetDrawDashedGrid.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetDefaultTTFont </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetDrawDashedGrid</td></tr></table></div></body></html>

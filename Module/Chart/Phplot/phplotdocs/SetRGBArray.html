@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetRGBArray</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetPrintImage.html" title="SetPrintImage" /><link rel="next" href="SetShading.html" title="SetShading" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetRGBArray</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetPrintImage.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetShading.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetRGBArray"><a id="SetRGBArray"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetRGBArray</span></h2><p>SetRGBArray &#8212; Select a color map</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetRGBArray(<em class="parameter"><code>$color_array</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2609524"></a><h2>Description</h2><p>
+<code class="function">SetRGBArray</code> selects a color map to use. A color map is
+an array of colors available to be used in the image. You can select from
+pre-defined color maps, or define your own. Each color in a color map has a
+name, and 3 or 4 color component values (red, green, blue, and optional
+alpha). The red, green, and blue components are in the range 0 through 255, and
+the optional alpha component is in the range 0 through 127.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2609547"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$color_array</code></em></span></dt><dd><p>
+An array or a string. If an array, each element defines a color in the color
+map. The array element key is the color name, and the array element value
+is an array of three or four components. (See example below).
+          </p><p>
+Or, a string selecting a built-in color map.
+Use 'small' to select a map of 36 colors, or 'large'
+to select a much larger color map.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2609580"></a><h2>Notes</h2><p>
+If SetRGBArray is not called, the 'small' color map is used.
+    </p><p>
+More information about the color maps can be found in
+<a class="xref" href="conc-colors.html#conc-colors-map" title="3.5.2. Built-in Color Maps">Section 3.5.2, &#8220;Built-in Color Maps&#8221;</a>.
+More information about using the alpha component can be found in
+<a class="xref" href="conc-truecolor.html" title="4.2. Truecolor Images">Section 4.2, &#8220;Truecolor Images&#8221;</a>.
+    </p><p>
+Color names are case sensitive.
+    </p><p>
+For the large color map to be loaded with SetRGBArray('large'), the file
+<code class="filename">rgb.inc.php</code> must be found on the PHP include path or
+in the same directory as <code class="filename">phplot.php</code>.
+    </p><p>
+When defining a color map, care must be taken to avoid invalid color errors. 
+PHPlot uses a number of pre-defined color names, and these must either be
+defined in your color map or changed.
+If you define your own color map, it should always contain colors named 'black',
+'white', and 'gray', and you should use <a class="xref" href="SetDataColors.html" title="SetDataColors"><span class="refentrytitle">SetDataColors</span></a> and
+<a class="xref" href="SetErrorBarColors.html" title="SetErrorBarColors"><span class="refentrytitle">SetErrorBarColors</span></a> to select colors which are in your
+color map.
+    </p></div><div class="refsect1" title="Examples"><a id="id2609652"></a><h2>Examples</h2><p>
+An example of a user-defined color map is:
+      </p><pre class="programlisting">array( 'black' =&gt; array(0, 0, 0),
+       'white' =&gt; array(255, 255, 255),
+       'gray'  =&gt; array(190, 190, 190),
+       'red'   =&gt; array(255, 0, 0),
+       'green' =&gt; array(0, 255, 0),
+       'blue'  =&gt; array(0, 0, 255) )
+</pre><p>
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetPrintImage.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetShading.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetPrintImage </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetShading</td></tr></table></div></body></html>

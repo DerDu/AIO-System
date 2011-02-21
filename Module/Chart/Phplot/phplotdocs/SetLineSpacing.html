@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetLineSpacing</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetLightGridColor.html" title="SetLightGridColor" /><link rel="next" href="SetLineStyles.html" title="SetLineStyles" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetLineSpacing</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetLightGridColor.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetLineStyles.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetLineSpacing"><a id="SetLineSpacing"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetLineSpacing</span></h2><p>SetLineSpacing &#8212; Set spacing between lines of multi-line text elements</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetLineSpacing(<em class="parameter"><code>$spc</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2605546"></a><h2>Description</h2><p>
+<code class="function">SetLineSpacing</code> sets the default spacing between lines
+of a multi-line text element. Multiple lines can be specified in titles,
+for example, by placing a newline between lines (for example: "Line 1\nLine
+2"). Line spacing also affects the legend.
+You can override the default line spacing for individual text elements
+(such as the X title) using <a class="xref" href="SetFont.html" title="SetFont"><span class="refentrytitle">SetFont</span></a>,
+<a class="xref" href="SetFontGD.html" title="SetFontGD"><span class="refentrytitle">SetFontGD</span></a>, and <a class="xref" href="SetFontTTF.html" title="SetFontTTF"><span class="refentrytitle">SetFontTTF</span></a>.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2605583"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$spc</code></em></span></dt><dd><p>
+Desired default line spacing factor.
+For the built-in GD fonts, this is the number of pixels between lines.
+For TrueType fonts, this is an adjustment factor for the font's built-in
+line spacing (see notes).
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2605611"></a><h2>Notes</h2><p>
+The default line spacing value is 4. For GD fonts, this is the number of
+pixels between text lines, and is independent of the font size.
+    </p><p>
+TrueType fonts have a built-in line spacing amount, which is the distance
+between the baseline of one text line and the top of the next text line.
+With TrueType text, PHPlot uses the line spacing value (set with SetLineSpacing
+or one of the SetFont functions) as an adjustment factor for this built-in
+line spacing. A value of 4 produces the built-in line spacing, lower values
+reduce the spacing and larger values increase the spacing. A value of 0 for
+line spacing would result in the baseline of one line nearly touching the
+top of the next line.
+    </p></div><div class="refsect1" title="History"><a id="id2605636"></a><h2>History</h2><p>
+The interpretation of the line spacing as an adjustment factor for TrueType
+text, rather than a value in pixels, began with PHPlot-5.0.6. This is also
+when the line spacing could be adjusted for each text element.
+    </p><p>
+At PHPlot-5.0.5, line spacing was the number of pixels between lines of text,
+for both GD or TrueType fonts.
+Before PHPlot-5.0.5, line spacing did not affect TrueType font text at all,
+except in the legend.
+    </p><p>
+Before PHPlot-5.0.5, the line spacing had to be set before setting titles,
+because the title height was calculated when setting the title. This
+restriction was removed in PHPlot-5.0.5, so line spacing and titles can be
+set in either order.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetLightGridColor.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetLineStyles.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetLightGridColor </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetLineStyles</td></tr></table></div></body></html>

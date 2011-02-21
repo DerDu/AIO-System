@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>4.5. Tuning Parameters</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="advanced.html" title="Chapter 4. PHPlot Advanced Topics" /><link rel="prev" href="conc-colors-datacolor-callback.html" title="4.4. Custom Data Color Selection" /><link rel="next" href="adv-multiplot.html" title="4.6. Multiple Plots Per Image" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.5. Tuning Parameters</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="conc-colors-datacolor-callback.html">Prev</a> </td><th width="60%" align="center">Chapter 4. PHPlot Advanced Topics</th><td width="20%" align="right"> <a accesskey="n" href="adv-multiplot.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="4.5. Tuning Parameters"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="conc-tuning"></a>4.5. Tuning Parameters</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This section documents some PHPlot class member variables that can be used
+to adjust the appearance of plots.
+You should rarely find it necessary to change these, and PHPlot does not
+provide "Set" functions for them.
+  </p></div><p>
+The class member variables listed in <a class="xref" href="dev-vars.html#dev-vars-list" title="10.1. List of Member Variables">Section 10.1, &#8220;List of Member Variables&#8221;</a> are
+generally reserved for use only by the class implementation itself. But
+there are some adjustments you can make to the appearance of a plot only
+by changing member variables.
+This section documents some PHPlot class member variables that alter a plot
+appearance, but which do not have any defined class functions for you to
+use to set the values.
+</p><p>
+For example, if you want PHPlot to draw the X/Y grid above (after) the plot,
+rather than behind it, you would do the following:
+  </p><pre class="programlisting">$plot = new PHPlot(800, 600);
+...
+$plot-&gt;grid_at_foreground = TRUE; // Draw grid after plot
+</pre><p>
+</p><div class="sect2" title="4.5.1. Tuning Bar Charts"><div class="titlepage"><div><div><h3 class="title"><a id="conc-tuning-bars"></a>4.5.1. Tuning Bar Charts</h3></div></div></div><p>
+These variables affect plot types <a class="link" href="conc-plottypes.html#plottype-bars" title="3.4.2. Plot Type: bars (Bar Graph)">bars</a>
+and <a class="link" href="conc-plottypes.html#plottype-stackedbars" title="3.4.12. Plot Type: stackedbars">stackedbars</a>.
+They are used to control the width of the bars.
+(For horizontal plots, the "width" of the bars is actually the height.)
+</p><p>
+  </p><div class="variablelist"><dl><dt><span class="term"><code class="varname">bar_extra_space</code></span></dt><dd><p>
+Controls the amount of extra space within each group of bars. Default is 0.5,
+meaning 1/2 of the width of one bar is left as a gap, within the space
+allocated to the group (see <code class="varname">group_frac_width</code>).
+Increasing this makes each group of bars shrink together.
+Decreasing this makes the group of bars expand within the allocated space.
+        </p></dd><dt><span class="term"><code class="varname">group_frac_width</code></span></dt><dd><p>
+Controls the amount of available space used by each bar group. Default is 0.7,
+meaning the group of bars fills 70% of the available space (but that includes
+the empty space due to <code class="varname">bar_extra_space</code>).
+Increasing this makes the group of bars wider.
+        </p></dd><dt><span class="term"><code class="varname">bar_width_adjust</code></span></dt><dd><p>
+Controls the width of each bar. Default is 1.0.
+Decreasing this makes individual bars narrower, leaving gaps between the
+bars in a group. This must be greater than 0. If it is greater than 1, the
+bars will overlap.
+        </p></dd></dl></div><p>
+If bar_extra_space=0, group_frac_width=1, and bar_width_adjust=1
+then all the bars touch (within each group, and adjacent groups).
+</p></div><div class="sect2" title="4.5.2. Tuning OHLC Charts"><div class="titlepage"><div><div><h3 class="title"><a id="conc-tuning-ohlc"></a>4.5.2. Tuning OHLC Charts</h3></div></div></div><p>
+These variables affect plot types <a class="link" href="conc-plottypes.html#plottype-ohlc" title="3.4.7. Plot Type: ohlc (Basic OHLC Plot)">ohlc</a>,
+<a class="link" href="conc-plottypes.html#plottype-candlesticks" title="3.4.3. Plot Type: candlesticks (OHLC Candlesticks Plot)">candlesticks</a>,
+and <a class="link" href="conc-plottypes.html#plottype-candlesticks2" title="3.4.4. Plot Type: candlesticks2 (OHLC Filled Candlesticks Plot)">candlesticks2</a>,
+For candlesticks plots, they adjust the calculation of the width of the
+candlestick body.
+For basic OHLC plots, they adjust the calculation of the length of the tick
+marks which represent opening and closing prices.
+(All of these were added in PHPlot-5.3.0.)
+</p><p>
+  </p><div class="variablelist"><dl><dt><span class="term"><code class="varname">ohlc_max_width</code></span></dt><dd><p>
+This is one half the maximum width in pixels of the candlestick body or
+OHLC tick mark. The default is 8.
+        </p></dd><dt><span class="term"><code class="varname">ohlc_min_width</code></span></dt><dd><p>
+This is one half the minimum width in pixels of the candlestick body or
+OHLC tick mark. The default is 2.
+        </p></dd><dt><span class="term"><code class="varname">ohlc_frac_width</code></span></dt><dd><p>
+This is the fractional amount of the available space (plot width area
+divided by number of points) to use for half the width of the candlestick
+bodies or OHLC tick marks. The default is 0.3. This needs to be less than
+0.5 or there will be overlap between adjacent candlesticks.
+        </p></dd></dl></div><p>
+</p><p>
+PHPlot calculates a value to use for one half the width of the candlestick
+bodies, or for the OHLC open/close tick mark lengths, as follows:
+</p><pre class="programlisting">half_width = max(ohlc_min_width, min(ohlc_max_width, ohlc_frac_width * avail_area)
+Where avail_area = plot_area_width / number_data_points
+</pre><p>
+</p></div><div class="sect2" title="4.5.3. Tuning the Legend"><div class="titlepage"><div><div><h3 class="title"><a id="conc-tuning-legend"></a>4.5.3. Tuning the Legend</h3></div></div></div><p>
+This variable adjusts the appearance of the legend.
+</p><p>
+  </p><div class="variablelist"><dl><dt><span class="term"><code class="varname">legend_colorbox_width</code></span></dt><dd><p>
+This is an adjustment factor for the width of the color boxes in the legend.
+With the default value 1.0, the color boxes are as wide as one character in
+the font used in the legend (width of "E" for TrueType fonts).
+A value of 2.0 makes the color boxes twice as wide, and 0.5 makes them half
+the character width.
+(This was added in PHPlot-5.3.0.)
+        </p></dd></dl></div><p>
+</p></div><div class="sect2" title="4.5.4. Label Tuning"><div class="titlepage"><div><div><h3 class="title"><a id="conc-tuning-labels"></a>4.5.4. Label Tuning</h3></div></div></div><p>
+These variables affect the display of labels.
+</p><p>
+  </p><div class="variablelist"><dl><dt><span class="term"><code class="varname">data_value_label_angle</code></span></dt><dd><p>
+This sets the angle, in degrees, for the position of data value labels near
+the data points they label.
+Together with <code class="varname">data_value_label_distance</code>,
+it determines the position of the reference point for the label.
+(This does not apply to data value labels for bars or stackedbars plots, as
+the label position is fixed for these plot types.)
+The default if unset is 90 degrees, which places the label above the data point.
+PHPlot automatically selects which text alignment to use, based on the angle.
+For example, with the default 90 degree angle, the label will
+be horizontally centered, vertically bottom aligned.  If the angle is 0
+degrees, the alignment is horizontally left, vertically centered.
+        </p></dd><dt><span class="term"><code class="varname">data_value_label_distance</code></span></dt><dd><p>
+This sets the distance, in pixels, for the position of data value labels near
+the data points they label.
+Together with <code class="varname">data_value_label_angle</code>,
+it determines the position of the reference point for the label.
+(This does not apply to data value labels for bars or stackedbars plots, as
+the label position is fixed for these plot types.)
+The default if unset is 5 pixels.
+        </p></dd></dl></div><p>
+</p></div><div class="sect2" title="4.5.5. Miscellaneous Tuning"><div class="titlepage"><div><div><h3 class="title"><a id="conc-tuning-misc"></a>4.5.5. Miscellaneous Tuning</h3></div></div></div><p>
+These variables affect other aspects of the appearance of a plot.
+</p><p>
+  </p><div class="variablelist"><dl><dt><span class="term"><code class="varname">grid_at_foreground</code></span></dt><dd><p>
+Controls the order in which certain plot elements are drawn. The default is
+FALSE, meaning the X axis, Y axis, and grid lines are drawn before the main
+part of the plot. If TRUE, the X axis, Y axis, and grid lines are drawn
+after the main part of the plot, which results in the grid lines overlaying
+the plotted data.
+        </p></dd><dt><span class="term"><code class="varname">locale_override</code></span></dt><dd><p>
+Set this to TRUE (or any non-empty value) to prevent PHPlot from loading
+information about the locale from the operating system.
+You must do this if you want to override the locale using
+<code class="function">setlocale()</code> from your PHP code, perhaps because your
+platform does not allow setting the locale from environment variables.
+See <a class="xref" href="SetNumberFormat.html" title="SetNumberFormat"><span class="refentrytitle">SetNumberFormat</span></a> for more information.
+        </p></dd><dt><span class="term"><code class="varname">safe_margin</code></span></dt><dd><p>
+This is the amount of space that PHPlot leaves between elements that
+should not touch. The default is 5 pixels. Changing this is not recommended.
+The effect is similar to changing the cellpadding on an HTML table.
+        </p></dd></dl></div><p>
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="conc-colors-datacolor-callback.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="advanced.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="adv-multiplot.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.4. Custom Data Color Selection </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.6. Multiple Plots Per Image</td></tr></table></div></body></html>

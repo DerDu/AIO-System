@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetXDataLabelPos</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetXDataLabelAngle.html" title="SetXDataLabelAngle" /><link rel="next" href="SetXDataLabelType.html" title="SetXDataLabelType" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetXDataLabelPos</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetXDataLabelAngle.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetXDataLabelType.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetXDataLabelPos"><a id="SetXDataLabelPos"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetXDataLabelPos</span></h2><p>SetXDataLabelPos &#8212; Position and control X data labels</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetXDataLabelPos(<em class="parameter"><code>$xdlp</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2611471"></a><h2>Description</h2><p>
+<code class="function">SetXDataLabelPos</code> determines if and where X data labels
+are drawn.
+For vertical plots, these are X axis data labels, which display the label
+strings from your data array.
+The labels can be drawn at the bottom of the plot (below the X axis),
+above the plot, in both positions, or neither.
+For horizontal plots, these are X data value labels, displaying the value of the
+data point. They can be drawn within the plot to label bars and bar segments.
+This type of label is only available for 'bars' and 'stackedbars' plots.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2611503"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$xdlp</code></em></span></dt><dd><p>
+A string indicating the desired position for the X data labels:
+            </p><div class="informaltable"><table summary="X data label position choices" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Position</th><th>Description</th></tr></thead><tbody><tr><td>plotdown</td><td>Data labels below the plot.
+                        This is for vertical plots.</td></tr><tr><td>plotup</td><td>Data labels above the plot.
+                        This is for vertical plots.</td></tr><tr><td>both</td><td>Data labels both below and above the plot.
+                        This is for vertical plots.</td></tr><tr><td>plotin</td><td>Data value labels to the right (or left) of each
+                        bar.  For stacked bar charts, this means only the
+                        bar total labels and not the bar segment labels.
+                        This is valid for horizontal bar and horizontal
+                        stacked bar plots only.
+                    </td></tr><tr><td>plotstack</td><td>Data value labels to the right of each bar, and
+                      just left of the end of each bar segment.
+                      This is valid for horizontal stacked bar plots only.
+                      It turns on both bar total labels (as with 'plotin')
+                      and bar segment labels.
+                    </td></tr><tr><td>none</td><td>No data labels or data value labels</td></tr></tbody></table></div><p>
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2611651"></a><h2>Notes</h2><p>
+With vertical plots, this function controls the X axis data labels.
+For an example, see <a class="xref" href="ex-area1.html" title="5.3. Example - Area Plot">Section 5.3, &#8220;Example - Area Plot&#8221;</a>,
+where the labels are enabled by default and displayed below the X axis.
+With horizontal plots, this function controls the X data value labels.
+For examples, see <a class="xref" href="ex-horizbar.html#example-horizbar" title="Example 5.27. Horizontal Bar Chart">Example 5.27, &#8220;Horizontal Bar Chart&#8221;</a> 
+and <a class="xref" href="ex-horizstackedbar.html#example-horizstackedbar" title="Example 5.28. Horizontal Stacked Bar Chart">Example 5.28, &#8220;Horizontal Stacked Bar Chart&#8221;</a>.
+    </p><p>
+The default position for X data labels (for vertical plots) is below the plot.
+However, PHPlot only enables the data labels if SetXDataLabelPos was used to
+position them, or if <a class="xref" href="SetXTickLabelPos.html" title="SetXTickLabelPos"><span class="refentrytitle">SetXTickLabelPos</span></a> was not used to
+enable the tick labels and the data labels are not all empty.
+    </p><p>
+The default position for X data value labels (for horizontal plots) is 'none',
+meaning no labels.
+X data value labels only apply to horizontal bar and stackedbar plots.
+    </p><p>
+For tick labels, see <a class="xref" href="SetXTickLabelPos.html" title="SetXTickLabelPos"><span class="refentrytitle">SetXTickLabelPos</span></a>.
+    </p><p>
+The bar segment labels, if enabled ('plotstack'), are drawn inside the bars
+and may not be very visible if dark colors are used for the bar fill.
+Bar segment labels will be omitted for segments which are too short.
+    </p><p>
+X data value labels will be drawn to the left of the bars for negative values.
+This only applies to horizontal bar charts.
+Stacked bar charts are not allowed to have negative values.
+    </p><p>
+If X data lines are enabled with <a class="xref" href="SetDrawXDataLabelLines.html" title="SetDrawXDataLabelLines"><span class="refentrytitle">SetDrawXDataLabelLines</span></a>,
+then SetXDataLabelPos() also determines the direction of the lines which
+are drawn from the data points.
+    </p><p>
+The X data label text angle is set with <a class="xref" href="SetXDataLabelAngle.html" title="SetXDataLabelAngle"><span class="refentrytitle">SetXDataLabelAngle</span></a>.
+The X data label text format can be controlled with
+<a class="xref" href="SetXDataLabelType.html" title="SetXDataLabelType"><span class="refentrytitle">SetXDataLabelType</span></a> or <a class="xref" href="SetXLabelType.html" title="SetXLabelType"><span class="refentrytitle">SetXLabelType</span></a>.
+    </p></div><div class="refsect1" title="History"><a id="id2611761"></a><h2>History</h2><p>
+Horizontal bar plot data value labels were added in PHPlot-5.1.3.
+Through PHPlot-5.1.2, the 'plotin' and 'plotstack' values were not available.
+    </p><p>
+Through PHPlot-5.0.7, the default position for X data labels was below the
+plot ('plotdown').
+This would result in overlaid data and tick labels by default.
+In addition, positioning the X tick labels with
+<a class="xref" href="SetXTickLabelPos.html" title="SetXTickLabelPos"><span class="refentrytitle">SetXTickLabelPos</span></a> with a position other than 'none'
+resulted in disabling the X data labels, and vice-versa.
+If both tick and data labels were positioned, the later setting overrode
+the earlier, which was turned off.
+Starting with PHPlot-5.1.0, PHPlot handles tick and data label positions
+as described in the notes above.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetXDataLabelAngle.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetXDataLabelType.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetXDataLabelAngle </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetXDataLabelType</td></tr></table></div></body></html>

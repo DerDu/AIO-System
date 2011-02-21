@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetNumYTicks</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetNumXTicks.html" title="SetNumXTicks" /><link rel="next" href="SetOutputFile.html" title="SetOutputFile" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetNumYTicks</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetNumXTicks.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetOutputFile.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetNumYTicks"><a id="SetNumYTicks"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetNumYTicks</span></h2><p>SetNumYTicks &#8212; Set the number of Y tick marks</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetNumYTicks([<span class="optional"><em class="parameter"><code>$nt</code></em></span>])</pre></div><div class="refsect1" title="Description"><a id="id2606534"></a><h2>Description</h2><p>
+<code class="function">SetNumYTicks</code> sets the exact number of tick marks to
+draw on the Y axis.
+You can use either this function or <a class="xref" href="SetYTickIncrement.html" title="SetYTickIncrement"><span class="refentrytitle">SetYTickIncrement</span></a>
+(but not both) to control the tick mark spacing.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2606558"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$nt</code></em></span></dt><dd><p>
+Integer number of tick marks to draw.
+If the value is omitted or an empty string, the default behavior is restored.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2606584"></a><h2>Notes</h2><p>
+If neither <code class="function">SetNumYTicks</code> nor 
+<a class="xref" href="SetYTickIncrement.html" title="SetYTickIncrement"><span class="refentrytitle">SetYTickIncrement</span></a> is used, the tick mark interval
+is calculated as 1/10th of the Y data range.
+    </p></div><div class="refsect1" title="History"><a id="id2606608"></a><h2>History</h2><p>
+Through PHPlot-5.3.0, the argument was required.
+To restore the default behavior, it was necessary to use
+<code class="literal">SetNumYTicks('')</code>.
+Starting with PHPlot-5.3.1, the argument may be omitted to restore the
+default behavior.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetNumXTicks.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetOutputFile.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetNumXTicks </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetOutputFile</td></tr></table></div></body></html>

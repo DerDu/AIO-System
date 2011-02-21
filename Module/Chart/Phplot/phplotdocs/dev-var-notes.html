@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>10.2. Member Variable Notes</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="dev-vars.html" title="Chapter 10. PHPlot Class Member Variables" /><link rel="prev" href="dev-vars.html" title="Chapter 10. PHPlot Class Member Variables" /><link rel="next" href="changelog.html" title="Appendix A. Change Log" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">10.2. Member Variable Notes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="dev-vars.html">Prev</a> </td><th width="60%" align="center">Chapter 10. PHPlot Class Member Variables</th><td width="20%" align="right"> <a accesskey="n" href="changelog.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="10.2. Member Variable Notes"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="dev-var-notes"></a>10.2. Member Variable Notes</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This section contains details on some of the PHPlot class member variables
+listed in the previous section.
+Remember that all PHPlot class member variables are meant for internal use only.
+  </p></div><div class="sect2" title="10.2.1. fonts[]"><div class="titlepage"><div><div><h3 class="title"><a id="var-fonts"></a>10.2.1. fonts[]</h3></div></div></div><p>
+ 
+The <code class="varname">fonts[]</code> array contains information about the fonts to
+use for text on the plot. The array keys are the element names (such as
+<code class="literal">title</code> or <code class="literal">legend</code>) as used in
+<a class="xref" href="SetFont.html" title="SetFont"><span class="refentrytitle">SetFont</span></a>, <a class="xref" href="SetFontGD.html" title="SetFontGD"><span class="refentrytitle">SetFontGD</span></a>, or
+<a class="xref" href="SetFontTTF.html" title="SetFontTTF"><span class="refentrytitle">SetFontTTF</span></a>. The array values are arrays which contain
+information about the font to use for that element. The keys and values of
+the second-level arrays are:
+
+</p><div class="informaltable"><table summary="fonts[] array elements" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Key</th><th>Value for TTF</th><th>Value for GD Font</th></tr></thead><tbody><tr><td>ttf</td><td>True for a TrueType font</td><td>False for a GD font</td></tr><tr><td>font</td><td>Pathname of the font file</td><td>Font number: 1 through 5</td></tr><tr><td>size</td><td>Font point size</td><td>Not used</td></tr><tr><td>height</td><td>Height in pixels of an upper-case "E" in the font</td><td>Font height in pixels</td></tr><tr><td>width</td><td>Width in pixels of an upper-case "E" in the font.</td><td>Font width in pixels</td></tr><tr><td>spacing</td><td>Font's built-in inter-line spacing</td><td>Not used</td></tr><tr><td>line_spacing</td><td>User-requested inter-line spacing factor.</td><td>Same as for TTF</td></tr></tbody></table></div><p>
+</p><p>
+For TrueType fonts, the height and width can vary by character. The fonts
+array stores a height and width value for the font, but these are only used
+for sizing non-text plot elements (such as the legend color boxes). When
+PHPlot needs to know the drawn size of a string that will use TTF, it calculates
+the exact size of that specific string when drawn with the designated font.
+</p><p>
+GD fonts have fixed character width and height, so the values stored in
+the fonts array can be used to calculate text string sizes.
+</p><p>
+The <code class="literal">spacing</code> key stores the TrueType font's built-in
+inter-line spacing. Although TrueType fonts have this information
+internally, PHP cannot access it, so PHPlot calculates it by taking the
+height of the string "E\nE" and subtracting twice the height of the letter E.
+</p><p>
+The <code class="literal">line_spacing</code> key stores the user-specified line spacing
+adjustment for a text element, if any, from <a class="xref" href="SetFont.html" title="SetFont"><span class="refentrytitle">SetFont</span></a> or
+one of the two related functions. It will be NULL if the spacing was
+not set for this element, meaning use the default line spacing.
+See <a class="xref" href="SetLineSpacing.html" title="SetLineSpacing"><span class="refentrytitle">SetLineSpacing</span></a> for more information on how this is used.
+</p><p>
+Here is an example of part of a fonts array, for the title element:
+</p><pre class="programlisting">$plot-&gt;fonts['title'] = array(
+    'ttf' =&gt; FALSE,          // This element uses a GD font
+    'font' =&gt; 2,             // Use GD font 2
+    'height' =&gt; 13,          // Provided by GD
+    'width' =&gt; 6,            // Provided by GD
+    'line_spacing' =&gt; NULL,  // Use default line spacing
+)
+</pre><p>
+</p></div><div class="sect2" title="10.2.2. label_format[]"><div class="titlepage"><div><div><h3 class="title"><a id="var-label-format"></a>10.2.2. label_format[]</h3></div></div></div><p>
+The <code class="varname">label_format[]</code> array contains information about how
+text labels should be formatted. This array has 4 entries, with keys 'x',
+'y', 'xd', and 'yd'. The 'x' and 'y' entries are for tick labels, and the
+'xd' and 'yd' entries are for data labels. (Note that PHPlot defaults data
+label formatting to match tick label formatting, but this is handled in
+<a class="xref" href="dev-internal.html#CheckLabels">CheckLabels</a>, with the tick label format information copied
+to the data label format information if necessary.)
+</p><p>
+ 
+The value of each entry in <code class="varname">label_format</code> is an array
+containing formatting information. The arrays are empty by default, meaning
+there is no special formatting. If formatting has been enabled, for example
+with <a class="xref" href="SetXLabelType.html" title="SetXLabelType"><span class="refentrytitle">SetXLabelType</span></a>, the arrays can contain the following
+keys and values:
+
+</p><div class="informaltable"><table summary="label_format[] array elements" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Key</th><th>Used with type</th><th>Value</th></tr></thead><tbody><tr><td>type</td><td> </td><td>Formatting type: data, time, printf, or custom.</td></tr><tr><td>precision</td><td>data</td><td>The number of decimal positions to produce.</td></tr><tr><td>prefix</td><td>data</td><td>A prefix string to append to the label (for example, a currency
+            sign).</td></tr><tr><td>suffix</td><td>data</td><td>A suffix string to append to the label (for example, a currency
+           sign or percent sign).
+           This replaces data_units_text (which still works too).</td></tr><tr><td>time_format</td><td>time</td><td>The date/time format string for the PHP strftime()
+            function.</td></tr><tr><td>printf_format</td><td>printf</td><td>The format string for the PHP printf() function.</td></tr><tr><td>custom_callback</td><td>custom</td><td>The function (or array with object and method name) to call to
+            format the label.</td></tr><tr><td>custom_arg</td><td>custom</td><td>An additional argument to pass to the custom_callback
+            function.</td></tr></tbody></table></div><p>
+</p></div><div class="sect2" title="10.2.3. plots[]"><div class="titlepage"><div><div><h3 class="title"><a id="var-plots"></a>10.2.3. plots[]</h3></div></div></div><p>
+The <code class="varname">plots[]</code> array contains information about known plot
+types. Essentially, it tells <a class="xref" href="dev-internal.html#FindDataLimits">FindDataLimits</a> and
+<a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> how to produce the main portion of the plot.
+This was added in PHPlot-5.3.0.
+This is a static member variable in the PHPlot class, so it must be
+accessed as <code class="varname">PHPlot::$plots</code> and not through an instance
+of the class. It has protected visibility, so is not accessible from
+outside the class or derived classes.
+</p><p>
+ 
+The array keys are the plot types (for example: 'bars', 'linepoints').
+These must not include upper case letters.
+The values are arrays which contain information about the plot type.
+The keys and values of the second-level arrays are:
+
+</p><div class="informaltable"><table summary="plots[] array elements" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Key</th><th>Value</th></tr></thead><tbody><tr><td>draw_method</td><td>Name of the PHPlot class method (function) to call to draw the
+            'insides' of the plot.  This is the only required entry.
+            The function is responsible for drawing everything inside the
+            plot area. (That is, everything except the plot titles, axis lines,
+            tick marks and tick labels, grid lines, and legend.)</td></tr><tr><td>draw_arg</td><td>Optional argument(s) for the drawing method named by draw_method.
+            If present, this must be an array. Each element of the array
+            is passed to the draw_method function as a separate argument.
+            If this is not specified, the drawing method is called with no
+            arguments.
+            This is generally used to 'overload' drawing methods so they
+            handle multiple similar plot types.</td></tr><tr><td>draw_axes</td><td>A flag to indicate if the X axis and Y axis should be drawn.
+            The default is TRUE. This is set to FALSE for pie charts.</td></tr><tr><td>abs_vals</td><td>Special data processing flag. If TRUE, this tells
+            <a class="xref" href="dev-internal.html#FindDataLimits">FindDataLimits</a> that the plot type will take
+            the absolute value of all dependent variable values in the
+            data array. FindDataLimits needs this information so it knows
+            how to find the minimum and maximum values in the data array.
+            The default if omitted is FALSE.
+            </td></tr><tr><td>sum_vals</td><td>Special data processing flag. If TRUE, this tells
+            <a class="xref" href="dev-internal.html#FindDataLimits">FindDataLimits</a> that the plot type will sum
+            up the dependent variable values in each row of the data array.
+            FindDataLimits needs this information so it knows how to find the
+            minimum and maximum values in the data array.
+            The default if omitted is FALSE.
+            If both abs_vals and sum_vals are TRUE, this means the plot type
+            sums up the absolute values from the data array.
+            (The stackedarea plot type does this.)</td></tr></tbody></table></div><p>
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="dev-vars.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="dev-vars.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="changelog.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 10. PHPlot Class Member Variables </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Appendix A. Change Log</td></tr></table></div></body></html>

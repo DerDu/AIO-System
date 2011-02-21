@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetXTickLabelPos</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetXTickIncrement.html" title="SetXTickIncrement" /><link rel="next" href="SetXTickLength.html" title="SetXTickLength" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetXTickLabelPos</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetXTickIncrement.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetXTickLength.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetXTickLabelPos"><a id="SetXTickLabelPos"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetXTickLabelPos</span></h2><p>SetXTickLabelPos &#8212; Position the X tick labels</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetXTickLabelPos(<em class="parameter"><code>$xtlp</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2613480"></a><h2>Description</h2><p>
+<code class="function">SetXTickLabelPos</code> determines where (and if) the
+X tick labels are drawn. The labels can be drawn at the bottom of the plot,
+above the plot, in both positions, at the X axis (even if it is in the
+middle of the plot), or not drawn at all.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2613500"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$xtlp</code></em></span></dt><dd><p>
+A string indicating the desired position for the X tick labels:
+            </p><div class="informaltable"><table summary="X tick label position choices" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Position</th><th>Description</th></tr></thead><tbody><tr><td>plotdown</td><td>Tick labels below the plot</td></tr><tr><td>plotup</td><td>Tick labels above the plot</td></tr><tr><td>both</td><td>Tick labels both below and above the plot</td></tr><tr><td>xaxis</td><td>Tick labels at X axis (even if the axis is in
+                      the middle of the plot)</td></tr><tr><td>none</td><td>No tick labels</td></tr></tbody></table></div><p>
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2613626"></a><h2>Notes</h2><p>
+The default position for the X tick labels is chosen to avoid overlapping
+tick and data labels.
+For vertical plots, the X tick labels will default to 'none' if the X data
+labels have been enabled using <a class="xref" href="SetXDataLabelPos.html" title="SetXDataLabelPos"><span class="refentrytitle">SetXDataLabelPos</span></a>.
+If neither SetXTickLabelPos nor SetXDataLabelPos are used, PHPlot will
+enable just data labels if they are non-empty, and otherwise it will enable
+just tick labels, and position them below the plot.
+For horizontal plots, there is no conflict (because data labels are drawn
+along Y), so the tick label position defaults to 'plotdown'.
+    </p><p>
+This applies only to tick labels.
+For data labels, see <a class="xref" href="SetXDataLabelPos.html" title="SetXDataLabelPos"><span class="refentrytitle">SetXDataLabelPos</span></a>.
+You may want the tick marks to be in the same position as the tick labels.
+To position the tick marks, see <a class="xref" href="SetXTickPos.html" title="SetXTickPos"><span class="refentrytitle">SetXTickPos</span></a>.
+    </p><p>
+See <a class="xref" href="SetXAxisPosition.html" title="SetXAxisPosition"><span class="refentrytitle">SetXAxisPosition</span></a> for positioning the X axis.
+    </p></div><div class="refsect1" title="History"><a id="id2613677"></a><h2>History</h2><p>
+Through PHPlot-5.0.7, the default position for X tick labels was below the
+plot ('plotdown').
+This would result in overlaid data and tick labels by default.
+In addition, positioning the X data labels with
+<a class="xref" href="SetXDataLabelPos.html" title="SetXDataLabelPos"><span class="refentrytitle">SetXDataLabelPos</span></a> with a position other than 'none'
+resulted in disabling the X tick labels, and vice-versa.
+If both tick and data labels were positioned, the later setting overrode
+the earlier, which was turned off.
+Starting with PHPlot-5.1.0, PHPlot handles tick and data label positions
+as described in the notes above.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetXTickIncrement.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetXTickLength.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetXTickIncrement </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetXTickLength</td></tr></table></div></body></html>

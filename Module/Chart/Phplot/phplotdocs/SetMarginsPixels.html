@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetMarginsPixels</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetLineWidths.html" title="SetLineWidths" /><link rel="next" href="SetNumberFormat.html" title="SetNumberFormat" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetMarginsPixels</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetLineWidths.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetNumberFormat.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetMarginsPixels"><a id="SetMarginsPixels"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetMarginsPixels</span></h2><p>SetMarginsPixels &#8212; Set margins around the plot area</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetMarginsPixels([<span class="optional"><em class="parameter"><code>$lm</code></em></span>], [<span class="optional"><em class="parameter"><code>$rm</code></em></span>], [<span class="optional"><em class="parameter"><code>$tm</code></em></span>], [<span class="optional"><em class="parameter"><code>$bm</code></em></span>])</pre></div><div class="refsect1" title="Description"><a id="id2605962"></a><h2>Description</h2><p>
+<code class="function">SetMarginsPixels</code> sets the size of the margins around
+the plot area.  By default, the margin sizes are automatically calculated
+based on the space needed.  Use SetMarginsPixels to override these
+automatic calculations and set specific margin sizes.  The four margins are
+specified independently and in pixels.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2605983"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$lm</code></em></span></dt><dd><p>
+Optional argument specifying the left margin, in pixels.
+If omitted or NULL, the value is automatically calculated.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$rm</code></em></span></dt><dd><p>
+Optional argument specifying the right margin, in pixels.
+If omitted or NULL, the value is automatically calculated.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$tm</code></em></span></dt><dd><p>
+Optional argument specifying the top margin, in pixels.
+If omitted or NULL, the value is automatically calculated.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$bm</code></em></span></dt><dd><p>
+Optional argument specifying the bottom margin, in pixels.
+If omitted or NULL, the value is automatically calculated.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2606057"></a><h2>Notes</h2><p>
+By default, the margin sizes are automatically calculated based on the
+space needed (for the axis labels, tick labels, and tick marks).
+Use SetMarginsPixels to override these automatic calculations and
+control the margins.
+    </p><p>
+The upper left corner of the plot area is at device coordinates
+(Left_Margin, Top_Margin).
+The lower right corner of the plot area is at device coordinates
+(Image_Width - Right_Margin, Image_Height - Bottom_Margin).
+    </p><p>
+SetMarginsPixels and <a class="xref" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels"><span class="refentrytitle">SetPlotAreaPixels</span></a> perform the same
+function with different semantics. It makes no sense to use both - only the
+last one called will have an effect.
+    </p><p>
+Trailing defaulted arguments can be omitted, but non-trailing defaulted
+arguments must be specified as NULL. For example, to set the right margin
+to 100 pixels, and let PHPlot calculate the other three margins, use:
+      </p><pre class="programlisting">$plot-&gt;SetMarginsPixels(NULL, 100);
+</pre><p>
+    </p></div><div class="refsect1" title="History"><a id="id2606104"></a><h2>History</h2><p>
+Through PHPlot-5.0.6, SetMarginsPixels required all 4 arguments be
+specified and not be NULL. Starting with PHPlot-5.0.7, each margin can
+either be specified or automatically calculated.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetLineWidths.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetNumberFormat.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetLineWidths </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetNumberFormat</td></tr></table></div></body></html>

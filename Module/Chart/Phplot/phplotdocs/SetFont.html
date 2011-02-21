@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetFont</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetFileFormat.html" title="SetFileFormat" /><link rel="next" href="SetFontGD.html" title="SetFontGD" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetFont</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetFileFormat.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetFontGD.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetFont"><a id="SetFont"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetFont</span></h2><p>SetFont &#8212; Select which font to use for a plot element</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetFont(<em class="parameter"><code>$elem</code></em>, <em class="parameter"><code>$font</code></em>, [<span class="optional"><em class="parameter"><code>$size</code></em></span>], [<span class="optional"><em class="parameter"><code>$line_spacing</code></em></span>])</pre></div><div class="refsect1" title="Description"><a id="id2603051"></a><h2>Description</h2><p>
+<code class="function">SetFont</code> selects the font and size to use for one plot
+element (for example, the title). This functions works differently depending
+on whether or not you are using TrueType fonts. If using TrueType fonts,
+call either <a class="xref" href="SetDefaultTTFont.html" title="SetDefaultTTFont"><span class="refentrytitle">SetDefaultTTFont</span></a> or <a class="xref" href="SetUseTTF.html" title="SetUseTTF"><span class="refentrytitle">SetUseTTF</span></a>
+before calling SetFont.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2603082"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$elem</code></em></span></dt><dd><p>
+The name of the element to change the font for. Use one of the following
+strings: 'title', 'legend', 'generic', 'x_label', 'y_label', 'x_title',
+or 'y_title'. (The 'generic' font is currently used for pie chart
+percentage labels and error message images.)
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$font</code></em></span></dt><dd><p>
+Selects the font to use.  For TrueType fonts,
+this is either the full pathname of a TrueType font filename,
+or the filename (without path) if the font file is either located in the
+default TrueType font directory set with <a class="xref" href="SetTTFPath.html" title="SetTTFPath"><span class="refentrytitle">SetTTFPath</span></a>
+or can be found by GD using its default search rules.
+An empty string or NULL can be specified to use the default TrueType font.
+          </p><p>
+For built-in GD fonts, this is a number between 1 and 5 which selects one
+of the built-in GD fonts.  Font 1 is the smallest, and font 5 is the
+largest.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$size</code></em></span></dt><dd><p>
+The font size in points for TrueType fonts. Ignored for built-in GD fonts.
+If not specified, a default value of 12 is used.
+See note below.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$line_spacing</code></em></span></dt><dd><p>
+Optional line spacing adjustment for this text element.
+This is interpreted differently for GD and TrueType text.
+See <a class="xref" href="SetLineSpacing.html" title="SetLineSpacing"><span class="refentrytitle">SetLineSpacing</span></a> for details.
+If not specified, the value set by <a class="xref" href="SetLineSpacing.html" title="SetLineSpacing"><span class="refentrytitle">SetLineSpacing</span></a> is used.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2603188"></a><h2>Notes</h2><p>
+When using built-in GD fonts, the default fonts are shown in the following
+table, where font 1 is the smallest font and font 5 is the biggest font.
+      </p><div class="informaltable"><table summary="Default built-in fonts" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Element</th><th>Default Built-in Font</th></tr></thead><tbody><tr><td>generic</td><td>2</td></tr><tr><td>legend</td><td>2</td></tr><tr><td>title</td><td>5</td></tr><tr><td>x_label</td><td>1</td></tr><tr><td>y_label</td><td>1</td></tr><tr><td>x_title</td><td>3</td></tr><tr><td>y_title</td><td>3</td></tr></tbody></table></div><p>
+    </p><p>
+When using TrueType fonts, the default font sizes are shown in the following
+table. Use <a class="xref" href="SetDefaultTTFont.html" title="SetDefaultTTFont"><span class="refentrytitle">SetDefaultTTFont</span></a> to set the default TrueType font.
+      </p><div class="informaltable"><table summary="Default TrueType font sizes" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Element</th><th>Default TrueType Font Size (points)</th></tr></thead><tbody><tr><td>generic</td><td>8</td></tr><tr><td>legend</td><td>8</td></tr><tr><td>title</td><td>14</td></tr><tr><td>x_label</td><td>6</td></tr><tr><td>y_label</td><td>6</td></tr><tr><td>x_title</td><td>10</td></tr><tr><td>y_title</td><td>10</td></tr></tbody></table></div><p>
+    </p><p>
+Simultaneous use of GD and TrueType font text is allowed in the same plot.
+To mix font types, use 
+<a class="xref" href="SetFontGD.html" title="SetFontGD"><span class="refentrytitle">SetFontGD</span></a> and <a class="xref" href="SetFontTTF.html" title="SetFontTTF"><span class="refentrytitle">SetFontTTF</span></a> to
+specify the font and font type of an element, instead of using SetFont.
+    </p><p>
+SetFont implicitly uses the default font type.
+When a PHPlot object instance is created, the default font type is GD.
+Using <a class="xref" href="SetUseTTF.html" title="SetUseTTF"><span class="refentrytitle">SetUseTTF</span></a>(True), or selecting a default font with
+<a class="xref" href="SetDefaultTTFont.html" title="SetDefaultTTFont"><span class="refentrytitle">SetDefaultTTFont</span></a>, sets the default font type to TrueType.
+Using <a class="xref" href="SetUseTTF.html" title="SetUseTTF"><span class="refentrytitle">SetUseTTF</span></a>(False) sets the default font type back
+to GD. Either of these three operations will also reset all current text
+elements to the defaults indicated above, negating any prior SetFont,
+SetFontGD, or SetFontTTF calls. Note that <a class="xref" href="SetTTFPath.html" title="SetTTFPath"><span class="refentrytitle">SetTTFPath</span></a>,
+which selects the directory where TrueType fonts can be found, does not
+affect the default font type nor does it change any existing font
+selections.
+    </p><p>
+Although PHP documents the TrueType font sizes as being given in points
+(where there are about 72 points per inch), it doesn't know the output
+device resolution, so it just assumes a fixed resolution of 72 pixels per
+inch.  As a result, the TrueType font size argument actually measures the
+approximate font height in pixels. For example, if you use $size=18,
+the text will be about 18 pixels high in the user's browser. The actual
+size seen by the user will depend on the resolution of the user's display.
+On a 72 pixels per inch display, the text size will be 18 points, but at
+96 pixels per inch it would only be 13.5 points.
+    </p></div><div class="refsect1" title="History"><a id="id2603510"></a><h2>History</h2><p>
+Starting with PHPlot-5.1.3, TrueType fonts are validated by trying to
+use the font with a non-drawing operation, rather than by seeing if the
+font file exists.
+See <a class="xref" href="conc-text.html#conc-text-fonts" title="3.8.2. TrueType Font Selection">Section 3.8.2, &#8220;TrueType Font Selection&#8221;</a> for more information.
+    </p><p>
+Simultaneous use of GD and TrueType font text was added at PHPlot-5.0.6.
+Through PHPlot-5.0.5, all text in a plot used GD fonts, or all text used
+TrueType fonts.
+    </p><p>
+The line_spacing parameter was added at PHPlot-5.0.6 to allow finer
+control over the line spacing for different elements. Through PHPlot-5.0.5,
+the same line spacing was used for all text elements.
+    </p><p>
+The described behavior for finding TrueType font files (first using the
+name as given, then looking in the SetTTFPath font directory) was
+implemented in PHPlot-5.0rc3.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetFileFormat.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetFontGD.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetFileFormat </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetFontGD</td></tr></table></div></body></html>

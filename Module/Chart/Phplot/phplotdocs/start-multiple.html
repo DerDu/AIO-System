@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>2.5. Multiple Lines Per Graph</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="starting.html" title="Chapter 2. Getting Started with PHPlot" /><link rel="prev" href="starting-more.html" title="2.4. Different Size Images and Titles" /><link rel="next" href="starting-custom.html" title="2.6. Customization" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.5. Multiple Lines Per Graph</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="starting-more.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Getting Started with PHPlot</th><td width="20%" align="right"> <a accesskey="n" href="starting-custom.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="2.5. Multiple Lines Per Graph"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="start-multiple"></a>2.5. Multiple Lines Per Graph</h2></div></div></div><p>
+Let's say we want to plot not just one dataset, but several Y values for
+each X position. With PHPlot, it is easy to specify the multiple data lines
+by just passing in all the Y values for a given X value at once.
+So instead of <code class="literal">array('label', y)</code>,
+we specify <code class="literal">array('label', y<sub>1</sub>,
+y<sub>2</sub>, y<sub>3</sub>, ...)</code>.
+This is very convenient when working with rows of data from databases.
+</p><p>
+Now our data will have three Y values for each position on the X axis.
+</p><pre class="programlisting">&lt;?php
+//Include the code
+require_once 'phplot.php';
+
+//Define the object
+$plot = new PHPlot(800,600);
+
+//Set titles
+$plot-&gt;SetTitle("A 3-Line Plot\nMade with PHPlot");
+$plot-&gt;SetXTitle('X Data');
+$plot-&gt;SetYTitle('Y Data');
+
+
+//Define some data
+$example_data = array(
+     array('a',3,4,2),
+     array('b',5,'',1),  // here we have a missing data point, that's ok
+     array('c',7,2,6),
+     array('d',8,1,4),
+     array('e',2,4,6),
+     array('f',6,4,5),
+     array('g',7,2,3)
+);
+$plot-&gt;SetDataValues($example_data);
+
+//Turn off X axis ticks and labels because they get in the way:
+$plot-&gt;SetXTickLabelPos('none');
+$plot-&gt;SetXTickPos('none');
+
+//Draw it
+$plot-&gt;DrawGraph();
+</pre><p>
+
+</p><p>
+
+Which gives us:
+</p><div class="informalfigure"><div class="mediaobject"><img src="examples/qs3.png" alt="Multiple lines on a graph" /></div></div><p>
+</p><p>
+Notice that each set of Y data gets a different color.
+Also the missing data point (label 'b' on the green line) is skipped.
+This behavior can be adjusted with <a class="xref" href="SetDrawBrokenLines.html" title="SetDrawBrokenLines"><span class="refentrytitle">SetDrawBrokenLines</span></a>.
+</p><p>
+This gives you the basics of how to create a graph in PHPlot.
+A nice start, but now we'd like to add some customization, namely different
+fonts, margins and types of graphs.
+</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="starting-more.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="starting.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="starting-custom.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.4. Different Size Images and Titles </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.6. Customization</td></tr></table></div></body></html>

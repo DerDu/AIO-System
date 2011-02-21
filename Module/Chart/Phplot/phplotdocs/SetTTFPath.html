@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetTTFPath</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetTransparentColor.html" title="SetTransparentColor" /><link rel="next" href="SetUseTTF.html" title="SetUseTTF" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetTTFPath</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetTransparentColor.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetUseTTF.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetTTFPath"><a id="SetTTFPath"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetTTFPath</span></h2><p>SetTTFPath &#8212; Set the default TrueType font directory</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetTTFPath(<em class="parameter"><code>$path</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2610826"></a><h2>Description</h2><p>
+<code class="function">SetTTFPath</code> sets the directory where
+<a class="xref" href="SetFont.html" title="SetFont"><span class="refentrytitle">SetFont</span></a> and <a class="xref" href="SetFontTTF.html" title="SetFontTTF"><span class="refentrytitle">SetFontTTF</span></a>
+can find TrueType font files.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2610854"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$path</code></em></span></dt><dd><p>
+Full path to a directory containing TrueType fonts.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2610879"></a><h2>Notes</h2><p>
+The default TrueType font directory is '.', meaning fonts will be
+loaded from the directory containing your main PHP script.
+PHPlot also attempts to load fonts without any path, which allows GD
+to try to locate the font using its own internal rules. This works on
+some platforms, but not on others.
+    </p><p>
+SetTTFPath does not enable the use of TrueType fonts.
+See the note at the end of the reference for <a class="xref" href="SetUseTTF.html" title="SetUseTTF"><span class="refentrytitle">SetUseTTF</span></a>
+on how to set up and use TrueType fonts.
+    </p><p>
+The default TrueType font directory is also used to find an internally-set
+default font. This means that if you use SetTTFPath, but do not specify a
+font name (with <a class="xref" href="SetDefaultTTFont.html" title="SetDefaultTTFont"><span class="refentrytitle">SetDefaultTTFont</span></a>,
+<a class="xref" href="SetFont.html" title="SetFont"><span class="refentrytitle">SetFont</span></a>, or <a class="xref" href="SetFontTTF.html" title="SetFontTTF"><span class="refentrytitle">SetFontTTF</span></a>),
+PHPlot will attempt to select a default font from its internal list, but
+using the directory you specify with SetTTFPath.
+This can be useful on platforms where you are willing to use a default
+font, but the internal GD rules on how to locate fonts do not work.
+    </p><p>
+See <a class="xref" href="conc-text.html#conc-text-fonts" title="3.8.2. TrueType Font Selection">Section 3.8.2, &#8220;TrueType Font Selection&#8221;</a> for more information.
+    </p></div><div class="refsect1" title="History"><a id="id2610943"></a><h2>History</h2><p>
+Use of the default TrueType font directory to locate the initial, default
+font was implemented in PHPlot-5.1.3.
+Also with this release, fonts are first searched for without a path, which
+allows GD to try to locate the font using its internal rules.
+    </p><p>
+Starting with PHPlot-5.0rc3, the default TrueType font directory is used both
+for the default font set with <a class="xref" href="SetDefaultTTFont.html" title="SetDefaultTTFont"><span class="refentrytitle">SetDefaultTTFont</span></a> and for
+fonts set with <a class="xref" href="SetFont.html" title="SetFont"><span class="refentrytitle">SetFont</span></a>. Refer to those two functions for
+details.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetTransparentColor.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetUseTTF.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetTransparentColor </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetUseTTF</td></tr></table></div></body></html>

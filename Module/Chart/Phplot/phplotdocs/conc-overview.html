@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>3.2. Programming Overview</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="concepts.html" title="Chapter 3. PHPlot Concepts" /><link rel="prev" href="concepts.html" title="Chapter 3. PHPlot Concepts" /><link rel="next" href="conc-datatypes.html" title="3.3. PHPlot Data Types" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.2. Programming Overview</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="concepts.html">Prev</a> </td><th width="60%" align="center">Chapter 3. PHPlot Concepts</th><td width="20%" align="right"> <a accesskey="n" href="conc-datatypes.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="3.2. Programming Overview"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="conc-overview"></a>3.2. Programming Overview</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This section contains an overview of how to use PHPlot.
+  </p></div><div class="sect2" title="3.2.1. How It Works"><div class="titlepage"><div><div><h3 class="title"><a id="conc-overview-howitworks"></a>3.2.1. How It Works</h3></div></div></div><p>
+To create a plot with PHPlot, your PHP script will generally do the
+following:
+</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+Include the <code class="filename">phplot.php</code> source using
+<code class="literal">require_once</code>.
+    </p></li><li class="listitem"><p>
+Create an object which is an instance of the <code class="literal">PHPlot</code> class.
+    </p></li><li class="listitem"><p>
+Use PHPlot functions (methods of the class object) to select the plot type,
+present the data array, and optionally change settings which control the
+appearance of the plot.
+    </p></li><li class="listitem"><p>
+Output the plot, typically to the user's browser but possibly to a file
+instead.
+    </p></li></ol></div><p>
+</p><div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>
+It is important to remember that if you are writing a PHP script that uses
+PHPlot to create an image for a web page, that PHP script must output
+<span class="emphasis"><em>only</em></span> the image data.
+If you want to embed the image into a web page with text and other images,
+you need at least two scripts.
+Your main script returns an HTML page which includes an IMG (Image) tag for
+the plot.
+The IMG tag has a SRC attribute which references the second script, and it
+is this second script which creates the PHPlot image.
+An example of this can be found in <a class="xref" href="ex-webform.html" title="5.23. Example - Complete Web Form with Plot">Section 5.23, &#8220;Example - Complete Web Form with Plot&#8221;</a>.
+You will most likely need a way to communicate parameters from your main
+script to your image script. Two good ways to do this are using URL parameters,
+and with PHP session variables.
+  </p></div></div><div class="sect2" title="3.2.2. Annotated Example"><div class="titlepage"><div><div><h3 class="title"><a id="conc-overview-annoex"></a>3.2.2. Annotated Example</h3></div></div></div><p>
+Here is a simple, annotated example of a script which produces an image.
+More examples can be found in <a class="xref" href="examples.html" title="Chapter 5. PHPlot Examples">Chapter 5, <i>PHPlot Examples</i></a>.
+</p><p>
+</p><pre class="programlisting">require_once 'phplot.php';
+</pre><p>
+This brings in the PHPlot source into your script. For this to work,
+PHP needs to be able to find the PHPlot source file. A good way to arrange
+this is to install PHPlot into a directory outside your web server's
+document root and on the PHP Include Path. Other ways are to include a full
+path to <code class="filename">phplot.php</code> when including it, or to copy
+<code class="filename">phplot.php</code> into the same directory as your script.
+</p><p>
+</p><pre class="programlisting">$plot = new PHPlot();
+</pre><p>
+Here we create a new PHPlot object and call it <code class="literal">plot</code>.
+Everything else we do with the plot will be through the $plot object.
+</p><p>
+</p><pre class="programlisting">$plot-&gt;SetPlotType('lines');
+$plot-&gt;SetDataType('text-data');
+</pre><p>
+Here we select the plot type 'lines', for a line plot
+(see <a class="xref" href="conc-plottypes.html" title="3.4. PHPlot Plot Types">Section 3.4, &#8220;PHPlot Plot Types&#8221;</a>),
+and indicate our data will be represented in the 'text-data' format
+(see <a class="xref" href="conc-datatypes.html" title="3.3. PHPlot Data Types">Section 3.3, &#8220;PHPlot Data Types&#8221;</a>).
+</p><p>
+</p><pre class="programlisting">$plot-&gt;SetDataValues($data);
+</pre><p>
+The data array $data is where we store the values to be plotted.
+We haven't shown where the data came from, but in a typical application
+it might be from a database query.
+How the data array is constructed is described in 
+<a class="xref" href="conc-datatypes.html" title="3.3. PHPlot Data Types">Section 3.3, &#8220;PHPlot Data Types&#8221;</a>.
+</p><p>
+</p><pre class="programlisting">$plot-&gt;SetXDataLabelPos('none');
+$plot-&gt;SetLineWidths(3);
+$plot-&gt;SetDrawXGrid(True);
+</pre><p>
+These three functions illustrate how to change the appearance of the plot.
+</p><p>
+</p><pre class="programlisting">$plot-&gt;DrawGraph();
+</pre><p>
+This final function call outputs the plot.
+More accurately,
+this function creates the plot using all the data and settings
+which were established by previous functions, and then outputs the plot.
+This is a crucial point when using PHPlot: Until you call DrawGraph,
+PHPlot is simply recording all the settings resulting from the functions
+you call, and saving a copy of your data array. Nothing really happens
+until you complete the plot with DrawGraph.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="concepts.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="concepts.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="conc-datatypes.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 3. PHPlot Concepts </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3.3. PHPlot Data Types</td></tr></table></div></body></html>

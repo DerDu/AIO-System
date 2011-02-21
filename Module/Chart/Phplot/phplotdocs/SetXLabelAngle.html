@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetXLabelAngle</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetXDataLabelType.html" title="SetXDataLabelType" /><link rel="next" href="SetXLabelType.html" title="SetXLabelType" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetXLabelAngle</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetXDataLabelType.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetXLabelType.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetXLabelAngle"><a id="SetXLabelAngle"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetXLabelAngle</span></h2><p>SetXLabelAngle &#8212; Set the text angle for X labels</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetXLabelAngle(<em class="parameter"><code>$xla</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2612210"></a><h2>Description</h2><p>
+<code class="function">SetXLabelAngle</code> sets the text angle for X tick labels.
+Unless <a class="xref" href="SetXDataLabelAngle.html" title="SetXDataLabelAngle"><span class="refentrytitle">SetXDataLabelAngle</span></a> is called, the same angle is
+also used for X data labels.
+If using TrueType fonts, any angle can be used.
+If using built-in GD fonts, only 0 degree and 90 degree text can be used.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2612236"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$xla</code></em></span></dt><dd><p>
+Desired angle for label text, in degrees.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2612261"></a><h2>Notes</h2><p>
+The default text angle for X labels is 0 degrees, for horizontal text.
+    </p></div><div class="refsect1" title="History"><a id="id2612272"></a><h2>History</h2><p>
+Through PHPlot-5.0.7, SetXLabelAngle sets the angle for both tick and data
+labels. Starting with PHPlot-5.1.0, these can be controlled independently
+using <a class="xref" href="SetXDataLabelAngle.html" title="SetXDataLabelAngle"><span class="refentrytitle">SetXDataLabelAngle</span></a>.
+For compatibility, data label angles default to the value set for tick label
+angles with SetXLabelAngle.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetXDataLabelType.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetXLabelType.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetXDataLabelType </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetXLabelType</td></tr></table></div></body></html>

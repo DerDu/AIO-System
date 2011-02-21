@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>Chapter 7. PHPlot Plot Layout</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="part3.html" title="Part III. Developer's Guide to PHPlot" /><link rel="prev" href="part3.html" title="Part III. Developer's Guide to PHPlot" /><link rel="next" href="dev-legend.html" title="Chapter 8. PHPlot Legend Layout" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 7. PHPlot Plot Layout</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="part3.html">Prev</a> </td><th width="60%" align="center">Part III. Developer's Guide to PHPlot</th><td width="20%" align="right"> <a accesskey="n" href="dev-legend.html">Next</a></td></tr></table><hr /></div><div class="chapter" title="Chapter 7. PHPlot Plot Layout"><div class="titlepage"><div><div><h2 class="title"><a id="dev-layout"></a>Chapter 7. PHPlot Plot Layout</h2></div></div></div><p>
+This figure illustrates the plot layout, starting with PHPlot-5.0.5 when
+the margin calculations were rewritten.
+Use the following notes to help understand the figure.
+</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+A vertical plot is shown. The X and Y coordinate system is the same for
+horizontal plots, but the roles are reversed: Y is the independent
+variable, and X is the dependent variable.
+    </p></li><li class="listitem"><p>
+The safe_margin (box with X) is a gap of 5 pixels used to separate elements.
+    </p></li><li class="listitem"><p>
+The main title, X titles, and Y titles are optional. If these titles are
+not set, the space allocated to them collapses, including the safe_margin
+gap. This is shown in the figure with an arrow.
+    </p></li><li class="listitem"><p>
+Similarly, the X tick labels, X axis data labels (for vertical plots),
+Y tick labels, and Y axis data labels (for horizontal plots) are optional.
+If these labels are not used, the space allocated to them collapses,
+including the safe_margin.
+    </p></li><li class="listitem"><p>
+For vertical plots, X axis data labels and X tick labels occupy the same space.
+For horizontal plots, Y axis data labels and Y tick labels occupy the same space.
+Normally only one of these should be present; if both are on for some reason
+they will overlay.
+    </p></li><li class="listitem"><p>
+The base_margin (pink box with plus sign) is the space between the image edge
+and the outermost graphics or text. If there is no image border, or the
+image border is no wider than 2 pixels (which is always the case through
+PHPlot-5.1.1), then the base_margin is set to the same as the safe_margin
+value (5 pixels). A wider image border increases the base_margin; for example
+an 8 pixel image border results in a base_margin of 11 pixels.
+    </p></li><li class="listitem"><p>
+The top, left, right, and bottom margins consist of base_margin plus
+whatever space is needed for titles and ticks.  There is a minimum value
+for these margins - 2 times safe_margin plus base_margin.  Even if there
+are no titles at all on a side, the margin on that side will be no less
+than this minimum margin. This keeps the axis or plot area edge from coming
+too close to the image edge.
+The calculated plot area margins shown can be overridden by using
+<a class="xref" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels"><span class="refentrytitle">SetPlotAreaPixels</span></a> or <a class="xref" href="SetMarginsPixels.html" title="SetMarginsPixels"><span class="refentrytitle">SetMarginsPixels</span></a>.
+    </p></li><li class="listitem"><p>
+The main title is positioned relative to the top of the image.
+Starting with PHPlot-5.0.5, the X and Y titles are positioned relative
+to the plot area. 
+PHPlot-5.0.4 and earlier positioned the X and Y titles
+relative to the image edges.
+The difference should not be visible with automatic margins, but if the
+margins are set larger, or the plot area smaller, then the X and Y titles
+will move inwards with the newer releases.
+    </p></li><li class="listitem"><p>
+It is possible to position X ticks and X tick labels to
+<code class="literal">xaxis</code>, and Y ticks and Y tick labels to
+<code class="literal">yaxis</code>, so the ticks and/or labels will
+float to the axis positions rather than always appear on the edges of the
+plot area. Space will be allocated for the corresponding margin only if the
+axis happens to fall exactly at the data limits for that side. This may
+cause problems if the axis is close but not quite at the edge; no margin
+space will be allocated on that side for the labels, and the labels may
+overlap the title or fall off the edge of the image.
+    </p></li></ul></div><div class="informalfigure"><div class="mediaobject"><img src="images/layout.png" alt="PHPlot plot layout figure" /></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="part3.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="part3.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="dev-legend.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Part III. Developer's Guide to PHPlot </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 8. PHPlot Legend Layout</td></tr></table></div></body></html>

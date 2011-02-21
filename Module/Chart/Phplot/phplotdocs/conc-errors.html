@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>3.9. Error Handling</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="concepts.html" title="Chapter 3. PHPlot Concepts" /><link rel="prev" href="conc-text.html" title="3.8. Text Fonts" /><link rel="next" href="advanced.html" title="Chapter 4. PHPlot Advanced Topics" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.9. Error Handling</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="conc-text.html">Prev</a> </td><th width="60%" align="center">Chapter 3. PHPlot Concepts</th><td width="20%" align="right"> <a accesskey="n" href="advanced.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="3.9. Error Handling"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="conc-errors"></a>3.9. Error Handling</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This section describes error handling in PHPlot. This information may not
+be accurate for PHPlot-5.0.4 and earlier.
+  </p></div><div class="sect2" title="3.9.1. Error Handling Overview"><div class="titlepage"><div><div><h3 class="title"><a id="conc-errors-overview"></a>3.9.1. Error Handling Overview</h3></div></div></div><p>
+Errors detected within PHPlot are programming or installation errors. These
+are conditions that web application users should never see, because they
+should be detected and corrected before an application is deployed.
+Therefore, error handling in PHPlot is aimed more at the developer
+than the application user.
+</p><p>
+PHPlot does the following when an error is detected:
+</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+Creates an error image - an image containing the text of the error message.
+    </p></li><li class="listitem"><p>
+Outputs the error image to standard output or to a file, depending on where
+the plot image was supposed to go.
+    </p></li><li class="listitem"><p>
+Triggers a user-level error condition.
+If an error handler has been established, it determines what happens next.
+Otherwise, with no error handler:
+Writes the error message to error output, or logs it to the
+web server error log, depending on the PHPlot SAPI in use.
+Then the script will exit with a non-zero exit status.
+    </p></li></ul></div><p>
+It is important not to have any text sent to standard output, even when
+an error occurs, or the image will be corrupted or PHP will display a "headers
+already sent" error and no image. Therefore it is necessary to turn off the
+PHP <span class="command"><strong>display_errors</strong></span> parameter, otherwise PHP will also
+write the error messages to standard output. This can be turned off in the
+php.ini configuration file, where it affects all scripts, or in an
+application script using:
+</p><pre class="programlisting">ini_set('display_errors', 'off');
+</pre><p>
+</p><p>
+Note that an image is produced and output on error even if
+<code class="function">SetPrintImage(False)</code> is used to suppress or delay
+the normal output of a plot image. The error image is meant for the application
+developer or tester, but you need to see the error message in order to fix
+the problem which caused it, so the image is output when the error occurs.
+</p><p>
+
+The following figure shows an example of an error image resulting from
+<code class="function">$plot-&gt;SetPlotType('dots')</code>:
+  </p><div class="informalfigure"><div class="mediaobject"><img src="images/error-image.png" alt="Example of an error image" /></div></div><p>
+</p></div><div class="sect2" title="3.9.2. Types of Errors"><div class="titlepage"><div><div><h3 class="title"><a id="conc-errors-types"></a>3.9.2. Types of Errors</h3></div></div></div><p>
+The following types of errors can occur within PHPlot:
+</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+Parameter value errors: Use of an incorrect argument to a PHPlot function,
+such as: SetPlotType('dots') ['dots' is not a valid plot type].
+    </p></li><li class="listitem"><p>
+Semantic errors: Invalid combination of parameters or data values, such as
+trying to use data type 'data-data' with plot type 'bars' [bar charts only
+work with 'text-data' data type].
+    </p></li><li class="listitem"><p>
+Pathname errors: Missing font file or invalid font path; missing or
+invalid image file used as background. It might seem extreme to have a
+missing font file be a fatal error, but PHPlot has no way to substitute an
+appropriate font, and a missing font would indicate an application
+configuration or installation error.
+    </p></li><li class="listitem"><p>
+Inability to create a GD image resource. Probably the only way this can
+happen is if there is insufficient memory, which can occur if PHP's
+configured per-script memory limit is reached. (See note below)
+    </p></li></ol></div><p>
+All of these result in an E_USER_ERROR level error, except for memory
+exhaustion when creating an image, which is E_ERROR (fatal unrecoverable).
+If no GD image resource was created, no error image will be output.
+Furthermore, if the reason was memory exhaustion, there is no way to catch
+the error and PHP will cause the script to immediately exit.
+</p></div><div class="sect2" title="3.9.3. Error Handlers"><div class="titlepage"><div><div><h3 class="title"><a id="conc-errors-handle"></a>3.9.3. Error Handlers</h3></div></div></div><p>
+It is possible to set up an error handler with PHP's
+<code class="function">set_error_handler</code> to catch most errors from PHPlot.
+The handler can be established for all errors (the default), or just
+E_USER_ERROR error types (the only type PHPlot will trigger).
+See the PHP documentation for more details.
+Your handler function can perform cleanup before it exits, however it should
+not return.
+Some of the PHPlot functions will correctly handle a return from an error
+handler, and return FALSE to their callers, but not all. At the very least,
+a PHPlot object instance should be unset and not re-used after error.
+Use of error handlers that return is untested and unsupported.
+</p><p>
+Note that an error image will be created and output, as described above,
+even if you have established an error handler.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="conc-text.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="concepts.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="advanced.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.8. Text Fonts </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 4. PHPlot Advanced Topics</td></tr></table></div></body></html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetImageBorderType</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetImageBorderColor.html" title="SetImageBorderColor" /><link rel="next" href="SetImageBorderWidth.html" title="SetImageBorderWidth" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetImageBorderType</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetImageBorderColor.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetImageBorderWidth.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetImageBorderType"><a id="SetImageBorderType"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetImageBorderType</span></h2><p>SetImageBorderType &#8212; Draw a border around the image</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetImageBorderType(<em class="parameter"><code>$sibt</code></em>)</pre></div><div class="refsect1" title="Description"><a id="id2604312"></a><h2>Description</h2><p>
+<code class="function">SetImageBorderType</code> controls the drawing of a border
+around the entire image. By default, no border is drawn.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2604330"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$sibt</code></em></span></dt><dd><p>
+A string indicating the desired border type: 'raised', 'plain', 'solid', or
+'none'.
+Use 'none' to revert to the default of no border.
+Use 'solid' for a border drawn with the specified color.
+Use 'plain' for a border drawn with a darker shade of the specified color.
+Use 'raised' for a border that appears to raise the image, by drawing the
+top and left sides with the specified color and the bottom and right sides
+with a darker shade of the specified color.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2604362"></a><h2>Notes</h2><p>
+The base color for the image border is set with
+<a class="xref" href="SetImageBorderColor.html" title="SetImageBorderColor"><span class="refentrytitle">SetImageBorderColor</span></a>.
+Either that color, a darker shade of that color, or both are used to draw
+the border, as described above.
+    </p><p>
+The image border width can be set with <a class="xref" href="SetImageBorderWidth.html" title="SetImageBorderWidth"><span class="refentrytitle">SetImageBorderWidth</span></a>.
+The default width is 1 pixel for types 'plain' and 'solid', and 2 pixels
+for 'raised'.
+    </p><p>
+It can be useful to have a border drawn around images when embedded in an
+HTML page. An alternative to this function is to use the BORDER attribute
+in the IMG tag when embedding the image.
+    </p></div><div class="refsect1" title="History"><a id="id2604398"></a><h2>History</h2><p>
+Through PHPlot-5.1.1, the choices were 'none', 'plain' for a 1 pixel wide
+border using the darker shade, or 'raised' for a 2 pixel wide border
+using the specified color for the top and left sides and a darker shade
+for the bottom and right. There was no way to control the border width.
+Starting with PHPlot-5.1.2, a new choice 'solid' was added to use the
+exact color specified with <a class="xref" href="SetImageBorderColor.html" title="SetImageBorderColor"><span class="refentrytitle">SetImageBorderColor</span></a> rather
+than using the darker shade like 'plain' uses (which may have been a bug).
+A new function <a class="xref" href="SetImageBorderWidth.html" title="SetImageBorderWidth"><span class="refentrytitle">SetImageBorderWidth</span></a> was added to control
+the border width.
+    </p><p>
+Use of 'none' to turn the border off was added in PHPlot-5.1.0.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetImageBorderColor.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetImageBorderWidth.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetImageBorderColor </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetImageBorderWidth</td></tr></table></div></body></html>

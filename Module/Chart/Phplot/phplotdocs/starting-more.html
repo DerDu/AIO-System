@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>2.4. Different Size Images and Titles</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="starting.html" title="Chapter 2. Getting Started with PHPlot" /><link rel="prev" href="starting-simple.html" title="2.3. A Simple Graph" /><link rel="next" href="start-multiple.html" title="2.5. Multiple Lines Per Graph" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.4. Different Size Images and Titles</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="starting-simple.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Getting Started with PHPlot</th><td width="20%" align="right"> <a accesskey="n" href="start-multiple.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="2.4. Different Size Images and Titles"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="starting-more"></a>2.4. Different Size Images and Titles</h2></div></div></div><p>
+Let's say we want our plot to be bigger, 800 pixels wide and 600 pixels high.
+So instead of having the line
+  </p><pre class="programlisting">$plot = new PHPlot;
+</pre><p>
+</p><p>
+We replace it with
+  </p><pre class="programlisting">$plot = new PHPlot(800,600);
+</pre><p>
+and you have specified the size in pixels of the image to be created.
+</p><p>
+A couple of things to note:
+  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+The default is not to use TrueType fonts.
+      </p></li><li class="listitem"><p>
+Since there was only one graph on the image, we didn't have to
+use PrintImage. DrawGraph took care of it for us.
+      </p></li><li class="listitem"><p>
+We did not specify the data type. If you do not specify the data
+type, PHPlot assumes <code class="literal">text-data</code>.
+      </p></li><li class="listitem"><p>
+We did not specify the file type (GIF, PNG, JPEG, ...).
+PHPlot 5.0 (and newer) makes PNG images by default.
+      </p></li><li class="listitem"><p>
+The data is passed in as an array of arrays. This may seem awkward
+now, but as we add functionality this will be beneficial.
+      </p></li></ul></div><p>
+</p><p>
+OK, now we're ready to add some customization to the plot. Let's change
+the size, the title and the X/Y axis labels. All we need to do is use
+additional methods of the <code class="literal">$plot</code> object before
+printing the image. Here is the complete result:
+
+</p><pre class="programlisting">&lt;?php
+//Include the code
+require_once 'phplot.php';
+
+//create a PHPlot object with 800x600 pixel image
+$plot = new PHPlot(800,600);
+
+//Define some data
+$example_data = array(
+     array('a',3),
+     array('b',5),
+     array('c',7),
+     array('d',8),
+     array('e',2),
+     array('f',6),
+     array('g',7)
+);
+$plot-&gt;SetDataValues($example_data);
+
+//Set titles
+$plot-&gt;SetTitle("A Simple Plot\nMade with PHPlot");
+$plot-&gt;SetXTitle('X Data');
+$plot-&gt;SetYTitle('Y Data');
+
+//Turn off X axis ticks and labels because they get in the way:
+$plot-&gt;SetXTickLabelPos('none');
+$plot-&gt;SetXTickPos('none');
+
+//Draw it
+$plot-&gt;DrawGraph();
+</pre><p>
+
+</p><p>
+
+And that's it! What we get is the following graph:
+
+</p><div class="informalfigure"><div class="mediaobject"><img src="examples/qs2.png" alt="Line graph with titles and labels" /></div></div><p>
+</p><p>
+Note that the newline character "\n" separates multiple lines
+in titles, and you must use double quotes around the title string for PHP
+to recognize the newline.
+</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="starting-simple.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="starting.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="start-multiple.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.3. A Simple Graph </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.5. Multiple Lines Per Graph</td></tr></table></div></body></html>

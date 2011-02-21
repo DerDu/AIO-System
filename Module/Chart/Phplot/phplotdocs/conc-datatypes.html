@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>3.3. PHPlot Data Types</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="concepts.html" title="Chapter 3. PHPlot Concepts" /><link rel="prev" href="conc-overview.html" title="3.2. Programming Overview" /><link rel="next" href="conc-plottypes.html" title="3.4. PHPlot Plot Types" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.3. PHPlot Data Types</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="conc-overview.html">Prev</a> </td><th width="60%" align="center">Chapter 3. PHPlot Concepts</th><td width="20%" align="right"> <a accesskey="n" href="conc-plottypes.html">Next</a></td></tr></table><hr /></div><div class="sect1" title="3.3. PHPlot Data Types"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="conc-datatypes"></a>3.3. PHPlot Data Types</h2></div></div></div><div class="abstract"><p class="title"><b></b></p><p>
+This section describes how data need to be organized for use with PHPlot.
+  </p></div><div class="sect2" title="3.3.1. Available Data Types"><div class="titlepage"><div><div><h3 class="title"><a id="conc-datatypes-types"></a>3.3.1. Available Data Types</h3></div></div></div><p>
+The data values to be plotted are presented to PHPlot with
+<a class="xref" href="SetDataValues.html" title="SetDataValues"><span class="refentrytitle">SetDataValues</span></a>.
+In all cases, the data values are stored in a PHP array.
+This data array contains elements, themselves also arrays, which are called
+records.
+Each record contains labels and/or data values.
+The 'data type' of the data array determines how PHPlot will interpret
+the records in the data array.
+To set the data type, use <a class="xref" href="SetDataType.html" title="SetDataType"><span class="refentrytitle">SetDataType</span></a>.
+</p><p>
+The following data types are available in PHPlot:
+
+</p><div class="variablelist"><dl><dt><span class="term"><a id="text-data"></a>text-data</span></dt><dd><p>
+Each record contains a label, followed by one or more Y values:
+<code class="literal">array('label', y1, y2, ...)</code>.
+The corresponding X value for all Y values in a record is implicit.
+PHPlot assigns x=0.5 to the first data record, x=1.5 to the second, etc.
+This data type works with all plot types.
+      </p></dd><dt><span class="term"><a id="data-data"></a>data-data</span></dt><dd><p>
+Each record contains a label, an X value, then one or more Y values:
+<code class="literal">array('label', x, y1, y2, ...)</code>.
+This is the same as 'text-data' except the X values are explicitly given.
+This data type works with all plot types except bars and stackedbars.
+      </p><p>
+Note that with data type 'data-data', it is possible to create a data array
+with duplicate X values, or X values out of order. Depending on the plot
+type, this may or may not make sense. For example, with a point plot (which
+puts a marker at each data point), the data array can legitimately contain
+duplicate and out-of-order X values. With a line plot (which connects
+adjacent points in the data array with a line), it probably makes no sense
+to have out-of-order or duplicate X values in the data array.
+      </p></dd><dt><span class="term"><a id="data-data-error"></a>data-data-error</span></dt><dd><p>
+Each record contains a label, an X value, then sets of 3 values for each Y
+point: the Y value, error in the positive direction, and error in the
+negative direction:
+<code class="literal">array('label', x, y1, e1+, e1-, y2, e2+, e2-, ...)</code>.
+This data type works with plot types lines, points, and linepoints only.
+      </p><p>
+Note that both errors (e+ and e-) are given as positive numbers. They
+represent the absolute value of the error in the positive and negative
+directions respectively.
+      </p></dd><dt><span class="term"><a id="text-data-single"></a>text-data-single</span></dt><dd><p>
+Each record contains a label and a single value:
+<code class="literal">array('label', factor)</code>.
+This data type is only for the pie chart plot type.
+      </p></dd><dt><span class="term"><a id="text-data-yx"></a>text-data-yx</span></dt><dd><p>
+Each record contains a label, followed by one or more X values:
+<code class="literal">array('label', x1, x2, ...)</code>.
+The corresponding Y value for all X values in a record is implicit.
+PHPlot assigns y=0.5 to the first data record, y=1.5 to the second, etc.
+This data type is for horizontal plots, and works with bar, stackedbar,
+and thinbarline plot types.
+      </p></dd><dt><span class="term"><a id="data-data-yx"></a>data-data-yx</span></dt><dd><p>
+Each record contains a label, a Y value, then one or more X values:
+<code class="literal">array('label', y, x1, x2, ...)</code>.
+This is the same as 'text-data-yx' except the X values are explicitly given.
+This data type is for horizontal plots, and only works with the thinbarline
+plot type.
+      </p></dd></dl></div><p>
+</p></div><div class="sect2" title="3.3.2. Building Data Arrays"><div class="titlepage"><div><div><h3 class="title"><a id="conc-datatypes-array"></a>3.3.2. Building Data Arrays</h3></div></div></div><p>
+In most of the examples in this manual, the data array is built from
+constant values in PHP code. For example:
+</p><pre class="programlisting">$data = array(
+  array('',  0,   0,   0,   0),
+  array('',  1,   1,   1, -10),
+  array('',  2,   8,   4, -20),
+  array('',  3,  27,   9, -30),
+  array('',  4,  64,  16, -40),
+  array('',  5, 125,  25, -50),
+);
+</pre><p>
+Which contains 6 records, each with an empty label, an X value (assuming
+the data type is 'data-data'), and then 3 Y values representing 3 data sets
+to plot.
+</p><p>
+In a real application, of course, the data values will most likely come
+from a calculation, perhaps using values from a database.
+This section provides a few sample code fragments which construct
+data arrays. We use the PHP ability to append a new value to the end of an
+array using <code class="literal">$array[] = ...</code>.
+</p><p>
+This code fragment creates a data array of type 'text-data' with three
+data sets for Y=X+1, Y=X*X/2, and Y=X*X*X/3.
+</p><pre class="programlisting">$data = array();
+for ($x = 0; $x &lt;= 5; $x++) $data[] = array('', $x+1, $x*$x/2, $x*$x*$x/3);
+</pre><p>
+</p><p>
+This code fragment creates a data array of type 'data-data' with about
+100 points from the equation X * Y = 10.
+</p><pre class="programlisting">$data = array();
+for ($x = 1.0; $x &lt;= 10.0; $x += 0.1) $data[] = array('', $x, 10.0/$x);
+</pre><p>
+</p><p>
+The next code fragments use database queries to build data arrays for PHPlot.
+In many cases, you can create a query such that the returned columns
+correspond to the format of a PHPlot data array record.
+The first query result column should be the data label, the second (for
+data type 'data-data' only) should be the X value, and subsequent column
+results should be one or more Y values (depending on the number of datasets you are plotting).
+(Pie charts work differently - see <a class="xref" href="conc-plottypes.html#plottype-pie" title="3.4.8. Plot Type: pie (Pie Chart)">Section 3.4.8, &#8220;Plot Type: pie (Pie Chart)&#8221;</a>.)
+You aren't limited to simple table lookups - you can use the full power of the SQL language
+to combine tables and perform calculations on the data.
+Be sure to use <code class="literal">ORDER BY</code> in your SQL query to order the results,
+or you will not get predictable plots.
+</p><p>
+Database access methods differ. This code is for PostgreSQL; for MySQL there are
+similar functions like <code class="function">mysql_fetch_row()</code>.
+</p><pre class="programlisting">$r = pg_query($db, 'SELECT ...');
+if (!$r) exit();
+$data = array();
+$n_rows = pg_num_rows($r);
+for ($i = 0; $i &lt; $n_rows; $i++) $data[] = pg_fetch_row($r, $i);
+...
+$plot-&gt;SetDataValues($data);
+</pre><p>
+This works because <code class="function">pg_fetch_row</code> assigns the result
+columns from the query to sequentially numbered elements in the array.
+</p><p>
+Using data arrays from database query results also works if the result
+columns are in an array which is indexed by the field name, because PHPlot
+converts the data array to use numeric indexes.
+So with PostgreSQL you can use <code class="function">pg_fetch_assoc()</code>.
+You can also use <code class="function">pg_fetch_array()</code>,
+but only if you specify the type as <code class="literal">PGSQL_ASSOC</code>
+or <code class="literal">PGSQL_NUM</code>.
+The default type <code class="literal">PGSQL_BOTH</code> will not work,
+because the result array will contain the data values duplicated
+under both number and field-name indexes,
+and PHPlot will see both copies of the data.
+</p><p>
+Going even further, with a properly designed query you can use
+<code class="function">pg_fetch_all()</code> to fetch the entire query result and
+assign it to a data array with one statement.
+</p><pre class="programlisting">$r = pg_query($db, 'SELECT ...');
+if (!$r) exit();
+$data = pg_fetch_all($r);
+...
+$plot-&gt;SetDataValues($data);
+</pre><p>
+This uses field-name indexes in the array representing each row, but as noted above PHPlot
+will convert the data array to use numeric indexes.
+</p></div><div class="sect2" title="3.3.3. Missing Data in Data Arrays"><div class="titlepage"><div><div><h3 class="title"><a id="conc-datatypes-missing"></a>3.3.3. Missing Data in Data Arrays</h3></div></div></div><p>
+The <a class="link" href="conc-plottypes.html#plottype-lines" title="3.4.6. Plot Type: lines (Lines Graph)">lines</a> and
+<a class="link" href="conc-plottypes.html#plottype-squared" title="3.4.10. Plot Type: squared (Step Plot)">squared</a> plot types support the
+concept of missing points. A missing point is represented in your data
+array with an empty string instead of a Y value. For example:
+</p><pre class="programlisting">$data = array( array('1996', 45.5),
+                 array('1997', 53.8),
+                 array('1998', ''),   # No data available for 1998
+                 array('1999', 34.1));
+</pre><p>
+</p><p>
+By default, PHPlot will act as if the missing point does not exist,
+connecting the points before it and after it. You can use
+<a class="xref" href="SetDrawBrokenLines.html" title="SetDrawBrokenLines"><span class="refentrytitle">SetDrawBrokenLines</span></a> to leave a gap at the missing point
+instead.
+</p></div><div class="sect2" title="3.3.4. Data Array Indexes"><div class="titlepage"><div><div><h3 class="title"><a id="conc-datatypes-indexes"></a>3.3.4. Data Array Indexes</h3></div></div></div><p>
+There are some rules you need to follow when building data arrays, in order
+for PHPlot to correctly process your data. The following rules apply to the
+array indexes, or keys, in your data array.
+  </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+Your data array must be indexed using sequential integers starting with zero.
+This is automatically true if you build an array with the empty-brackets
+syntax (<code class="literal">$mydata[] = ...</code>), or if you use the
+<code class="literal">array(...)</code> construct without specifying keys.
+Note that this refers only to the data array itself, not the elements of
+the data array - the records.
+      </p></li><li class="listitem"><p>
+The data records, which are elements of the data array, are also arrays.
+These record arrays are processed by PHPlot using the
+<code class="literal">array_values()</code> function. This means the array keys
+are ignored, and the elements of the record are processed in the same order
+as they were assigned. As with the data array itself, you can use the
+empty-brackets syntax, or the array() language construct, to build records
+in the data array. You can also use words (such as database query result
+fields) as indexes, as long as the assignments are made in the correct
+order.
+      </p></li></ul></div><p>
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="conc-overview.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="concepts.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="conc-plottypes.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.2. Programming Overview </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3.4. PHPlot Plot Types</td></tr></table></div></body></html>

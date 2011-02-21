@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetPlotAreaWorld</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels" /><link rel="next" href="SetPlotBgColor.html" title="SetPlotBgColor" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetPlotAreaWorld</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetPlotAreaPixels.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetPlotBgColor.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetPlotAreaWorld"><a id="SetPlotAreaWorld"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetPlotAreaWorld</span></h2><p>SetPlotAreaWorld &#8212; Override automatic data scaling to device coordinates</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetPlotAreaWorld([<span class="optional"><em class="parameter"><code>$xmin</code></em></span>], [<span class="optional"><em class="parameter"><code>$ymin</code></em></span>], [<span class="optional"><em class="parameter"><code>$xmax</code></em></span>], [<span class="optional"><em class="parameter"><code>$ymax</code></em></span>])</pre></div><div class="refsect1" title="Description"><a id="id2607196"></a><h2>Description</h2><p>
+<code class="function">SetPlotAreaWorld</code> changes the range for World Coordinate
+space. This is the coordinate space of the data to be plotted, and is
+translated and scaled to fit into the Device Coordinate space of the image.
+By default, PHPlot defines the world coordinate space by the actual limits
+of the data to be plotted. By using SetPlotAreaWorld, you can override one or
+more of these calculated limits. Each parameter you specify overrides
+the corresponding calculated limit. Each defaulted or NULL parameter is
+ignored and the calculated limit is used.
+    </p><p>
+Since tick marks are automatically positioned based on the world coordinate
+limits, SetPlotAreaWorld is also used to force a specific range for tick marks.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2607226"></a><h2>Parameters</h2><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$xmin</code></em></span></dt><dd><p>
+Optional argument specifying the desired X data range minimum value.
+If omitted or NULL, the value is calculated from the actual plot data.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$ymin</code></em></span></dt><dd><p>
+Optional argument specifying the desired Y data range minimum value.
+If omitted or NULL, the value is calculated from the actual plot data.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$xmax</code></em></span></dt><dd><p>
+Optional argument specifying the desired X data range maximum value.
+If omitted or NULL, the value is calculated from the actual plot data.
+          </p></dd><dt><span class="term"><em class="replaceable"><code>$ymax</code></em></span></dt><dd><p>
+Optional argument specifying the desired Y data range maximum value.
+If omitted or NULL, the value is calculated from the actual plot data.
+          </p></dd></dl></div></div><div class="refsect1" title="Notes"><a id="id2607303"></a><h2>Notes</h2><p>
+Trailing defaulted arguments can be omitted, but non-trailing defaulted
+arguments must be specified as NULL. For example, to set the minimum X
+value to 10, the maximum X value to 100, and default the Y scaling, you can
+use:
+      </p><pre class="programlisting">$plot-&gt;SetPlotAreaWorld(10, NULL, 100);
+</pre><p>
+    </p></div><div class="refsect1" title="History"><a id="id2607324"></a><h2>History</h2><p>
+SetPlotAreaPixels and SetPlotAreaWorld can be called in either order.
+Through PHPlot-5.0.4 this was because SetPlotAreaWorld would
+reset the scale factors if <a class="xref" href="SetPlotAreaPixels.html" title="SetPlotAreaPixels"><span class="refentrytitle">SetPlotAreaPixels</span></a> was already
+called.
+Starting with PHPlot-5.0.5, both functions just store the information,
+and no calculations take place until <a class="xref" href="DrawGraph.html" title="DrawGraph"><span class="refentrytitle">DrawGraph</span></a> is used.
+    </p><p>
+Through PHPlot-5.0.4, SetPlotAreaWorld needed to access and interpret the data
+array, so it had to be called after <a class="xref" href="SetDataValues.html" title="SetDataValues"><span class="refentrytitle">SetDataValues</span></a> sets the
+data array, and after <a class="xref" href="SetDataType.html" title="SetDataType"><span class="refentrytitle">SetDataType</span></a> (if used).
+Starting with PHPlot-5.0.5, this restriction no longer applies and the
+functions can be called in any order.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetPlotAreaPixels.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetPlotBgColor.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetPlotAreaPixels </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetPlotBgColor</td></tr></table></div></body></html>

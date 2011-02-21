@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><title>SetXDataLabelType</title><link rel="stylesheet" href="phplotdoc.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.75.2" /><link rel="home" href="index.html" title="PHPlot Reference Manual" /><link rel="up" href="reference.html" title="PHPlot Function Reference" /><link rel="prev" href="SetXDataLabelPos.html" title="SetXDataLabelPos" /><link rel="next" href="SetXLabelAngle.html" title="SetXLabelAngle" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">SetXDataLabelType</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SetXDataLabelPos.html">Prev</a> </td><th width="60%" align="center">PHPlot Function Reference</th><td width="20%" align="right"> <a accesskey="n" href="SetXLabelAngle.html">Next</a></td></tr></table><hr /></div><div class="refentry" title="SetXDataLabelType"><a id="SetXDataLabelType"></a><div class="titlepage"></div><div class="refnamediv"><h2><span class="refentrytitle">SetXDataLabelType</span></h2><p>SetXDataLabelType &#8212; Set formatting type for X data labels</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><pre class="synopsis">$plot-&gt;SetXDataLabelType(<em class="parameter"><code>$type</code></em>, [<span class="optional"><em class="parameter"><code>...</code></em></span>])</pre></div><div class="refsect1" title="Description"><a id="id2611837"></a><h2>Description</h2><p>
+<code class="function">SetXDataLabelType</code> sets the formatting type for X data
+labels. By default, data labels are formatted the same as tick labels.
+If <a class="xref" href="SetXLabelType.html" title="SetXLabelType"><span class="refentrytitle">SetXLabelType</span></a> is not used, then there is no special
+formatting for either label type, so the labels are output as-is.
+Available format types are 'data', 'time', 'printf', and 'custom'.
+    </p><p>
+'data' formatting formats the labels as floating point numbers,
+with digits grouped into thousands (3 digit groups),
+and with user-defined precision.
+Grouping separator characters can be set with <a class="xref" href="SetNumberFormat.html" title="SetNumberFormat"><span class="refentrytitle">SetNumberFormat</span></a>.
+The precision (number of digits after the decimal point) can be set
+as an additional argument to SetXDataLabelType.
+A prefix and suffix string can also be specified.
+    </p><p>
+'time' formatting formats the labels as date/time values, with the
+format string specified as an additional argument to SetXDataLabelType.
+    </p><p>
+'printf' formatting formats the labels using the standard
+<code class="function">sprintf</code> function, with the format string specified
+as an additional argument to SetXDataLabelType.
+    </p><p>
+'custom' formatting formats the labels using a caller-provided function,
+with an optional pass-through argument. This provides the maximum
+flexibility in formatting labels.
+    </p></div><div class="refsect1" title="Parameters"><a id="id2611903"></a><h2>Parameters</h2><p>
+There is one required argument, $type. Other arguments depend on the value
+of the $type argument.
+      </p><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$type</code></em></span></dt><dd><p>
+A string indicating the desired formatting mode: 'data', 'time', 'printf',
+or 'custom'. Or, an empty string meaning revert to no formatting.
+            </p></dd></dl></div><p>
+    </p><p>
+For type 'data', there are three optional arguments:
+      </p><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$precision</code></em></span></dt><dd><p>
+The formatting precision, or number of decimal places (optional).
+If omitted, the default is 1.
+            </p></dd><dt><span class="term"><em class="replaceable"><code>$prefix</code></em></span></dt><dd><p>
+A prefix string to be placed before the formatted label values. This could
+be used for a currency symbol, for example. The default is an empty string.
+            </p></dd><dt><span class="term"><em class="replaceable"><code>$suffix</code></em></span></dt><dd><p>
+A suffix string to be placed after the formatted label values. This could
+be used for a currency symbol, for example. The default is an empty string.
+            </p></dd></dl></div><p>
+    </p><p>
+For type 'time', there is one optional argument:
+      </p><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$format</code></em></span></dt><dd><p>
+Formatting string, used with <code class="function">strftime()</code>.
+For example, '%Y-%m-%d' results in formatting a <code class="literal">time_t</code>
+value as a year, month, and day numbers.
+If omitted, the default is '%H:%M:%S' (hours, minutes, and seconds).
+            </p></dd></dl></div><p>
+    </p><p>
+For type 'printf', there is one optional argument:
+      </p><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$format</code></em></span></dt><dd><p>
+Formatting string, used with <code class="function">sprintf()</code>.
+If omitted, the default value of '%e' uses scientific notation with default
+field sizes.
+            </p></dd></dl></div><p>
+    </p><p>
+For type 'custom', there is one required argument and one optional argument:
+      </p><div class="variablelist"><dl><dt><span class="term"><em class="replaceable"><code>$callback</code></em></span></dt><dd><p>
+A callback function to format the label. This is either the name of a
+function (as a string), or a two-element array with an object instance and
+method name. (Refer to the PHP documentation for more information on the
+callback type.) The callback will be called with two arguments: the value
+of the label to be formatted, and the pass-through argument (see next).
+            </p></dd><dt><span class="term"><em class="replaceable"><code>$callback_arg</code></em></span></dt><dd><p>
+A pass-through argument for the callback function.
+If omitted, NULL is used.
+            </p></dd></dl></div><p>
+    </p></div><div class="refsect1" title="Notes"><a id="id2612103"></a><h2>Notes</h2><p>
+This function applies to both X axis data labels and X data value labels.
+See <a class="xref" href="conc-labels.html" title="3.6. Labels">Section 3.6, &#8220;Labels&#8221;</a> for more information on data labels.
+    </p><p>
+The default formatting mode is to do no special formatting of the labels.
+Strings will be output as-is, and numbers will be output using PHP's
+default formatting.
+If you need to change label formatting back to the default,
+or to override a format type you set for tick labels and have no
+formatting for data labels,
+use SetXDataLabelType without arguments, or with an empty string argument.
+    </p><p>
+When using a custom label formatting function, do not assume the labels are
+formatted in any particular order, or only once each.
+    </p></div><div class="refsect1" title="Examples"><a id="id2612137"></a><h2>Examples</h2><p>
+See <a class="xref" href="SetXLabelType.html" title="SetXLabelType"><span class="refentrytitle">SetXLabelType</span></a>.
+    </p></div><div class="refsect1" title="History"><a id="id2612153"></a><h2>History</h2><p>
+This function was added in PHPlot-5.1.0.
+Through PHPlot-5.0.7, data labels and tick labels always used the same
+formatting, as set with <a class="xref" href="SetXLabelType.html" title="SetXLabelType"><span class="refentrytitle">SetXLabelType</span></a>.
+    </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SetXDataLabelPos.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="reference.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SetXLabelAngle.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">SetXDataLabelPos </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> SetXLabelAngle</td></tr></table></div></body></html>
