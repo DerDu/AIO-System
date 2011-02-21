@@ -64,6 +64,7 @@ interface InterfacePhpMailer
  */
 class ClassPhpMailer implements InterfacePhpMailer
 {
+	/** @var \PHPMailer $phpmailer_instance */
 	private static $phpmailer_instance = null;
 	public function __construct() {
 	}
@@ -115,7 +116,7 @@ class ClassPhpMailer implements InterfacePhpMailer
 	{
 		if( self::$phpmailer_instance === null ) {
 			if( !class_exists('PHPMailer') ) require_once(dirname(__FILE__) . '/PhpMailer/class.phpmailer.php');
-			self::$phpmailer_instance = new PHPMailer(true);
+			self::$phpmailer_instance = new \PHPMailer(true);
 		}
 		return self::$phpmailer_instance;
 	}
