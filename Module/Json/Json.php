@@ -56,7 +56,7 @@ class ClassJson implements InterfaceJson {
 	/**
 	 * @static
 	 * @param  mixed $Content
-	 * @return String
+	 * @return string
 	 */
 	public static function Encode( $Content ) {
 		self::_jsonClass();
