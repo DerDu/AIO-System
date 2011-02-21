@@ -40,6 +40,7 @@
  * @subpackage Excel
  */
 namespace AioSystem\Api;
+use \AioSystem\Module\Excel\ClassPhpExcel as AioExcel;
 /**
  * @package AioSystem\Api
  * @subpackage Excel
@@ -52,7 +53,7 @@ class ClassExcel {
 	 * @return void
 	 */
 	public static function Open( $Worksheet = 'Worksheet', $File = null ) {
-		return \AioSystem\Module\Excel\ClassPhpExcel::openFile( $Worksheet, $File );
+		return AioExcel::openFile( $Worksheet, $File );
 	}
 	/**
 	 * @static
@@ -60,7 +61,7 @@ class ClassExcel {
 	 * @return string Filename
 	 */
 	public static function Close( $File = null ) {
-		return \AioSystem\Module\Excel\ClassPhpExcel::closeFile( $File );
+		return AioExcel::closeFile( $File );
 	}
 	/**
 	 * @static
@@ -68,7 +69,7 @@ class ClassExcel {
 	 * @return string
 	 */
 	public static function WorksheetName( $Name = null ) {
-		return \AioSystem\Module\Excel\ClassPhpExcel::propertyWorksheetName( $Name );
+		return AioExcel::propertyWorksheetName( $Name );
 	}
 	/**
 	 * @static
@@ -76,7 +77,7 @@ class ClassExcel {
 	 * @return \PHPExcel_Worksheet
 	 */
 	public static function ActiveWorksheet( $Name = null ) {
-		return \AioSystem\Module\Excel\ClassPhpExcel::activeWorksheet( $Name );
+		return AioExcel::activeWorksheet( $Name );
 	}
 	/**
 	 * @static
@@ -84,7 +85,7 @@ class ClassExcel {
 	 * @return \PHPExcel_Worksheet
 	 */
 	public static function CreateWorksheet( $Name ) {
-		return \AioSystem\Module\Excel\ClassPhpExcel::createWorksheet( $Name );
+		return AioExcel::createWorksheet( $Name );
 	}
 	/**
 	 * @static
@@ -94,7 +95,7 @@ class ClassExcel {
 	 * @return void
 	 */
 	public static function CellValue( $Name, $Value, $Type = null ) {
-		return \AioSystem\Module\Excel\ClassPhpExcel::cellValue( $Name, $Value, $Type );
+		return AioExcel::cellValue( $Name, $Value, $Type );
 	}
 	/**
 	 * @static
@@ -114,7 +115,7 @@ class ClassExcel {
 	 * @return void
 	 */
 	public static function CellStyle( $Name, $Css = array() ) {
-		return \AioSystem\Module\Excel\ClassPhpExcel::cellStyle( $Name, $Css );
+		return AioExcel::cellStyle( $Name, $Css );
 	}
 	/**
 	 * @static
@@ -122,7 +123,7 @@ class ClassExcel {
 	 * @return array
 	 */
 	public static function CellName2Index( $Name ) {
-		return \AioSystem\Module\Excel\ClassPhpExcel::convertCellNameToIndex( $Name );
+		return AioExcel::convertCellNameToIndex( $Name );
 	}
 	/**
 	 * @static
@@ -131,7 +132,7 @@ class ClassExcel {
 	 * @return string
 	 */
 	public static function CellIndex2Name( $IndexX, $IndexY ) {
-		return \AioSystem\Module\Excel\ClassPhpExcel::convertCellIndexToName( $IndexX, $IndexY );
+		return AioExcel::convertCellIndexToName( $IndexX, $IndexY );
 	}
 }
 ?>
