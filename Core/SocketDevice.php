@@ -119,7 +119,7 @@ class ClassSocketDevice implements InterfaceSocketDevice {
 	 * @param null|string $propertySocketDeviceHost
 	 * @return null
 	 */
-	private function _propertySocketDeviceHost( $propertySocketDeviceHost = null ) {
+	public function _propertySocketDeviceHost( $propertySocketDeviceHost = null ) {
 		if( $propertySocketDeviceHost !== null ) {
 			$this->_propertySocketDeviceHost = $propertySocketDeviceHost;
 		} return $this->_propertySocketDeviceHost;

@@ -40,6 +40,7 @@
  */
 namespace AioSystem\Api;
 use \AioSystem\Core\ClassSeoUri as AioSeoUri;
+use \AioSystem\Library\ClassJQueryAddress as AioSeoDeeplink;
 /**
  * @package AioSystem\Api
  */
@@ -63,6 +64,18 @@ class ClassSeo {
 	 */
 	public static function Request() {
 		return AioSeoUri::uri_request();
+	}
+	/**
+	 * @static
+	 * @param string|array $Target
+	 * @param string|array $File
+	 * @param string $Name
+	 * @param array $Parameter
+	 * @param int $Level
+	 * @return string
+	 */
+	public static function DeepLink( $Target, $File, $Name, $Parameter = array(), $Level = 0 ) {
+		return AioSeoDeeplink::jquery_address_deeplink( $Target, $File, $Name, $Parameter, $Level );
 	}
 }
 ?>

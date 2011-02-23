@@ -109,6 +109,9 @@ class ClassSocket implements InterfaceSocket {
 	public static function closeSocket() {
 		return self::$_propertySocketList[self::propertySocketIdentifier()]->closeSocketDevice();
 	}
+	public static function propertySocketDeviceHost() {
+		return self::$_propertySocketList[self::propertySocketIdentifier()]->_propertySocketDeviceHost();
+	}
 // ---------------------------------------------------------------------------------------
 	/**
 	 * @static

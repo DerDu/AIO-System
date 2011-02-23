@@ -86,5 +86,12 @@ class ClassSocket {
 	public static function Socket( $Socket = null ) {
 		return AioSocket::propertySocketIdentifier( $Socket );
 	}
+	public static function HttpGet( $File ) {
+		$GET = "GET /".$File." HTTP/1.1\r\n";
+		$GET .= "Host: ".AioSocket::propertySocketDeviceHost()."\r\n";
+        $GET .= "Connection: Close\r\n\r\n";
+		self::Write( $GET );
+		return preg_replace( "/^.*?\r\n\r\n/is", '', self::Read() );
+	}
 }
 ?>

@@ -44,8 +44,7 @@ namespace AioSystem\Module\Excel;
  * @package AioSystem\Module
  * @subpackage Excel
  */
-interface InterfacePhpExcel
-{
+interface InterfacePhpExcel {
 // PHPEXCEL : IO -------------------------------------------------------------------------
 	public static function openFile( $propertyWorksheet = 'Worksheet', $propertyFileName = null );
 	public static function closeFile( $propertyFileName = null );
