@@ -49,7 +49,7 @@ class ClassApi {
 	/**
 	 * Setup API
 	 *
-	 * This registers the \AioSystem class files auto load function
+	 * This registers the \AioSystem class auto load function
 	 *
 	 * @static
 	 * @return void
@@ -66,7 +66,7 @@ class ClassApi {
 		self::$propertySetup = false;
 	}
 	/**
-	 * Load Class files
+	 * Load class files
 	 *
 	 * @static
 	 * @param  string $propertyClassName
