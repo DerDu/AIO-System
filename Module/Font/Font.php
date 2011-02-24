@@ -39,7 +39,7 @@
  * @package AioSystem\Module
  * @subpackage Font
  */
-namespace AioSystem\Module;
+namespace AioSystem\Module\Font;
 use \AioSystem\Api\ClassImage as AioImage;
 use \AioSystem\Api\ClassCache as AioCache;
 use \AioSystem\Library\ClassColor as AioColor;
