@@ -39,7 +39,7 @@
  * @package AioSystem\Api
  */
 namespace AioSystem\Api;
-use \AioSystem\Module\ClassFont as Font;
+use \AioSystem\Module\Font\ClassFont as Font;
 /**
  * @package AioSystem\Api
  */

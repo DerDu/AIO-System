@@ -69,5 +69,12 @@ class ClassSession {
 	public static function Read( $Key = null ) {
 		return \AioSystem\Core\ClassSession::readSession( $Key );
 	}
+	/**
+	 * @static
+	 * @return string
+	 */
+	public static function Id() {
+		return \AioSystem\Core\ClassSession::getSessionId();
+	}
 }
 ?>

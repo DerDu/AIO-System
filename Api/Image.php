@@ -104,6 +104,9 @@ class ClassImage {
 			$this->_propertyHeight( imagesy( $this->_propertyResource() ) );
 		} return $this->_propertyHeight();
 	}
+	public function Resource() {
+		return $this->_propertyResource();
+	}
 // ---------------------------------------------------------------------------------------
 	private function _propertyFile( $File = null ) {
 		if( $File !== null ) {

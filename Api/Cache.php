@@ -75,5 +75,14 @@ class ClassCache {
 	public static function Get( $Parameter, $Cache = 'DefaultCache', $Global = false ) {
 		return AioCache::getCache( $Parameter, $Cache, $Global );
 	}
+	/**
+	 * @static
+	 * @param string $Cache
+	 * @param bool $Global
+	 * @return string
+	 */
+	public static function Location( $Cache = 'DefaultCache', $Global = false ) {
+		return AioCache::getCacheLocation( $Cache, $Global );
+	}
 }
 ?>
