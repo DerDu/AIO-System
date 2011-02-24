@@ -56,7 +56,9 @@ class ClassImage {
 		$ClassImage = new ClassImage();
 		if( file_exists( $File ) ) {
 			$ClassImage->Load( $File );
+			$ClassImage->_propertyResource( \AioSystem\Module\Image\ClassImageResource::Load( $File ) );
 		} else if( $Width !== null && $Height !== null ) {
+			$ClassImage->_propertyFile( $File );
 			$ClassImage->Create( $Width, $Height );
 		} else {
 			trigger_error( 'File not found' );
@@ -104,6 +106,9 @@ class ClassImage {
 			$this->_propertyHeight( imagesy( $this->_propertyResource() ) );
 		} return $this->_propertyHeight();
 	}
+	/**
+	 * @return \resource
+	 */
 	public function Resource() {
 		return $this->_propertyResource();
 	}

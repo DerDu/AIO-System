@@ -40,6 +40,7 @@
  */
 namespace AioSystem\Api;
 use \AioSystem\Module\Font\ClassFont as Font;
+use \AioSystem\Library\ClassFont as LibraryFont;
 /**
  * @package AioSystem\Api
  */
@@ -54,6 +55,14 @@ class ClassFont {
 	 */
 	public static function Create( $Text, $Size = null, $Color = null, $Font = null ) {
 		return Font::Create( $Text, $Size, $Color, $Font );
+	}
+	/**
+	 * @static
+	 * @param string $File
+	 * @return string
+	 */
+	public static function ConvertTTF2AFM( $File ) {
+		return LibraryFont::convertTtf2Afm( $File );
 	}
 }
 ?>

@@ -81,7 +81,7 @@ class ClassFont implements InterfaceFont
 		self::font_text_color( $string_text_color );
 		self::font_file_name( $string_font_filename );
 		// Fetch Cache
-		$string_image = AioCache::Location(__CLASS__,true).self::font_hash( $string_text ).'.png';
+		$string_image = AioCache::Location('Font',true).self::font_hash( $string_text ).'.png';
 		if( file_exists( $string_image ) ) return $string_image;
 		// Check Font
 		if( !file_exists( self::font_file_name() ) ){
@@ -93,7 +93,6 @@ class ClassFont implements InterfaceFont
 		// Fetch Dimensions ( + 2 px = FIX: FontStyle )
 		$integer_image_x = abs($array_font_box[2]) + abs($array_font_box[0]) + 2;
 		$integer_image_y = abs($array_font_box[7]) + abs($array_font_box[1]);
-
 
 		$AioImage = AioImage::Instance( $string_image, $integer_image_x, $integer_image_y );
 		$array_color = AioColor::convertHex2Rgb( self::font_text_color() );
