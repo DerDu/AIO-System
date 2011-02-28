@@ -84,10 +84,11 @@ class ClassApi {
 			).'.php'
 		);
 		if( file_exists( $propertyClassLocation ) ) {
+			require_once( $propertyClassLocation );
+			//\AioSystem\Api\ClassEvent::Debug( 'Load: '.$propertyClassLocation );
 			if( self::$propertySetup === false || session_id() != '' ) {
 				var_dump( 'Load: '.$propertyClassLocation );
 			}
-			require_once( $propertyClassLocation );
 			return true;
 		} else {
 			return false;
