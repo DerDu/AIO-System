@@ -81,7 +81,7 @@ class ClassStackPriority implements InterfaceStackPriority {
 	 */
 	public function pushPriorityData( $propertyPriorityData ) {
 		array_push( $this->_propertyStackPriority, $propertyPriorityData );
-		usort( $this->_propertyStackPriority, $this->_propertyStackCallback );
+		$this->sortPriorityData();
 		return ( count( $this->_propertyStackPriority ) - 1 );
 	}
 	/**
@@ -97,6 +97,15 @@ class ClassStackPriority implements InterfaceStackPriority {
 	public function getPriorityData( $propertyPriorityIndex = null ) {
 		if( ! isset( $this->_propertyStackPriority[$propertyPriorityIndex] ) ) return null;
 		return $this->_propertyStackPriority[$propertyPriorityIndex];
+	}
+	public function removePriorityData( $propertyPriorityIndex = null ) {
+		if( isset( $this->_propertyStackPriority[$propertyPriorityIndex] ) ) {
+			unset( $this->_propertyStackPriority[$propertyPriorityIndex] );
+			$this->sortPriorityData();
+		}
+	}
+	public function sortPriorityData() {
+		usort( $this->_propertyStackPriority, $this->_propertyStackCallback );
 	}
 	/**
 	 * @return null|mixed
