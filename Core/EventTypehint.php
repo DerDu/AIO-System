@@ -58,6 +58,7 @@ class ClassEventTypehint implements InterfaceEventTypehint {
 	private static $_propertyTypeList = array(
 		'boolean'   => 'is_bool',
 		'integer'   => 'is_int',
+		'int'       => 'is_int',
 		'float'     => 'is_float',
 		'string'    => 'is_string',
 		'resource'  => 'is_resource',
