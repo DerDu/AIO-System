@@ -152,4 +152,24 @@ if( ! function_exists('chr_unicode') ) {
 		else { return false; }
 	}
 }
+
+// ---------------------------------------------------------------------------------------
+// PHP STRING : STR_
+// Based on: http://cogo.wordpress.com/2008/01/08/string-permutation-in-php/
+if( ! function_exists('str_perm') ) {
+	function str_perm( $String ) {
+		if ( strlen( $String ) < 2 ) {
+			return array( $String );
+		}
+		$Permutations = array();
+		$TailList = str_perm( substr( $String, 1 ) );
+		foreach ( $TailList as $Permutation ) {
+			$Length = strlen( $Permutation );
+			for ( $Run = 0; $Run <= $Length; $Run++ ) {
+				$Permutations[] = substr( $Permutation, 0, $Run ).$String[0].substr( $Permutation, $Run );
+			}
+		}
+		return array_unique( $Permutations );
+	}
+}
 ?>
