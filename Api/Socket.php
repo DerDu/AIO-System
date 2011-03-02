@@ -39,7 +39,7 @@
  * @package AioSystem\Api
  */
 namespace AioSystem\Api;
-use AioSystem\Core\ClassSocket as AioSocket;
+use \AioSystem\Core\ClassSocket as AioSocket;
 /**
  * ClassSocket
  *  

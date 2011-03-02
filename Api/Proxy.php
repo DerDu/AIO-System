@@ -39,7 +39,7 @@
  * @package AioSystem\Api
  */
 namespace AioSystem\Api;
-use AioSystem\Core\ClassProxyFile as AioProxy;
+use \AioSystem\Core\ClassProxyFile as AioProxy;
 /**
  * ClassProxy
  *  

@@ -39,7 +39,7 @@
  * @package AioSystem\Api
  */
 namespace AioSystem\Api;
-use AioSystem\Module\Zip\ClassZipUnpack as AioZip;
+use \AioSystem\Module\Zip\ClassZipUnpack as AioZip;
 /**
  * @package AioSystem\Api
  */

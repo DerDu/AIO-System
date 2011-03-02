@@ -39,7 +39,7 @@
  * @package AioSystem\Api
  */
 namespace AioSystem\Api;
-use AioSystem\Module\Pdf\ClassEzpdf as AioPdf;
+use \AioSystem\Module\Pdf\ClassEzpdf as AioPdf;
 /**
  * @package AioSystem\Api
  */

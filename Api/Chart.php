@@ -39,7 +39,7 @@
  * @package AioSystem\Api
  */
 namespace AioSystem\Api;
-use AioSystem\Module\Chart\ClassPhplot as AioChart;
+use \AioSystem\Module\Chart\ClassPhplot as AioChart;
 /**
  * @package AioSystem\Api
  */
