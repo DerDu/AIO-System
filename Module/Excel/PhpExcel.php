@@ -207,10 +207,10 @@ class ClassPhpExcel implements InterfacePhpExcel
 	}
 	/**
 	 * @static
-	 * @param  $propertyCellName
-	 * @param  $propertyFileName
-	 * @param  $propertyWidth
-	 * @param  $propertyHeight
+	 * @param string $propertyCellName
+	 * @param string $propertyFileName
+	 * @param int $propertyWidth
+	 * @param int $propertyHeight
 	 * @return void
 	 */
 	public static function cellImage( $propertyCellName, $propertyFileName, $propertyWidth, $propertyHeight ) {

@@ -52,6 +52,13 @@ class ClassImage {
 	private $_propertyWidth = null;
 	private $_propertyHeight = null;
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @static
+	 * @param string $File
+	 * @param null|int $Width
+	 * @param null|int $Height
+	 * @return ClassImage
+	 */
 	public static function Instance( $File, $Width = null, $Height = null ) {
 		$ClassImage = new ClassImage();
 		if( file_exists( $File ) ) {
@@ -66,17 +73,39 @@ class ClassImage {
 		return $ClassImage;
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @param string $File
+	 */
 	public function Load( $File ) {
 		$this->_propertyFile( $File );
 		$this->_propertyResource(false);
 		$this->_propertyWidth(false);
 		$this->_propertyHeight(false);
 	}
+	/**
+	 * @param null|string $File
+	 */
 	public function Save( $File = null ) {
 		ImageResource::Save( $this->_propertyResource(), $this->_propertyFile( $File ), 100 );
 	}
+	/**
+	 * @param int $Width
+	 * @param int $Height
+	 */
 	public function Create( $Width, $Height ) {
 		$this->_propertyResource( ImageResource::Create( $Width, $Height ) );
+	}
+	/**
+	 * @return string
+	 */
+	public function Hash() {
+		return sha1_file( $this->_propertyFile() );
+	}
+	/**
+	 * @return null|string
+	 */
+	public function File() {
+		return $this->_propertyFile();
 	}
 // ---------------------------------------------------------------------------------------
 	public function ResizePixel( $Width = null, $Height = null ) {
@@ -93,7 +122,9 @@ class ClassImage {
 	}
 // ---------------------------------------------------------------------------------------
 	public function Layer( $File, $OffsetX = 0, $OffsetY = 0 ) {
-		ImageLayer::Copy( $this->_propertyResource(), $File, $OffsetX, $OffsetY );
+		$this->_propertyResource(
+			ImageLayer::Copy( $this->_propertyResource(), $File, $OffsetY, $OffsetX )
+		);
 	}
 // ---------------------------------------------------------------------------------------
 	public function Width() {

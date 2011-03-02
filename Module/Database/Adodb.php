@@ -37,12 +37,12 @@
 // ---------------------------------------------------------------------------------------
  *
  * @package AioSystem\Module
- * @subpackage Adodb
+ * @subpackage Database
  */
 namespace AioSystem\Module\Database;
 /**
  * @package AioSystem\Module
- * @subpackage Adodb
+ * @subpackage Database
  */
 interface InterfaceAdodb {
 	public static function Instance();
@@ -59,7 +59,7 @@ interface InterfaceAdodb {
 }
 /**
  * @package AioSystem\Module
- * @subpackage Adodb
+ * @subpackage Database
  */
 class ClassAdodb implements InterfaceAdodb
 {
