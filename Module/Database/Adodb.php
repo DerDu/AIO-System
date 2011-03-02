@@ -46,15 +46,16 @@ namespace AioSystem\Module\Database;
  */
 interface InterfaceAdodb {
 	public static function Instance();
-	public function openAdodb( $string_hosttype, $string_hostname, $string_username, $string_password, $string_database );
-	public function executeAdodb( $string_sql, $bool_cache = false );
+
+	public function openAdodb( $HostType, $HostName, $UserName, $Password, $Database );
+	public function executeAdodb( $Sql, $Cache = false );
 	public function closeAdodb();
 
-	public function adodb5_create_table( $string_table_name, $array_table_fieldset );
-	public function adodb5_drop_table( $string_table_name );
+	public function createTable( $TableName, $TableFieldset );
+	public function dropTable( $TableName );
 
-	public function adodb5_recordset( $string_table_name, $string_where_order_by );
-	public function adodb5_record( $string_table_name, $array_fieldset = array(), $array_where = null, $bool_delete = false );
+	public function RecordSet( $TableName, $WhereOrderBy, $ResultSet = false );
+	public function Record( $TableName, $FieldSet = array(), $Where = null, $Delete = false );
 }
 /**
  * @package AioSystem\Module
@@ -68,51 +69,67 @@ class ClassAdodb implements InterfaceAdodb
 	private $adodb5_cache_timeout = 30;
 	private $bool_debug = false;
 
-	public function __construct() {
-	}
-	public static function Instance()
-	{
+	/**
+	 * @return ClassAdodb
+	 */
+	public static function Instance() {
 		if( !class_exists( 'ADOConnection' ) ) require_once(__DIR__ . '/Adodb/adodb.inc.php');
 		return new ClassAdodb();
 	}
-	public function adodb5_object()
-	{
+	/**
+	 *
+	 */
+	public function adodb5_object() {
 		return $this->propertyAdodbResource;
 	}
 // ---------------------------------------------------------------------------------------
-	public function openAdodb( $string_hosttype, $string_hostname, $string_username, $string_password, $string_database )
-	{
-		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Open: '.$string_hostname.'|'.$string_username.'|'.$string_password.'|'.$string_database);
+	/**
+	 * @throws \Exception
+	 * @param string $HostType
+	 * @param string $HostName
+	 * @param string $UserName
+	 * @param string $Password
+	 * @param string $Database
+	 * @return void
+	 */
+	public function openAdodb( $HostType, $HostName, $UserName, $Password, $Database ) {
+		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Open: '.$HostName.'|'.$UserName.'|'.$Password.'|'.$Database);
 
-		$this->propertyAdodbResource( NewADOConnection( $string_hosttype ) );
+		$this->propertyAdodbResource( NewADOConnection( $HostType ) );
 		//$this->propertyAdodbResource()->debug=true;
-		if( ! $this->propertyAdodbResource()->Connect( $string_hostname, $string_username, $string_password, $string_database ) )
+		if( ! $this->propertyAdodbResource()->Connect( $HostName, $UserName, $Password, $Database ) )
 		throw new \Exception( 'Connection failed!<br/>'.ClassDatabase::database_route() );
 	}
-	public function executeAdodb( $string_sql, $bool_cache = false )
+	/**
+	 * @throws \Exception
+	 * @param string $Sql
+	 * @param bool $Cache
+	 * @return array
+	 */
+	public function executeAdodb( $Sql, $Cache = false )
 	{
-		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Execute: '.$string_sql);
+		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Execute: '.$Sql);
 		$this->propertyAdodbResource()->SetFetchMode( ADODB_FETCH_ASSOC );
 
-		if( $bool_cache > 1 ) $this->adodb5_cache_timeout = $bool_cache;
+		if( $Cache > 1 ) $this->adodb5_cache_timeout = $Cache;
 
-		if( $bool_cache ){
+		if( $Cache ){
 			global $ADODB_CACHE_DIR;
 			$ADODB_CACHE_DIR =  \AioSystem\Core\ClassCacheDisc::getCacheLocation( 'AIOAdodb5Shell' );
 			if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Cached: '.$ADODB_CACHE_DIR);
 
-			$this->propertyAdodbResult( $this->propertyAdodbResource()->CacheExecute( $this->adodb5_cache_timeout, $string_sql ) );
+			$this->propertyAdodbResult( $this->propertyAdodbResource()->CacheExecute( $this->adodb5_cache_timeout, $Sql ) );
 		} else {
-			$this->propertyAdodbResult( $this->propertyAdodbResource()->Execute( $string_sql ) );
+			$this->propertyAdodbResult( $this->propertyAdodbResource()->Execute( $Sql ) );
 		}
 
 		if( $this->propertyAdodbResult() === false )
 		throw new \Exception( 'Execution failed!'
 			.'<br/><br/>'.$this->propertyAdodbResource()->ErrorNo().' : '.$this->propertyAdodbResource()->ErrorMsg()."\n\n"
-			.'<blockquote>'.$string_sql.'</blockquote>' 
+			.'<blockquote>'.$Sql.'</blockquote>'
 		);
 		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Result: ');
-		if( preg_match( '!^select!is', trim($string_sql) ) )
+		if( preg_match( '!^select!is', trim($Sql) ) )
 		return $this->propertyAdodbResult()->GetArray();
 	}
 	/**
@@ -123,58 +140,76 @@ class ClassAdodb implements InterfaceAdodb
 		return $this->propertyAdodbResource()->Close();
 	}
 // ---------------------------------------------------------------------------------------
-	public function adodb5_create_table( $string_table_name, $array_table_fieldset )
-	{
-		// $array_table_fieldset: Array( Name, Type, Size, Options.. )
+	/**
+	 * @param string $TableName
+	 * @param array $TableFieldset
+	 */
+	public function createTable( $TableName, $TableFieldset ) {
+		// $TableFieldset: Array( Name, Type, Size, Options.. )
 		$NewDataDictionary = \NewDataDictionary( $this->propertyAdodbResource );
 		return $NewDataDictionary->ExecuteSQLArray(
-			$NewDataDictionary->CreateTableSQL( $string_table_name, $array_table_fieldset )
+			$NewDataDictionary->CreateTableSQL( $TableName, $TableFieldset )
 		);
 	}
-	public function adodb5_drop_table( $string_table_name )
-	{
+	/**
+	 * @param string $TableName
+	 */
+	public function dropTable( $TableName ) {
 		$NewDataDictionary = \NewDataDictionary( $this->propertyAdodbResource );
 		return $NewDataDictionary->ExecuteSQLArray(
-			$NewDataDictionary->DropTableSQL( $string_table_name )
+			$NewDataDictionary->DropTableSQL( $TableName )
 		);
 	}
 // ---------------------------------------------------------------------------------------
-	public function adodb5_recordset( $string_table_name, $string_where_order_by, $bool_resultset = false )
-	{
-		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('RecordSet: '.$string_table_name);
-		if( $bool_resultset )
-		{
-			$array_recordset = $this->propertyAdodbResource()->GetActiveRecords( $string_table_name, $string_where_order_by );
-			$array_return = array();
-			if( !empty( $array_recordset ) ) {
-				$array_fieldset = $array_recordset[0]->GetAttributeNames();
-				foreach( (array)$array_recordset as $index_record => $object_record ){
-					foreach( (array)$array_fieldset as $string_name ){
-						$array_return[$index_record][$string_name] = $object_record->$string_name;
+	/**
+	 * @param string $TableName
+	 * @param string $WhereOrderBy
+	 * @param bool $ResultSet
+	 * @return array|void
+	 */
+	public function RecordSet( $TableName, $WhereOrderBy, $ResultSet = false ) {
+		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('RecordSet: '.$TableName);
+		if( $ResultSet ) {
+			$RecordSet = $this->propertyAdodbResource()->GetActiveRecords( $TableName, $WhereOrderBy );
+			$Return = array();
+			if( !empty( $RecordSet ) ) {
+				$FieldSet = $RecordSet[0]->GetAttributeNames();
+				/** @var \ADODB_Active_Record $Record */
+				foreach( (array)$RecordSet as $Index => $Record ) {
+					foreach( (array)$FieldSet as $Name ) {
+						$Return[$Index][$Name] = $Record->$Name;
 					}
 				}
 			}
-			return (array)$array_return;
-		} else return $this->propertyAdodbResource()->GetActiveRecords( $string_table_name, $string_where_order_by );
+			return (array)$Return;
+		} else {
+			return $this->propertyAdodbResource()->GetActiveRecords( $TableName, $WhereOrderBy );
+		}
 	}
-	public function adodb5_record( $string_table_name, $array_fieldset = array(), $array_where = null, $bool_delete = false )
-	{
-		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Record: '.$string_table_name);
+	/**
+	 * @param string $TableName
+	 * @param array $FieldSet
+	 * @param null|array $Where
+	 * @param bool $Delete
+	 * @return bool|int
+	 */
+	public function Record( $TableName, $FieldSet = array(), $Where = null, $Delete = false ) {
+		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Record: '.$TableName);
 
 		if( !class_exists( 'ADODB_Active_Record' ) ) require_once(__DIR__ . '/Adodb/adodb-active-record.inc.php');
 		\ADODB_Active_Record::SetDatabaseAdapter( $this->propertyAdodbResource );
 		// Create Object
-		$object_record = new \ADODB_Active_Record( $string_table_name );
-		if( $array_where !== null ) $object_record->Load( implode(' AND ',(array)$array_where) );
+		$ADODB_Active_Record = new \ADODB_Active_Record( $TableName );
+		if( $Where !== null ) $ADODB_Active_Record->Load( implode(' AND ',(array)$Where) );
 
-		if( $bool_delete ){
-			return $object_record->Delete();
+		if( $Delete ) {
+			return $ADODB_Active_Record->Delete();
 		}
 		else {
-			foreach( (array)$array_fieldset as $string_field_name => $mixed_field_value ){
-				$object_record->$string_field_name = $mixed_field_value;
+			foreach( (array)$FieldSet as $FieldName => $FieldValue ) {
+				$ADODB_Active_Record->$FieldName = $FieldValue;
 			}
-			return $object_record->Save();
+			return $ADODB_Active_Record->Save();
 		}
 	}
 // ---------------------------------------------------------------------------------------
@@ -194,6 +229,9 @@ class ClassAdodb implements InterfaceAdodb
 		} return $this->propertyAdodbResult;
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @return void
+	 */
 	public function __wakeup() {
 		// Reestablish connection ?
 		if( !$this->propertyAdodbResource->IsConnected() ) {

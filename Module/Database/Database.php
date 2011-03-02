@@ -223,7 +223,7 @@ class ClassDatabase implements InterfaceDatabase
 	public static function database_create_table( $string_table_name, $array_table_fieldset )
 	{
 		// $array_table_fieldset: Array( Name, Type, Size, Options.. )
-		return self::database_stage()->adodb5_create_table( $string_table_name, $array_table_fieldset );
+		return self::database_stage()->createTable( $string_table_name, $array_table_fieldset );
 		/*
 		-------------------------------
 		Type:
@@ -268,19 +268,19 @@ class ClassDatabase implements InterfaceDatabase
 	}
 	public static function database_drop_table( $string_table_name )
 	{
-		return self::database_stage()->adodb5_drop_table( $string_table_name );
+		return self::database_stage()->dropTable( $string_table_name );
 	}
 // ---------------------------------------------------------------------------------------
 	public static function database_recordset( $string_table_name, $string_where_order_by, $bool_resultset = false )
 	{
-		return self::database_stage()->adodb5_recordset( $string_table_name, $string_where_order_by, $bool_resultset );
+		return self::database_stage()->RecordSet( $string_table_name, $string_where_order_by, $bool_resultset );
 	}
 	public static function database_record( $string_table_name, $array_fieldset = array(), $array_where = null, $bool_delete = false )
 	{
 		// TODO: [REMOVE] Unstable Bugfix
 		return self::database_record_bugfix( $string_table_name, $array_fieldset, $array_where, $bool_delete );
-		// TODO: [FIX BUG] In shell.adodb5_record oAR->Save on Fieldset DB != Fieldset INSERT (e.g MSSQL NOT NULL)
-		//return self::database_stage()->adodb5_record( $string_table_name, $array_fieldset, $array_where, $bool_delete );
+		// TODO: [FIX BUG] In shell.Record oAR->Save on Fieldset DB != Fieldset INSERT (e.g MSSQL NOT NULL)
+		//return self::database_stage()->Record( $string_table_name, $array_fieldset, $array_where, $bool_delete );
 	}
 	private static function database_record_bugfix( $string_table_name, $array_fieldset = array(), $array_where = null, $bool_delete = false )
 	{
