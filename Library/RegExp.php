@@ -53,7 +53,7 @@ interface InterfaceRegExp {
  */
 class ClassRegExp implements InterfaceRegExp {
 	/**
-	 * Create pattern matching content between integer values
+	 * Create pattern, matching content between integer values
 	 *
 	 * <code>
 	 * $pattern = AioSystem\Library\ClassRegExp::integerBetween( 2, 8 );
@@ -74,6 +74,10 @@ class ClassRegExp implements InterfaceRegExp {
 	}
 // ---------------------------------------------------------------------------------------
 	/**
+	 * Rule to create pattern, matching content between integer values
+	 *
+	 * powered by Karl XD
+	 *
 	 * @static
 	 * @param int $propertyFromList
 	 * @param int $propertyToList
