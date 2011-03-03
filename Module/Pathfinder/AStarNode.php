@@ -67,6 +67,10 @@ class ClassAStarNode implements InterfaceAStarNode {
 	private $propertyPathNode = null;
 	private $propertyProximityList = null;
 
+	public static function Instance( $Expense, $PositionX, $PositionY ) {
+		return new ClassAStarNode( $Expense, $PositionX, $PositionY );
+	}
+
 	function __construct( $Expense, $PositionX, $PositionY ) {
 		$this->propertyProximityList = AioStack::Priority( '\AioSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList' );
 		$this->propertyValueC( $Expense );
