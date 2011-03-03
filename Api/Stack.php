@@ -43,6 +43,27 @@ namespace AioSystem\Api;
  * @package AioSystem\Api
  */
 class ClassStack {
-
+	/**
+	 * @static
+	 * @return \AioSystem\Core\ClassStackQueue
+	 */
+	public static function Queue() {
+		return \AioSystem\Core\ClassStackQueue::Instance();
+	}
+	/**
+	 * @static
+	 * @param string|function $Callback
+	 * @return \AioSystem\Core\ClassStackPriority
+	 */
+	public static function Priority( $Callback ) {
+		return \AioSystem\Core\ClassStackPriority::Instance( $Callback );
+	}
+	/**
+	 * @static
+	 * @return \AioSystem\Core\ClassStackRegister
+	 */
+	public static function Register() {
+		return \AioSystem\Core\ClassStackRegister::Instance();
+	}
 }
 ?>

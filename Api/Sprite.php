@@ -76,6 +76,7 @@ class ClassSprite {
 				.' {'
 					." ".'background: transparent '.'url("'.$File.'") -'.$Container->propertyPositionX().'px -'.$Container->propertyPositionY().'px no-repeat;'
 					." ".'width: '.$Container->propertyWidth().'px; height: '.$Container->propertyHeight().'px;'
+					." ".'display: block;'
 				." ".'} '."\n";
 		}
 		$Sprite->Save();
