@@ -37,13 +37,11 @@
 // ---------------------------------------------------------------------------------------
  *
  * @package AioSystem\Api
- * @subpackage Excel
  */
 namespace AioSystem\Api;
 use \AioSystem\Module\Excel\ClassPhpExcel as AioExcel;
 /**
  * @package AioSystem\Api
- * @subpackage Excel
  */
 class ClassExcel {
 	/**
