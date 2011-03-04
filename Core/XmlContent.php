@@ -72,20 +72,34 @@ class ClassXmlContent implements InterfaceXmlContent {
 		$this->propertyChildList( $propertyChildList );
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @param null|string $propertyName
+	 * @return null|string
+	 */
 	public function propertyName( $propertyName = null ) {
 		if( $propertyName !== null ) $this->_propertyName = $propertyName;
 		return $this->_propertyName;
 	}
+	/**
+	 * @param string $propertyAttributeName
+	 * @param null|string $propertyAttributeValue
+	 * @return null|string
+	 */
 	public function propertyAttribute( $propertyAttributeName, $propertyAttributeValue = null ) {
 		$propertyAttributeList = $this->propertyAttributeList();
 		if( $propertyAttributeValue !== null ){
 			$propertyAttributeList[$propertyAttributeName] = $propertyAttributeValue;
 			$propertyAttributeList = $this->propertyAttributeList( $propertyAttributeList );
 		}
-		if( array_key_exists( $propertyAttributeName, (array)$propertyAttributeList ) )
-		return $propertyAttributeList[$propertyAttributeName];
+		if( array_key_exists( $propertyAttributeName, (array)$propertyAttributeList ) ) {
+			return $propertyAttributeList[$propertyAttributeName];
+		}
 		return null;
 	}
+	/**
+	 * @param null|string $propertyContent
+	 * @return null|string
+	 */
 	public function propertyContent( $propertyContent = null ) {
 		if( $propertyContent !== null ) {
 			$this->_propertyContent = $propertyContent;
@@ -93,10 +107,18 @@ class ClassXmlContent implements InterfaceXmlContent {
 		return $this->_propertyContent;
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @param null|array $propertyAttributeList
+	 * @return array
+	 */
 	public function propertyAttributeList( $propertyAttributeList = null ) {
 		if( $propertyAttributeList !== null ) $this->_propertyAttributeList = $propertyAttributeList;
 		return $this->_propertyAttributeList;
 	}
+	/**
+	 * @param null|array $propertyChildList
+	 * @return array
+	 */
 	public function propertyChildList( $propertyChildList = null ) {
 		if( $propertyChildList !== null ){
 			if( $propertyChildList === false ){

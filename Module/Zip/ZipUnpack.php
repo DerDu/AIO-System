@@ -53,8 +53,12 @@ interface InterfaceZipUnpack {
  * @package AioSystem\Module
  * @subpackage Zip
  */
-class ClassZipUnpack implements InterfaceZipUnpack
-{
+class ClassZipUnpack implements InterfaceZipUnpack {
+	/**
+	 * @static
+	 * @param string $File
+	 * @return \AioSystem\Core\ClassSystemFile[]
+	 */
 	public static function Open( $File ) {
 		// GET FILE CONTENTS
 		$parse_zip_content = self::phpzip_file_get_content( $File );
@@ -121,6 +125,10 @@ class ClassZipUnpack implements InterfaceZipUnpack
 		return $parse_zip_result;
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @param string $parse_zip_directory_entry
+	 * @return int
+	 */
 	private static function phpzip_get_timestamp( $parse_zip_directory_entry ) {
 		$parse_zip_directory_entry_unpack = self::phpzip_get_directory_entry( $parse_zip_directory_entry );
 		return mktime(	($parse_zip_directory_entry_unpack['file_time']  & 0xf800) >> 11,
@@ -130,14 +138,27 @@ class ClassZipUnpack implements InterfaceZipUnpack
 				($parse_zip_directory_entry_unpack['file_date']  & 0x001f),
 				(($parse_zip_directory_entry_unpack['file_date'] & 0xfe00) >>  9) + 1980 );
 	}
+	/**
+	 * @param string $parse_zip_directory_entry
+	 * @return string
+	 */
 	private static function phpzip_get_compress_method( $parse_zip_directory_entry ) {
 		$parse_zip_directory_entry_unpack = self::phpzip_get_directory_entry( $parse_zip_directory_entry );
 		return $parse_zip_directory_entry_unpack['compress_method'];
 	}
+	/**
+	 * @param string $parse_zip_directory_entry
+	 * @return string
+	 */
 	private static function phpzip_get_content( $parse_zip_directory_entry ) {
 		$parse_zip_directory_entry_unpack = self::phpzip_get_directory_entry( $parse_zip_directory_entry );
 		return substr( $parse_zip_directory_entry, 26 + $parse_zip_directory_entry_unpack['filename_length'] );
 	}
+	/**
+	 * @static
+	 * @param string $parse_zip_directory_entry
+	 * @return array
+	 */
 	private static function phpzip_get_information( $parse_zip_directory_entry ) {
 		$parse_zip_directory_entry_unpack = self::phpzip_get_directory_entry( $parse_zip_directory_entry );
 
@@ -156,32 +177,61 @@ class ClassZipUnpack implements InterfaceZipUnpack
 			'info_size_uncompressed'=>$parse_zip_directory_entry_unpack['size_uncompressed'],
 		);
 	}
+	/**
+	 * @param string $parse_zip_directory_entry
+	 * @return string
+	 */
 	private static function phpzip_get_filename( $parse_zip_directory_entry ) {
 		$parse_zip_directory_entry_unpack = self::phpzip_get_directory_entry( $parse_zip_directory_entry );
 		return substr( $parse_zip_directory_entry, 26, $parse_zip_directory_entry_unpack['filename_length'] );
 	}
+	/**
+	 * @param string $parse_zip_directory_entry
+	 * @return bool
+	 */
 	private static function phpzip_get_encrypted( $parse_zip_directory_entry ) {
 		$parse_zip_directory_entry_unpack = self::phpzip_get_directory_entry( $parse_zip_directory_entry );
 		if( $parse_zip_directory_entry_unpack['general_purpose'] & 0x0001 )
 		return true;
 		return false;
 	}
+	/**
+	 * @param string $parse_zip_directory_entry
+	 * @return array
+	 */
 	private static function phpzip_get_directory_entry( $parse_zip_directory_entry ) {
 		return unpack("v1version/v1general_purpose/v1compress_method/v1file_time/v1file_date/V1crc/V1size_compressed/V1size_uncompressed/v1filename_length", $parse_zip_directory_entry );
 	}
+	/**
+	 * @param string $parse_zip_content
+	 * @return array
+	 */
 	private static function phpzip_get_directory( $parse_zip_content ) {
 		$parse_zip_section = explode("\x50\x4b\x01\x02", $parse_zip_content );
 		$parse_zip_section = explode("\x50\x4b\x03\x04", $parse_zip_section[0]);
 		array_shift( $parse_zip_section );
 		return $parse_zip_section;
 	}
+	/**
+	 * @param string $parse_zip_content
+	 * @return array
+	 */
 	private static function phpzip_get_sections( $parse_zip_content ) {
 		return explode( "\x50\x4b\x05\x06", $parse_zip_content );
 	}
+	/**
+	 * @param string $parse_zip_section
+	 * @return string
+	 */
 	private static function phpzip_get_comment( $parse_zip_section ) {
 		$parse_zip_section_unpack = unpack( 'x16/v1length', $parse_zip_section[1] );
 		return str_replace( array("\r\n", "\r"), "\n", substr( $parse_zip_section[1], 18, $parse_zip_section_unpack['length']) );
 	}
+	/**
+	 * @static
+	 * @param string $parse_zipfile
+	 * @return string
+	 */
 	private static function phpzip_file_get_content( $parse_zipfile ) {
 		if( file_exists( $parse_zipfile ) )
 		return file_get_contents( $parse_zipfile );

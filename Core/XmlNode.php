@@ -69,15 +69,26 @@ class ClassXmlNode extends ClassXmlContent implements InterfaceXmlNode {
 	private $_propertyParent = null;
 	private $_propertyHashCount = array();
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @return ClassXmlNode
+	 */
 	public static function Instance() {
 		return new ClassXmlNode();
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @param ClassXmlNode $propertyParent
+	 * @return ClassXmlNode
+	 */
 	public function propertyParent( ClassXmlNode $propertyParent = null ) {
 		if( $propertyParent !== null ) $this->_propertyParent = $propertyParent;
 		return $this->_propertyParent;
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @param ClassXmlNode $CoreXmlNode
+	 * @return ClassXmlNode
+	 */
 	public function appendXmlNode( ClassXmlNode $CoreXmlNode ) {
 		$CoreXmlNode->propertyParent( $this );
 		$propertyChildList = (array)$this->propertyChildList();
@@ -86,6 +97,13 @@ class ClassXmlNode extends ClassXmlContent implements InterfaceXmlNode {
 		// REBUILD OBJECT-CHAIN
 		return $CoreXmlNode;
 	}
+	/**
+	 * @param string $propertyName
+	 * @param array $propertyAttributeList
+	 * @param null $indexCoreXmlNode
+	 * @param bool $isSearchRoot
+	 * @return ClassXmlNode|bool|null
+	 */
 	public function removeXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false ) {
 		/** @var ClassXmlNode $CoreXmlNodeChild */
 		if( ( $CoreXmlNode = $this->searchXmlNode( $propertyName, $propertyAttributeList, $indexCoreXmlNode, $isSearchRoot ) ) != false ) {
@@ -100,6 +118,12 @@ class ClassXmlNode extends ClassXmlContent implements InterfaceXmlNode {
 			return $CoreXmlNode->propertyParent();
 		} return false;
 	}
+	/**
+	 * @param string $propertyName
+	 * @param array $propertyAttributeList
+	 * @param bool|null $isDescendant
+	 * @return ClassXmlNode[]
+	 */
 	public function groupXmlNode( $propertyName, $propertyAttributeList = array(), $isDescendant = null ) {
 		/** @var ClassXmlNode $CoreXmlNodeChild */
 		$groupCoreXmlNode = array();
@@ -121,6 +145,13 @@ class ClassXmlNode extends ClassXmlContent implements InterfaceXmlNode {
 		}
 		return $groupCoreXmlNode;
 	}
+	/**
+	 * @param string $propertyName
+	 * @param array $propertyAttributeList
+	 * @param null $indexCoreXmlNode
+	 * @param bool $isSearchRoot
+	 * @return ClassXmlNode|bool
+	 */
 	public function searchXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false ) {
 		/** @var ClassXmlNode $CoreXmlNodeChild */
 		$isSearchMatch = true;
@@ -161,6 +192,12 @@ class ClassXmlNode extends ClassXmlContent implements InterfaceXmlNode {
 		// RETURN FALSE
 		return false;
 	}
+	/**
+	 * @throws \Exception
+	 * @param bool $isSubStructure
+	 * @param int $indentLevel
+	 * @return string
+	 */
 	public function codeXmlNode( $isSubStructure = false, $indentLevel = 0 ) {
 		/** @var ClassXmlNode $CoreXmlNodeChild */
 		// BUILD ATTRIBUTES STRING

@@ -60,18 +60,33 @@ interface InterfaceXmlStack
  * @subpackage Xml
  */
 class ClassXmlStack implements InterfaceXmlStack {
+	/** @var ClassXmlNode[] $propertyStack */
 	private static $propertyStack = array();
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @param ClassXmlNode $XmlNode
+	 * @return ClassXmlNode
+	 */
 	public static function pushXmlNode( ClassXmlNode $XmlNode ) {
 		array_push( self::$propertyStack, $XmlNode );
 		return self::peekXmlNode();
 	}
+	/**
+	 * @return ClassXmlNode
+	 */
 	public static function peekXmlNode() {
 		return end( self::$propertyStack );
 	}
+	/**
+	 * @return ClassXmlNode
+	 */
 	public static function popXmlNode() {
 		return array_pop( self::$propertyStack );
 	}
+	/**
+	 * @static
+	 * @return array
+	 */
 	public static function listXmlNode() {
 		return self::$propertyStack;
 	}

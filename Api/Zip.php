@@ -44,8 +44,15 @@ use \AioSystem\Module\Zip\ClassZipUnpack as AioZip;
  * @package AioSystem\Api
  */
 class ClassZip {
-	public static function Unpack( $File ) {
-		return AioZip::Open( $File );
+	/**
+	 * This method is able to unzip a compressed file and delivers an array of file objects
+	 *
+	 * @static
+	 * @param string $FileLocation
+	 * @return \AioSystem\Core\ClassSystemFile[]
+	 */
+	public static function Unpack( $FileLocation ) {
+		return AioZip::Open( $FileLocation );
 	}
 }
 ?>

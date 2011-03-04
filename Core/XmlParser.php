@@ -56,6 +56,12 @@ interface InterfaceXmlParser {
  * @subpackage Xml
  */
 class ClassXmlParser implements InterfaceXmlParser {
+	/**
+	 * @static
+	 * @throws \Exception
+	 * @param string|object $propertyXml
+	 * @return ClassXmlNode|bool|mixed|null
+	 */
 	public static function parseXml( $propertyXml ) {
 		// Try File
 		if( is_string( $propertyXml ) && file_exists( $propertyXml ) ) {
@@ -112,6 +118,11 @@ class ClassXmlParser implements InterfaceXmlParser {
 		}
 		return false;
 	}
+	/**
+	 * @static
+	 * @param array $_readTag
+	 * @return ClassXmlNode|null
+	 */
 	private static function _closeTag( $_readTag ) {
 		/**
 		 * @var ClassXmlNode $CoreXmlNodeChild
@@ -129,6 +140,11 @@ class ClassXmlParser implements InterfaceXmlParser {
 		$CoreXmlNodeParent->propertyChildList( $CoreXmlNodeChildList );
 		return null;
 	}
+	/**
+	 * @static
+	 * @param array $_readTag
+	 * @return void
+	 */
 	private static function _openTag( $_readTag ) {
 		/** @var ClassXmlNode $CoreXmlNode */
 		$_readTag = self::_readTag( $_readTag['ITEM'] );
@@ -136,6 +152,11 @@ class ClassXmlParser implements InterfaceXmlParser {
 		$CoreXmlNode->propertyName( $_readTag['NAME'] );
 		$CoreXmlNode->propertyAttributeList( $_readTag['ATTR'] );
 	}
+	/**
+	 * @static
+	 * @param string $_readTag
+	 * @return array
+	 */
 	private static function _readTag( $_readTag ) {
 		// Fetch Name
 		preg_match( '![a-z0-9_\.\-]+?(?=( |$))!is', $_readTag, $_readTagName );
@@ -149,6 +170,11 @@ class ClassXmlParser implements InterfaceXmlParser {
 		} else $_readTagAttribute = array();
 		return array( 'NAME' => $_readTagName[0], 'ATTR' => $_readTagAttribute );
 	}
+	/**
+	 * @static
+	 * @param string $propertyXmlContent
+	 * @return array
+	 */
 	private static function _searchTag( $propertyXmlContent ) {
 		$_searchTag = array( 'TEXT'=>NULL, 'TYPE'=>NULL );
 		if( preg_match( '!(?<=\<)(\/|\w).+?(?=\>)!is', $propertyXmlContent, $_searchTagResult, PREG_OFFSET_CAPTURE ) )
