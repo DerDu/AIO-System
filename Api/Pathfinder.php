@@ -39,13 +39,38 @@
  * @package AioSystem\Api
  */
 namespace AioSystem\Api;
-use \AioSystem\Module\Pathfinder\ClassAStarMap as AioAStar;
+use \AioSystem\Module\Pathfinder\ClassAStarNode as AioAStarNode;
+use \AioSystem\Module\Pathfinder\ClassAStar as AioAStar;
+use \AioSystem\Module\Pathfinder\ClassAStarMap as AioAStarMap;
 /**
  * @package AioSystem\Api
  */
 class ClassPathfinder {
-	public static function AStar() {
-		return AioAStar::Instance();
+	/**
+	 * @return \AioSystem\Module\Pathfinder\ClassAStarMap
+	 */
+	public static function AStarMap() {
+		return AioAStarMap::Instance();
+	}
+	/**
+	 * @static
+	 * @param int $Expense
+	 * @param int $PositionX
+	 * @param int $PositionY
+	 * @return \AioSystem\Module\Pathfinder\ClassAStarNode
+	 */
+	public static function AStarNode( $Expense, $PositionX, $PositionY ) {
+		return AioAStarNode::Instance( $Expense, $PositionX, $PositionY );
+	}
+	/**
+	 * @static
+	 * @param \AioSystem\Module\Pathfinder\ClassAStarNode $Start
+	 * @param \AioSystem\Module\Pathfinder\ClassAStarNode $Target
+	 * @param int $Mode
+	 * @return \AioSystem\Module\Pathfinder\ClassAStarNode|bool
+	 */
+	public static function AStarPath( $Start, $Target, $Mode = \AioSystem\Module\Pathfinder\ClassAStarNode::EXPENSE_ABSOLUTE ) {
+		return AioAStar::Run( $Start, $Target, $Mode );
 	}
 }
 ?>
