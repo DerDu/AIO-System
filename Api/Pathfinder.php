@@ -69,8 +69,24 @@ class ClassPathfinder {
 	 * @param int $Mode
 	 * @return \AioSystem\Module\Pathfinder\ClassAStarNode|bool
 	 */
-	public static function AStarPath( $Start, $Target, $Mode = \AioSystem\Module\Pathfinder\ClassAStarNode::EXPENSE_ABSOLUTE ) {
+	public static function AStarPath(
+		\AioSystem\Module\Pathfinder\ClassAStarNode $Start,
+		\AioSystem\Module\Pathfinder\ClassAStarNode $Target,
+		$Mode = \AioSystem\Module\Pathfinder\ClassAStarNode::EXPENSE_ABSOLUTE
+	) {
 		return AioAStar::Run( $Start, $Target, $Mode );
+	}
+	/**
+	 * @static
+	 * @param \AioSystem\Module\Pathfinder\ClassAStarNode $From
+	 * @param \AioSystem\Module\Pathfinder\ClassAStarNode $To
+	 * @return void
+	 */
+	public static function AStarTransition(
+		\AioSystem\Module\Pathfinder\ClassAStarNode $From,
+		\AioSystem\Module\Pathfinder\ClassAStarNode $To
+	) {
+		$From->Proximity( $To );
 	}
 }
 ?>
