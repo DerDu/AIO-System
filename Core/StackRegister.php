@@ -58,18 +58,33 @@ interface InterfaceStackRegister {
 class ClassStackRegister implements InterfaceStackRegister {
 	private $_propertyStackRegister = array();
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @return ClassStackRegister
+	 */
 	public static function Instance() {
 		return new ClassStackRegister();
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @param int $propertyRegisterIndex
+	 * @return mixed
+	 */
 	public function getRegister( $propertyRegisterIndex = null ) {
 		if( ! isset( $this->_propertyStackRegister[$propertyRegisterIndex] ) ) return null;
 		return $this->_propertyStackRegister[$propertyRegisterIndex];
 	}
+	/**
+	 * @param int $propertyRegisterIndex
+	 * @param mixed $propertyRegisterData
+	 * @return mixed
+	 */
 	public function setRegister( $propertyRegisterIndex, $propertyRegisterData ) {
 		$this->_propertyStackRegister[$propertyRegisterIndex] = $propertyRegisterData;
 		return $this->getRegister( $propertyRegisterIndex );
 	}
+	/**
+	 * @return array
+	 */
 	public function listRegister() {
 		return $this->_propertyStackRegister;
 	}

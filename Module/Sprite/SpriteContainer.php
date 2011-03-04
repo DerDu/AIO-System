@@ -60,10 +60,13 @@ interface InterfaceSpriteContainer {
 class ClassSpriteContainer implements InterfaceSpriteContainer {
 	const CUT_HORIZONTAL = 1;
 	const CUT_VERTICAL = 2;
-
+	/** @var null|int $_propertyWidth */
 	private $_propertyWidth = null;
+	/** @var null|int $_propertyHeight */
 	private $_propertyHeight = null;
+	/** @var int $_propertyPositionX */
 	private $_propertyPositionX = 0;
+	/** @var int $_propertyPositionY */
 	private $_propertyPositionY = 0;
 	public $Combine = 0;
 
@@ -83,7 +86,7 @@ class ClassSpriteContainer implements InterfaceSpriteContainer {
 		return $this->propertyWidth() * $this->propertyHeight();
 	}
 	/**
-	 *
+	 * @return int
 	 */
 	public function getCut() {
 		$ItemWidth = $this->propertyItem()->propertyWidth();

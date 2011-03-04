@@ -47,12 +47,12 @@ namespace AioSystem\Core;
 interface InterfaceStackQueue {
 	public static function Instance();
 // ---------------------------------------------------------------------------------------
-	public function pushQueueData( $propertyQueueData );
-	public function popQueueData();
-	public function peekQueueData();
-	public function getQueueData( $propertyQueueIndex = 0 );
-	public function updateQueueData( $propertyQueueIndex, $propertyQueueData );
-	public function listQueueData();
+	public function pushData( $propertyQueueData );
+	public function popData();
+	public function peekData();
+	public function getData( $propertyQueueIndex = 0 );
+	public function updateData( $propertyQueueIndex, $propertyQueueData );
+	public function listData();
 }
 /**
  * @package AioSystem\Core
@@ -61,30 +61,55 @@ interface InterfaceStackQueue {
 class ClassStackQueue implements InterfaceStackQueue {
 	private $_propertyStackQueue = array();
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @static
+	 * @return ClassStackQueue
+	 */
 	public static function Instance() {
 		return new ClassStackQueue();
 	}
 // ---------------------------------------------------------------------------------------
-	public function pushQueueData( $propertyQueueData ) {
+	/**
+	 * @param mixed $propertyQueueData
+	 * @return int
+	 */
+	public function pushData( $propertyQueueData ) {
 		array_push( $this->_propertyStackQueue, $propertyQueueData );
 		return ( count( $this->_propertyStackQueue ) - 1 );
 	}
-	public function popQueueData() {
+	/**
+	 * @return mixed
+	 */
+	public function popData() {
 		return array_shift( $this->_propertyStackQueue );
 	}
-	public function getQueueData( $propertyQueueIndex = null ) {
+	/**
+	 * @param null|int $propertyQueueIndex
+	 * @return mixed|null
+	 */
+	public function getData( $propertyQueueIndex = null ) {
 		if( ! isset( $this->_propertyStackQueue[$propertyQueueIndex] ) ) return null;
 		return $this->_propertyStackQueue[$propertyQueueIndex];
 	}
-	public function peekQueueData() {
+	/**
+	 * @return mixed
+	 */
+	public function peekData() {
 		if( ! isset( $this->_propertyStackQueue[0] ) ) return null;
 		return $this->_propertyStackQueue[0];
 	}
-	public function updateQueueData( $propertyQueueIndex, $propertyQueueData ) {
+	/**
+	 * @param int $propertyQueueIndex
+	 * @param mixed $propertyQueueData
+	 */
+	public function updateData( $propertyQueueIndex, $propertyQueueData ) {
 		$this->_propertyStackQueue[$propertyQueueIndex] = $propertyQueueData;
-		return $this->getQueueData( $propertyQueueIndex );
+		return $this->getData( $propertyQueueIndex );
 	}
-	public function listQueueData() {
+	/**
+	 * @return array
+	 */
+	public function listData() {
 		return $this->_propertyStackQueue;
 	}
 }

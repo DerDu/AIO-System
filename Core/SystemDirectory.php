@@ -57,6 +57,13 @@ interface InterfaceSystemDirectory {
  * @subpackage System
  */
 class ClassSystemDirectory implements InterfaceSystemDirectory {
+	/**
+	 * @static
+	 * @param string $propertyDirectoryName
+	 * @param array $propertyFileTypeList
+	 * @param bool $isRecursive
+	 * @return ClassSystemFile[]|bool
+	 */
 	public static function getFileList( $propertyDirectoryName, $propertyFileTypeList = array(), $isRecursive = false ) {
 		$getFileList = array();
 		if( !is_object( $directoryHandler = dir( $propertyDirectoryName ) ) ) {
@@ -88,7 +95,13 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 		$directoryHandler->close();
 		return $getFileList;
 	}
-	// TODO: getDirectoryList
+	/**
+	 * @static
+	 * @param string $propertyDirectoryName
+	 * @param bool $isRecursive
+	 * @return array|bool
+	 * @todo getDirectoryList
+	 */
 	public static function getDirectoryList( $propertyDirectoryName, $isRecursive = false ) {
 		$getDirectoryList = array();
 		if( !is_object( $directoryHandler = dir( $propertyDirectoryName ) ) ) {
@@ -107,6 +120,12 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 		$directoryHandler->close();
 		return $getDirectoryList;
 	}
+	/**
+	 * @static
+	 * @param ClassSystemFile[] $propertyFileList
+	 * @param array $propertyFilterList
+	 * @return ClassSystemFile[]
+	 */
 	public static function applyFileListFilter( $propertyFileList, $propertyFilterList = array() ) {
 		foreach( (array)$propertyFileList as $indexFileList => $CoreSystemFile ) {
 			foreach( (array)$propertyFilterList as $CoreSystemFileMethod => $filterRegExp ) {
@@ -119,7 +138,13 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 		return $propertyFileList;
 	}
 // ---------------------------------------------------------------------------------------
-	// Convert e.g Path1\Path2//Path3/../Path4 -> Path1/Path2/Path4/
+	/**
+	 * @static
+	 * @param string $propertyDirectoryName
+	 * @return string
+	 *
+	 * Convert e.g Path1\Path2//Path3/../Path4 -> Path1/Path2/Path4/
+	 */
 	public static function adjustDirectorySyntax( $propertyDirectoryName ) {
 		// CONVERT \ TO /
 		$propertyDirectoryName = str_replace( array('\\','//'), '/', $propertyDirectoryName );
@@ -135,6 +160,11 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 		// BUILD CORRECT PATH
 		return str_replace( '//', '/', $propertyDirectoryName );
 	}
+	/**
+	 * @static
+	 * @param string $propertyDirectoryName
+	 * @return string
+	 */
 	public static function createDirectory( $propertyDirectoryName ) {
 		$directoryList = explode( "/", self::adjustDirectorySyntax( $propertyDirectoryName ) );
 		$directoryLocation = '';
@@ -149,6 +179,12 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 		}
 		return $directoryLocation;
 	}
+	/**
+	 * @static
+	 * @param string $propertyDirectoryName
+	 * @param string $propertyDirectoryLocation
+	 * @return string
+	 */
 	public static function relativeDirectory( $propertyDirectoryName, $propertyDirectoryLocation ) {
 		// Adjust Path2Relative
 		if( is_file( $propertyDirectoryName ) ) {

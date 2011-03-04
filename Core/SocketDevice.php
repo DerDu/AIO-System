@@ -117,7 +117,7 @@ class ClassSocketDevice implements InterfaceSocketDevice {
 	}
 	/**
 	 * @param null|string $propertySocketDeviceHost
-	 * @return null
+	 * @return null|string
 	 */
 	public function _propertySocketDeviceHost( $propertySocketDeviceHost = null ) {
 		if( $propertySocketDeviceHost !== null ) {
@@ -125,8 +125,8 @@ class ClassSocketDevice implements InterfaceSocketDevice {
 		} return $this->_propertySocketDeviceHost;
 	}
 	/**
-	 * @param null|int|string $propertySocketDevicePort
-	 * @return null
+	 * @param null|int $propertySocketDevicePort
+	 * @return null|int
 	 */
 	private function _propertySocketDevicePort( $propertySocketDevicePort = null ) {
 		if( $propertySocketDevicePort !== null ) {

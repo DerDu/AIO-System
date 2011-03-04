@@ -67,12 +67,12 @@ class ClassAStar implements InterfaceAStar {
 		self::$propertyClosedList = AioStack::Priority('\AioSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList');
 		self::pushOpenList( $StartNode );
 		// Run: Target not in ClosedList
-		while( self::$propertyOpenList->peekPriorityData() !== null ) {
+		while( self::$propertyOpenList->peekData() !== null ) {
 			/** @var ClassAStarNode $CurrentNode */
-			$CurrentNode = self::$propertyOpenList->popPriorityData();
+			$CurrentNode = self::$propertyOpenList->popData();
 			self::pushClosedList( $CurrentNode );
 
-			$ProximityList = $CurrentNode->Proximity()->listPriorityData();
+			$ProximityList = $CurrentNode->Proximity()->listData();
 			/** @var ClassAStarNode $Proximity */
 			foreach( $ProximityList as $Proximity ) {
 				if( false === self::inList( self::$propertyClosedList, $Proximity ) ) {
@@ -84,11 +84,11 @@ class ClassAStar implements InterfaceAStar {
 						
 					} else {
 						/** @var ClassAStarNode $OpenNode */
-						$OpenNode = self::$propertyOpenList->getPriorityData( $IndexOpenList );
+						$OpenNode = self::$propertyOpenList->getData( $IndexOpenList );
 						if( $CurrentNode->Expense( $OpenNode, $ExpenseType ) < $OpenNode->propertyValueG() ) {
 							$OpenNode->Path( $CurrentNode );
 							$OpenNode->propertyValueG( $CurrentNode->Expense( $OpenNode, $ExpenseType ) );
-							self::$propertyOpenList->sortPriorityData();
+							self::$propertyOpenList->sortData();
 						}
 					}
 				}
@@ -107,7 +107,7 @@ class ClassAStar implements InterfaceAStar {
 	}
 
 	public static function inList( \AioSystem\Core\ClassStackPriority $List, ClassAStarNode $Node ) {
-		$List = $List->listPriorityData();
+		$List = $List->listData();
 		/** @var ClassAStarNode $Item */
 		foreach( $List as $Index => $Item ) {
 			if( $Item->Equal( $Node ) ) {
@@ -117,15 +117,15 @@ class ClassAStar implements InterfaceAStar {
 	}
 
 	public static function pushOpenList( ClassAStarNode $AStarNode ) {
-		self::$propertyOpenList->pushPriorityData( $AStarNode );
+		self::$propertyOpenList->pushData( $AStarNode );
 	}
 	public static function removeOpenList( ClassAStarNode $AStarNode ) {
 		if( false !== ( $Index = self::inList( self::$propertyOpenList, $AStarNode ) ) ) {
-			self::$propertyOpenList->removePriorityData( $Index );
+			self::$propertyOpenList->removeData( $Index );
 		}
 	}
 	public static function pushClosedList( ClassAStarNode $AStarNode ) {
-		self::$propertyClosedList->pushPriorityData( $AStarNode );
+		self::$propertyClosedList->pushData( $AStarNode );
 	}
 
 	public static function debugOpenList(){

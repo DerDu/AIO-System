@@ -55,6 +55,14 @@ class ClassSystemWrite implements InterfaceSystemWrite {
 	private static $_writeCacheDirectory = null;
 	private static $_writeModeList = array( 'A', 'W', 'WB' );
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @static
+	 * @throws \Exception
+	 * @param null|string $propertyFileName
+	 * @param null|string $propertyFileContent
+	 * @param string $_writeMode
+	 * @return void
+	 */
 	public static function writeFile( $propertyFileName = null, $propertyFileContent = null, $_writeMode = 'wb' ) {
 		if( self::_writeMode( strtoupper( $_writeMode ) ) === false ) {
 			throw new \Exception( 'Write-Mode failed!' );
@@ -111,13 +119,23 @@ class ClassSystemWrite implements InterfaceSystemWrite {
 		}
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @static
+	 * @param string $_writeMode
+	 * @return bool
+	 */
 	private static function _writeMode( $_writeMode ) {
 		if( count( array_intersect( (array)$_writeMode, self::$_writeModeList ) ) > 0 ) {
 			return true;
 		} else {
 			return false;
 		}
-	}	
+	}
+	/**
+	 * @static
+	 * @throws \Exception
+	 * @return string
+	 */
 	private static function _writeCache() {
 		if( self::$_writeCacheDirectory === null ) {
 			self::$_writeCacheDirectory = ini_get('upload_tmp_dir');

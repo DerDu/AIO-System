@@ -47,11 +47,11 @@ namespace AioSystem\Core;
 interface InterfaceStackPriority {
 	public static function Instance( $Callback );
 // ---------------------------------------------------------------------------------------
-	public function pushPriorityData( $propertyPriorityData );
-	public function popPriorityData();
-	public function peekPriorityData();
-	public function getPriorityData( $propertyPriorityIndex = 0 );
-	public function listPriorityData();
+	public function pushData( $propertyPriorityData );
+	public function popData();
+	public function peekData();
+	public function getData( $propertyPriorityIndex = 0 );
+	public function listData();
 }
 /**
  * @package AioSystem\Core
@@ -79,45 +79,52 @@ class ClassStackPriority implements InterfaceStackPriority {
 	 * @param mixed $propertyPriorityData
 	 * @return int
 	 */
-	public function pushPriorityData( $propertyPriorityData ) {
+	public function pushData( $propertyPriorityData ) {
 		array_push( $this->_propertyStackPriority, $propertyPriorityData );
-		$this->sortPriorityData();
+		$this->sortData();
 		return ( count( $this->_propertyStackPriority ) - 1 );
 	}
 	/**
 	 * @return mixed
 	 */
-	public function popPriorityData() {
+	public function popData() {
 		return array_shift( $this->_propertyStackPriority );
 	}
 	/**
 	 * @param null|int $propertyPriorityIndex
 	 * @return null|mixed
 	 */
-	public function getPriorityData( $propertyPriorityIndex = null ) {
+	public function getData( $propertyPriorityIndex = null ) {
 		if( ! isset( $this->_propertyStackPriority[$propertyPriorityIndex] ) ) return null;
 		return $this->_propertyStackPriority[$propertyPriorityIndex];
 	}
-	public function removePriorityData( $propertyPriorityIndex = null ) {
+	/**
+	 * @param null|int
+	 * @return void
+	 */
+	public function removeData( $propertyPriorityIndex = null ) {
 		if( isset( $this->_propertyStackPriority[$propertyPriorityIndex] ) ) {
 			unset( $this->_propertyStackPriority[$propertyPriorityIndex] );
-			$this->sortPriorityData();
+			$this->sortData();
 		}
 	}
-	public function sortPriorityData() {
+	/**
+	 * @return void
+	 */
+	public function sortData() {
 		usort( $this->_propertyStackPriority, $this->_propertyStackCallback );
 	}
 	/**
 	 * @return null|mixed
 	 */
-	public function peekPriorityData() {
+	public function peekData() {
 		if( ! isset( $this->_propertyStackPriority[0] ) ) return null;
 		return $this->_propertyStackPriority[0];
 	}
 	/**
 	 * @return array
 	 */
-	public function listPriorityData() {
+	public function listData() {
 		return $this->_propertyStackPriority;
 	}
 }

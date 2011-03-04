@@ -57,8 +57,9 @@ class ClassSprite implements InterfaceSprite {
 	public static $_InstanceClassStackPriorityClassSpriteContainer = null;
 	/** @var \AioSystem\Core\ClassStackQueue $_InstanceClassStackPrioritySprite */
 	public static $_InstanceClassStackQueueSprite = null;
-
+	/** @var int $_SpriteWidth */
 	public static $_SpriteWidth = 0;
+	/** @var int $_SpriteHeight */
 	public static $_SpriteHeight = 0;
 
 	/**
@@ -69,7 +70,7 @@ class ClassSprite implements InterfaceSprite {
 		// Init
 		$Container = new ClassSpriteContainer();
 		$Width = 0; $Height = 0;
-		$ItemList = self::$_InstanceClassStackPriorityClassSpriteItem->listPriorityData();
+		$ItemList = self::$_InstanceClassStackPriorityClassSpriteItem->listData();
 		/** @var ClassSpriteItem $Item */
 		foreach( $ItemList as $Index => $Item ) {
 			$Width += $Item->propertyWidth();
@@ -81,16 +82,20 @@ class ClassSprite implements InterfaceSprite {
 		self::addContainer( $Container );
 		// Run
 		$BREAK =0;
-		while( self::$_InstanceClassStackPriorityClassSpriteItem->peekPriorityData() !== null ) {
+		while( self::$_InstanceClassStackPriorityClassSpriteItem->peekData() !== null ) {
 			self::placeNextItem();
 			self::combineContainer();
 		}
-		self::$_InstanceClassStackPriorityClassSpriteContainer->sortPriorityData();
+		self::$_InstanceClassStackPriorityClassSpriteContainer->sortData();
 		return self::$_InstanceClassStackQueueSprite;
 	}
+	/**
+	 * @static
+	 * @return void
+	 */
 	private static function placeNextItem() {
 		/** @var ClassSpriteItem $Item */
-		$Item = self::$_InstanceClassStackPriorityClassSpriteItem->popPriorityData();
+		$Item = self::$_InstanceClassStackPriorityClassSpriteItem->popData();
 		/** @var ClassSpriteContainer $Container */
 		$Container = self::searchContainer( $Item );
 		$Container->propertyItem( $Item );
@@ -119,30 +124,45 @@ class ClassSprite implements InterfaceSprite {
 		}
 		self::saveContainer( $Container );
 	}
-
+	/**
+	 * @param ClassSpriteItem $Item
+	 * @return void
+	 */
 	public static function addItem( ClassSpriteItem $Item ) {
 		if( self::$_InstanceClassStackPriorityClassSpriteItem === null ) {
 			self::$_InstanceClassStackPriorityClassSpriteItem = \AioSystem\Core\ClassStackPriority::Instance( __NAMESPACE__.'\ClassSprite::sortItemStack' );
 		}
-		self::$_InstanceClassStackPriorityClassSpriteItem->pushPriorityData( $Item );
+		self::$_InstanceClassStackPriorityClassSpriteItem->pushData( $Item );
 	}
+	/**
+	 * @param ClassSpriteContainer $Container
+	 * @return void
+	 */
 	public static function addContainer( ClassSpriteContainer $Container ) {
 		if( self::$_InstanceClassStackPriorityClassSpriteContainer === null ) {
 			self::$_InstanceClassStackPriorityClassSpriteContainer = \AioSystem\Core\ClassStackPriority::Instance( __NAMESPACE__.'\ClassSprite::sortContainerStack' );
 		}
-		self::$_InstanceClassStackPriorityClassSpriteContainer->pushPriorityData( $Container );
+		self::$_InstanceClassStackPriorityClassSpriteContainer->pushData( $Container );
 	}
+	/**
+	 * @param ClassSpriteContainer $Container
+	 * @return void
+	 */
 	public static function saveContainer( ClassSpriteContainer $Container ) {
 		if( self::$_InstanceClassStackQueueSprite === null ) {
 			self::$_InstanceClassStackQueueSprite = \AioSystem\Core\ClassStackQueue::Instance();
 		}
-		self::$_InstanceClassStackQueueSprite->pushQueueData( $Container );
+		self::$_InstanceClassStackQueueSprite->pushData( $Container );
 	}
+	/**
+	 * @static
+	 * @return void
+	 */
 	public static function combineContainer() {
-		$ContainerList = self::$_InstanceClassStackPriorityClassSpriteContainer->listPriorityData();
+		$ContainerList = self::$_InstanceClassStackPriorityClassSpriteContainer->listData();
 		/** @var ClassSpriteContainer $Container */
 		foreach( $ContainerList as $Container ) {
-			$ContainerScanList = self::$_InstanceClassStackPriorityClassSpriteContainer->listPriorityData();
+			$ContainerScanList = self::$_InstanceClassStackPriorityClassSpriteContainer->listData();
 			/** @var ClassSpriteContainer $ContainerScan */
 			foreach( $ContainerScanList as $Index => $ContainerScan ) {
 				// Right
@@ -169,19 +189,24 @@ class ClassSprite implements InterfaceSprite {
 					) {
 						//var_dump('Combine:Width');
 						$Container->propertyWidth( $NewWidth );
-						self::$_InstanceClassStackPriorityClassSpriteContainer->removePriorityData($Index);
+						self::$_InstanceClassStackPriorityClassSpriteContainer->removeData($Index);
 					} else {
 						//var_dump('Combine:Height');
 						$Container->propertyHeight( $NewHeight );
-						self::$_InstanceClassStackPriorityClassSpriteContainer->removePriorityData($Index);
+						self::$_InstanceClassStackPriorityClassSpriteContainer->removeData($Index);
 					}
 					$Container->Combine = 1;
 				}
 			}
 		}
 	}
+	/**
+	 * @static
+	 * @param ClassSpriteItem $Item
+	 * @return ClassSpriteContainer|null
+	 */
 	public static function searchContainer( ClassSpriteItem $Item ) {
-		$ContainerList = self::$_InstanceClassStackPriorityClassSpriteContainer->listPriorityData();
+		$ContainerList = self::$_InstanceClassStackPriorityClassSpriteContainer->listData();
 		/** @var ClassSpriteContainer $Container */
 		/** @var ClassSpriteContainer $Select */
 		$Select = null;
@@ -238,9 +263,15 @@ class ClassSprite implements InterfaceSprite {
 				}
 			//} else break;
 		}
-		self::$_InstanceClassStackPriorityClassSpriteContainer->removePriorityData( $Index );
+		self::$_InstanceClassStackPriorityClassSpriteContainer->removeData( $Index );
 		return $Select;
 	}
+	/**
+	 * @static
+	 * @param ClassSpriteItem $ItemA
+	 * @param ClassSpriteItem $ItemB
+	 * @return int
+	 */
 	public static function sortItemStack( ClassSpriteItem $ItemA, ClassSpriteItem $ItemB ) {
 		if( $ItemA->getArea() > $ItemB->getArea() ) {
 			return -1;
@@ -250,6 +281,12 @@ class ClassSprite implements InterfaceSprite {
 			return -1;
 		} return 0;
 	}
+	/**
+	 * @static
+	 * @param ClassSpriteContainer $ContainerA
+	 * @param ClassSpriteContainer $ContainerB
+	 * @return int
+	 */
 	public static function sortContainerStack( ClassSpriteContainer $ContainerA, ClassSpriteContainer $ContainerB ) {
 
 		if( ($ContainerA->propertyPositionX()+$ContainerA->propertyPositionY())>($ContainerB->propertyPositionX()+$ContainerB->propertyPositionY()) ) {
@@ -267,19 +304,35 @@ class ClassSprite implements InterfaceSprite {
 			return -1;
 		} return 0;*/
 	}
+	/**
+	 * @static
+	 * @return void
+	 */
 	public static function debugItemStack() {
-		var_dump( self::$_InstanceClassStackPriorityClassSpriteItem->listPriorityData() );
+		var_dump( self::$_InstanceClassStackPriorityClassSpriteItem->listData() );
 	}
+	/**
+	 * @static
+	 * @return void
+	 */
 	public static function debugContainerStack() {
-		var_dump( self::$_InstanceClassStackPriorityClassSpriteContainer->listPriorityData() );
+		var_dump( self::$_InstanceClassStackPriorityClassSpriteContainer->listData() );
 	}
+	/**
+	 * @static
+	 * @return void
+	 */
 	public static function debugSpriteStack() {
-		var_dump( self::$_InstanceClassStackQueueSprite->listQueueData() );
+		var_dump( self::$_InstanceClassStackQueueSprite->listData() );
 	}
+	/**
+	 * @static
+	 * @return void
+	 */
 	public static function debugSpriteStructure() {
 		// Item
 		$ItemArea = 0;
-		$ContainerList = self::$_InstanceClassStackQueueSprite->listQueueData();
+		$ContainerList = self::$_InstanceClassStackQueueSprite->listData();
 		/** @var ClassSpriteContainer $Container */
 		foreach( $ContainerList as $Container ) {
 			print '<div style="'
@@ -293,7 +346,7 @@ class ClassSprite implements InterfaceSprite {
 			$ItemArea += ( $Container->propertyWidth() * $Container->propertyHeight() );
 		}
 		// Container
-		$ContainerList = self::$_InstanceClassStackPriorityClassSpriteContainer->listPriorityData();
+		$ContainerList = self::$_InstanceClassStackPriorityClassSpriteContainer->listData();
 		/** @var ClassSpriteContainer $Container */
 		foreach( $ContainerList as $Container ) {
 			print '<div style="'

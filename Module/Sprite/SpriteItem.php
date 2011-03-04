@@ -55,8 +55,11 @@ interface InterfaceSpriteItem {
  * @subpackage Sprite
  */
 class ClassSpriteItem implements InterfaceSpriteItem {
+	/** @var null|int $_propertyWidth */
 	private $_propertyWidth = null;
+	/** @var null|int $_propertyHeight */
 	private $_propertyHeight = null;
+	/** @var null|mixed $_propertyContent */
 	private $_propertyContent = null;
 	/**
 	 * @return null|int

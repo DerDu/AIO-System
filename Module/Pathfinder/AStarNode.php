@@ -110,7 +110,7 @@ class ClassAStarNode implements InterfaceAStarNode {
 
 	public function Proximity( ClassAStarNode $Node = null ) {
 		if( $Node !== null ) {
-			$this->propertyProximityList->pushPriorityData( $Node );
+			$this->propertyProximityList->pushData( $Node );
 		} return $this->propertyProximityList;
 	}
 	public function Path( ClassAStarNode $Node = null ) {

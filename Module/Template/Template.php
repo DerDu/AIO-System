@@ -82,8 +82,8 @@ class ClassTemplate implements InterfaceTemplate {
 	 * @return string
 	 */
 	public function Parse() {
-		while( $this->propertyAssignRepeat->peekQueueData() !== null ) {
-			$Repeat = $this->propertyAssignRepeat->popQueueData();
+		while( $this->propertyAssignRepeat->peekData() !== null ) {
+			$Repeat = $this->propertyAssignRepeat->popData();
 			$Content = $this->propertyTemplateFile->propertyFileContent();
 			preg_match_all( '!{'.$Repeat[0].'}(.*?){\/'.$Repeat[0].'}!is', $Content , $Matches );
 			foreach( (array)$Matches[1] as $TemplateIndex => $TemplateContent ) {
@@ -100,8 +100,8 @@ class ClassTemplate implements InterfaceTemplate {
 			$this->propertyTemplateFile->propertyFileContent( $Content );
 		}
 		$Content = $this->propertyTemplateFile->propertyFileContent();
-		while( $this->propertyAssignContent->peekQueueData() !== null ) {
-			$Replace = $this->propertyAssignContent->popQueueData();
+		while( $this->propertyAssignContent->peekData() !== null ) {
+			$Replace = $this->propertyAssignContent->popData();
 			$Content = preg_replace( '!{'.$Replace[0].'}!is', $Replace[1], $Content );
 		}
 		$this->propertyTemplateFile->propertyFileContent( $Content );
@@ -116,7 +116,7 @@ class ClassTemplate implements InterfaceTemplate {
 		if( is_array( $Template ) ) {
 			$this->_assignArray( $Template );
 		} else {
-			$this->propertyAssignContent->pushQueueData( array( $Template, $Value ) );
+			$this->propertyAssignContent->pushData( array( $Template, $Value ) );
 		}
 	}
 	/**
@@ -125,7 +125,7 @@ class ClassTemplate implements InterfaceTemplate {
 	 * @return void
 	 */
 	public function Repeat( $Template, $Array ) {
-		$this->propertyAssignRepeat->pushQueueData( array( $Template, $Array ) );
+		$this->propertyAssignRepeat->pushData( array( $Template, $Array ) );
 	}
 	/**
 	 * @param array $Array

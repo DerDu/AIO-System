@@ -67,14 +67,26 @@ interface InterfaceSystemFile {
  * @subpackage System
  */
 class ClassSystemFile implements InterfaceSystemFile {
+	/** @var null|string $_propertyFileName */
 	private $_propertyFileName = null;
+	/** @var null|string $_propertyFilePath */
 	private $_propertyFilePath = null;
+	/** @var null|string $_propertyFileLocation */
 	private $_propertyFileLocation = null;
+	/** @var null|int $_propertyFileSize */
 	private $_propertyFileSize = null;
+	/** @var null|int $_propertyFileTime */
 	private $_propertyFileTime = null;
+	/** @var null|string $_propertyFileContent */
 	private $_propertyFileContent = null;
+	/** @var bool $_isChanged */
 	private $_isChanged = false;
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @static
+	 * @param string $propertyFileName
+	 * @return ClassSystemFile
+	 */
 	public static function Instance( $propertyFileName ) {
 		return new ClassSystemFile( $propertyFileName );
 	}
@@ -86,17 +98,29 @@ class ClassSystemFile implements InterfaceSystemFile {
 		}
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @param string $_writeMode
+	 * @return void
+	 */
 	public function writeFile( $_writeMode = 'wb' ) {
 		ClassSystemWrite::writeFile( $this->propertyFileLocation(), $this->propertyFileContent(), $_writeMode );
 		$this->_loadFileAttributeList();
 		$this->_isChanged = false;
 	}
+	/**
+	 * @param string $propertyFileLocation
+	 * @param string $_writeMode
+	 * @return void
+	 */
 	public function writeFileAs( $propertyFileLocation, $_writeMode = 'wb' ) {
 		ClassSystemWrite::writeFile( $propertyFileLocation, $this->propertyFileContent(), $_writeMode );
 		$this->propertyFileLocation( $propertyFileLocation );
 		$this->_loadFileAttributeList();
 		$this->_isChanged = false;
 	}
+	/**
+	 * @return string
+	 */
 	public function readFile() {
 		if( is_file( $this->propertyFileLocation() ) ) {
 			$this->propertyFileContent( file_get_contents( $this->propertyFileLocation() ) );
@@ -106,6 +130,10 @@ class ClassSystemFile implements InterfaceSystemFile {
 		$this->_isChanged = false;
 		return $this->propertyFileContent();
 	}
+	/**
+	 * @param string $propertyFileLocation
+	 * @return void
+	 */
 	public function moveFile( $propertyFileLocation ) {
 		if( file_exists( $this->propertyFileLocation() ) ) {
 			if( rename( $this->propertyFileLocation(), $propertyFileLocation ) ) {
@@ -114,6 +142,10 @@ class ClassSystemFile implements InterfaceSystemFile {
 			}
 		}
 	}
+	/**
+	 * @param string $propertyFileLocation
+	 * @return void
+	 */
 	public function copyFile( $propertyFileLocation ) {
 		if( file_exists( $this->propertyFileLocation() ) ) {
 			if( copy( $this->propertyFileLocation(), $propertyFileLocation ) ) {
@@ -122,12 +154,18 @@ class ClassSystemFile implements InterfaceSystemFile {
 			}
 		}
 	}
+	/**
+	 * @return void
+	 */
 	public function removeFile() {
 		if( file_exists( $this->propertyFileLocation() ) ) {
 			unlink( $this->propertyFileLocation() );
 			unset($this);
 		}
 	}
+	/**
+	 * @return void
+	 */
 	public function touchFile() {
 		if( strlen( $this->propertyFileLocation() ) > 0 ) {
 			fclose( fopen( $this->propertyFileLocation(), 'a' ) );
@@ -135,31 +173,55 @@ class ClassSystemFile implements InterfaceSystemFile {
 		}
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @param null|string $propertyFileName
+	 * @return null|string
+	 */
 	public function propertyFileName( $propertyFileName = null ) {
 		if( $propertyFileName !== null ) {
 			$this->_propertyFileName = $propertyFileName;
 		} return $this->_propertyFileName;
 	}
+	/**
+	 * @param null|string $propertyFilePath
+	 * @return null|string
+	 */
 	public function propertyFilePath( $propertyFilePath = null ) {
 		if( $propertyFilePath !== null ) {
 			$this->_propertyFilePath = str_replace( '\\', '/', $propertyFilePath );
 		} return $this->_propertyFilePath;
 	}
+	/**
+	 * @param null|string $propertyFileLocation
+	 * @return null|string
+	 */
 	public function propertyFileLocation( $propertyFileLocation = null ) {
 		if( $propertyFileLocation !== null ) {
 			$this->_propertyFileLocation = str_replace( '\\', '/', $propertyFileLocation );
 		} return $this->_propertyFileLocation;
 	}
+	/**
+	 * @param null|int $propertyFileSize
+	 * @return null|int
+	 */
 	public function propertyFileSize( $propertyFileSize = null ) {
 		if( $propertyFileSize !== null ) {
 			$this->_propertyFileSize = $propertyFileSize;
 		} return $this->_propertyFileSize;
 	}
+	/**
+	 * @param null|int $propertyFileTime
+	 * @return null|int
+	 */
 	public function propertyFileTime( $propertyFileTime = null ) {
 		if( $propertyFileTime !== null ) {
 			$this->_propertyFileTime = $propertyFileTime;
 		} return $this->_propertyFileTime;
 	}
+	/**
+	 * @param null|string $propertyFileContent
+	 * @return null|string
+	 */
 	public function propertyFileContent( $propertyFileContent = null ) {
 		if( $propertyFileContent !== null ) {
 			if( $this->_propertyFileContent !== null ) $this->_isChanged = true;
@@ -170,6 +232,9 @@ class ClassSystemFile implements InterfaceSystemFile {
 		} return $this->_propertyFileContent;
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @return void
+	 */
 	private function _loadFileAttributeList() {
 		$this->propertyFileName( basename( $this->propertyFileLocation() ) );
 		$this->propertyFilePath( dirname( $this->propertyFileLocation() ) );
