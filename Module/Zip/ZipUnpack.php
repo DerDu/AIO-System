@@ -88,6 +88,7 @@ class ClassZipUnpack implements InterfaceZipUnpack {
 			$parse_zip_decompressed['file_basename'] = basename( self::phpzip_get_filename( $parse_zip_directory_entry ) );
 			// GET FILE-DIRECTORY
 			$parse_zip_decompressed['file_dirname'] = dirname( self::phpzip_get_filename( $parse_zip_directory_entry ) );
+			//var_dump( $parse_zip_decompressed );
 			// SKIP IF DIRECTORY
 			if( substr( $parse_zip_decompressed['file_dirname'], -1) == "/" ) continue;
 			// GET GENERAL INFORMATION
@@ -111,7 +112,7 @@ class ClassZipUnpack implements InterfaceZipUnpack {
 			}
 
 			if( $parse_zip_decompressed['file_content'] === false ) {
-				trigger_error('Decompression failed!'); continue;
+				/*trigger_error('Decompression failed!');*/ continue;
 			}
 			if( strlen( $parse_zip_decompressed['file_content'] ) != $parse_zip_information['info_size_uncompressed'] ) {
 				trigger_error('Decompression failed!'); continue;
@@ -124,7 +125,7 @@ class ClassZipUnpack implements InterfaceZipUnpack {
 			// ADD FILE TO RESULT
 			//$parse_zip_result[] = $parse_zip_decompressed;
 			$object_file = System::File(
-				Cache::Location().$parse_zip_decompressed['file_basename']
+				System::CreateDirectory( Cache::Location().$parse_zip_decompressed['file_dirname'] ).$parse_zip_decompressed['file_basename']
 			);
 			$object_file->propertyFileContent( $parse_zip_decompressed['file_content'] );
 			$object_file->writeFile();
