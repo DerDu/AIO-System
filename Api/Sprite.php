@@ -39,6 +39,7 @@
  * @package AioSystem\Api
  */
 namespace AioSystem\Api;
+use \AioSystem\Api\System as System;
 use \AioSystem\Module\Sprite\ClassSprite as AioSprite;
 use \AioSystem\Module\Sprite\ClassSpriteItem as AioSpriteItem;
 /**
@@ -80,7 +81,7 @@ class Sprite {
 				." ".'} '."\n";
 		}
 		$Sprite->Save();
-		$CssFile = \AioSystem\Core\ClassSystemFile::Instance( $Sprite->File().'.css' );
+		$CssFile = System::File( $Sprite->File().'.css' );
 		$CssFile->propertyFileContent( $Css );
 		$CssFile->writeFile();
 	}
