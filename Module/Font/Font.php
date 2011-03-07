@@ -40,8 +40,8 @@
  * @subpackage Font
  */
 namespace AioSystem\Module\Font;
-use \AioSystem\Api\ClassImage as AioImage;
-use \AioSystem\Api\ClassCache as AioCache;
+use \AioSystem\Api\Image as AioImage;
+use \AioSystem\Api\Cache as AioCache;
 use \AioSystem\Library\ClassColor as AioColor;
 use \AioSystem\Core\ClassSystemDirectory as AioDirectory;
 /**
