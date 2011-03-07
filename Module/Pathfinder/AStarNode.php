@@ -40,7 +40,7 @@
  * @subpackage Pathfinder
  */
 namespace AioSystem\Module\Pathfinder;
-use AioSystem\Api\ClassStack as AioStack;
+use AioSystem\Api\Stack as Stack;
 /**
  * @package AioSystem\Module
  * @subpackage Pathfinder
@@ -72,7 +72,7 @@ class ClassAStarNode implements InterfaceAStarNode {
 	}
 
 	function __construct( $Expense, $PositionX, $PositionY ) {
-		$this->propertyProximityList = AioStack::Priority( '\AioSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList' );
+		$this->propertyProximityList = Stack::Priority( '\AioSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList' );
 		$this->propertyValueC( $Expense );
 		$this->propertyPositionX( $PositionX );
 		$this->propertyPositionY( $PositionY );

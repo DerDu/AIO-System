@@ -40,13 +40,21 @@
  * @subpackage Zip
  */
 namespace AioSystem\Module\Zip;
-use \AioSystem\Core\ClassSystemFile as SystemFile;
-use \AioSystem\Core\ClassCacheDisc as CacheDisc;
+use \AioSystem\Api\System as System;
+use \AioSystem\Api\Cache as Cache;
 /**
  * @package AioSystem\Module
  * @subpackage Zip
  */
 interface InterfaceZipUnpack {
+	/**
+	 * Unpack zip file
+	 * 
+	 * @static
+	 * @abstract
+	 * @param string $File
+	 * @return \AioSystem\Core\ClassSystemFile[]
+	 */
 	public static function Open( $File );
 }
 /**
@@ -115,8 +123,8 @@ class ClassZipUnpack implements InterfaceZipUnpack {
 			$parse_zip_decompressed['file_timestamp'] = self::phpzip_get_timestamp( $parse_zip_directory_entry );
 			// ADD FILE TO RESULT
 			//$parse_zip_result[] = $parse_zip_decompressed;
-			$object_file = SystemFile::Instance(
-				CacheDisc::getCacheLocation().$parse_zip_decompressed['file_basename']
+			$object_file = System::File(
+				Cache::Location().$parse_zip_decompressed['file_basename']
 			);
 			$object_file->propertyFileContent( $parse_zip_decompressed['file_content'] );
 			$object_file->writeFile();

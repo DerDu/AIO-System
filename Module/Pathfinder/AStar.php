@@ -40,7 +40,7 @@
  * @subpackage Pathfinder
  */
 namespace AioSystem\Module\Pathfinder;
-use AioSystem\Api\ClassStack as AioStack;
+use AioSystem\Api\Stack as Stack;
 /**
  * @package AioSystem\Module
  * @subpackage Pathfinder
@@ -63,8 +63,8 @@ class ClassAStar implements InterfaceAStar {
 		if( $StartNode == $TargetNode ) {
 			return true;
 		}
-		self::$propertyOpenList = AioStack::Priority('\AioSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList');
-		self::$propertyClosedList = AioStack::Priority('\AioSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList');
+		self::$propertyOpenList = Stack::Priority('\AioSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList');
+		self::$propertyClosedList = Stack::Priority('\AioSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList');
 		self::pushOpenList( $StartNode );
 		// Run: Target not in ClosedList
 		while( self::$propertyOpenList->peekData() !== null ) {

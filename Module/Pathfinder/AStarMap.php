@@ -40,7 +40,7 @@
  * @subpackage Pathfinder
  */
 namespace AioSystem\Module\Pathfinder;
-use \AioSystem\Api\ClassStack as AioStack;
+use \AioSystem\Api\Stack as Stack;
 /**
  * @package AioSystem\Module
  * @subpackage Pathfinder
@@ -62,7 +62,7 @@ class ClassAStarMap implements InterfaceAStarMap {
 	 */
 	public static function Instance() {
 		$AStarMap = new ClassAStarMap;
-		$AStarMap->WayPointList = AioStack::Register();
+		$AStarMap->WayPointList = Stack::Register();
 		return $AStarMap;
 	}
 	/**

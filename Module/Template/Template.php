@@ -40,13 +40,15 @@
  * @subpackage Template
  */
 namespace AioSystem\Module\Template;
+use \AioSystem\Api\System as System;
+use \AioSystem\Api\Stack as Stack;
 /**
  * @package AioSystem\Module
  * @subpackage Template
  */
 interface InterfaceTemplate {
 	public static function Instance( $File );
-	public function Parse();
+	public function Parse( $ParsePhp = true );
 	public function Assign( $Template, $Value = null );
 	public function Repeat( $Template, $Array );
 }
@@ -72,19 +74,19 @@ class ClassTemplate implements InterfaceTemplate {
 	}
 	public function __construct( $File ) {
 		if( file_exists( $File) ) {
-			$this->propertyTemplateFile = \AioSystem\Core\ClassSystemFile::Instance( $File );
+			$this->propertyTemplateFile = System::File( $File );
 		} else trigger_error( 'Template not available!' );
 
-		$this->propertyAssignContent = \AioSystem\Api\ClassStack::Queue();
-		$this->propertyAssignRepeat = \AioSystem\Api\ClassStack::Queue();
+		$this->propertyAssignContent = Stack::Queue();
+		$this->propertyAssignRepeat = Stack::Queue();
 	}
 	/**
 	 * @return string
 	 */
-	public function Parse() {
+	public function Parse( $ParsePhp = true ) {
 		while( $this->propertyAssignRepeat->peekData() !== null ) {
 			$Repeat = $this->propertyAssignRepeat->popData();
-			$Content = $this->propertyTemplateFile->propertyFileContent();
+			$Content = $this->propertyTemplateFile->readFile( $ParsePhp );
 			preg_match_all( '!{'.$Repeat[0].'}(.*?){\/'.$Repeat[0].'}!is', $Content , $Matches );
 			foreach( (array)$Matches[1] as $TemplateIndex => $TemplateContent ) {
 				$TemplateRepeat = '';
