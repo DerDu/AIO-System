@@ -93,7 +93,7 @@ class ClassAdodb implements InterfaceAdodb
 	 * @return void
 	 */
 	public function openAdodb( $HostType, $HostName, $UserName, $Password, $Database ) {
-		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Open: '.$HostName.'|'.$UserName.'|'.$Password.'|'.$Database);
+		if( $this->bool_debug ) \AioSystem\Api\Event::Debug('Open: '.$HostName.'|'.$UserName.'|'.$Password.'|'.$Database);
 
 		$this->propertyAdodbResource( NewADOConnection( $HostType ) );
 		//$this->propertyAdodbResource()->debug=true;
@@ -108,7 +108,7 @@ class ClassAdodb implements InterfaceAdodb
 	 */
 	public function executeAdodb( $Sql, $Cache = false )
 	{
-		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Execute: '.$Sql);
+		if( $this->bool_debug ) \AioSystem\Api\Event::Debug('Execute: '.$Sql);
 		$this->propertyAdodbResource()->SetFetchMode( ADODB_FETCH_ASSOC );
 
 		if( $Cache > 1 ) $this->adodb5_cache_timeout = $Cache;
@@ -116,7 +116,7 @@ class ClassAdodb implements InterfaceAdodb
 		if( $Cache ){
 			global $ADODB_CACHE_DIR;
 			$ADODB_CACHE_DIR =  \AioSystem\Core\ClassCacheDisc::getCacheLocation( 'AIOAdodb5Shell' );
-			if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Cached: '.$ADODB_CACHE_DIR);
+			if( $this->bool_debug ) \AioSystem\Api\Event::Debug('Cached: '.$ADODB_CACHE_DIR);
 
 			$this->propertyAdodbResult( $this->propertyAdodbResource()->CacheExecute( $this->adodb5_cache_timeout, $Sql ) );
 		} else {
@@ -128,7 +128,7 @@ class ClassAdodb implements InterfaceAdodb
 			.'<br/><br/>'.$this->propertyAdodbResource()->ErrorNo().' : '.$this->propertyAdodbResource()->ErrorMsg()."\n\n"
 			.'<blockquote>'.$Sql.'</blockquote>'
 		);
-		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Result: ');
+		if( $this->bool_debug ) \AioSystem\Api\Event::Debug('Result: ');
 		if( preg_match( '!^select!is', trim($Sql) ) )
 		return $this->propertyAdodbResult()->GetArray();
 	}
@@ -136,7 +136,7 @@ class ClassAdodb implements InterfaceAdodb
 	 * @return ClassAdodb
 	 */
 	public function closeAdodb() {
-		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Close');
+		if( $this->bool_debug ) \AioSystem\Api\Event::Debug('Close');
 		return $this->propertyAdodbResource()->Close();
 	}
 // ---------------------------------------------------------------------------------------
@@ -168,7 +168,7 @@ class ClassAdodb implements InterfaceAdodb
 	 * @return array|void
 	 */
 	public function RecordSet( $TableName, $WhereOrderBy, $ResultSet = false ) {
-		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('RecordSet: '.$TableName);
+		if( $this->bool_debug ) \AioSystem\Api\Event::Debug('RecordSet: '.$TableName);
 		if( $ResultSet ) {
 			$RecordSet = $this->propertyAdodbResource()->GetActiveRecords( $TableName, $WhereOrderBy );
 			$Return = array();
@@ -194,7 +194,7 @@ class ClassAdodb implements InterfaceAdodb
 	 * @return bool|int
 	 */
 	public function Record( $TableName, $FieldSet = array(), $Where = null, $Delete = false ) {
-		if( $this->bool_debug ) \AioSystem\Api\ClassEvent::Debug('Record: '.$TableName);
+		if( $this->bool_debug ) \AioSystem\Api\Event::Debug('Record: '.$TableName);
 
 		if( !class_exists( 'ADODB_Active_Record' ) ) require_once(__DIR__ . '/Adodb/adodb-active-record.inc.php');
 		\ADODB_Active_Record::SetDatabaseAdapter( $this->propertyAdodbResource );
