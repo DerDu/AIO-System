@@ -42,13 +42,13 @@ namespace AioSystem\Api;
 use \AioSystem\Module\Sprite\ClassSprite as AioSprite;
 use \AioSystem\Module\Sprite\ClassSpriteItem as AioSpriteItem;
 /**
- * ClassSprite
+ * Sprite
  *
  * @package AioSystem\Api
  */
-class ClassSprite {
+class Sprite {
 	public static function CssBackground( $File ) {
-		$Image = ClassImage::Instance( $File );
+		$Image = Image::Instance( $File );
 		$SpriteItem = new AioSpriteItem();
 		$SpriteItem->propertyContent( $Image );
 		$SpriteItem->propertyHeight( $Image->Height() );
@@ -59,13 +59,13 @@ class ClassSprite {
 		$Stack = AioSprite::Sprite();
 		//AioSprite::debugSpriteStructure();
 		//var_dump( $Stack );
-		$Sprite = ClassImage::Instance( $File, AioSprite::$_SpriteWidth, AioSprite::$_SpriteHeight );
+		$Sprite = Image::Instance( $File, AioSprite::$_SpriteWidth, AioSprite::$_SpriteHeight );
 		$Css = '';
 		while( $Stack->peekQueueData() !== null ) {
 			/** @var \AioSystem\Module\Sprite\ClassSpriteContainer $Container */
 			$Container = $Stack->popQueueData();
 			$Item = $Container->propertyItem();
-			/** @var ClassImage $Image */
+			/** @var Image $Image */
 			$Image = $Item->propertyContent();
 			$Sprite->Layer( $Image->Resource(), $Container->propertyPositionX(), $Container->propertyPositionY() );
 			$Css .= $Prefix.

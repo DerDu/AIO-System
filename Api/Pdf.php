@@ -43,7 +43,7 @@ use \AioSystem\Module\Pdf\ClassEzpdf as AioPdf;
 /**
  * @package AioSystem\Api
  */
-class ClassPdf {
+class Pdf {
 	public static function Open( $File ) {
 		return AioPdf::ezpdf_open( $File );
 	}

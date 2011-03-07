@@ -44,7 +44,7 @@ use \AioSystem\Module\Mail\ClassPhpMailer as AioPhpMailer;
 /**
  * @package AioSystem\Api
  */
-class ClassMail {
+class Mail {
 	/**
 	 * @static
 	 * @param string $Host

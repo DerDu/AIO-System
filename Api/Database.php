@@ -43,7 +43,7 @@ use \AioSystem\Module\Database\ClassDatabase as AioDatabase;
 /**
  * @package AioSystem\Api
  */
-class ClassDatabase {
+class Database {
 	/**
 	 * @static
 	 * @param  string $Type

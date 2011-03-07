@@ -40,11 +40,11 @@
  */
 namespace AioSystem\Api;
 /**
- * ClassXml
+ * Xml
  *  
  * @package AioSystem\Api
  */
-class ClassXml {
+class Xml {
 	/**
 	 * Parse XML-Content
 	 *

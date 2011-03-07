@@ -44,7 +44,7 @@ use \AioSystem\Library\ClassJQueryAddress as AioSeoDeeplink;
 /**
  * @package AioSystem\Api
  */
-class ClassSeo {
+class Seo {
 	/**
 	 * Build absolute Uri for SEO usage
 	 *

@@ -43,7 +43,7 @@ use \AioSystem\Module\Json\ClassJson as AioJson;
 /**
  * @package AioSystem\Api
  */
-class ClassJson {
+class Json {
 	/**
 	 * @static
 	 * @param  mixed $Content

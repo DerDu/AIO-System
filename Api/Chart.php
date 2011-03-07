@@ -43,7 +43,7 @@ use \AioSystem\Module\Chart\ClassPhplot as AioChart;
 /**
  * @package AioSystem\Api
  */
-class ClassChart {
+class Chart {
 	/**
 	 * @static
 	 * @param int $Width

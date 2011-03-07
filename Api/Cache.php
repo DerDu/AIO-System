@@ -43,7 +43,7 @@ use \AioSystem\Core\ClassCacheDisc as AioCache;
 /**
  * @package AioSystem\Api
  */
-class ClassCache {
+class Cache {
 	/**
 	 * @static
 	 * @param mixed $Parameter

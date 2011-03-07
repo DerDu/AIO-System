@@ -45,7 +45,7 @@ use \AioSystem\Module\Image\ClassImageLayer as ImageLayer;
 /**
  * @package AioSystem\Api
  */
-class ClassImage {
+class Image {
 
 	private $_propertyFile = null;
 	private $_propertyResource = null;
@@ -57,10 +57,10 @@ class ClassImage {
 	 * @param string $File
 	 * @param null|int $Width
 	 * @param null|int $Height
-	 * @return ClassImage
+	 * @return Image
 	 */
 	public static function Instance( $File, $Width = null, $Height = null ) {
-		$ClassImage = new ClassImage();
+		$ClassImage = new Image();
 		if( file_exists( $File ) ) {
 			$ClassImage->Load( $File );
 			$ClassImage->_propertyResource( \AioSystem\Module\Image\ClassImageResource::Load( $File ) );

@@ -45,7 +45,7 @@ use \AioSystem\Module\Pathfinder\ClassAStarMap as AioAStarMap;
 /**
  * @package AioSystem\Api
  */
-class ClassPathfinder {
+class Pathfinder {
 	/**
 	 * @return \AioSystem\Module\Pathfinder\ClassAStarMap
 	 */

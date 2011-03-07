@@ -42,7 +42,7 @@ namespace AioSystem\Api;
 /**
  * @package AioSystem\Api
  */
-class ClassStack {
+class Stack {
 	/**
 	 * @static
 	 * @return \AioSystem\Core\ClassStackQueue

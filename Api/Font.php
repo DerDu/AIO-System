@@ -44,7 +44,7 @@ use \AioSystem\Library\ClassFont as LibraryFont;
 /**
  * @package AioSystem\Api
  */
-class ClassFont {
+class Font {
 	/**
 	 * @static
 	 * @param string $Text

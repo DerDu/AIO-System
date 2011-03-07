@@ -42,7 +42,7 @@ namespace AioSystem\Api;
 /**
  * @package AioSystem\Api
  */
-class ClassEvent {
+class Event {
 	/**
 	 * @static
 	 * @param  string $Content

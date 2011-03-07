@@ -41,11 +41,11 @@
 namespace AioSystem\Api;
 use \AioSystem\Core\ClassSocket as AioSocket;
 /**
- * ClassSocket
+ * Socket
  *  
  * @package AioSystem\Api
  */
-class ClassSocket {
+class Socket {
 	/**
 	 * @static
 	 * @param string $Host

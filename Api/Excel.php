@@ -43,7 +43,7 @@ use \AioSystem\Module\Excel\ClassPhpExcel as AioExcel;
 /**
  * @package AioSystem\Api
  */
-class ClassExcel {
+class Excel {
 	/**
 	 * @static
 	 * @param string $Worksheet

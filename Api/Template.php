@@ -43,7 +43,7 @@ use \AioSystem\Module\Template\ClassTemplate as AioTemplate;
 /**
  * @package AioSystem\Api
  */
-class ClassTemplate {
+class Template {
 	/**
 	 * @static
 	 * @param string $FileLocation

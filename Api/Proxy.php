@@ -41,11 +41,11 @@
 namespace AioSystem\Api;
 use \AioSystem\Core\ClassProxyFile as AioProxy;
 /**
- * ClassProxy
+ * Proxy
  *  
  * @package AioSystem\Api
  */
-class ClassProxy {
+class Proxy {
 	/**
 	 * @static
 	 * @param string $Host

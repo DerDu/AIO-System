@@ -44,7 +44,7 @@ namespace AioSystem\Api;
  *  
  * @package AioSystem\Api
  */
-class ClassSession {
+class Session {
 	/**
 	 * @static
 	 * @return string
