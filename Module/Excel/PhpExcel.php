@@ -40,6 +40,7 @@
  * @subpackage Excel
  */
 namespace AioSystem\Module\Excel;
+use \AioSystem\Api\System as System;
 /**
  * @package AioSystem\Module
  * @subpackage Excel
@@ -106,7 +107,7 @@ class ClassPhpExcel implements InterfacePhpExcel
 			default: $object_phpexcel = \PHPExcel_IOFactory::createWriter( self::propertySingleton(), 'Excel5' ); break;
 		}
 		if( $propertyFileName !== null ){
-			$ClassSystemFile = \AioSystem\Core\ClassSystemFile::Instance( self::propertyFileName() );
+			$ClassSystemFile = System::File( self::propertyFileName() );
 			$ClassSystemFile->removeFile();
 		}
 		$object_phpexcel->save( self::propertyFileName() );

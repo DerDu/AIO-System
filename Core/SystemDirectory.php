@@ -40,6 +40,7 @@
  * @subpackage System
  */
 namespace AioSystem\Core;
+use \AioSystem\Api\System as System;
 /**
  * @package AioSystem\Core
  * @subpackage System
@@ -87,7 +88,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 						$isMatch = true;
 					}
 					if( $isMatch ) {
-						$getFileList[] = new ClassSystemFile( $propertyDirectoryName.'/'.$directoryEntryName );
+						$getFileList[] = System::File( $propertyDirectoryName.'/'.$directoryEntryName );
 					}
 				}
 			}

@@ -40,6 +40,7 @@
  * @subpackage Cache
  */
 namespace AioSystem\Core;
+use \AioSystem\Api\System as System;
 /**
  * @package AioSystem\Core
  * @subpackage Cache
@@ -108,7 +109,7 @@ class ClassCacheDisc implements InterfaceCacheDisc {
 		} else {
 			$propertyCacheParameter = sha1( serialize( $propertyCacheParameter ) );
 			$propertyCacheLocation = self::getCacheLocation( $propertyCacheName, $isGlobal ).$propertyCacheParameter;
-			$ClassCoreSystemFile = ClassSystemFile::Instance( $propertyCacheLocation );
+			$ClassCoreSystemFile = System::File( $propertyCacheLocation );
 			$ClassCoreSystemFile->propertyFileContent( $propertyCacheContent );
 			$ClassCoreSystemFile->writeFile();
 			return true;

@@ -42,6 +42,8 @@
  * @subpackage Mail
  */
 namespace AioSystem\Module\Mail;
+use \AioSystem\Api\System as System;
+use \AioSystem\Api\Cache as Cache;
 /**
  * @package AioSystem\Module
  * @subpackage Mail
@@ -110,8 +112,8 @@ class ClassPhpPop3 implements InterfacePhpPop3
 		$array_attachment = array();
 		foreach( (array)$array_mail as $integer_part => $array_part ){
 			if( isset($array_part['is_attachment']) && $array_part['is_attachment'] == true ) {
-				$ClassSystemFile = \AioSystem\Core\ClassSystemFile::Instance(
-					\AioSystem\Core\ClassCacheDisc::getCacheLocation(__CLASS__).'ATTACHMENT.'.$integer_message_number.'.'.$integer_part.'-'.$array_part['filename']
+				$ClassSystemFile = System::File(
+					Cache::Location(__CLASS__).'ATTACHMENT.'.$integer_message_number.'.'.$integer_part.'-'.$array_part['filename']
 				);
 				$ClassSystemFile->propertyFileContent( $array_part['data'] );
 				$ClassSystemFile->writeFile();

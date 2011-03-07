@@ -40,6 +40,7 @@
  * @subpackage EzPdf
  */
 namespace AioSystem\Module\Pdf;
+use \AioSystem\Api\System as System;
 /**
  * @package AioSystem\Module
  * @subpackage Pdf
@@ -126,7 +127,7 @@ class ClassEzpdf implements InterfaceEzpdf {
 		self::ezpdf_line_color();
 	}
 	public static function ezpdf_close() {
-		$ClassSystemFile = \AioSystem\Core\ClassSystemFile::Instance( self::ezpdf_filename() );
+		$ClassSystemFile = System::File( self::ezpdf_filename() );
 		$ClassSystemFile->propertyFileContent( self::ezpdf_instance()->ezOutput() );
 		$ClassSystemFile->writeFile();
 	}
