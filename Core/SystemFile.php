@@ -54,7 +54,7 @@ interface InterfaceSystemFile {
 	public function propertyFileTime( $propertyFileTime = null );
 	public function propertyFileContent( $propertyFileContent = null );
 // ---------------------------------------------------------------------------------------
-	public function readFile();
+	public function readFile( $ParsePhp = false );
 	public function writeFile( $_writeMode = 'wb' );
 	public function writeFileAs( $propertyFileLocation, $_writeMode = 'wb' );
 	public function moveFile( $propertyFileLocation );
@@ -119,11 +119,17 @@ class ClassSystemFile implements InterfaceSystemFile {
 		$this->_isChanged = false;
 	}
 	/**
+	 * @param bool $ParsePhp
 	 * @return string
 	 */
-	public function readFile() {
+	public function readFile( $ParsePhp = false ) {
 		if( is_file( $this->propertyFileLocation() ) ) {
-			$this->propertyFileContent( file_get_contents( $this->propertyFileLocation() ) );
+			if( $ParsePhp ) {
+				ob_start(); include_once( $this->propertyFileLocation() );
+				$this->propertyFileContent( ob_get_clean() );
+			} else {
+				$this->propertyFileContent( file_get_contents( $this->propertyFileLocation() ) );
+			}
 		} else {
 			$this->propertyFileContent('');
 		}
