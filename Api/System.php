@@ -40,12 +40,50 @@
  */
 namespace AioSystem\Api;
 use \AioSystem\Core\ClassSystemFile as AioSystemFile;
+use \AioSystem\Core\ClassSystemDirectory as AioSystemDirectory;
 /**
  * @package AioSystem\Api
  */
 class System {
+	/**
+	 * @param string $FileLocation
+	 * @return ClassSystemFile
+	 */
 	public static function File( $FileLocation ) {
 		return AioSystemFile::Instance( $FileLocation );
+	}
+	/**
+	 * @param string $Directory
+	 * @param array $Type
+	 * @param bool $Recursive
+	 * @return array
+	 */
+	public static function FileList( $Directory, $Type = array(), $Recursive = false ) {
+		return AioSystemDirectory::getFileList( $Directory, $Type, $Recursive );
+	}
+	/**
+	 * @param array $FileList
+	 * @param array $Filter
+	 * @return array
+	 */
+	public static function FileListFilter( $FileList, $Filter = array() ) {
+		return AioSystemDirectory::applyFileListFilter( $FileList, $Filter );
+	}
+	/**
+	 * @static
+	 * @param string $Directory
+	 * @return string
+	 */
+	public static function CreateDirectory( $Directory ) {
+		return AioSystemDirectory::createDirectory( $Directory );
+	}
+	/**
+	 * @static
+	 * @param string $Directory
+	 * @return string
+	 */
+	public static function DirectorySyntax( $Directory ) {
+		return AioSystemDirectory::adjustDirectorySyntax( $Directory );
 	}
 }
 ?>

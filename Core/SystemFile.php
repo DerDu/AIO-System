@@ -80,7 +80,7 @@ class ClassSystemFile implements InterfaceSystemFile {
 	/** @var null|string $_propertyFileContent */
 	private $_propertyFileContent = null;
 	/** @var bool $_isChanged */
-	private $_isChanged = false;
+	private $_hasChanged = false;
 // ---------------------------------------------------------------------------------------
 	/**
 	 * @static
@@ -105,7 +105,7 @@ class ClassSystemFile implements InterfaceSystemFile {
 	public function writeFile( $_writeMode = 'wb' ) {
 		ClassSystemWrite::writeFile( $this->propertyFileLocation(), $this->propertyFileContent(), $_writeMode );
 		$this->_loadFileAttributeList();
-		$this->_isChanged = false;
+		$this->_hasChanged = false;
 	}
 	/**
 	 * @param string $propertyFileLocation
@@ -116,7 +116,7 @@ class ClassSystemFile implements InterfaceSystemFile {
 		ClassSystemWrite::writeFile( $propertyFileLocation, $this->propertyFileContent(), $_writeMode );
 		$this->propertyFileLocation( $propertyFileLocation );
 		$this->_loadFileAttributeList();
-		$this->_isChanged = false;
+		$this->_hasChanged = false;
 	}
 	/**
 	 * @param bool $ParsePhp
@@ -133,7 +133,7 @@ class ClassSystemFile implements InterfaceSystemFile {
 		} else {
 			$this->propertyFileContent('');
 		}
-		$this->_isChanged = false;
+		$this->_hasChanged = false;
 		return $this->propertyFileContent();
 	}
 	/**
@@ -230,7 +230,7 @@ class ClassSystemFile implements InterfaceSystemFile {
 	 */
 	public function propertyFileContent( $propertyFileContent = null ) {
 		if( $propertyFileContent !== null ) {
-			if( $this->_propertyFileContent !== null ) $this->_isChanged = true;
+			if( $this->_propertyFileContent !== null ) $this->_hasChanged = true;
 			$this->_propertyFileContent = $propertyFileContent;
 		}
 		if( $this->_propertyFileContent === null ) {
