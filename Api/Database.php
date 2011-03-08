@@ -45,6 +45,8 @@ use \AioSystem\Module\Database\ClassDatabase as AioDatabase;
  */
 class Database {
 	/**
+	 * Open database connection
+	 *
 	 * @static
 	 * @param  string $Type
 	 * @param  string $Host
@@ -65,6 +67,8 @@ class Database {
 		return AioDatabase::database_route( $Route );
 	}
 	/**
+	 * Execute sql statement
+	 *
 	 * @static
 	 * @param string $Sql
 	 * @param bool $Cache
@@ -74,12 +78,96 @@ class Database {
 		return AioDatabase::database_execute( $Sql, $Cache );
 	}
 	/**
+	 * Close database connection
+	 *
 	 * @static
 	 * @param null|string $Route
 	 * @return void
 	 */
 	public static function Close( $Route = null ) {
 		return AioDatabase::database_close( $Route );
+	}
+	/**
+	 * Edit database record (INSERT/UPDATE)
+	 *
+	 * @static
+	 * @param string $Table
+	 * @param array $Fieldset
+	 * @param null|array $Where
+	 * @param bool $Delete
+	 * @return bool
+	 */
+	public static function Record( $Table, $Fieldset = array(), $Where = null, $Delete = false ) {
+		return AioDatabase::database_record( $Table, $Fieldset, $Where, $Delete );
+	}
+	/**
+	 * @param string $Table
+	 * @param string $WhereOrderBy
+	 * @param bool $ResultSet
+	 * @return array
+	 */
+	public static function RecordSet( $Table, $WhereOrderBy, $ResultSet = false ) {
+		return AioDatabase::database_recordset( $Table, $WhereOrderBy, $ResultSet );
+	}
+	/**
+	 * Create database table
+	 *
+	 * Type:
+	 *
+	 * C:  Varchar, capped to 255 characters.
+	 * X:  Larger varchar, capped to 4000 characters (to be compatible with Oracle).
+	 * XL: For Oracle, returns CLOB, otherwise the largest varchar size.
+	 * C2: Multibyte varchar
+	 * X2: Multibyte varchar (largest size)
+	 * B:  BLOB (binary large object)
+	 * D:  Date (some databases do not support this, and we return a datetime type)
+	 * T:  Datetime or Timestamp accurate to the second.
+	 * TS: Datetime or Timestamp supporting Sub-second accuracy.
+	 *     Supported by Oracle, PostgreSQL and SQL Server currently.
+	 *     Otherwise equivalent to T.
+	 * L:  Integer field suitable for storing booleans (0 or 1)
+	 * I:  Integer (mapped to I4)
+	 * I1: 1-byte integer
+	 * I2: 2-byte integer
+	 * I4: 4-byte integer
+	 * I8: 8-byte integer
+	 * F:  Floating point number
+	 * N:  Numeric or decimal number
+	 *
+	 * Options:
+	 *
+	 * AUTO            For autoincrement number. Emulated with triggers if not available.
+	 *                 Sets NOTNULL also.
+	 * AUTOINCREMENT   Same as auto.
+	 * KEY             Primary key field. Sets NOTNULL also. Compound keys are supported.
+	 * PRIMARY         Same as KEY.
+	 * DEF             Synonym for DEFAULT for lazy typists.
+	 * DEFAULT         The default value. Character strings are auto-quoted unless
+	 *                 the string begins and ends with spaces, eg ' SYSDATE '.
+	 * NOTNULL         If field is not null.
+	 * DEFDATE         Set default value to call function to get today's date.
+	 * DEFTIMESTAMP    Set default to call function to get today's datetime.
+	 * NOQUOTE         Prevents autoquoting of default string values.
+	 * CONSTRAINTS     Additional constraints defined at the end of the field
+	 *                 definition.
+	 *
+	 * @static
+	 * @param string $Name
+	 * @param array $Fieldset
+	 * @return bool
+	 */
+	public static function CreateTable( $Name, $Fieldset ) {
+		return AioDatabase::database_create_table( $Name, $Fieldset );
+	}
+	/**
+	 * Drop database table
+	 *
+	 * @static
+	 * @param string $Name
+	 * @return bool
+	 */
+	public static function DropTable( $Name ) {
+		return AioDatabase::database_drop_table( $Name );
 	}
 }
 ?>
