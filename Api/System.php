@@ -47,7 +47,7 @@ use \AioSystem\Core\ClassSystemDirectory as AioSystemDirectory;
 class System {
 	/**
 	 * @param string $FileLocation
-	 * @return ClassSystemFile
+	 * @return \AioSystem\Core\ClassSystemFile
 	 */
 	public static function File( $FileLocation ) {
 		return AioSystemFile::Instance( $FileLocation );
@@ -56,15 +56,15 @@ class System {
 	 * @param string $Directory
 	 * @param array $Type
 	 * @param bool $Recursive
-	 * @return array
+	 * @return \AioSystem\Core\ClassSystemFile[]
 	 */
 	public static function FileList( $Directory, $Type = array(), $Recursive = false ) {
 		return AioSystemDirectory::getFileList( $Directory, $Type, $Recursive );
 	}
 	/**
-	 * @param array $FileList
+	 * @param \AioSystem\Core\ClassSystemFile[] $FileList
 	 * @param array $Filter
-	 * @return array
+	 * @return \AioSystem\Core\ClassSystemFile[]
 	 */
 	public static function FileListFilter( $FileList, $Filter = array() ) {
 		return AioSystemDirectory::applyFileListFilter( $FileList, $Filter );

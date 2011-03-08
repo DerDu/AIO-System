@@ -275,6 +275,14 @@ class ClassDatabase implements InterfaceDatabase
 	{
 		return self::database_stage()->RecordSet( $string_table_name, $string_where_order_by, $bool_resultset );
 	}
+	/**
+	 * @static
+	 * @param string $string_table_name
+	 * @param array $array_fieldset
+	 * @param null|array $array_where
+	 * @param bool $bool_delete
+	 * @return bool
+	 */
 	public static function database_record( $string_table_name, $array_fieldset = array(), $array_where = null, $bool_delete = false )
 	{
 		// TODO: [REMOVE] Unstable Bugfix
@@ -282,6 +290,14 @@ class ClassDatabase implements InterfaceDatabase
 		// TODO: [FIX BUG] In shell.Record oAR->Save on Fieldset DB != Fieldset INSERT (e.g MSSQL NOT NULL)
 		//return self::database_stage()->Record( $string_table_name, $array_fieldset, $array_where, $bool_delete );
 	}
+	/**
+	 * @static
+	 * @param string $string_table_name
+	 * @param array $array_fieldset
+	 * @param null|array $array_where
+	 * @param bool $bool_delete
+	 * @return bool
+	 */
 	private static function database_record_bugfix( $string_table_name, $array_fieldset = array(), $array_where = null, $bool_delete = false )
 	{
 		if( $bool_delete ){
