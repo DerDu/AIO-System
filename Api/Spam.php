@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the API:Zip
+ * This file contains the API:Spam
  *
  // ---------------------------------------------------------------------------------------
  * LICENSE (BSD)
@@ -39,20 +39,35 @@
  * @package AioSystem\Api
  */
 namespace AioSystem\Api;
-use \AioSystem\Module\Zip\ClassZipUnpack as AioZip;
+use \AioSystem\Module\Spam\ClassSpam as AioSpam;
 /**
  * @package AioSystem\Api
  */
-class Zip {
+class Spam {
 	/**
-	 * This method is able to unzip a compressed file and delivers an array of file objects
-	 *
 	 * @static
-	 * @param string $FileLocation
-	 * @return \AioSystem\Core\ClassSystemFile[]
+	 * @param string $Content
+	 * @param bool $IsSpam
+	 * @return void
 	 */
-	public static function Unpack( $FileLocation ) {
-		return AioZip::Open( $FileLocation );
+	public static function Trainer( $Content, $IsSpam = true ) {
+		return AioSpam::Trainer( $Content, $IsSpam );
+	}
+	/**
+	 * @static
+	 * @param string $Content
+	 * @return bool
+	 */
+	public static function Check( $Content ) {
+		return AioSpam::IsSpam( $Content );
+	}
+	/**
+	 * @static
+	 * @param string $Content
+	 * @return int|float
+	 */
+	public static function Level( $Content ) {
+		return AioSpam::SpamLevel( $Content );
 	}
 }
 ?>
