@@ -19,7 +19,7 @@
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
  *
- *  * Neither the name of the Gerd Christian Kunze nor the names of its
+ *  * Neither the name of Gerd Christian Kunze nor the names of the
  *    contributors may be used to endorse or promote products derived from
  *    this software without specific prior written permission.
  *
@@ -65,6 +65,34 @@ class Database {
 	 */
 	public static function Route( $Route = null ) {
 		return AioDatabase::database_route( $Route );
+	}
+	/**
+	 * @static
+	 * @return string
+	 */
+	public static function RouteEngine() {
+		return AioDatabase::database_route_engine();
+	}
+	/**
+	 * @static
+	 * @return string
+	 */
+	public static function RouteDatabase() {
+		return AioDatabase::database_route_database();
+	}
+	/**
+	 * @static
+	 * @return string
+	 */
+	public static function RouteHost() {
+		return AioDatabase::database_route_host();
+	}
+	/**
+	 * @static
+	 * @return string
+	 */
+	public static function RouteUser() {
+		return AioDatabase::database_route_user();
 	}
 	/**
 	 * Execute sql statement
@@ -168,6 +196,15 @@ class Database {
 	 */
 	public static function DropTable( $Name ) {
 		return AioDatabase::database_drop_table( $Name );
+	}
+	/**
+	 * @static
+	 * @param string $XmlFile
+	 * @param bool $Drop
+	 * @return void
+	 */
+	public static function CreateStructure( $XmlFile, $Drop = false ) {
+		return AioDatabase::database_structure( $XmlFile, $Drop );
 	}
 }
 ?>
