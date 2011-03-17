@@ -41,6 +41,7 @@
  */
 namespace AioSystem\Module\Video;
 use AioSystem\Core\ClassSystemDirectory as Directory;
+use AioSystem\Api\Seo as Seo;
 /**
  * @package AioSystem\Module
  * @subpackage Video
@@ -99,8 +100,8 @@ class ClassVideo implements InterfaceVideo
 		$array_slide['preload'] = '';
 		/** @var $object_file \AioSystem\Core\ClassSystemFile */
 		foreach ( (array) $array_files as $integer_file => $object_file ){
-			$array_slide['definition'] .= ' arr_slide['.$integer_file.'] = "'.$object_file->propertyFileLocation().'"; ';
-			$array_slide['preload'] .= ' preload_slide.src = "'.$object_file->propertyFileLocation().'"; ';
+			$array_slide['definition'] .= ' arr_slide['.$integer_file.'] = "'.Seo::Path( $object_file->propertyFileLocation() ).'"; ';
+			$array_slide['preload'] .= ' preload_slide.src = "'.Seo::Path( $object_file->propertyFileLocation() ).'"; ';
 		}
 		$array_option['fade_speed'] = ($array_option['fade_speed']*1000);
 		$array_option['slide_speed'] = ($array_option['slide_speed']*1000);
