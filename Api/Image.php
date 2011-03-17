@@ -61,7 +61,7 @@ class Image {
 	 */
 	public static function Instance( $File, $Width = null, $Height = null ) {
 		$ClassImage = new Image();
-		if( file_exists( $File ) ) {
+		if( file_exists( $File ) && ($Width === null && $Height === null) ) {
 			$ClassImage->Load( $File );
 			$ClassImage->_propertyResource( \AioSystem\Module\Image\ClassImageResource::Load( $File ) );
 		} else if( $Width !== null && $Height !== null ) {
@@ -109,21 +109,34 @@ class Image {
 	}
 // ---------------------------------------------------------------------------------------
 	public function ResizePixel( $Width = null, $Height = null ) {
-		ImageResize::RelativePixel( $this->_propertyResource(), $Width, $Height );
+		$this->_propertyResource(
+			ImageResize::RelativePixel( $this->_propertyResource(), $Width, $Height )
+		);
 	}
 	public function ResizePixelAbsolute( $Width = null, $Height = null ) {
-		ImageResize::AbsolutePixel( $this->_propertyResource(), $Width, $Height );
+		$this->_propertyResource(
+			ImageResize::AbsolutePixel( $this->_propertyResource(), $Width, $Height )
+		);
 	}
 	public function ResizePercent( $Width = null, $Height = null ) {
-		ImageResize::RelativePercent( $this->_propertyResource(), $Width, $Height );
+		$this->_propertyResource(
+			ImageResize::RelativePercent( $this->_propertyResource(), $Width, $Height )
+		);
 	}
 	public function ResizePercentAbsolute( $Width = null, $Height = null ) {
-		ImageResize::AbsolutePercent( $this->_propertyResource(), $Width, $Height );
+		$this->_propertyResource(
+			ImageResize::AbsolutePercent( $this->_propertyResource(), $Width, $Height )
+		);
 	}
 // ---------------------------------------------------------------------------------------
 	public function Layer( $File, $OffsetX = 0, $OffsetY = 0 ) {
 		$this->_propertyResource(
 			ImageLayer::Copy( $this->_propertyResource(), $File, $OffsetY, $OffsetX )
+		);
+	}
+	public function Rotate( $Angle, $Background = 127 ) {
+		$this->_propertyResource(
+			ImageLayer::Rotate( $this->_propertyResource(), $Angle, $Background )
 		);
 	}
 // ---------------------------------------------------------------------------------------
@@ -138,10 +151,11 @@ class Image {
 		} return $this->_propertyHeight();
 	}
 	/**
+	 * @param null|\resource $Resource
 	 * @return \resource
 	 */
-	public function Resource() {
-		return $this->_propertyResource();
+	public function Resource( \resource $Resource = null ) {
+		return $this->_propertyResource( $Resource );
 	}
 // ---------------------------------------------------------------------------------------
 	private function _propertyFile( $File = null ) {
