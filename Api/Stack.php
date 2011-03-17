@@ -60,10 +60,11 @@ class Stack {
 	}
 	/**
 	 * @static
+	 * @param bool $Persistent
 	 * @return \AioSystem\Core\ClassStackRegister
 	 */
-	public static function Register() {
-		return \AioSystem\Core\ClassStackRegister::Instance();
+	public static function Register( $Persistent = false ) {
+		return \AioSystem\Core\ClassStackRegister::Instance( $Persistent );
 	}
 }
 ?>

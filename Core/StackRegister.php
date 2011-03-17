@@ -57,19 +57,29 @@ interface InterfaceStackRegister {
  */
 class ClassStackRegister implements InterfaceStackRegister {
 	private $_propertyStackRegister = array();
+	private $_propertyStackPersistent = false;
 // ---------------------------------------------------------------------------------------
 	/**
+	 * @param bool $Persistent
 	 * @return ClassStackRegister
 	 */
-	public static function Instance() {
-		return new ClassStackRegister();
+	public static function Instance( $Persistent = false ) {
+		return new ClassStackRegister( $Persistent );
 	}
+	/**
+	 * @param bool $Persistent
+	 */
+	function __construct( $Persistent = false ) {
+		$this->_propertyStackPersistent = $Persistent;
+	}
+
 // ---------------------------------------------------------------------------------------
 	/**
 	 * @param int $propertyRegisterIndex
 	 * @return mixed
 	 */
 	public function getRegister( $propertyRegisterIndex = null ) {
+		$this->_loadRegister();
 		if( ! isset( $this->_propertyStackRegister[$propertyRegisterIndex] ) ) return null;
 		return $this->_propertyStackRegister[$propertyRegisterIndex];
 	}
@@ -79,14 +89,30 @@ class ClassStackRegister implements InterfaceStackRegister {
 	 * @return mixed
 	 */
 	public function setRegister( $propertyRegisterIndex, $propertyRegisterData ) {
+		$this->_loadRegister();
 		$this->_propertyStackRegister[$propertyRegisterIndex] = $propertyRegisterData;
+		$this->_saveRegister();
 		return $this->getRegister( $propertyRegisterIndex );
 	}
 	/**
 	 * @return array
 	 */
 	public function listRegister() {
+		$this->_loadRegister();
 		return $this->_propertyStackRegister;
+	}
+
+	private function _loadRegister() {
+		if( $this->_propertyStackPersistent === true && empty( $this->_propertyStackRegister ) ) {
+			if( null !== ( $Register = ClassSession::readSession( __CLASS__ ) ) ) {
+				$this->_propertyStackRegister = $Register;
+			}
+		}
+	}
+	private function _saveRegister() {
+		if( $this->_propertyStackPersistent === true ) {
+			ClassSession::writeSession( __CLASS__, $this->_propertyStackRegister );
+		}
 	}
 }
 ?>
