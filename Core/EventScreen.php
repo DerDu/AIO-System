@@ -67,7 +67,7 @@ class ClassEventScreen implements InterfaceEventScreen {
 
 		switch( $propertyEventScreenType ) {
 			case self::SCREEN_INFO:{
-				print self::_screenError( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );
+				print self::_screenInfo( $propertyContent );
 				return true;
 			}
 			case self::SCREEN_ERROR:{
@@ -81,14 +81,9 @@ class ClassEventScreen implements InterfaceEventScreen {
 		}
 	}
 // ---------------------------------------------------------------------------------------
-	private static function _screenInfo( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
-		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; overflow:auto;">'
-		."\n".$propertyContent.'<br />'
-			.'<span style="font-family: monospace; font-size: 10px;color:#DDA0A0;">'
-				.'Code ['.$propertyNumber.']'
-				.' thrown in '.$propertyLocation
-				.' at line '.$propertyPosition
-			.'</span>'
+	private static function _screenInfo( $propertyContent ) {
+		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #303080; color:#A0A0DD; border: 1px solid #553BB7; border-top: 1px solid #583EC0; border-bottom: 1px solid #573AA8; font-family: monospace; font-size:14px; overflow:auto;">'
+		."\n[Info] ".$propertyContent
 		.'</div>'."\n";
 	}
 	private static function _screenError( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
