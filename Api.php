@@ -19,7 +19,7 @@
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
  *
- *  * Neither the name of the Gerd Christian Kunze nor the names of its
+ *  * Neither the name of Gerd Christian Kunze nor the names of the
  *    contributors may be used to endorse or promote products derived from
  *    this software without specific prior written permission.
  *
@@ -45,6 +45,7 @@ namespace AioSystem;
 class ClassApi {
 	const API_PREFIX_NAMESPACE = __NAMESPACE__;
 	const API_PREFIX_CLASS = 'Class';
+	const API_PREFIX_WIDGET = 'Widget';
 	private static $propertySetup = true;
 	/**
 	 * Setup API
@@ -73,21 +74,22 @@ class ClassApi {
 	 * @return bool
 	 */
 	public static function Load( $propertyClassName ) {
-		$propertyClassLocation = __DIR__.(
-			preg_replace(
-				array(
-					'!'.self::API_PREFIX_NAMESPACE.'!is',
-					'!'.self::API_PREFIX_CLASS.'!is'
-				),
-				'',
-				$propertyClassName
-			).'.php'
-		);
+		$propertyClassName = str_replace( self::API_PREFIX_NAMESPACE, '', $propertyClassName );
+		$propertyClassName = explode( '\\', $propertyClassName );
+		$ClassName = array_pop( $propertyClassName );
+		$ClassName = preg_replace(
+						'!(^'.self::API_PREFIX_CLASS.'|'
+						.'^'.self::API_PREFIX_WIDGET.')!is'
+						, '', $ClassName );
+		array_push( $propertyClassName, $ClassName );
+		$propertyClassLocation = __DIR__.implode( '\\', $propertyClassName ).'.php';
+		//var_dump( $propertyClassLocation );
 		if( file_exists( $propertyClassLocation ) ) {
 			require_once( $propertyClassLocation );
-			//\AioSystem\Api\ClassEvent::Debug( 'Load: '.$propertyClassLocation );
+			//\AioSystem\Api\Event::Debug( 'Load: '.$propertyClassLocation );
 			if( self::$propertySetup === false || session_id() != '' ) {
-				var_dump( 'Load: '.$propertyClassLocation );
+				//\AioSystem\Api\Event::Message( 'Load: '.$propertyClassLocation );
+				//var_dump( 'Load: '.$propertyClassLocation );
 			}
 			return true;
 		} else {
@@ -99,4 +101,23 @@ class ClassApi {
  * Setup API (auto)
  */
 ClassApi::Setup();
+
+
+// ---------------------------------------------------------------------------------------
+/**
+ * Information
+ *
+ * Class::Install()
+ * - Create database structure
+ * - Unzip files
+ * - ...
+ *
+ * Class::Instance()
+ * - Create class instance object
+ * - Initialize instance object
+ *
+ * Class::Config()
+ * -
+ *
+ */
 ?>
