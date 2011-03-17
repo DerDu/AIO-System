@@ -47,8 +47,9 @@ use \AioSystem\Api\Stack as Stack;
  * @subpackage Template
  */
 interface InterfaceTemplate {
-	public static function Instance( $File );
-	public function Parse( $ParsePhp = true );
+	public static function Instance( $File, $ParsePhp = true );
+	public function Content();
+	public function Parse();
 	public function Assign( $Template, $Value = null );
 	public function Repeat( $Template, $Array );
 }
@@ -58,7 +59,9 @@ interface InterfaceTemplate {
  */
 class ClassTemplate implements InterfaceTemplate {
 	/** @var \AioSystem\Core\ClassSystemFile $propertyTemplateFile */
-	public $propertyTemplateFile = null;
+	private $propertyTemplateFile = null;
+	/** @var null|string $propertyTemplateContent */
+	private $propertyTemplateContent = null;
 	/** @var \AioSystem\Core\ClassStackQueue $propertyAssignContent */
 	private $propertyAssignContent = array();
 	/** @var \AioSystem\Core\ClassStackQueue $propertyAssignRepeat */
@@ -66,27 +69,38 @@ class ClassTemplate implements InterfaceTemplate {
 
 	/**
 	 * @static
+	 * @throws \Exception
 	 * @param string $File
 	 * @return ClassTemplate
 	 */
-	public static function Instance( $File ) {
-		return new ClassTemplate( $File );
+	public static function Instance( $File, $ParsePhp = true ) {
+		return new ClassTemplate( $File, $ParsePhp = true );
 	}
-	public function __construct( $File ) {
-		if( file_exists( $File) ) {
-			$this->propertyTemplateFile = System::File( $File );
-		} else trigger_error( 'Template not available!' );
-
+	public function __construct( $File, $ParsePhp = true ) {
 		$this->propertyAssignContent = Stack::Queue();
 		$this->propertyAssignRepeat = Stack::Queue();
+		if( file_exists( $File ) ) {
+			$this->propertyTemplateFile = System::File( $File );
+			//var_dump( 'Load: '.$File );
+		} else throw new \Exception( 'Template not available!' );
+		$this->propertyTemplateContent = $this->propertyTemplateFile->readFile( $ParsePhp );
+	}
+	/**
+	 * @param null|string $Content
+	 * @return string
+	 */
+	public function Content( $Content = null ) {
+		if( $Content !== null ) {
+			$this->propertyTemplateContent = $Content;
+		} return $this->propertyTemplateContent;
 	}
 	/**
 	 * @return string
 	 */
-	public function Parse( $ParsePhp = true ) {
+	public function Parse() {
 		while( $this->propertyAssignRepeat->peekData() !== null ) {
 			$Repeat = $this->propertyAssignRepeat->popData();
-			$Content = $this->propertyTemplateFile->readFile( $ParsePhp );
+			$Content = $this->propertyTemplateContent;
 			preg_match_all( '!{'.$Repeat[0].'}(.*?){\/'.$Repeat[0].'}!is', $Content , $Matches );
 			foreach( (array)$Matches[1] as $TemplateIndex => $TemplateContent ) {
 				$TemplateRepeat = '';
@@ -99,15 +113,15 @@ class ClassTemplate implements InterfaceTemplate {
 				}
 				$Content = preg_replace( '!{'.$Repeat[0].'}(.*?){\/'.$Repeat[0].'}!is', $TemplateRepeat, $Content, 1 );
 			}
-			$this->propertyTemplateFile->propertyFileContent( $Content );
+			$this->propertyTemplateContent = $Content;
 		}
-		$Content = $this->propertyTemplateFile->propertyFileContent();
+		$Content = $this->propertyTemplateContent;
 		while( $this->propertyAssignContent->peekData() !== null ) {
 			$Replace = $this->propertyAssignContent->popData();
 			$Content = preg_replace( '!{'.$Replace[0].'}!is', $Replace[1], $Content );
 		}
-		$this->propertyTemplateFile->propertyFileContent( $Content );
-		return $this->propertyTemplateFile->propertyFileContent();
+		$this->propertyTemplateContent = $Content;
+		return $this->propertyTemplateContent;
 	}
 	/**
 	 * @param string|array $Template
