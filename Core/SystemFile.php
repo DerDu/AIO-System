@@ -203,7 +203,7 @@ class ClassSystemFile implements InterfaceSystemFile {
 	 */
 	public function propertyFileLocation( $propertyFileLocation = null ) {
 		if( $propertyFileLocation !== null ) {
-			$this->_propertyFileLocation = str_replace( '\\', '/', $propertyFileLocation );
+			$this->_propertyFileLocation = ClassSystemDirectory::adjustDirectorySyntax( dirname( $propertyFileLocation ) ).basename( $propertyFileLocation );
 		} return $this->_propertyFileLocation;
 	}
 	/**
