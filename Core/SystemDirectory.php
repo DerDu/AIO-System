@@ -130,7 +130,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 	public static function applyFileListFilter( $propertyFileList, $propertyFilterList = array() ) {
 		foreach( (array)$propertyFileList as $indexFileList => $CoreSystemFile ) {
 			foreach( (array)$propertyFilterList as $CoreSystemFileMethod => $filterRegExp ) {
-				if( !preg_match( '!'.$filterRegExp.'!is', $CoreSystemFile->$CoreSystemFileMethod() ) ) {
+				if( !preg_match( '/'.$filterRegExp.'/is', $CoreSystemFile->$CoreSystemFileMethod() ) ) {
 					unset( $propertyFileList[$indexFileList] );
 					break;
 				}
@@ -152,7 +152,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 		// RESOLVE "../"
 		$countRelativeLevel = substr_count( $propertyDirectoryName, '../' );
 		for( $runRelativeLevel = 0; $runRelativeLevel < $countRelativeLevel; $runRelativeLevel++ ) {
-			$propertyDirectoryName = preg_replace( '!\/?[^\/]*?\/\.\.!is', '', $propertyDirectoryName );
+			$propertyDirectoryName = preg_replace( '!\/?[^\/]*?\/\.\.!is', '', $propertyDirectoryName, 1 );
 		}
 		// HANDLE TRAILING /
 		if( substr( $propertyDirectoryName, -1, 1 ) != '/' ) {
@@ -189,8 +189,8 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 	public static function relativeDirectory( $propertyDirectoryName, $propertyDirectoryLocation ) {
 		// Adjust Path2Relative
 		if( is_file( $propertyDirectoryName ) ) {
-			$propertyDirectoryName = self::adjustDirectorySyntax( dirname( $propertyDirectoryName ) );
 			$propertyDirectoryFileName = basename( $propertyDirectoryName );
+			$propertyDirectoryName = self::adjustDirectorySyntax( dirname( $propertyDirectoryName ) );
 		} else {
 			$propertyDirectoryName = self::adjustDirectorySyntax( $propertyDirectoryName );
 			$propertyDirectoryFileName = '';
@@ -201,7 +201,6 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 		} else {
 			$propertyDirectoryLocation = self::adjustDirectorySyntax( $propertyDirectoryLocation );
 		}
-
 		$propertyDirectoryList = explode('/',$propertyDirectoryName);
 		$propertyDirectoryLocationList = explode('/',$propertyDirectoryLocation);
 
