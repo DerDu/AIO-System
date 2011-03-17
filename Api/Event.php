@@ -43,6 +43,8 @@ namespace AioSystem\Api;
  * @package AioSystem\Api
  */
 class Event {
+	/** @var \AioSystem\Core\ClassStackRegister $EventRegister */
+	private static $EventRegister = null;
 	/**
 	 * @static
 	 * @param  string $Content
@@ -58,6 +60,13 @@ class Event {
 	 */
 	public static function Debug( $Content ) {
 		\AioSystem\Core\ClassEventJournal::addEvent( $Content, 'Debug' );
+	}
+	/**
+	 * @static
+	 * @param  string $Content
+	 */
+	public static function Message( $Content ) {
+		\AioSystem\Core\ClassEventScreen::addEvent( 0, $Content, '', '', \AioSystem\Core\ClassEventScreen::SCREEN_INFO );
 	}
 	/**
 	 * @static
@@ -80,6 +89,22 @@ class Event {
 	 */
 	public static function Exception( $Id, $Content, $Location, $Position ) {
 		\AioSystem\Core\ClassEventScreen::addEvent( $Id, $Content, $Location, $Position, \AioSystem\Core\ClassEventScreen::SCREEN_EXCEPTION );
+	}
+	public static function Result( $Key, $Content = null ) {
+		if( self::$EventRegister === null ) {
+			self::$EventRegister = Stack::Register( true );
+		}
+		if( $Key === null ) {
+			return self::$EventRegister->listRegister();
+		}
+		if( $Content === null ) {
+			$Result = self::$EventRegister->getRegister( $Key );
+			self::$EventRegister->setRegister( $Key, null );
+		} else {
+			self::$EventRegister->setRegister( $Key, $Content );
+			$Result = self::$EventRegister->getRegister( $Key );
+		}
+		return $Result;
 	}
 }
 ?>
