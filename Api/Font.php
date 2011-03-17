@@ -39,12 +39,17 @@
  * @package AioSystem\Api
  */
 namespace AioSystem\Api;
-use \AioSystem\Module\Font\ClassFont as Font;
+use \AioSystem\Core\ClassSystemDirectory as AioDirectory;
+use \AioSystem\Module\Font\ClassFont as AioFont;
 use \AioSystem\Library\ClassFont as LibraryFont;
 /**
  * @package AioSystem\Api
  */
 class Font {
+	public static function Image( $Text, $Size = null, $Color = null, $Font = null, $Level = 0 ) {
+		$Image = self::Create( $Text, $Size, $Color, $Font );
+		return '<img src="'.Seo::Path( AioDirectory::relativeDirectory( $Image, __DIR__.'/../../' ), $Level ).'" alt="'.$Text.'"/>';
+	}
 	/**
 	 * @static
 	 * @param string $Text
@@ -54,7 +59,7 @@ class Font {
 	 * @return bool|string
 	 */
 	public static function Create( $Text, $Size = null, $Color = null, $Font = null ) {
-		return Font::Create( $Text, $Size, $Color, $Font );
+		return AioFont::Create( $Text, $Size, $Color, $Font );
 	}
 	/**
 	 * @static
@@ -63,6 +68,9 @@ class Font {
 	 */
 	public static function ConvertTTF2AFM( $File ) {
 		return LibraryFont::convertTtf2Afm( $File );
+	}
+	public static function Utf8( $Content ) {
+		return AioFont::font_utf8( $Content );
 	}
 }
 ?>
