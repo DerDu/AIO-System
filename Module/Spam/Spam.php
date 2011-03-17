@@ -177,7 +177,7 @@ class ClassSpam implements InterfaceSpam {
 		return array_count_values( $Matches[1] );
 	}
 	private static function Normalizer( $Content ) {
-		$Content = html_entity_decode( $Content, ENT_QUOTES, 'UTF-8' );
+		$Content = html_entity_decode( ' '.$Content.' ', ENT_QUOTES, 'UTF-8' );
 		$Content = strip_tags( $Content );
 		$Content = strtolower($Content);
 		$Content = preg_replace( '!(?<= )\.(?= )!is', '', $Content );
