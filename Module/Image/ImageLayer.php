@@ -66,5 +66,8 @@ class ClassImageLayer implements InterfaceImageLayer
 		}
 		return $image_resource_file;
 	}
+	public static function Rotate( \AioSystem\Api\Image $Image, $Angle, $Background ) {
+		return imagerotate( $Image->Resource(), $Angle, $Background );
+	}
 }
 ?>
