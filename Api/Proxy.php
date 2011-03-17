@@ -54,7 +54,7 @@ class Proxy {
 	 * @param null|string $Password
 	 * @return void
 	 */
-	public static function Proxy( $Host, $Port, $User = null, $Password = null ) {
+	public static function Setup( $Host = null, $Port = null, $User = null, $Password = null ) {
 		AioProxy::setFileProxy( $Host, $Port, $User, $Password );
 	}
 	/**

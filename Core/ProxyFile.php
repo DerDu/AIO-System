@@ -42,6 +42,7 @@
  * @subpackage Proxy
  */
 namespace AioSystem\Core;
+use \AioSystem\Api\Session as Session;
 /**
  * @package AioSystem\Core
  * @subpackage Proxy
@@ -56,6 +57,9 @@ interface InterfaceProxyFile {
  * @subpackage Proxy
  */
 class ClassProxyFile implements InterfaceProxyFile {
+	const PROXY_NONE = 0;
+	const PROXY_RELAY = 1;
+	const PROXY_BASIC = 2;
 	private static $_propertyHost = null;
 	private static $_propertyPort = null;
 	private static $_propertyUser = null;
@@ -69,8 +73,8 @@ class ClassProxyFile implements InterfaceProxyFile {
 	 * @return bool
 	 */
 	public static function isFileProxy() {
-		if( \AioSystem\Core\ClassSession::readSession('ClassProxyFile[isSet]') === true ) {
-			return true;
+		if( Session::Read(__CLASS__.'\Status') !== self::PROXY_NONE ) {
+			return Session::Read(__CLASS__.'\Status');
 		} else {
 			return false;
 		}
@@ -83,12 +87,18 @@ class ClassProxyFile implements InterfaceProxyFile {
 	 * @param null|string $propertyPass
 	 * @return void
 	 */
-	public static function setFileProxy( $propertyHost, $propertyPort, $propertyUser = null, $propertyPass = null ) {
-		self::propertyHost( $propertyHost );
-		self::propertyPort( $propertyPort );
-		self::propertyUser( $propertyUser );
-		self::propertyPass( $propertyPass );
-		\AioSystem\Core\ClassSession::writeSession('ClassProxyFile[isSet]',true);
+	public static function setFileProxy( $propertyHost = null, $propertyPort = null, $propertyUser = null, $propertyPass = null ) {
+		Session::Write(__CLASS__.'\Status',self::PROXY_NONE);
+		if( $propertyUser !== null || $propertyPass !== null ) {
+			self::propertyHost( $propertyHost );
+			self::propertyPort( $propertyPort );
+			Session::Write(__CLASS__.'\Status',self::PROXY_RELAY);
+		}
+		if( $propertyUser !== null || $propertyPass !== null ) {
+			self::propertyUser( $propertyUser );
+			self::propertyPass( $propertyPass );
+			Session::Write(__CLASS__.'\Status',self::PROXY_BASIC);
+		}
 	}
 	/**
 	 * @static
@@ -96,29 +106,30 @@ class ClassProxyFile implements InterfaceProxyFile {
 	 * @return null|string
 	 */
 	public static function getFileProxy( $propertyUrl ) {
-		if( !self::isFileProxy() ) {
-			if( $socketFileProxy = @fsockopen( parse_url( $propertyUrl, PHP_URL_HOST ), parse_url( $propertyUrl, PHP_URL_PORT ), self::$_propertyErrorNumber, self::$_propertyErrorString, self::$_propertyTimeout ) ) {
-				$getFileProxy = '';
-				fputs( $socketFileProxy, "GET ".$propertyUrl." HTTP/1.0\r\nHost: ".parse_url( $propertyUrl, PHP_URL_HOST )."\r\n\r\n");
-				while( !feof( $socketFileProxy ) ) {
-					$getFileProxy .= fread( $socketFileProxy, 4096 );
-				}
-				fclose( $socketFileProxy );
-				$getFileProxy = substr( $getFileProxy, strpos( $getFileProxy, "\r\n\r\n" ) +4 );
-			} else {
-				trigger_error( '['.self::$_propertyErrorNumber.'] '.self::$_propertyErrorString );
-				$getFileProxy = null;
+		switch( self::isFileProxy() ) {
+			case self::PROXY_NONE: return self::_proxyNone( $propertyUrl );
+			case self::PROXY_RELAY: return self::_proxyRelay( $propertyUrl );
+			case self::PROXY_BASIC: return self::_proxyBasic( $propertyUrl );
+			default: throw new \Exception('Proxy not available!');
+		}
+	}
+// ---------------------------------------------------------------------------------------
+	private static function _proxyNone( $propertyUrl ) {
+		self::propertyHost( parse_url( $propertyUrl, PHP_URL_HOST ) );
+		if( parse_url( $propertyUrl, PHP_URL_PORT ) === null ) {
+			switch( strtoupper( parse_url( $propertyUrl, PHP_URL_SCHEME ) ) ) {
+				case 'HTTP': { self::propertyPort( '80' ); break; }
+				case 'HTTPS': { self::propertyPort( '443' ); break; }
 			}
-			return $getFileProxy;
+		} else {
+			self::propertyPort( parse_url( $propertyUrl, PHP_URL_PORT ) );
+		}
+		if( self::propertyPort() == '443' ) {
+			return file_get_contents( $propertyUrl );
 		}
 		if( $socketFileProxy = @fsockopen( self::propertyHost(), self::propertyPort(), self::$_propertyErrorNumber, self::$_propertyErrorString, self::$_propertyTimeout ) ) {
 			$getFileProxy = '';
-			fputs( $socketFileProxy, "GET ".$propertyUrl." HTTP/1.0\r\nHost: ".self::propertyHost()."\r\n");
-			if( self::propertyUser() === null ) {
-				fputs( $socketFileProxy, "\r\n" );
-			} else {
-				fputs( $socketFileProxy, "Proxy-Authorization: Basic ".base64_encode( self::propertyUser().':'.self::propertyPass() ) . "\r\n\r\n");
-			}
+			fputs( $socketFileProxy, "GET ".$propertyUrl." HTTP/1.0\r\nHost: ".parse_url( $propertyUrl, PHP_URL_HOST )."\r\n\r\n");
 			while( !feof( $socketFileProxy ) ) {
 				$getFileProxy .= fread( $socketFileProxy, 4096 );
 			}
@@ -130,7 +141,37 @@ class ClassProxyFile implements InterfaceProxyFile {
 		}
 		return $getFileProxy;
 	}
-// ---------------------------------------------------------------------------------------
+	private static function _proxyRelay( $propertyUrl ) {
+		if( $socketFileProxy = @fsockopen( self::propertyHost(), self::propertyPort(), self::$_propertyErrorNumber, self::$_propertyErrorString, self::$_propertyTimeout ) ) {
+			$getFileProxy = '';
+			fputs( $socketFileProxy, "GET ".$propertyUrl." HTTP/1.0\r\nHost: ".self::propertyHost()."\r\n\r\n");
+			while( !feof( $socketFileProxy ) ) {
+				$getFileProxy .= fread( $socketFileProxy, 4096 );
+			}
+			fclose( $socketFileProxy );
+			$getFileProxy = substr( $getFileProxy, strpos( $getFileProxy, "\r\n\r\n" ) +4 );
+		} else {
+			trigger_error( '['.self::$_propertyErrorNumber.'] '.self::$_propertyErrorString );
+			$getFileProxy = null;
+		}
+		return $getFileProxy;
+	}
+	private static function _proxyBasic( $propertyUrl ) {
+		if( $socketFileProxy = @fsockopen( self::propertyHost(), self::propertyPort(), self::$_propertyErrorNumber, self::$_propertyErrorString, self::$_propertyTimeout ) ) {
+			$getFileProxy = '';
+			fputs( $socketFileProxy, "GET ".$propertyUrl." HTTP/1.0\r\nHost: ".self::propertyHost()."\r\n");
+			fputs( $socketFileProxy, "Proxy-Authorization: Basic ".base64_encode( self::propertyUser().':'.self::propertyPass() ) . "\r\n\r\n");
+			while( !feof( $socketFileProxy ) ) {
+				$getFileProxy .= fread( $socketFileProxy, 4096 );
+			}
+			fclose( $socketFileProxy );
+			$getFileProxy = substr( $getFileProxy, strpos( $getFileProxy, "\r\n\r\n" ) +4 );
+		} else {
+			trigger_error( '['.self::$_propertyErrorNumber.'] '.self::$_propertyErrorString );
+			$getFileProxy = null;
+		}
+		return $getFileProxy;
+	}
 	/**
 	 * @static
 	 * @param null|string $propertyHost
