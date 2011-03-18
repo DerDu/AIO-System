@@ -315,6 +315,14 @@ class ClassPhpExcel implements InterfacePhpExcel
 					if( $propertyCssValue == 'bold' ) $_style['font']['bold'] = true;
 					break;
 				}
+				case 'text-align': {
+					switch( $propertyCssValue ) {
+						case 'left': $_style['alignment']['horizontal'] = \PHPExcel_Style_Alignment::HORIZONTAL_LEFT; break;
+						case 'right': $_style['alignment']['horizontal'] = \PHPExcel_Style_Alignment::HORIZONTAL_RIGHT; break;
+						case 'center': $_style['alignment']['horizontal'] = \PHPExcel_Style_Alignment::HORIZONTAL_CENTER; break;
+					}
+					break;
+				}
 				case 'border': {
 					$propertyCssValueList = explode( ' ', $propertyCssValue );
 					// THIN / THICK - Decision
