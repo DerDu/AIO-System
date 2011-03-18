@@ -122,6 +122,7 @@ class ClassCacheDisc implements InterfaceCacheDisc {
 	 * @return mixed|string
 	 */
 	public static function getCacheLocation( $propertyCacheName = 'DefaultCache', $isGlobal = false ) {
+		self::_runCacheTimeout();
 		// Create Cache-Location
 		$propertyDirectoryName = ClassSystemDirectory::createDirectory(
 			ClassSystemDirectory::adjustDirectorySyntax(
