@@ -63,7 +63,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 	 * @param string $propertyDirectoryName
 	 * @param array $propertyFileTypeList
 	 * @param bool $isRecursive
-	 * @return ClassSystemFile[]|bool
+	 * @return \AioSystem\Core\ClassSystemFile[]|bool
 	 */
 	public static function getFileList( $propertyDirectoryName, $propertyFileTypeList = array(), $isRecursive = false ) {
 		$getFileList = array();
@@ -112,9 +112,9 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 			if( $directoryEntryName != '.' && $directoryEntryName != '..' ) {
 				if( is_dir( $propertyDirectoryName.'/'.$directoryEntryName ) ) {
 					if( $isRecursive ) {
-						$getDirectoryList = array_merge( $getDirectoryList, (array)self::getDirectoryList( $propertyDirectoryName.'/'.$directoryEntryName, $isRecursive ) );
+						$getDirectoryList = array_merge( $getDirectoryList, (array)self::getDirectoryList( $propertyDirectoryName.$directoryEntryName, $isRecursive ) );
 					}
-						$getDirectoryList[] = $propertyDirectoryName.'/'.$directoryEntryName;
+						$getDirectoryList[] = self::adjustDirectorySyntax( $propertyDirectoryName.'/'.$directoryEntryName );
 				}
 			}
 		}
