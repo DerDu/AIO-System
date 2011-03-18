@@ -122,7 +122,7 @@ class ClassXmlNode extends ClassXmlContent implements InterfaceXmlNode {
 	 * @param string $propertyName
 	 * @param array $propertyAttributeList
 	 * @param bool|null $isDescendant
-	 * @return ClassXmlNode[]
+	 * @return \AioSystem\Core\ClassXmlNode[]
 	 */
 	public function groupXmlNode( $propertyName, $propertyAttributeList = array(), $isDescendant = null ) {
 		/** @var ClassXmlNode $CoreXmlNodeChild */
@@ -150,7 +150,7 @@ class ClassXmlNode extends ClassXmlContent implements InterfaceXmlNode {
 	 * @param array $propertyAttributeList
 	 * @param null $indexCoreXmlNode
 	 * @param bool $isSearchRoot
-	 * @return ClassXmlNode|bool
+	 * @return \AioSystem\Core\ClassXmlNode|bool
 	 */
 	public function searchXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false ) {
 		/** @var ClassXmlNode $CoreXmlNodeChild */
