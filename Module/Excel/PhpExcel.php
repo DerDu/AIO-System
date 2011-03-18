@@ -236,6 +236,14 @@ class ClassPhpExcel implements InterfacePhpExcel
 	public static function cellStyle( $propertyCellName, $propertyCssList = array() ) {
 		self::activeWorksheet()->getStyle( $propertyCellName )->applyFromArray( self::_style( $propertyCssList ) );
 	}
+	/**
+	 * @static
+	 * @param string $CellRange
+	 * @return void
+	 */
+	public static function cellMerge( $CellRange ) {
+		self::activeWorksheet()->mergeCells( $CellRange );
+	}
 // PHPEXCEL : COMMON ---------------------------------------------------------------------
 	/**
 	 * @static

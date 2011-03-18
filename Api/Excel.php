@@ -116,6 +116,18 @@ class Excel {
 		return AioExcel::cellStyle( $Name, $Css );
 	}
 	/**
+	 * Merge cells
+	 *
+	 * @static
+	 * @param string $Name
+	 * @return void
+	 */
+	public static function CellMerge( $Name ) {
+		return AioExcel::cellMerge( $Name );
+	}
+	/**
+	 * Convert cell name to cell index
+	 *
 	 * @static
 	 * @param  string $Name
 	 * @return array
