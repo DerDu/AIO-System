@@ -104,7 +104,7 @@ class Excel {
 	 * @return void
 	 */
 	public static function CellImage( $Name, $File, $Width, $Height ) {
-
+		return AioExcel::cellImage( $Name, $File, $Width, $Height );
 	}
 	/**
 	 * @static
