@@ -59,11 +59,12 @@ class ClassApi {
 		self::$propertySetup = true;
 		$splAutoLoad = spl_autoload_functions();
 		if( $splAutoLoad === false || empty( $splAutoLoad ) || !in_array( array(__CLASS__,'Load'), $splAutoLoad, true ) ) {
-			spl_autoload_register( array(__CLASS__,'Load') );
+			spl_autoload_register( array(__CLASS__,'AutoLoader') );
 		}
 		require_once('Library\PhpFunction.php');
 		Core\ClassSession::startSession();
 		Core\ClassEventHandler::registerEventHandler(E_ALL,true);
+		self::WidgetStyle();
 		self::$propertySetup = false;
 	}
 	/**
@@ -73,7 +74,7 @@ class ClassApi {
 	 * @param  string $propertyClassName
 	 * @return bool
 	 */
-	public static function Load( $propertyClassName ) {
+	public static function AutoLoader( $propertyClassName ) {
 		$propertyClassName = str_replace( self::API_PREFIX_NAMESPACE, '', $propertyClassName );
 		$propertyClassName = explode( '\\', $propertyClassName );
 		$ClassName = array_pop( $propertyClassName );
@@ -95,6 +96,28 @@ class ClassApi {
 		} else {
 			return false;
 		}
+	}
+	public static function WidgetStyle() {
+		$WidgetList = \AioSystem\Core\ClassSystemDirectory::getDirectoryList( 'Widget' );
+		$WidgetStyleList = \AioSystem\Api\Session::Read( __METHOD__ );
+		foreach( (array)$WidgetList as $Directory ) {
+			if( is_dir( $Directory.'Style' ) ) {
+				$WidgetStyle = \AioSystem\Core\ClassSystemDirectory::getFileList( $Directory.'Style', 'css' );
+				/** @var \AioSystem\Core\ClassSystemFile $WidgetStyleFile */
+				foreach( (array)$WidgetStyle as $WidgetStyleFile ) {
+					$StyleFile = \AioSystem\Api\Seo::Path( $WidgetStyleFile->propertyFileLocation() );
+					if( !in_array( $StyleFile, $WidgetStyleList ) ) {
+						array_push( $WidgetStyleList, $StyleFile );
+					}
+				}
+			}
+		}
+		\AioSystem\Api\Session::Write( __METHOD__, $WidgetStyleList );
+		$Return = '';
+		foreach( (array)$WidgetStyleList as $StyleLocation ) {
+			$Return .= '<link rel="stylesheet" href="'.$StyleLocation.'"/>'."\n";
+		}
+		return $Return;
 	}
 }
 /**
