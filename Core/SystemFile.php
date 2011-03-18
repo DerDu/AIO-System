@@ -125,7 +125,7 @@ class ClassSystemFile implements InterfaceSystemFile {
 	public function readFile( $ParsePhp = false ) {
 		if( is_file( $this->propertyFileLocation() ) ) {
 			if( $ParsePhp ) {
-				ob_start(); include_once( $this->propertyFileLocation() );
+				ob_start(); include( $this->propertyFileLocation() );
 				$this->propertyFileContent( ob_get_clean() );
 			} else {
 				$this->propertyFileContent( file_get_contents( $this->propertyFileLocation() ) );
