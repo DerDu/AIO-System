@@ -52,7 +52,7 @@ class Xml {
 	 *
 	 * @static
 	 * @param string|Core\ClassXmlNode $Source XML to parse or Node-Instance to pass through
-	 * @return Core\ClassXmlNode
+	 * @return \AioSystem\Core\ClassXmlNode
 	 */
 	public static function Parser( $Source ) {
 		return \AioSystem\Core\ClassXmlParser::parseXml( $Source );
