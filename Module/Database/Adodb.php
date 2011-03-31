@@ -168,6 +168,8 @@ class ClassAdodb implements InterfaceAdodb
 	 * @return array|void
 	 */
 	public function RecordSet( $TableName, $WhereOrderBy, $ResultSet = false ) {
+		global $ADODB_ASSOC_CASE;
+		$ADODB_ASSOC_CASE = 2;
 		if( $this->bool_debug ) \AioSystem\Api\Event::Debug('RecordSet: '.$TableName);
 		if( $ResultSet ) {
 			$RecordSet = $this->propertyAdodbResource()->GetActiveRecords( $TableName, $WhereOrderBy );
@@ -194,6 +196,8 @@ class ClassAdodb implements InterfaceAdodb
 	 * @return bool|int
 	 */
 	public function Record( $TableName, $FieldSet = array(), $Where = null, $Delete = false ) {
+		global $ADODB_ASSOC_CASE;
+		$ADODB_ASSOC_CASE = 2;
 		if( $this->bool_debug ) \AioSystem\Api\Event::Debug('Record: '.$TableName);
 
 		if( !class_exists( 'ADODB_Active_Record' ) ) require_once(__DIR__ . '/Adodb/adodb-active-record.inc.php');
