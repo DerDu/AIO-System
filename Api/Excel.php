@@ -107,6 +107,16 @@ class Excel {
 		return AioExcel::cellImage( $Name, $File, $Width, $Height );
 	}
 	/**
+	 * CSS like cell styling
+	 *
+	 * Examples:
+	 *
+	 * 'color'          #AABBCC
+	 * 'font-weight'    bold
+	 * 'text-align'     left/right/center
+	 * 'border'         1px solid red
+	 * 'number-format'  #,##0.00
+	 *
 	 * @static
 	 * @param string $Name
 	 * @param array $Css
@@ -117,6 +127,12 @@ class Excel {
 	}
 	/**
 	 * Merge cells
+	 *
+	 * Examples:
+	 *
+	 * 'A1:B1'
+	 * 'B2:C5'
+	 * 'C1:C4'
 	 *
 	 * @static
 	 * @param string $Name
@@ -136,6 +152,9 @@ class Excel {
 		return AioExcel::convertCellNameToIndex( $Name );
 	}
 	/**
+	 *
+	 * Convert cell index to cell name
+ 	 *
 	 * @static
 	 * @param  int $IndexX
 	 * @param  int $IndexY
