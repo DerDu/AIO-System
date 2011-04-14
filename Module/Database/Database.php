@@ -52,6 +52,8 @@ interface InterfaceDatabase
 	public static function database_execute( $string_statement, $bool_cached = false );
 	public static function database_close( $string_database_route = null );
 
+	public static function database_last_id();
+
 	public static function database_route_engine();
 	public static function database_route_host();
 	public static function database_route_database();
@@ -81,6 +83,7 @@ class ClassDatabase implements InterfaceDatabase
 
 	public function __construct() {
 	}
+
 	public static function database_adodb5()
 	{
 		return self::database_stage()->adodb5_object();
@@ -187,6 +190,12 @@ class ClassDatabase implements InterfaceDatabase
 		self::database_mtimeout(false);
 		return $array_result;
 	}
+
+	public static function database_last_id()
+	{
+		return self::database_stage()->adodb5_object()->Insert_ID();
+	}
+
 	public static function database_close( $string_database_route = null )
 	{
 		if( $string_database_route !== null ){
@@ -361,6 +370,21 @@ class ClassDatabase implements InterfaceDatabase
 				,$array_table
 			);
 		}
+	}
+
+	/**
+	 * @static
+	 * @return bool
+	 */
+	public static function database_begin_transaction() {
+		return self::database_adodb5()->StartTrans();
+	}
+	/**
+	 * @static
+	 * @return bool|null
+	 */
+	public static function database_complete_transaction() {
+		return self::database_adodb5()->CompleteTrans();
 	}
 }
 ?>
