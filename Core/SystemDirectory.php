@@ -155,7 +155,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 			$propertyDirectoryName = preg_replace( '!\/?[^\/]*?\/\.\.!is', '', $propertyDirectoryName, 1 );
 		}
 		// HANDLE TRAILING /
-		if( substr( $propertyDirectoryName, -1, 1 ) != '/' ) {
+		if( substr( $propertyDirectoryName, -1, 1 ) != '/' && !is_file( $propertyDirectoryName ) ) {
 			$propertyDirectoryName .= '/';
 		}
 		// BUILD CORRECT PATH
