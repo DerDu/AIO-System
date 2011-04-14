@@ -110,6 +110,27 @@ class ClassTemplate implements InterfaceTemplate {
 	public function MapRepeat() {
 		return $this->propertyAssignRepeat->listData();
 	}
+
+	private function ParseRepeat( $RepeatKey, $DataArray, $Content ) {
+		preg_match_all( '!{'.$RepeatKey.'}(.*?){\/'.$RepeatKey.'}!is', $Content , $Matches );
+		foreach( (array)$Matches[1] as $TemplateIndex => $TemplateContent ) {
+			$TemplateRepeat = '';
+			foreach( (array)$DataArray as $RowIndex => $ValueList ) {
+				$TemplateContentRow = $TemplateContent;
+				foreach( (array)$ValueList as $Key => $Value ) {
+					if( is_array( $Value ) ) {
+						$TemplateContentRow = $this->ParseRepeat( $Key, $Value, $TemplateContentRow );
+					} else {
+						$TemplateContentRow = preg_replace( '!{'.$Key.'}!is', $Value, $TemplateContentRow );
+					}
+				}
+				$TemplateRepeat .= $TemplateContentRow;
+			}
+			$Content = preg_replace( '!{'.$RepeatKey.'}(.*?){\/'.$RepeatKey.'}!is', $TemplateRepeat, $Content, 1 );
+		}
+		return $Content;
+	}
+
 	/**
 	 * @return string
 	 */
@@ -123,7 +144,11 @@ class ClassTemplate implements InterfaceTemplate {
 				foreach( (array)$Repeat[1] as $RowIndex => $ValueList ) {
 					$TemplateContentRow = $TemplateContent;
 					foreach( (array)$ValueList as $Key => $Value ) {
-						$TemplateContentRow = preg_replace( '!{'.$Key.'}!is', $Value, $TemplateContentRow );
+						if( is_array( $Value ) ) {
+							$TemplateContentRow = $this->ParseRepeat( $Key, $Value, $TemplateContentRow );
+						} else {
+							$TemplateContentRow = preg_replace( '!{'.$Key.'}!is', $Value, $TemplateContentRow );
+						}
 					}
 					$TemplateRepeat .= $TemplateContentRow;
 				}
