@@ -40,6 +40,7 @@
  */
 namespace AioSystem\Api;
 use \AioSystem\Module\Database\ClassDatabase as AioDatabase;
+use \AioSystem\Module\Database\ClassHierarchicalData as AioHierarchicalData;
 /**
  * @package AioSystem\Api
  */
@@ -104,6 +105,10 @@ class Database {
 	 */
 	public static function Execute( $Sql, $Cache = false ) {
 		return AioDatabase::database_execute( $Sql, $Cache );
+	}
+
+	public static function LastInsertId() {
+		return AioDatabase::database_last_id();
 	}
 	/**
 	 * Close database connection
@@ -205,6 +210,28 @@ class Database {
 	 */
 	public static function CreateStructure( $XmlFile, $Drop = false ) {
 		return AioDatabase::database_structure( $XmlFile, $Drop );
+	}
+	/**
+	 * @static
+	 * @param string $TableName
+	 * @return \AioSystem\Module\Database\ClassHierarchicalData
+	 */
+	public static function HierarchicalData( $TableName ) {
+		return AioHierarchicalData::Instance( $TableName );
+	}
+	/**
+	 * @static
+	 * @return bool
+	 */
+	public static function TransactionBegin() {
+		return AioDatabase::database_begin_transaction();
+	}
+	/**
+	 * @static
+	 * @return bool|null
+	 */
+	public static function TransactionEnd() {
+		return AioDatabase::database_complete_transaction();
 	}
 }
 ?>
