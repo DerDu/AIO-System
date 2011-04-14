@@ -77,7 +77,7 @@ class ClassAdodb implements InterfaceAdodb
 		return new ClassAdodb();
 	}
 	/**
-	 *
+	 * @return \ADOConnection
 	 */
 	public function adodb5_object() {
 		return $this->propertyAdodbResource;
