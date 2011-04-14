@@ -47,6 +47,13 @@ class Event {
 	private static $EventRegister = null;
 	/**
 	 * @static
+	 * @return string
+	 */
+	public static function Viewer() {
+		return \AioSystem\Module\Journal\ClassJournalViewer::GetJournalViewer();
+	}
+	/**
+	 * @static
 	 * @param  string $Content
 	 * @param  string $Name
 	 * @return void
