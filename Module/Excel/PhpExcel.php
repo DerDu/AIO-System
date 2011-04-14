@@ -215,19 +215,29 @@ class ClassPhpExcel implements InterfacePhpExcel
 	 * @return void
 	 */
 	public static function cellImage( $propertyCellName, $propertyFileName, $propertyWidth, $propertyHeight ) {
-	/*	$object_image = api_factory_shell::shell_image_load( $propertyFileName );
-		api_factory_shell::shell_image_resize_pixel( $object_image, $propertyWidth, $propertyHeight );
+		$Image = \AioSystem\Api\Image::Instance( $propertyFileName );
+		$Image->ResizePixel( $propertyWidth, $propertyHeight );
 		$MemoryDrawing = new \PHPExcel_Worksheet_MemoryDrawing();
 		$MemoryDrawing->setCoordinates( $propertyCellName );
-		$MemoryDrawing->setImageResource( api_factory_shell::shell_image_resource( $object_image ) );
+		$MemoryDrawing->setImageResource( $Image->Resource() );
 		$MemoryDrawing->setRenderingFunction( \PHPExcel_Worksheet_MemoryDrawing::RENDERING_DEFAULT );
 		$MemoryDrawing->setMimeType( \PHPExcel_Worksheet_MemoryDrawing::MIMETYPE_DEFAULT );
 		$MemoryDrawing->setWorksheet( self::activeWorksheet() );
 		$MemoryDrawing->setResizeProportional( true );
 		$MemoryDrawing->setWidthAndHeight( $propertyWidth, $propertyHeight );
-*/	}
+	}
 // PHPEXCEL : STYLE ----------------------------------------------------------------------
 	/**
+	 * CSS like cell styling
+	 *
+	 * Examples:
+	 *
+	 * 'color'          #AABBCC
+	 * 'font-weight'    bold
+	 * 'text-align'     left/right/center
+	 * 'border'         1px solid red
+	 * 'number-format'  #,##0.00
+	 *
 	 * @static
 	 * @param string $propertyCellName
 	 * @param array $propertyCssList
@@ -237,6 +247,14 @@ class ClassPhpExcel implements InterfacePhpExcel
 		self::activeWorksheet()->getStyle( $propertyCellName )->applyFromArray( self::_style( $propertyCssList ) );
 	}
 	/**
+	 * Merge cells
+	 *
+	 * Examples:
+	 *
+	 * 'A1:B1'
+	 * 'B2:C5'
+	 * 'C1:C4'
+	 *
 	 * @static
 	 * @param string $CellRange
 	 * @return void
