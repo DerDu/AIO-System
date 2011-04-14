@@ -40,8 +40,9 @@
  * @subpackage Template
  */
 namespace AioSystem\Module\Template;
-use \AioSystem\Api\System as System;
-use \AioSystem\Api\Stack as Stack;
+use \AioSystem\Api\System;
+use \AioSystem\Api\Stack;
+use \AioSystem\Api\Event;
 /**
  * @package AioSystem\Module
  * @subpackage Template
@@ -82,7 +83,10 @@ class ClassTemplate implements InterfaceTemplate {
 		if( file_exists( $File ) ) {
 			$this->propertyTemplateFile = System::File( $File );
 			//var_dump( 'Load: '.$File );
-		} else throw new \Exception( 'Template not available!' );
+		} else {
+			Event::Message('Load Template: '.$File);
+			throw new \Exception( 'Template not available!' );
+		}
 		$this->propertyTemplateContent = $this->propertyTemplateFile->readFile( $ParsePhp );
 	}
 	/**
@@ -93,6 +97,18 @@ class ClassTemplate implements InterfaceTemplate {
 		if( $Content !== null ) {
 			$this->propertyTemplateContent = $Content;
 		} return $this->propertyTemplateContent;
+	}
+	/**
+	 * @return array
+	 */
+	public function MapAssign() {
+		return $this->propertyAssignContent->listData();
+	}
+	/**
+	 * @return array
+	 */
+	public function MapRepeat() {
+		return $this->propertyAssignRepeat->listData();
 	}
 	/**
 	 * @return string
