@@ -36,16 +36,16 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Module\Spam\ClassSpam as AioSpam;
+namespace AIOSystem\Api;
+use \AIOSystem\Module\Spam\ClassSpam as AIOSpam;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Spam {
 	public static function Install() {
-		return AioSpam::Install();
+		return AIOSpam::Install();
 	}
 	/**
 	 * @static
@@ -54,7 +54,7 @@ class Spam {
 	 * @return void
 	 */
 	public static function Trainer( $Content, $IsSpam = true ) {
-		return AioSpam::Trainer( $Content, $IsSpam );
+		return AIOSpam::Trainer( $Content, $IsSpam );
 	}
 	/**
 	 * @static
@@ -62,7 +62,7 @@ class Spam {
 	 * @return bool
 	 */
 	public static function Check( $Content ) {
-		return AioSpam::IsSpam( $Content );
+		return AIOSpam::IsSpam( $Content );
 	}
 	/**
 	 * @static
@@ -70,7 +70,7 @@ class Spam {
 	 * @return int|float
 	 */
 	public static function Level( $Content ) {
-		return AioSpam::SpamLevel( $Content );
+		return AIOSpam::SpamLevel( $Content );
 	}
 }
 ?>

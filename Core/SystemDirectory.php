@@ -36,13 +36,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage System
  */
-namespace AioSystem\Core;
-use \AioSystem\Api\System as System;
+namespace AIOSystem\Core;
+use \AIOSystem\Api\System;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage System
  */
 interface InterfaceSystemDirectory {
@@ -54,7 +54,7 @@ interface InterfaceSystemDirectory {
 	public static function relativeDirectory(  $propertyDirectoryName, $propertyDirectoryLocation );
 }
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage System
  */
 class ClassSystemDirectory implements InterfaceSystemDirectory {
@@ -63,7 +63,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 	 * @param string $propertyDirectoryName
 	 * @param array $propertyFileTypeList
 	 * @param bool $isRecursive
-	 * @return \AioSystem\Core\ClassSystemFile[]|bool
+	 * @return \AIOSystem\Core\ClassSystemFile[]|bool
 	 */
 	public static function getFileList( $propertyDirectoryName, $propertyFileTypeList = array(), $isRecursive = false ) {
 		$getFileList = array();

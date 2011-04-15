@@ -38,14 +38,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Mail
  */
-namespace AioSystem\Module\Mail;
-use \AioSystem\Api\System as System;
-use \AioSystem\Api\Cache as Cache;
+namespace AIOSystem\Module\Mail;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Cache;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Mail
  */
 interface InterfacePhpPop3 {
@@ -61,7 +61,7 @@ interface InterfacePhpPop3 {
 	public static function phppop3_attachment( $integer_message_number );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Mail
  */
 class ClassPhpPop3 implements InterfacePhpPop3

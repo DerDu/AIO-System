@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Mail
  */
-namespace AioSystem\Module\Mail;
+namespace AIOSystem\Module\Mail;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Mail
  */
 interface InterfacePhpMailer
@@ -59,7 +59,7 @@ interface InterfacePhpMailer
 	public static function phpmailer_smtp( $string_hostname, $string_username, $string_password, $string_smtpport = 25 );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Mail
  */
 class ClassPhpMailer implements InterfacePhpMailer

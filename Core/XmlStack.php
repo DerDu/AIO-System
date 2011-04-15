@@ -36,14 +36,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Xml
  */
-namespace AioSystem\Core;
+namespace AIOSystem\Core;
 /**
  * ClassXmlStack - Interface
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Xml
  */
 interface InterfaceXmlStack
@@ -56,7 +56,7 @@ interface InterfaceXmlStack
 /**
  * ClassXmlStack - Class
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Xml
  */
 class ClassXmlStack implements InterfaceXmlStack {

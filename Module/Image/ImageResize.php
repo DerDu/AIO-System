@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Image
  */
-namespace AioSystem\Module\Image;
+namespace AIOSystem\Module\Image;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Image
  */
 interface InterfaceImageResize {

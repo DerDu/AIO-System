@@ -36,19 +36,20 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Image
  */
-namespace AioSystem\Module\Image;
+namespace AIOSystem\Module\Image;
+use \AIOSystem\Api\Image;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Image
  */
 interface InterfaceImageLayer {
 	public static function Copy( $image_file, $image_layer, $position_top = 0, $position_left = 0 );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Image
  */
 class ClassImageLayer implements InterfaceImageLayer
@@ -66,7 +67,7 @@ class ClassImageLayer implements InterfaceImageLayer
 		}
 		return $image_resource_file;
 	}
-	public static function Rotate( \AioSystem\Api\Image $Image, $Angle, $Background ) {
+	public static function Rotate( Image $Image, $Angle, $Background ) {
 		return imagerotate( $Image->Resource(), $Angle, $Background );
 	}
 }

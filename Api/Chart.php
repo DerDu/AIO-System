@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Module\Chart\ClassPhplot as AioChart;
+namespace AIOSystem\Api;
+use \AIOSystem\Module\Chart\ClassPhplot as AIOChart;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Chart {
 	/**
@@ -53,7 +53,7 @@ class Chart {
 	 * @return \PHPlot
 	 */
 	public static function Instance( $Width = 600, $Height = 400, $Output = null, $Background = null ) {
-		return AioChart::Instance( $Width, $Height, $Output, $Background );
+		return AIOChart::Instance( $Width, $Height, $Output, $Background );
 	}
 }
 ?>

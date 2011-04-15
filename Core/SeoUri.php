@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Seo
  */
-namespace AioSystem\Core;
+namespace AIOSystem\Core;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Seo
  */
 interface InterfaceSeoUri {
@@ -51,7 +51,7 @@ interface InterfaceSeoUri {
 	public static function uri_request();
 }
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Seo
  */
 class ClassSeoUri implements InterfaceSeoUri

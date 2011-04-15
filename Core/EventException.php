@@ -36,19 +36,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Event
  */
-namespace AioSystem\Core;
+namespace AIOSystem\Core;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Event
  */
 interface InterfaceEventException {
 	public static function eventHandler( $exception_number, $exception_content, $exception_filename, $exception_fileline );
 }
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Event
  */
 class ClassEventException extends \Exception implements InterfaceEventException {

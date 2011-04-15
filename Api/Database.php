@@ -36,13 +36,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Module\Database\ClassDatabase as AioDatabase;
-use \AioSystem\Module\Database\ClassHierarchicalData as AioHierarchicalData;
+namespace AIOSystem\Api;
+use \AIOSystem\Module\Database\ClassDatabase as AIODatabase;
+use \AIOSystem\Module\Database\ClassHierarchicalData as AIOHierarchicalData;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Database {
 	/**
@@ -57,7 +57,7 @@ class Database {
 	 * @return null
 	 */
 	public static function Open( $Type, $Host, $User, $Password, $Database ) {
-		return AioDatabase::database_open( $Type, $Host, $User, $Password, $Database );
+		return AIODatabase::database_open( $Type, $Host, $User, $Password, $Database );
 	}
 	/**
 	 * @static
@@ -65,35 +65,35 @@ class Database {
 	 * @return null
 	 */
 	public static function Route( $Route = null ) {
-		return AioDatabase::database_route( $Route );
+		return AIODatabase::database_route( $Route );
 	}
 	/**
 	 * @static
 	 * @return string
 	 */
 	public static function RouteEngine() {
-		return AioDatabase::database_route_engine();
+		return AIODatabase::database_route_engine();
 	}
 	/**
 	 * @static
 	 * @return string
 	 */
 	public static function RouteDatabase() {
-		return AioDatabase::database_route_database();
+		return AIODatabase::database_route_database();
 	}
 	/**
 	 * @static
 	 * @return string
 	 */
 	public static function RouteHost() {
-		return AioDatabase::database_route_host();
+		return AIODatabase::database_route_host();
 	}
 	/**
 	 * @static
 	 * @return string
 	 */
 	public static function RouteUser() {
-		return AioDatabase::database_route_user();
+		return AIODatabase::database_route_user();
 	}
 	/**
 	 * Execute sql statement
@@ -104,11 +104,11 @@ class Database {
 	 * @return array
 	 */
 	public static function Execute( $Sql, $Cache = false ) {
-		return AioDatabase::database_execute( $Sql, $Cache );
+		return AIODatabase::database_execute( $Sql, $Cache );
 	}
 
 	public static function LastInsertId() {
-		return AioDatabase::database_last_id();
+		return AIODatabase::database_last_id();
 	}
 	/**
 	 * Close database connection
@@ -118,7 +118,7 @@ class Database {
 	 * @return void
 	 */
 	public static function Close( $Route = null ) {
-		return AioDatabase::database_close( $Route );
+		return AIODatabase::database_close( $Route );
 	}
 	/**
 	 * Edit database record (INSERT/UPDATE)
@@ -131,7 +131,7 @@ class Database {
 	 * @return bool
 	 */
 	public static function Record( $Table, $Fieldset = array(), $Where = null, $Delete = false ) {
-		return AioDatabase::database_record( $Table, $Fieldset, $Where, $Delete );
+		return AIODatabase::database_record( $Table, $Fieldset, $Where, $Delete );
 	}
 	/**
 	 * @param string $Table
@@ -140,7 +140,7 @@ class Database {
 	 * @return array
 	 */
 	public static function RecordSet( $Table, $WhereOrderBy, $ResultSet = false ) {
-		return AioDatabase::database_recordset( $Table, $WhereOrderBy, $ResultSet );
+		return AIODatabase::database_recordset( $Table, $WhereOrderBy, $ResultSet );
 	}
 	/**
 	 * Create database table
@@ -190,7 +190,7 @@ class Database {
 	 * @return bool
 	 */
 	public static function CreateTable( $Name, $Fieldset ) {
-		return AioDatabase::database_create_table( $Name, $Fieldset );
+		return AIODatabase::database_create_table( $Name, $Fieldset );
 	}
 	/**
 	 * Drop database table
@@ -200,7 +200,7 @@ class Database {
 	 * @return bool
 	 */
 	public static function DropTable( $Name ) {
-		return AioDatabase::database_drop_table( $Name );
+		return AIODatabase::database_drop_table( $Name );
 	}
 	/**
 	 * @static
@@ -209,29 +209,29 @@ class Database {
 	 * @return void
 	 */
 	public static function CreateStructure( $XmlFile, $Drop = false ) {
-		return AioDatabase::database_structure( $XmlFile, $Drop );
+		return AIODatabase::database_structure( $XmlFile, $Drop );
 	}
 	/**
 	 * @static
 	 * @param string $TableName
-	 * @return \AioSystem\Module\Database\ClassHierarchicalData
+	 * @return \AIOSystem\Module\Database\ClassHierarchicalData
 	 */
 	public static function HierarchicalData( $TableName ) {
-		return AioHierarchicalData::Instance( $TableName );
+		return AIOHierarchicalData::Instance( $TableName );
 	}
 	/**
 	 * @static
 	 * @return bool
 	 */
 	public static function TransactionBegin() {
-		return AioDatabase::database_begin_transaction();
+		return AIODatabase::database_begin_transaction();
 	}
 	/**
 	 * @static
 	 * @return bool|null
 	 */
 	public static function TransactionEnd() {
-		return AioDatabase::database_complete_transaction();
+		return AIODatabase::database_complete_transaction();
 	}
 }
 ?>

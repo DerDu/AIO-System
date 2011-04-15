@@ -36,15 +36,17 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Core\ClassCacheDisc as AioCache;
+namespace AIOSystem\Api;
+use \AIOSystem\Core\ClassCacheDisc as AIOCache;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Cache {
 	/**
+	 * Check if cached content exists
+	 *
 	 * @static
 	 * @param mixed $Parameter
 	 * @param string $Cache
@@ -52,9 +54,11 @@ class Cache {
 	 * @return bool|string
 	 */
 	public static function Check( $Parameter, $Cache = 'DefaultCache', $Global = false ) {
-		return AioCache::isCached( $Parameter, $Cache, $Global );
+		return AIOCache::isCached( $Parameter, $Cache, $Global );
 	}
 	/**
+	 * Set content to cache
+	 *
 	 * @static
 	 * @param mixed $Parameter
 	 * @param string $Content
@@ -63,9 +67,11 @@ class Cache {
 	 * @return bool
 	 */
 	public static function Set( $Parameter, $Content, $Cache = 'DefaultCache', $Global = false ) {
-		return AioCache::setCache( $Parameter, $Content, $Cache, $Global );
+		return AIOCache::setCache( $Parameter, $Content, $Cache, $Global );
 	}
 	/**
+	 * Get content from cache
+	 *
 	 * @static
 	 * @param mixed $Parameter
 	 * @param string $Cache
@@ -73,16 +79,18 @@ class Cache {
 	 * @return bool|string
 	 */
 	public static function Get( $Parameter, $Cache = 'DefaultCache', $Global = false ) {
-		return AioCache::getCache( $Parameter, $Cache, $Global );
+		return AIOCache::getCache( $Parameter, $Cache, $Global );
 	}
 	/**
+	 * Returns the current cache location
+	 *
 	 * @static
 	 * @param string $Cache
 	 * @param bool $Global
 	 * @return string
 	 */
 	public static function Location( $Cache = 'DefaultCache', $Global = false ) {
-		return AioCache::getCacheLocation( $Cache, $Global );
+		return AIOCache::getCacheLocation( $Cache, $Global );
 	}
 }
 ?>

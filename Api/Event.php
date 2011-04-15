@@ -36,21 +36,28 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
+namespace AIOSystem\Api;
+use \AIOSystem\Module\Journal\ClassJournalViewer as AIOJournalViewer;
+use \AIOSystem\Core\ClassEventJournal as AIOEventJournal;
+use \AIOSystem\Core\ClassEventScreen as AIOEventScreen;
+use \AIOSystem\Core\ClassEventHandler as AIOEventHandler;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Event {
-	/** @var \AioSystem\Core\ClassStackRegister $EventRegister */
+	/** @var \AIOSystem\Core\ClassStackRegister $EventRegister */
 	private static $EventRegister = null;
+	public static function RegisterHandler( $ERROR_REPORTING = E_ALL, $Display = true ) {
+		AIOEventHandler::registerEventHandler( $ERROR_REPORTING, $Display );
+	}
 	/**
 	 * @static
 	 * @return string
 	 */
 	public static function Viewer() {
-		return \AioSystem\Module\Journal\ClassJournalViewer::GetJournalViewer();
+		return AIOJournalViewer::GetJournalViewer();
 	}
 	/**
 	 * @static
@@ -59,21 +66,21 @@ class Event {
 	 * @return void
 	 */
 	public static function Journal( $Content, $Name = 'DefaultEventJournal' ) {
-		\AioSystem\Core\ClassEventJournal::addEvent( $Content, $Name );
+		AIOEventJournal::addEvent( $Content, $Name );
 	}
 	/**
 	 * @static
 	 * @param  string $Content
 	 */
 	public static function Debug( $Content ) {
-		\AioSystem\Core\ClassEventJournal::addEvent( $Content, 'Debug' );
+		AIOEventJournal::addEvent( $Content, 'Debug' );
 	}
 	/**
 	 * @static
 	 * @param  string $Content
 	 */
 	public static function Message( $Content ) {
-		\AioSystem\Core\ClassEventScreen::addEvent( 0, $Content, '', '', \AioSystem\Core\ClassEventScreen::SCREEN_INFO );
+		AIOEventScreen::addEvent( 0, $Content, '', '', AIOEventScreen::SCREEN_INFO );
 	}
 	/**
 	 * @static
@@ -84,7 +91,7 @@ class Event {
 	 * @return void
 	 */
 	public static function Error( $Id, $Content, $Location, $Position ) {
-		\AioSystem\Core\ClassEventScreen::addEvent( $Id, $Content, $Location, $Position, \AioSystem\Core\ClassEventScreen::SCREEN_ERROR );
+		AIOEventScreen::addEvent( $Id, $Content, $Location, $Position, AIOEventScreen::SCREEN_ERROR );
 	}
 	/**
 	 * @static
@@ -95,7 +102,7 @@ class Event {
 	 * @return void
 	 */
 	public static function Exception( $Id, $Content, $Location, $Position ) {
-		\AioSystem\Core\ClassEventScreen::addEvent( $Id, $Content, $Location, $Position, \AioSystem\Core\ClassEventScreen::SCREEN_EXCEPTION );
+		AIOEventScreen::addEvent( $Id, $Content, $Location, $Position, AIOEventScreen::SCREEN_EXCEPTION );
 	}
 	public static function Result( $Key, $Content = null ) {
 		if( self::$EventRegister === null ) {

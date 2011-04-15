@@ -36,52 +36,52 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Module\Pdf\ClassEzpdf as AioPdf;
+namespace AIOSystem\Api;
+use \AIOSystem\Module\Pdf\ClassEzpdf as AIOPdf;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Pdf {
 	public static function Open( $File ) {
-		return AioPdf::ezpdf_open( $File );
+		return AIOPdf::ezpdf_open( $File );
 	}
 	public static function Close() {
-		return AioPdf::ezpdf_close();
+		return AIOPdf::ezpdf_close();
 	}
 
 	public static function FontFamily( $File ) {
-		return AioPdf::ezpdf_font_family( $File );
+		return AIOPdf::ezpdf_font_family( $File );
 	}
 	public static function FontSize( $Size = null ) {
-		return AioPdf::ezpdf_font_size( $Size );
+		return AIOPdf::ezpdf_font_size( $Size );
 	}
 	public static function FontAlign( $Align = null ) {
-		return AioPdf::ezpdf_font_align( $Align );
+		return AIOPdf::ezpdf_font_align( $Align );
 	}
 	public static function FontColor( $Color = null ) {
-		return AioPdf::ezpdf_font_color( $Color );
+		return AIOPdf::ezpdf_font_color( $Color );
 	}
 	public static function FontLineHeight( $Height = null ) {
-		return AioPdf::ezpdf_font_lineheight( $Height );
+		return AIOPdf::ezpdf_font_lineheight( $Height );
 	}
 	public static function FontMargin( $Top = null, $Right = null, $Bottom = null, $Left = null ) {
-		return AioPdf::ezpdf_font_margin( $Top, $Right, $Bottom, $Left );
+		return AIOPdf::ezpdf_font_margin( $Top, $Right, $Bottom, $Left );
 	}
 
 	public static function Text( $Text ) {
-		return AioPdf::ezpdf_text( $Text );
+		return AIOPdf::ezpdf_text( $Text );
 	}
 	public static function TextEncode( $Text ) {
-		return AioPdf::ezpdf_utf8( $Text );
+		return AIOPdf::ezpdf_utf8( $Text );
 	}
 
 	public static function Image( $File ) {
-		return AioPdf::ezpdf_image( $File );
+		return AIOPdf::ezpdf_image( $File );
 	}
 	public static function Table( $Content, $Column = '', $Title = '', $Extension = array() ) {
-		return AioPdf::ezpdf_table( $Content, $Column, $Title, $Extension );
+		return AIOPdf::ezpdf_table( $Content, $Column, $Title, $Extension );
 	}
 	/**
 	 * @static
@@ -91,23 +91,23 @@ class Pdf {
 	 * @return array
 	 */
 	public static function TableMap( $Content, $Column, $Callback ) {
-		return AioPdf::ezpdf_table_map( $Content, $Column, $Callback );
+		return AIOPdf::ezpdf_table_map( $Content, $Column, $Callback );
 	}
 	public static function TableShowGrid( $Show ) {
-		return AioPdf::ezpdf_table_showlines( $Show = null );
+		return AIOPdf::ezpdf_table_showlines( $Show = null );
 	}
 	public static function TableShowHeader( $Show = null ) {
-		return AioPdf::ezpdf_table_showheader( $Show );
+		return AIOPdf::ezpdf_table_showheader( $Show );
 	}
 	public static function TableShowShade( $Show = null ) {
-		return AioPdf::ezpdf_table_showshade( $Show );
+		return AIOPdf::ezpdf_table_showshade( $Show );
 	}
 	/**
 	 * @static
 	 * @return void
 	 */
 	public static function Line() {
-		return AioPdf::ezpdf_line();
+		return AIOPdf::ezpdf_line();
 	}
 	/**
 	 * @static
@@ -115,7 +115,7 @@ class Pdf {
 	 * @return string
 	 */
 	public static function LineColor( $Color = null ) {
-		return AioPdf::ezpdf_line_color( $Color );
+		return AIOPdf::ezpdf_line_color( $Color );
 	}
 }
 ?>

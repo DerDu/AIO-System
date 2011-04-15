@@ -36,16 +36,16 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Database
  */
-namespace AioSystem\Module\Database;
-use \AioSystem\Api\Database as Database;
-use \AioSystem\Api\Template as Template;
-use \AioSystem\Api\System as System;
-use \AioSystem\Api\Event as Event;
+namespace AIOSystem\Module\Database;
+use \AIOSystem\Api\Database;
+use \AIOSystem\Api\Template;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Event;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Database
  */
 interface InterfaceHierarchicalData {
@@ -124,7 +124,7 @@ class ClassHierarchicalData {
 		));
 	}
 
-	public function GetTreeHtml( \AioSystem\Module\Template\ClassTemplate $DataTemplateInstance = null,  $FilterExpression = null, $HDTreeId = null ) {
+	public function GetTreeHtml( Template $DataTemplateInstance = null, $FilterExpression = null, $HDTreeId = null ) {
 		$Data = $this->GetTree( $FilterExpression, $HDTreeId );
 		$IndentLevel = -1;
 		$Html = '';

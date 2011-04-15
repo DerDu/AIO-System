@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Module\Zip\ClassZipUnpack as AioZip;
+namespace AIOSystem\Api;
+use \AIOSystem\Module\Zip\ClassZipUnpack as AIOZip;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Archive {
 	/**
@@ -49,10 +49,10 @@ class Archive {
 	 *
 	 * @static
 	 * @param string $FileLocation
-	 * @return \AioSystem\Core\ClassSystemFile[]
+	 * @return \AIOSystem\Core\ClassSystemFile[]
 	 */
 	public static function ZipUnpack( $FileLocation ) {
-		return AioZip::Open( $FileLocation );
+		return AIOZip::Open( $FileLocation );
 	}
 }
 ?>

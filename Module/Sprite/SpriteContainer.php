@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Sprite
  */
-namespace AioSystem\Module\Sprite;
+namespace AIOSystem\Module\Sprite;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Sprite
  */
 interface InterfaceSpriteContainer {
@@ -54,7 +54,7 @@ interface InterfaceSpriteContainer {
 	public function propertyItem( ClassSpriteItem $Item = null );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Sprite
  */
 class ClassSpriteContainer implements InterfaceSpriteContainer {

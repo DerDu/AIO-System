@@ -36,14 +36,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Module\Image\ClassImageResource as ImageResource;
-use \AioSystem\Module\Image\ClassImageResize as ImageResize;
-use \AioSystem\Module\Image\ClassImageLayer as ImageLayer;
+namespace AIOSystem\Api;
+use \AIOSystem\Module\Image\ClassImageResource as AIOImageResource;
+use \AIOSystem\Module\Image\ClassImageResize as AIOImageResize;
+use \AIOSystem\Module\Image\ClassImageLayer as AIOImageLayer;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Image {
 
@@ -63,7 +63,7 @@ class Image {
 		$ClassImage = new Image();
 		if( file_exists( $File ) && ($Width === null && $Height === null) ) {
 			$ClassImage->Load( $File );
-			$ClassImage->_propertyResource( \AioSystem\Module\Image\ClassImageResource::Load( $File ) );
+			$ClassImage->_propertyResource( AIOImageResource::Load( $File ) );
 		} else if( $Width !== null && $Height !== null ) {
 			$ClassImage->_propertyFile( $File );
 			$ClassImage->Create( $Width, $Height );
@@ -86,14 +86,14 @@ class Image {
 	 * @param null|string $File
 	 */
 	public function Save( $File = null ) {
-		ImageResource::Save( $this->_propertyResource(), $this->_propertyFile( $File ), 100 );
+		AIOImageResource::Save( $this->_propertyResource(), $this->_propertyFile( $File ), 100 );
 	}
 	/**
 	 * @param int $Width
 	 * @param int $Height
 	 */
 	public function Create( $Width, $Height ) {
-		$this->_propertyResource( ImageResource::Create( $Width, $Height ) );
+		$this->_propertyResource( AIOImageResource::Create( $Width, $Height ) );
 	}
 	/**
 	 * @return string
@@ -110,33 +110,33 @@ class Image {
 // ---------------------------------------------------------------------------------------
 	public function ResizePixel( $Width = null, $Height = null ) {
 		$this->_propertyResource(
-			ImageResize::RelativePixel( $this->_propertyResource(), $Width, $Height )
+			AIOImageResize::RelativePixel( $this->_propertyResource(), $Width, $Height )
 		);
 	}
 	public function ResizePixelAbsolute( $Width = null, $Height = null ) {
 		$this->_propertyResource(
-			ImageResize::AbsolutePixel( $this->_propertyResource(), $Width, $Height )
+			AIOImageResize::AbsolutePixel( $this->_propertyResource(), $Width, $Height )
 		);
 	}
 	public function ResizePercent( $Width = null, $Height = null ) {
 		$this->_propertyResource(
-			ImageResize::RelativePercent( $this->_propertyResource(), $Width, $Height )
+			AIOImageResize::RelativePercent( $this->_propertyResource(), $Width, $Height )
 		);
 	}
 	public function ResizePercentAbsolute( $Width = null, $Height = null ) {
 		$this->_propertyResource(
-			ImageResize::AbsolutePercent( $this->_propertyResource(), $Width, $Height )
+			AIOImageResize::AbsolutePercent( $this->_propertyResource(), $Width, $Height )
 		);
 	}
 // ---------------------------------------------------------------------------------------
 	public function Layer( $File, $OffsetX = 0, $OffsetY = 0 ) {
 		$this->_propertyResource(
-			ImageLayer::Copy( $this->_propertyResource(), $File, $OffsetY, $OffsetX )
+			AIOImageLayer::Copy( $this->_propertyResource(), $File, $OffsetY, $OffsetX )
 		);
 	}
 	public function Rotate( $Angle, $Background = 127 ) {
 		$this->_propertyResource(
-			ImageLayer::Rotate( $this->_propertyResource(), $Angle, $Background )
+			AIOImageLayer::Rotate( $this->_propertyResource(), $Angle, $Background )
 		);
 	}
 // ---------------------------------------------------------------------------------------

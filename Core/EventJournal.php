@@ -36,20 +36,22 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Event
  */
-namespace AioSystem\Core;
-use \AioSystem\Api\System as System;
+namespace AIOSystem\Core;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Template;
+use \AIOSystem\Library\ClassRegExp as AIORegExp;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Event
  */
 interface InterfaceEventJournal {
 	public static function addEvent( $propertyEventContent, $propertyJournalName = 'DefaultEventJournal' );
 }
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Event
  */
 class ClassEventJournal implements InterfaceEventJournal {
@@ -81,10 +83,10 @@ class ClassEventJournal implements InterfaceEventJournal {
 	/**
 	 * @static
 	 * @param int $propertyDayCountHistory
-	 * @return \AioSystem\Core\ClassSystemFile[] array
+	 * @return \AIOSystem\Core\ClassSystemFile[] array
 	 */
 	public static function getJournalList( $propertyDayCountHistory = 15 ) {
-		$regexpIntegerBetween = \AioSystem\Library\ClassRegExp::integerBetween(
+		$regexpIntegerBetween = AIORegExp::integerBetween(
 			mktime( 0,0,0, date('m'), (date('d')-abs($propertyDayCountHistory)), date('Y') ),
 			time()
 		);
@@ -168,7 +170,7 @@ class ClassEventJournal implements InterfaceEventJournal {
 	}
 
 	public static function getJournalContent( $DayCountHistory = 15, $ShowCountHistory = 10, $ClassSystemFileList = null ) {
-		$Template = \AioSystem\Api\Template::Load( __DIR__.'/EventJournal/JournalEntryTable.tpl' );
+		$Template = Template::Load( __DIR__.'/EventJournal/JournalEntryTable.tpl' );
 		$TemplateData = self::getJournalContentList( $DayCountHistory, $ShowCountHistory, $ClassSystemFileList );
 
 		$Template->Repeat( 'JournalEntryList', $TemplateData );

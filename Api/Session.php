@@ -36,13 +36,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
+namespace AIOSystem\Api;
+use \AIOSystem\Core\ClassSession as AIOSession;
 /**
  * API-Session
  *  
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Session {
 	/**
@@ -50,7 +51,7 @@ class Session {
 	 * @return string
 	 */
 	public static function Start() {
-		return \AioSystem\Core\ClassSession::startSession();
+		return AIOSession::startSession();
 	}
 	/**
 	 * @static
@@ -59,7 +60,7 @@ class Session {
 	 * @return mixed
 	 */
 	public static function Write( $Key, $Content ) {
-		return \AioSystem\Core\ClassSession::writeSession( $Key, $Content );
+		return AIOSession::writeSession( $Key, $Content );
 	}
 	/**
 	 * @static
@@ -67,14 +68,14 @@ class Session {
 	 * @return array|mixed|null
 	 */
 	public static function Read( $Key = null ) {
-		return \AioSystem\Core\ClassSession::readSession( $Key );
+		return AIOSession::readSession( $Key );
 	}
 	/**
 	 * @static
 	 * @return string
 	 */
 	public static function Id() {
-		return \AioSystem\Core\ClassSession::getSessionId();
+		return AIOSession::getSessionId();
 	}
 }
 ?>

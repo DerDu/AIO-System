@@ -36,25 +36,25 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pathfinder
  */
-namespace AioSystem\Module\Pathfinder;
-use \AioSystem\Api\Stack as Stack;
+namespace AIOSystem\Module\Pathfinder;
+use \AIOSystem\Api\Stack;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pathfinder
  */
 interface InterfaceAStarMap {
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pathfinder
  */
 class ClassAStarMap implements InterfaceAStarMap {
-	/** @var \AioSystem\Core\ClassStackRegister $WayPointList */
+	/** @var \AIOSystem\Core\ClassStackRegister $WayPointList */
 	private $WayPointList = null;
-	/** @var \AioSystem\Module\ClassAStarNode $DebugResult */
+	/** @var \AIOSystem\Module\ClassAStarNode $DebugResult */
 	private $DebugResult = null;
 	/**
 	 * @static

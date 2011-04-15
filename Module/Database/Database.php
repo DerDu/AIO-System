@@ -36,12 +36,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Database
  */
-namespace AioSystem\Module\Database;
+namespace AIOSystem\Module\Database;
+use \AIOSystem\Api\Session;
+use \AIOSystem\Api\Xml;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Database
  */
 interface InterfaceDatabase
@@ -69,13 +71,13 @@ interface InterfaceDatabase
 	public static function database_structure( $string_xml_file, $bool_drop = false );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Database
  */
 class ClassDatabase implements InterfaceDatabase
 {
 	/**
-	 * @var \AioSystem\Module\Database\ClassAdodb[] $database_stage
+	 * @var \AIOSystem\Module\Database\ClassAdodb[] $database_stage
 	 */
 	private static $database_stage = array();
 	private static $database_route = null;
@@ -90,15 +92,13 @@ class ClassDatabase implements InterfaceDatabase
 	}
 
 	private static function database_session_set(){
-		\AioSystem\Core\ClassSession::writeSession(
-			'AIO-Database[ROUTE]',
-			\AioSystem\Library\ClassEncryption::encodeSessionEncryption(
+		Session::Write( 'AIO-Database[ROUTE]',
+			\AIOSystem\Library\ClassEncryption::encodeSessionEncryption(
 				serialize( self::database_route() )
 			)
 		);
-		\AioSystem\Core\ClassSession::writeSession(
-			'AIO-Database[STAGE]',
-			\AioSystem\Library\ClassEncryption::encodeSessionEncryption(
+		Session::Write( 'AIO-Database[STAGE]',
+			\AIOSystem\Library\ClassEncryption::encodeSessionEncryption(
 				serialize( self::$database_stage )
 			)
 		);
@@ -106,8 +106,8 @@ class ClassDatabase implements InterfaceDatabase
 	private static function database_session_get(){
 		if( self::$database_route === null ){
 			$string_route = unserialize(
-			\AioSystem\Library\ClassEncryption::decodeSessionEncryption(
-				\AioSystem\Core\ClassSession::readSession( 'AIO-Database[ROUTE]' )
+			\AIOSystem\Library\ClassEncryption::decodeSessionEncryption(
+				Session::Read( 'AIO-Database[ROUTE]' )
 			));
 			if( substr( $string_route, 0, 5 ) == 'ROUTE' ){
 				self::$database_route = $string_route;
@@ -126,8 +126,8 @@ class ClassDatabase implements InterfaceDatabase
 				require_once( __DIR__.('/Adodb/drivers/adodb-'.strtolower(self::database_route_engine()).'.inc.php') );
 			}
 			$array_stage = unserialize(
-			\AioSystem\Library\ClassEncryption::decodeSessionEncryption(
-				\AioSystem\Core\ClassSession::readSession( 'AIO-Database[STAGE]' )
+			\AIOSystem\Library\ClassEncryption::decodeSessionEncryption(
+				Session::Read( 'AIO-Database[STAGE]' )
 			));
 			if( is_array( $array_stage ) ){
 				self::$database_stage = $array_stage;
@@ -332,14 +332,14 @@ class ClassDatabase implements InterfaceDatabase
 	}
 	public static function database_structure( $string_xml_file, $bool_drop = false )
 	{
-		$object_database_definition = \AioSystem\Core\ClassXmlParser::parseXml( $string_xml_file )->searchXmlNode('database_definition');
+		$object_database_definition = Xml::Parser( $string_xml_file )->searchXmlNode('database_definition');
 		$object_database_table_list = $object_database_definition->groupXmlNode( 'database_table' );
-		/** @var \AioSystem\Core\ClassXmlNode $object_database_table */
+		/** @var \AIOSystem\Core\ClassXmlNode $object_database_table */
 		foreach( (array)$object_database_table_list as $object_database_table ){
 			$array_table = array();
 
 			$object_database_column_list = $object_database_table->groupXmlNode( 'database_column' );
-			/** @var \AioSystem\Core\ClassXmlNode $object_database_column */
+			/** @var \AIOSystem\Core\ClassXmlNode $object_database_column */
 			foreach( (array)$object_database_column_list as $object_database_column ){
 				$array_column = array();
 				array_push( $array_column, $object_database_column->propertyAttribute( 'column_name' ) );
@@ -347,7 +347,7 @@ class ClassDatabase implements InterfaceDatabase
 				array_push( $array_column, $object_database_column->propertyAttribute( 'column_size' ) );
 
 				$object_database_option_list = $object_database_column->groupXmlNode( 'database_option' );
-				/** @var \AioSystem\Core\ClassXmlNode $object_database_option */
+				/** @var \AIOSystem\Core\ClassXmlNode $object_database_option */
 				foreach( (array)$object_database_option_list as $object_database_option ){
 					// Option => Column
 					if( strlen( $object_database_option->propertyContent() ) == 0 )

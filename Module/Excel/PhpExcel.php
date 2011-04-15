@@ -36,13 +36,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Excel
  */
-namespace AioSystem\Module\Excel;
-use \AioSystem\Api\System as System;
+namespace AIOSystem\Module\Excel;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Image;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Excel
  */
 interface InterfacePhpExcel {
@@ -63,7 +64,7 @@ interface InterfacePhpExcel {
 	public static function convertCellIndexToName( $propertyIndexX, $propertyIndexY );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Excel
  */
 class ClassPhpExcel implements InterfacePhpExcel
@@ -215,7 +216,7 @@ class ClassPhpExcel implements InterfacePhpExcel
 	 * @return void
 	 */
 	public static function cellImage( $propertyCellName, $propertyFileName, $propertyWidth, $propertyHeight ) {
-		$Image = \AioSystem\Api\Image::Instance( $propertyFileName );
+		$Image = Image::Instance( $propertyFileName );
 		$Image->ResizePixel( $propertyWidth, $propertyHeight );
 		$MemoryDrawing = new \PHPExcel_Worksheet_MemoryDrawing();
 		$MemoryDrawing->setCoordinates( $propertyCellName );

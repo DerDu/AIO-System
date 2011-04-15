@@ -36,19 +36,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage System
  */
-namespace AioSystem\Core;
+namespace AIOSystem\Core;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage System
  */
 interface InterfaceSystemWrite {
 	public static function writeFile( $propertyFileName = null, $propertyFileContent = null, $_writeMode = 'wb' );
 }
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage System
  */
 class ClassSystemWrite implements InterfaceSystemWrite {

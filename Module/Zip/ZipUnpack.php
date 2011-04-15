@@ -36,14 +36,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Zip
  */
-namespace AioSystem\Module\Zip;
-use \AioSystem\Api\System as System;
-use \AioSystem\Api\Cache as Cache;
+namespace AIOSystem\Module\Zip;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Cache;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Zip
  */
 interface InterfaceZipUnpack {
@@ -53,19 +53,19 @@ interface InterfaceZipUnpack {
 	 * @static
 	 * @abstract
 	 * @param string $File
-	 * @return \AioSystem\Core\ClassSystemFile[]
+	 * @return \AIOSystem\Core\ClassSystemFile[]
 	 */
 	public static function Open( $File );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Zip
  */
 class ClassZipUnpack implements InterfaceZipUnpack {
 	/**
 	 * @static
 	 * @param string $File
-	 * @return \AioSystem\Core\ClassSystemFile[]
+	 * @return \AIOSystem\Core\ClassSystemFile[]
 	 */
 	public static function Open( $File ) {
 		// GET FILE CONTENTS

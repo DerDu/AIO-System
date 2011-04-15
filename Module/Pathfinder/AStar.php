@@ -36,26 +36,26 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pathfinder
  */
-namespace AioSystem\Module\Pathfinder;
-use AioSystem\Api\Stack as Stack;
+namespace AIOSystem\Module\Pathfinder;
+use \AIOSystem\Api\Stack;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pathfinder
  */
 interface InterfaceAStar {
 
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pathfinder
  */
 class ClassAStar implements InterfaceAStar {
-	/** @var \AioSystem\Core\ClassStackPriority $propertyOpenList */
+	/** @var \AIOSystem\Core\ClassStackPriority $propertyOpenList */
 	private static $propertyOpenList = null;
-	/** @var \AioSystem\Core\ClassStackPriority $propertyClosedList */
+	/** @var \AIOSystem\Core\ClassStackPriority $propertyClosedList */
 	private static $propertyClosedList = null;
 
 	public static function Run( ClassAStarNode $StartNode, ClassAStarNode $TargetNode, $ExpenseType = ClassAStarNode::EXPENSE_ABSOLUTE ) {
@@ -63,8 +63,8 @@ class ClassAStar implements InterfaceAStar {
 		if( $StartNode == $TargetNode ) {
 			return true;
 		}
-		self::$propertyOpenList = Stack::Priority('\AioSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList');
-		self::$propertyClosedList = Stack::Priority('\AioSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList');
+		self::$propertyOpenList = Stack::Priority('\AIOSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList');
+		self::$propertyClosedList = Stack::Priority('\AIOSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList');
 		self::pushOpenList( $StartNode );
 		// Run: Target not in ClosedList
 		while( self::$propertyOpenList->peekData() !== null ) {
@@ -106,7 +106,7 @@ class ClassAStar implements InterfaceAStar {
 		}
 	}
 
-	public static function inList( \AioSystem\Core\ClassStackPriority $List, ClassAStarNode $Node ) {
+	public static function inList( \AIOSystem\Core\ClassStackPriority $List, ClassAStarNode $Node ) {
 		$List = $List->listData();
 		/** @var ClassAStarNode $Item */
 		foreach( $List as $Index => $Item ) {

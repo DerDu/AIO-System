@@ -36,13 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Video
  */
-namespace AioSystem\Module\Video;
-use AioSystem\Core\ClassSystemDirectory as Directory;
+namespace AIOSystem\Module\Video;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Video
  */
 class ClassVideoDriver {

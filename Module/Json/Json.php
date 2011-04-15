@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Json
  */
-namespace AioSystem\Module\Json;
+namespace AIOSystem\Module\Json;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Json
  */
 interface InterfaceJson {
@@ -49,7 +49,7 @@ interface InterfaceJson {
 	public static function Decode( $Content );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Json
  */
 class ClassJson implements InterfaceJson {

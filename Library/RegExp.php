@@ -36,19 +36,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  * 
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage RegExp
  */
-namespace AioSystem\Library;
+namespace AIOSystem\Library;
 /**
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage RegExp
  */
 interface InterfaceRegExp {
 	public static function integerBetween( $propertyFromInteger, $propertyToInteger );
 }
 /**
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage RegExp
  */
 class ClassRegExp implements InterfaceRegExp {
@@ -56,7 +56,7 @@ class ClassRegExp implements InterfaceRegExp {
 	 * Create pattern, matching content between integer values
 	 *
 	 * <code>
-	 * $pattern = AioSystem\Library\ClassRegExp::integerBetween( 2, 8 );
+	 * $pattern = AIOSystem\Library\ClassRegExp::integerBetween( 2, 8 );
 	 * preg_match( $pattern, 5 ); // true
 	 * preg_match( $pattern, 0 ); // false
 	 * preg_match( $pattern, 7 ); // true

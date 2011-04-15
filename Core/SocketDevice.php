@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Socket
  */
-namespace AioSystem\Core;
+namespace AIOSystem\Core;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Socket
  */
 interface InterfaceSocketDevice {
@@ -51,7 +51,7 @@ interface InterfaceSocketDevice {
 	public function closeSocketDevice();
 }
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Socket
  */
 class ClassSocketDevice implements InterfaceSocketDevice {

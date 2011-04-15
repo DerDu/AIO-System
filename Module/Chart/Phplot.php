@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Phplot
  */
-namespace AioSystem\Module\Chart;
+namespace AIOSystem\Module\Chart;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Phplot
  */
 interface InterfacePhplot
@@ -49,7 +49,7 @@ interface InterfacePhplot
 	public static function Instance( $integer_width = 600, $integer_height = 400, $string_filename_output = null, $string_filename_background = null );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Phplot
  */
 class ClassPhplot implements InterfacePhplot

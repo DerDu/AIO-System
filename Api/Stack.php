@@ -36,35 +36,38 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
+namespace AIOSystem\Api;
+use \AIOSystem\Core\ClassStackQueue as AIOStackQueue;
+use \AIOSystem\Core\ClassStackPriority as AIOStackPriority;
+use \AIOSystem\Core\ClassStackRegister as AIOStackRegister;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Stack {
 	/**
 	 * @static
-	 * @return \AioSystem\Core\ClassStackQueue
+	 * @return \AIOSystem\Core\ClassStackQueue
 	 */
 	public static function Queue() {
-		return \AioSystem\Core\ClassStackQueue::Instance();
+		return AIOStackQueue::Instance();
 	}
 	/**
 	 * @static
 	 * @param string|function $Callback
-	 * @return \AioSystem\Core\ClassStackPriority
+	 * @return \AIOSystem\Core\ClassStackPriority
 	 */
 	public static function Priority( $Callback ) {
-		return \AioSystem\Core\ClassStackPriority::Instance( $Callback );
+		return AIOStackPriority::Instance( $Callback );
 	}
 	/**
 	 * @static
 	 * @param bool $Persistent
-	 * @return \AioSystem\Core\ClassStackRegister
+	 * @return \AIOSystem\Core\ClassStackRegister
 	 */
 	public static function Register( $Persistent = false ) {
-		return \AioSystem\Core\ClassStackRegister::Instance( $Persistent );
+		return AIOStackRegister::Instance( $Persistent );
 	}
 }
 ?>

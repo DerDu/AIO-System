@@ -36,14 +36,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Xml
  */
-namespace AioSystem\Core;
+namespace AIOSystem\Core;
 /**
  * ClassXmlNode - Interface
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Xml
  */
 interface InterfaceXmlNode {
@@ -61,7 +61,7 @@ interface InterfaceXmlNode {
 /**
  * ClassXmlNode - Class
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Xml
  */
 class ClassXmlNode extends ClassXmlContent implements InterfaceXmlNode {
@@ -122,7 +122,7 @@ class ClassXmlNode extends ClassXmlContent implements InterfaceXmlNode {
 	 * @param string $propertyName
 	 * @param array $propertyAttributeList
 	 * @param bool|null $isDescendant
-	 * @return \AioSystem\Core\ClassXmlNode[]
+	 * @return \AIOSystem\Core\ClassXmlNode[]
 	 */
 	public function groupXmlNode( $propertyName, $propertyAttributeList = array(), $isDescendant = null ) {
 		/** @var ClassXmlNode $CoreXmlNodeChild */
@@ -150,7 +150,7 @@ class ClassXmlNode extends ClassXmlContent implements InterfaceXmlNode {
 	 * @param array $propertyAttributeList
 	 * @param null $indexCoreXmlNode
 	 * @param bool $isSearchRoot
-	 * @return \AioSystem\Core\ClassXmlNode|bool
+	 * @return \AIOSystem\Core\ClassXmlNode|bool
 	 */
 	public function searchXmlNode( $propertyName, $propertyAttributeList = array(), $indexCoreXmlNode = null, $isSearchRoot = false ) {
 		/** @var ClassXmlNode $CoreXmlNodeChild */

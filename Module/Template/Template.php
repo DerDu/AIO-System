@@ -36,15 +36,15 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Template
  */
-namespace AioSystem\Module\Template;
-use \AioSystem\Api\System;
-use \AioSystem\Api\Stack;
-use \AioSystem\Api\Event;
+namespace AIOSystem\Module\Template;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Stack;
+use \AIOSystem\Api\Event;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Template
  */
 interface InterfaceTemplate {
@@ -55,17 +55,17 @@ interface InterfaceTemplate {
 	public function Repeat( $Template, $Array );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Template
  */
 class ClassTemplate implements InterfaceTemplate {
-	/** @var \AioSystem\Core\ClassSystemFile $propertyTemplateFile */
+	/** @var \AIOSystem\Core\ClassSystemFile $propertyTemplateFile */
 	private $propertyTemplateFile = null;
 	/** @var null|string $propertyTemplateContent */
 	private $propertyTemplateContent = null;
-	/** @var \AioSystem\Core\ClassStackQueue $propertyAssignContent */
+	/** @var \AIOSystem\Core\ClassStackQueue $propertyAssignContent */
 	private $propertyAssignContent = array();
-	/** @var \AioSystem\Core\ClassStackQueue $propertyAssignRepeat */
+	/** @var \AIOSystem\Core\ClassStackQueue $propertyAssignRepeat */
 	private $propertyAssignRepeat = array();
 
 	/**
@@ -110,7 +110,12 @@ class ClassTemplate implements InterfaceTemplate {
 	public function MapRepeat() {
 		return $this->propertyAssignRepeat->listData();
 	}
-
+	/**
+	 * @param string $RepeatKey
+	 * @param array $DataArray
+	 * @param string $Content
+	 * @return string
+	 */
 	private function ParseRepeat( $RepeatKey, $DataArray, $Content ) {
 		preg_match_all( '!{'.$RepeatKey.'}(.*?){\/'.$RepeatKey.'}!is', $Content , $Matches );
 		foreach( (array)$Matches[1] as $TemplateIndex => $TemplateContent ) {
@@ -130,7 +135,6 @@ class ClassTemplate implements InterfaceTemplate {
 		}
 		return $Content;
 	}
-
 	/**
 	 * @return string
 	 */

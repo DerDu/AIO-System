@@ -36,14 +36,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Core\ClassSocket as AioSocket;
+namespace AIOSystem\Api;
+use \AIOSystem\Core\ClassSocket as AIOSocket;
 /**
  * Socket
  *  
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Socket {
 	/**
@@ -53,7 +53,7 @@ class Socket {
 	 * @return string
 	 */
 	public static function Open( $Host, $Port = null ) {
-		return AioSocket::openSocket( $Host, $Port );
+		return AIOSocket::openSocket( $Host, $Port );
 	}
 	/**
 	 * @static
@@ -61,7 +61,7 @@ class Socket {
 	 * @return string
 	 */
 	public static function Read( $Length = null ) {
-		return AioSocket::readSocket( $Length );
+		return AIOSocket::readSocket( $Length );
 	}
 	/**
 	 * @static
@@ -69,14 +69,14 @@ class Socket {
 	 * @return mixed
 	 */
 	public static function Write( $Data ) {
-		return AioSocket::writeSocket( $Data );
+		return AIOSocket::writeSocket( $Data );
 	}
 	/**
 	 * @static
 	 * @return void
 	 */
 	public static function Close() {
-		return AioSocket::closeSocket();
+		return AIOSocket::closeSocket();
 	}
 	/**
 	 * @static
@@ -84,11 +84,11 @@ class Socket {
 	 * @return string
 	 */
 	public static function Socket( $Socket = null ) {
-		return AioSocket::propertySocketIdentifier( $Socket );
+		return AIOSocket::propertySocketIdentifier( $Socket );
 	}
 	public static function HttpGet( $File ) {
 		$GET = "GET /".$File." HTTP/1.1\r\n";
-		$GET .= "Host: ".AioSocket::propertySocketDeviceHost()."\r\n";
+		$GET .= "Host: ".AIOSocket::propertySocketDeviceHost()."\r\n";
         $GET .= "Connection: Close\r\n\r\n";
 		self::Write( $GET );
 		return preg_replace( "/^.*?\r\n\r\n/is", '', self::Read() );

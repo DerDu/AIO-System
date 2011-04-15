@@ -36,49 +36,50 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Image
  */
-namespace AioSystem\Module\Image;
+namespace AIOSystem\Module\Image;
+use \AIOSystem\Api\Image;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Image
  */
 interface InterfaceImageEffect {
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Image
  */
 class ClassImageEffect implements InterfaceImageEffect {
-	public static function Negative( \AioSystem\Api\Image $Image ) {
+	public static function Negative( Image $Image ) {
 		imagefilter( $Image->Resource(), IMG_FILTER_NEGATE );
 	}
-	public static function GrayScale( \AioSystem\Api\Image $Image ) {
+	public static function GrayScale( Image $Image ) {
 		imagefilter( $Image->Resource(), IMG_FILTER_GRAYSCALE );
 	}
-	public static function EdgeDetect( \AioSystem\Api\Image $Image ) {
+	public static function EdgeDetect( Image $Image ) {
 		imagefilter( $Image->Resource(), IMG_FILTER_EDGEDETECT );
 	}
-	public static function Emboss( \AioSystem\Api\Image $Image ) {
+	public static function Emboss( Image $Image ) {
 		imagefilter( $Image->Resource(), IMG_FILTER_EMBOSS );
 	}
-	public static function GaussianBlur( \AioSystem\Api\Image $Image ) {
+	public static function GaussianBlur( Image $Image ) {
 		imagefilter( $Image->Resource(), IMG_FILTER_GAUSSIAN_BLUR );
 	}
-	public static function SelectiveBlur( \AioSystem\Api\Image $Image ) {
+	public static function SelectiveBlur( Image $Image ) {
 		imagefilter( $Image->Resource(), IMG_FILTER_SELECTIVE_BLUR );
 	}
-	public static function MeanRemoval( \AioSystem\Api\Image $Image ) {
+	public static function MeanRemoval( Image $Image ) {
 		imagefilter( $Image->Resource(), IMG_FILTER_MEAN_REMOVAL );
 	}
-	public static function Brightness( \AioSystem\Api\Image $Image, $Level ) {
+	public static function Brightness( Image $Image, $Level ) {
 		imagefilter( $Image->Resource(), IMG_FILTER_BRIGHTNESS, $Level );
 	}
-	public static function Contrast( \AioSystem\Api\Image $Image, $Level ) {
+	public static function Contrast( Image $Image, $Level ) {
 		imagefilter( $Image->Resource(), IMG_FILTER_CONTRAST, $Level );
 	}
-	public static function Smooth( \AioSystem\Api\Image $Image, $Level ) {
+	public static function Smooth( Image $Image, $Level ) {
 		imagefilter( $Image->Resource(), IMG_FILTER_SMOOTH, $Level );
 	}
 }

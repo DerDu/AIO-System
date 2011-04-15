@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Socket
  */
-namespace AioSystem\Core;
+namespace AIOSystem\Core;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Socket
  */
 interface InterfaceSocket {
@@ -52,7 +52,7 @@ interface InterfaceSocket {
 	public static function propertySocketIdentifier( $propertySocketIdentifier = null );
 }
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Socket
  */
 class ClassSocket implements InterfaceSocket {

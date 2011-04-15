@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Image
  */
-namespace AioSystem\Module\Image;
+namespace AIOSystem\Module\Image;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Image
  */
 interface InterfaceImageResource {
@@ -50,7 +50,7 @@ interface InterfaceImageResource {
 	public static function Create( $image_size_width, $image_size_height );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Image
  */
 class ClassImageResource implements InterfaceImageResource

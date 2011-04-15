@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pathfinder
  */
-namespace AioSystem\Module\Pathfinder;
+namespace AIOSystem\Module\Pathfinder;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pathfinder
  */
 interface InterfaceAStarHeuristic {
@@ -51,7 +51,7 @@ interface InterfaceAStarHeuristic {
 	public static function HeuristicEuclideanX2( ClassAStarNode $CurrentNode, ClassAStarNode $TargetNode );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pathfinder
  */
 class ClassAStarHeuristic implements InterfaceAStarHeuristic {

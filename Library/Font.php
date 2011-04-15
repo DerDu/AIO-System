@@ -38,19 +38,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage Font
  */
-namespace AioSystem\Library;
+namespace AIOSystem\Library;
 /**
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage Font
  */
 interface InterfaceFont {
 	public static function convertTtf2Afm( $string_filename_input );
 }
 /**
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage Font
  */
 class ClassFont implements InterfaceFont

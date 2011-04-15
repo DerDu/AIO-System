@@ -38,7 +38,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage Php
  */
 // ---------------------------------------------------------------------------------------

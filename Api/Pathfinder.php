@@ -36,56 +36,49 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Module\Pathfinder\ClassAStarNode as AioAStarNode;
-use \AioSystem\Module\Pathfinder\ClassAStar as AioAStar;
-use \AioSystem\Module\Pathfinder\ClassAStarMap as AioAStarMap;
+namespace AIOSystem\Api;
+use \AIOSystem\Module\Pathfinder\ClassAStarNode as AIOAStarNode;
+use \AIOSystem\Module\Pathfinder\ClassAStar as AIOAStar;
+use \AIOSystem\Module\Pathfinder\ClassAStarMap as AIOAStarMap;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Pathfinder {
 	/**
-	 * @return \AioSystem\Module\Pathfinder\ClassAStarMap
+	 * @return \AIOSystem\Module\Pathfinder\ClassAStarMap
 	 */
 	public static function AStarMap() {
-		return AioAStarMap::Instance();
+		return AIOAStarMap::Instance();
 	}
 	/**
 	 * @static
 	 * @param int $Expense
 	 * @param int $PositionX
 	 * @param int $PositionY
-	 * @return \AioSystem\Module\Pathfinder\ClassAStarNode
+	 * @return \AIOSystem\Module\Pathfinder\ClassAStarNode
 	 */
 	public static function AStarNode( $Expense, $PositionX, $PositionY ) {
-		return AioAStarNode::Instance( $Expense, $PositionX, $PositionY );
+		return AIOAStarNode::Instance( $Expense, $PositionX, $PositionY );
 	}
 	/**
 	 * @static
-	 * @param \AioSystem\Module\Pathfinder\ClassAStarNode $Start
-	 * @param \AioSystem\Module\Pathfinder\ClassAStarNode $Target
+	 * @param \AIOSystem\Module\Pathfinder\ClassAStarNode $Start
+	 * @param \AIOSystem\Module\Pathfinder\ClassAStarNode $Target
 	 * @param int $Mode
-	 * @return \AioSystem\Module\Pathfinder\ClassAStarNode|bool
+	 * @return \AIOSystem\Module\Pathfinder\ClassAStarNode|bool
 	 */
-	public static function AStarPath(
-		\AioSystem\Module\Pathfinder\ClassAStarNode $Start,
-		\AioSystem\Module\Pathfinder\ClassAStarNode $Target,
-		$Mode = \AioSystem\Module\Pathfinder\ClassAStarNode::EXPENSE_ABSOLUTE
-	) {
-		return AioAStar::Run( $Start, $Target, $Mode );
+	public static function AStarPath( AIOAStarNode $Start, AIOAStarNode $Target, $Mode = AIOAStarNode::EXPENSE_ABSOLUTE ) {
+		return AIOAStar::Run( $Start, $Target, $Mode );
 	}
 	/**
 	 * @static
-	 * @param \AioSystem\Module\Pathfinder\ClassAStarNode $From
-	 * @param \AioSystem\Module\Pathfinder\ClassAStarNode $To
+	 * @param \AIOSystem\Module\Pathfinder\ClassAStarNode $From
+	 * @param \AIOSystem\Module\Pathfinder\ClassAStarNode $To
 	 * @return void
 	 */
-	public static function AStarTransition(
-		\AioSystem\Module\Pathfinder\ClassAStarNode $From,
-		\AioSystem\Module\Pathfinder\ClassAStarNode $To
-	) {
+	public static function AStarTransition( AIOAStarNode $From, AIOAStarNode $To ) {
 		$From->Proximity( $To );
 	}
 }

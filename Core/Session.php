@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Session
  */
-namespace AioSystem\Core;
+namespace AIOSystem\Core;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Session
  */
 interface InterfaceSession
@@ -59,7 +59,7 @@ interface InterfaceSession
 /**
  * Session handling
  * 
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Session
  */
 class ClassSession implements InterfaceSession {

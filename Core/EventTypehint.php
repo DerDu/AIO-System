@@ -38,19 +38,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Event
  */
-namespace AioSystem\Core;
+namespace AIOSystem\Core;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Event
  */
 interface InterfaceEventTypehint {
 	public static function eventHandler( $propertyNumber, $propertyContent );
 }
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Event
  */
 class ClassEventTypehint implements InterfaceEventTypehint {

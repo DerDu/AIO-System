@@ -36,13 +36,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Cache
  */
-namespace AioSystem\Core;
-use \AioSystem\Api\System as System;
+namespace AIOSystem\Core;
+use \AIOSystem\Api\System;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Cache
  */
 interface InterfaceCacheDisc {
@@ -54,7 +54,7 @@ interface InterfaceCacheDisc {
 	public static function getCacheLocation( $propertyCacheName = 'DefaultCache', $isGlobal = false );
 }
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Cache
  */
 class ClassCacheDisc implements InterfaceCacheDisc {

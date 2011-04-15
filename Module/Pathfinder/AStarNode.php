@@ -36,20 +36,20 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pathfinder
  */
-namespace AioSystem\Module\Pathfinder;
-use AioSystem\Api\Stack as Stack;
+namespace AIOSystem\Module\Pathfinder;
+use \AIOSystem\Api\Stack;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pathfinder
  */
 interface InterfaceAStarNode {
 
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pathfinder
  */
 class ClassAStarNode implements InterfaceAStarNode {
@@ -72,7 +72,7 @@ class ClassAStarNode implements InterfaceAStarNode {
 	}
 
 	function __construct( $Expense, $PositionX, $PositionY ) {
-		$this->propertyProximityList = Stack::Priority( '\AioSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList' );
+		$this->propertyProximityList = Stack::Priority( '\AIOSystem\Module\Pathfinder\ClassAStarNode::_sortProximityList' );
 		$this->propertyValueC( $Expense );
 		$this->propertyPositionX( $PositionX );
 		$this->propertyPositionY( $PositionY );

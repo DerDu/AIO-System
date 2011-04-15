@@ -36,13 +36,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Spam
  */
-namespace AioSystem\Module\Spam;
-use \AioSystem\Api\Database as Database;
+namespace AIOSystem\Module\Spam;
+use \AIOSystem\Api\Database;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Spam
  */
 interface InterfaceSpam {
@@ -52,7 +52,7 @@ interface InterfaceSpam {
 	public static function SpamLevel( $Content );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Spam
  *
  * Enumeration:

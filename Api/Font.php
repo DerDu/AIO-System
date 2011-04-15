@@ -36,19 +36,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Core\ClassSystemDirectory as AioDirectory;
-use \AioSystem\Module\Font\ClassFont as AioFont;
-use \AioSystem\Library\ClassFont as LibraryFont;
+namespace AIOSystem\Api;
+use \AIOSystem\Core\ClassSystemDirectory as AIODirectory;
+use \AIOSystem\Module\Font\ClassFont as AIOFont;
+use \AIOSystem\Library\ClassFont as AIOLibraryFont;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Font {
 	public static function Image( $Text, $Size = null, $Color = null, $Font = null, $Level = 0 ) {
 		$Image = self::Create( $Text, $Size, $Color, $Font );
-		return '<img src="'.Seo::Path( AioDirectory::relativeDirectory( $Image, __DIR__.'/../../' ), $Level ).'" alt="'.$Text.'"/>';
+		return '<img src="'.Seo::Path( AIODirectory::relativeDirectory( $Image, __DIR__.'/../../' ), $Level ).'" alt="'.$Text.'"/>';
 	}
 	/**
 	 * @static
@@ -59,7 +59,7 @@ class Font {
 	 * @return bool|string
 	 */
 	public static function Create( $Text, $Size = null, $Color = null, $Font = null ) {
-		return AioFont::Create( $Text, $Size, $Color, $Font );
+		return AIOFont::Create( $Text, $Size, $Color, $Font );
 	}
 	/**
 	 * @static
@@ -67,10 +67,10 @@ class Font {
 	 * @return string
 	 */
 	public static function ConvertTTF2AFM( $File ) {
-		return LibraryFont::convertTtf2Afm( $File );
+		return AIOLibraryFont::convertTtf2Afm( $File );
 	}
 	public static function Utf8( $Content ) {
-		return AioFont::font_utf8( $Content );
+		return AIOFont::font_utf8( $Content );
 	}
 }
 ?>

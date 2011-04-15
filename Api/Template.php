@@ -36,21 +36,21 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Module\Template\ClassTemplate as AioTemplate;
+namespace AIOSystem\Api;
+use \AIOSystem\Module\Template\ClassTemplate as AIOTemplate;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Template {
 	/**
 	 * @static
 	 * @param string $FileLocation
-	 * @return \AioSystem\Module\Template\ClassTemplate
+	 * @return \AIOSystem\Module\Template\ClassTemplate
 	 */
 	public static function Load( $FileLocation, $ParsePhp = true ) {
-		return AioTemplate::Instance( $FileLocation, $ParsePhp );
+		return AIOTemplate::Instance( $FileLocation, $ParsePhp );
 	}
 }
 ?>

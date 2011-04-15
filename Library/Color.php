@@ -36,18 +36,18 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage Color
  */
-namespace AioSystem\Library;
+namespace AIOSystem\Library;
 /**
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage Color
  */
 interface InterfaceColor {
 }
 /**
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage Color
  */
 class ClassColor implements InterfaceColor {

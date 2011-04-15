@@ -36,13 +36,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage EzPdf
  */
-namespace AioSystem\Module\Pdf;
-use \AioSystem\Api\System as System;
+namespace AIOSystem\Module\Pdf;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Font;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pdf
  */
 interface InterfaceEzpdf {
@@ -72,7 +73,7 @@ interface InterfaceEzpdf {
 	public static function ezpdf_table_map( $array_content, $array_columns, $string_callback );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Pdf
  */
 class ClassEzpdf implements InterfaceEzpdf {
@@ -134,7 +135,7 @@ class ClassEzpdf implements InterfaceEzpdf {
 // ezPDF : FONT --------------------------------------------------------------------------
 	public static function ezpdf_font_family( $string_filename ) {
 		if( strtoupper( pathinfo( $string_filename, PATHINFO_EXTENSION ) ) == 'TTF' ) {
-			$string_filename = \AioSystem\Library\ClassFont::convertTtf2Afm( $string_filename );
+			$string_filename = Font::ConvertTTF2AFM( $string_filename );
 		}
 		// $string_filename e.g. path/fontname.afm
 		if( strtoupper( pathinfo( $string_filename, PATHINFO_EXTENSION ) ) != 'AFM' )
@@ -198,8 +199,8 @@ class ClassEzpdf implements InterfaceEzpdf {
 				'showHeadings'=>self::ezpdf_table_showheader(),
 				'shaded'=>self::ezpdf_table_showshade(),
 				'fontSize'=>self::ezpdf_font_size(),
-				'textCol'=>\AioSystem\Library\ClassColor::convertHex2RgbFloat( self::ezpdf_font_color() ),
-				'lineCol'=>\AioSystem\Library\ClassColor::convertHex2RgbFloat( self::ezpdf_line_color() ),
+				'textCol'=>\AIOSystem\Library\ClassColor::convertHex2RgbFloat( self::ezpdf_font_color() ),
+				'lineCol'=>\AIOSystem\Library\ClassColor::convertHex2RgbFloat( self::ezpdf_line_color() ),
 				'width'=>$array_width[0],
 				'maxWidth'=>$array_width[1],
 				'outerLineThickness'=>0.5,
@@ -259,7 +260,7 @@ class ClassEzpdf implements InterfaceEzpdf {
 	}
 // ezPDF : TEXT --------------------------------------------------------------------------
 	public static function ezpdf_text( $string_text ) {
-		$array_rgbcolor = \AioSystem\Library\ClassColor::convertHex2RgbFloat( self::$ezpdf_option_font_color );
+		$array_rgbcolor = \AIOSystem\Library\ClassColor::convertHex2RgbFloat( self::$ezpdf_option_font_color );
 		self::ezpdf_instance()->setColor($array_rgbcolor[0],$array_rgbcolor[1],$array_rgbcolor[2]);
 
 		self::ezpdf_page_movecursor( self::ezpdf_attribute_getFontMarginTop() );
@@ -304,7 +305,7 @@ class ClassEzpdf implements InterfaceEzpdf {
 	public static function ezpdf_line_color( $string_hexcolor = null ) {
 		// default: 000000
 		if( $string_hexcolor !== null ) self::$ezpdf_option_line_color = $string_hexcolor;
-		$array_rgbcolor = \AioSystem\Library\ClassColor::convertHex2RgbFloat( self::$ezpdf_option_line_color );
+		$array_rgbcolor = \AIOSystem\Library\ClassColor::convertHex2RgbFloat( self::$ezpdf_option_line_color );
 		self::ezpdf_instance()->setStrokeColor($array_rgbcolor[0],$array_rgbcolor[1],$array_rgbcolor[2]);
 		return self::$ezpdf_option_line_color;
 	}

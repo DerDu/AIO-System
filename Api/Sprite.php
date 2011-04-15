@@ -36,34 +36,34 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Api\System as System;
-use \AioSystem\Module\Sprite\ClassSprite as AioSprite;
-use \AioSystem\Module\Sprite\ClassSpriteItem as AioSpriteItem;
+namespace AIOSystem\Api;
+use \AIOSystem\Api\System;
+use \AIOSystem\Module\Sprite\ClassSprite as AIOSprite;
+use \AIOSystem\Module\Sprite\ClassSpriteItem as AIOSpriteItem;
 /**
  * Sprite
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Sprite {
 	public static function CssBackground( $File ) {
 		$Image = Image::Instance( $File );
-		$SpriteItem = new AioSpriteItem();
+		$SpriteItem = new AIOSpriteItem();
 		$SpriteItem->propertyContent( $Image );
 		$SpriteItem->propertyHeight( $Image->Height() );
 		$SpriteItem->propertyWidth( $Image->Width() );
-		AioSprite::addItem( $SpriteItem );
+		AIOSprite::addItem( $SpriteItem );
 	}
-	public static function CssSprite( $File, $Prefix = '.AioSI-' ) {
-		$Stack = AioSprite::Sprite();
-		//AioSprite::debugSpriteStructure();
+	public static function CssSprite( $File, $Prefix = '.AIOSI-' ) {
+		$Stack = AIOSprite::Sprite();
+		//AIOSprite::debugSpriteStructure();
 		//var_dump( $Stack );
-		$Sprite = Image::Instance( $File, AioSprite::$_SpriteWidth, AioSprite::$_SpriteHeight );
+		$Sprite = Image::Instance( $File, AIOSprite::$_SpriteWidth, AIOSprite::$_SpriteHeight );
 		$Css = '';
 		while( $Stack->peekQueueData() !== null ) {
-			/** @var \AioSystem\Module\Sprite\ClassSpriteContainer $Container */
+			/** @var \AIOSystem\Module\Sprite\ClassSpriteContainer $Container */
 			$Container = $Stack->popQueueData();
 			$Item = $Container->propertyItem();
 			/** @var Image $Image */

@@ -36,22 +36,22 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage JournalViewer
  */
-namespace AioSystem\Module\Journal;
-use AioSystem\Api\System;
-use AioSystem\Api\Template;
-use AioSystem\Core\ClassEventJournal as Journal;
+namespace AIOSystem\Module\Journal;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Template;
+use \AIOSystem\Core\ClassEventJournal as Journal;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage JournalViewer
  */
 interface InterfaceJournalViewer {
 
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage JournalViewer
  */
 class ClassJournalViewer implements InterfaceJournalViewer {

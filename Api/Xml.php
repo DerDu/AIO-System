@@ -36,13 +36,15 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
+namespace AIOSystem\Api;
+use \AIOSystem\Core\ClassXmlParser as AIOXmlParser;
+use \AIOSystem\Core\ClassXmlNode as AIOXmlNode;
 /**
  * Xml
  *  
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Xml {
 	/**
@@ -52,10 +54,10 @@ class Xml {
 	 *
 	 * @static
 	 * @param string|Core\ClassXmlNode $Source XML to parse or Node-Instance to pass through
-	 * @return \AioSystem\Core\ClassXmlNode
+	 * @return \AIOSystem\Core\ClassXmlNode
 	 */
 	public static function Parser( $Source ) {
-		return \AioSystem\Core\ClassXmlParser::parseXml( $Source );
+		return AIOXmlParser::parseXml( $Source );
 	}
 	/**
 	 * Create XML-Node Instance
@@ -64,7 +66,7 @@ class Xml {
 	 * @return Core\ClassXmlNode
 	 */
 	public static function Create() {
-		return \AioSystem\Core\ClassXmlNode::Instance();
+		return AIOXmlNode::Instance();
 	}
 }
 ?>

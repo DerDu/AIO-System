@@ -38,13 +38,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Proxy
  */
-namespace AioSystem\Core;
-use \AioSystem\Api\Session as Session;
+namespace AIOSystem\Core;
+use \AIOSystem\Api\Session;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Proxy
  */
 interface InterfaceProxyFile {
@@ -53,7 +53,7 @@ interface InterfaceProxyFile {
 	public static function getFileProxy( $propertyUrl );
 }
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Proxy
  */
 class ClassProxyFile implements InterfaceProxyFile {

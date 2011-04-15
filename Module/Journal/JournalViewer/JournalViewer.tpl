@@ -1,5 +1,5 @@
 <?php
-use \AioSystem\Module\Journal\ClassJournalViewer as JournalViewer;
+use \AIOSystem\Module\Journal\ClassJournalViewer as JournalViewer;
 ?>
 <div id="JournalViewerJournalContent" class="ui-tabs" style="width: 70%;overflow:hidden;position: absolute;top:0;right:0;">
 	<ul>

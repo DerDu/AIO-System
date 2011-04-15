@@ -36,21 +36,21 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Video
  */
-namespace AioSystem\Module\Video;
-use AioSystem\Core\ClassSystemDirectory as Directory;
-use AioSystem\Api\Seo as Seo;
+namespace AIOSystem\Module\Video;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Seo;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Video
  */
 interface InterfaceVideo {
 	public static function Load( $string_filename, $array_option = array() );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Video
  */
 class ClassVideo implements InterfaceVideo
@@ -90,7 +90,7 @@ class ClassVideo implements InterfaceVideo
 	}
 	private static function _imageSlide( $string_directory, $array_option )
 	{
-		$array_files = Directory::getFileList( $string_directory, array('jpg','png','jpeg','bmp','tif') );
+		$array_files = System::FileList( $string_directory, array('jpg','png','jpeg','bmp','tif') );
 
 		$str_return = '<div id="module-video-player-'.$array_option['player-id'].'" style="width: '.$array_option['width'].'px; height: '.$array_option['height'].'px; position: relative;">
 		<img alt="" src="'.$array_files[0]->propertyFileLocation().'" style=" position: absolute; width: '.$array_option['width'].'px; height: '.$array_option['height'].'px; display: none;" />
@@ -98,7 +98,7 @@ class ClassVideo implements InterfaceVideo
 		</div>';
 		$array_slide['definition'] = '';
 		$array_slide['preload'] = '';
-		/** @var $object_file \AioSystem\Core\ClassSystemFile */
+		/** @var $object_file \AIOSystem\Core\ClassSystemFile */
 		foreach ( (array) $array_files as $integer_file => $object_file ){
 			$array_slide['definition'] .= ' arr_slide['.$integer_file.'] = "'.Seo::Path( $object_file->propertyFileLocation() ).'"; ';
 			$array_slide['preload'] .= ' preload_slide.src = "'.Seo::Path( $object_file->propertyFileLocation() ).'"; ';

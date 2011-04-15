@@ -36,12 +36,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage Encryption
  */
-namespace AioSystem\Library;
+namespace AIOSystem\Library;
+use \AIOSystem\Api\Session;
 /**
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage Encryption
  */
 interface InterfaceEncryption {
@@ -49,7 +50,7 @@ interface InterfaceEncryption {
 	public static function decodeSessionEncryption( $string_encrypted );
 }
 /**
- * @package AioSystem\Library
+ * @package AIOSystem\Library
  * @subpackage Encryption
  */
 class ClassEncryption implements InterfaceEncryption {
@@ -89,7 +90,7 @@ class ClassEncryption implements InterfaceEncryption {
 	 * @return string
 	 */
 	private static function _codeSessionEncryption( $propertyContent ) {
-		$getSessionId = \AioSystem\Core\ClassSession::getSessionId();
+		$getSessionId = Session::Id();
 		return str_repeat( $getSessionId, ceil(strlen($propertyContent)/strlen($getSessionId)) );
 	}
 }

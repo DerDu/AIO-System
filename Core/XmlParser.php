@@ -36,14 +36,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Xml
  */
-namespace AioSystem\Core;
+namespace AIOSystem\Core;
 /**
  * ClassXmlParser - Interface
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Xml
  */
 interface InterfaceXmlParser {
@@ -52,7 +52,7 @@ interface InterfaceXmlParser {
 /**
  * ClassXmlContent - Class
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Xml
  */
 class ClassXmlParser implements InterfaceXmlParser {

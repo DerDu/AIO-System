@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Stack
  */
-namespace AioSystem\Core;
+namespace AIOSystem\Core;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Stack
  */
 interface InterfaceStackPriority {
@@ -54,7 +54,7 @@ interface InterfaceStackPriority {
 	public function listData();
 }
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Stack
  */
 class ClassStackPriority implements InterfaceStackPriority {

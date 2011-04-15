@@ -36,16 +36,17 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Font
  */
-namespace AioSystem\Module\Font;
-use \AioSystem\Api\Image as AioImage;
-use \AioSystem\Api\Cache as AioCache;
-use \AioSystem\Library\ClassColor as AioColor;
-use \AioSystem\Core\ClassSystemDirectory as AioDirectory;
+namespace AIOSystem\Module\Font;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Image;
+use \AIOSystem\Api\Cache;
+use \AIOSystem\Library\ClassColor as AIOColor;
+use \AIOSystem\Core\ClassSystemDirectory as AIODirectory;
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Font
  */
 interface InterfaceFont
@@ -57,7 +58,7 @@ interface InterfaceFont
 	public static function font_utf8( $string_text );
 }
 /**
- * @package AioSystem\Module
+ * @package AIOSystem\Module
  * @subpackage Font
  */
 class ClassFont implements InterfaceFont
@@ -72,7 +73,7 @@ class ClassFont implements InterfaceFont
 		$array_trace = debug_backtrace();
 		$array_trace = array_pop($array_trace);
 		// TODO: [FIX BUG] AIOSeoPath for AJAX Call -> wrong RelativePath e.g. aio::seo_path( '../'.aio::directory_relative(... or something blabla :o(
-		return '<img alt="'.str_replace('"','\"',$string_text).'" src="'.AioDirectory::relativeDirectory( self::Create( $string_text, $float_text_size, $string_text_color, $string_font_filename ), dirname($array_trace['file']) ).'" />';
+		return '<img alt="'.str_replace('"','\"',$string_text).'" src="'.AIODirectory::relativeDirectory( self::Create( $string_text, $float_text_size, $string_text_color, $string_font_filename ), dirname($array_trace['file']) ).'" />';
 	}
 	public static function Create( $string_text, $float_text_size = null, $string_text_color = null, $string_font_filename = null )
 	{
@@ -81,7 +82,7 @@ class ClassFont implements InterfaceFont
 		self::font_text_color( $string_text_color );
 		self::font_file_name( $string_font_filename );
 		// Fetch Cache
-		$string_image = AioCache::Location('Font',true).self::font_hash( $string_text ).'.png';
+		$string_image = Cache::Location('Font',true).self::font_hash( $string_text ).'.png';
 		if( file_exists( $string_image ) ) return $string_image;
 		// Check Font
 		if( !file_exists( self::font_file_name() ) ){
@@ -94,15 +95,15 @@ class ClassFont implements InterfaceFont
 		$integer_image_x = abs($array_font_box[2]) + abs($array_font_box[0]) + 2;
 		$integer_image_y = abs($array_font_box[7]) + abs($array_font_box[1]);
 
-		$AioImage = AioImage::Instance( $string_image, $integer_image_x, $integer_image_y );
-		$array_color = AioColor::convertHex2Rgb( self::font_text_color() );
+		$AIOImage = Image::Instance( $string_image, $integer_image_x, $integer_image_y );
+		$array_color = AIOColor::convertHex2Rgb( self::font_text_color() );
 
 		imagettftext(
-			$AioImage->Resource(),
+			$AIOImage->Resource(),
 			self::font_text_size(),
 			0, 0 , abs( $array_font_box[5] ),
 			imagecolorallocate(
-				$AioImage->Resource(),
+				$AIOImage->Resource(),
 				$array_color[0],
 				$array_color[1],
 				$array_color[2]
@@ -110,7 +111,7 @@ class ClassFont implements InterfaceFont
 			self::font_file_name(),
 			self::font_ncr( $string_text )
 		);
-		$AioImage->Save();
+		$AIOImage->Save();
 		return $string_image;
 	}
 

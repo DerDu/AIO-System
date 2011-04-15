@@ -36,14 +36,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Core\ClassProxyFile as AioProxy;
+namespace AIOSystem\Api;
+use \AIOSystem\Core\ClassProxyFile as AIOProxy;
 /**
  * Proxy
  *  
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Proxy {
 	/**
@@ -55,7 +55,7 @@ class Proxy {
 	 * @return void
 	 */
 	public static function Setup( $Host = null, $Port = null, $User = null, $Password = null ) {
-		AioProxy::setFileProxy( $Host, $Port, $User, $Password );
+		AIOProxy::setFileProxy( $Host, $Port, $User, $Password );
 	}
 	/**
 	 * @static
@@ -63,7 +63,7 @@ class Proxy {
 	 * @return null|string
 	 */
 	public static function HttpGet( $Url ) {
-		return AioProxy::getFileProxy( $Url );
+		return AIOProxy::getFileProxy( $Url );
 	}
 }
 ?>

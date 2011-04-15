@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Event
  */
-namespace AioSystem\Core;
+namespace AIOSystem\Core;
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Event
  */
 interface InterfaceEventHandler {
@@ -49,7 +49,7 @@ interface InterfaceEventHandler {
 	public static function _executeEventShutdown();
 }
 /**
- * @package AioSystem\Core
+ * @package AIOSystem\Core
  * @subpackage Event
  */
 class ClassEventHandler implements InterfaceEventHandler {
@@ -83,8 +83,8 @@ class ClassEventHandler implements InterfaceEventHandler {
 		set_error_handler(
 			create_function(
 				'$propertyNumber, $propertyContent, $propertyLocation, $propertyPosition',
-				'if( \AioSystem\Core\ClassEventTypehint::eventHandler( $propertyNumber, $propertyContent ) ) return true;'
-				.'\AioSystem\Core\ClassEventError::eventHandler( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );'
+				'if( \AIOSystem\Core\ClassEventTypehint::eventHandler( $propertyNumber, $propertyContent ) ) return true;'
+				.'\AIOSystem\Core\ClassEventError::eventHandler( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );'
 			)
 		);
 	}
@@ -92,7 +92,7 @@ class ClassEventHandler implements InterfaceEventHandler {
 		set_exception_handler(
 			create_function(
 				'$EventException',
-				'\AioSystem\Core\ClassEventException::eventHandler( $EventException->getCode(), $EventException->getMessage().\'<br /><br /><span style="font-size: 12px;">\'.$EventException->getTraceAsString()."</span><br />", $EventException->getFile(), $EventException->getLine() );'
+				'\AIOSystem\Core\ClassEventException::eventHandler( $EventException->getCode(), $EventException->getMessage().\'<br /><br /><span style="font-size: 12px;">\'.$EventException->getTraceAsString()."</span><br />", $EventException->getFile(), $EventException->getLine() );'
 			)
 		);
 	}
@@ -100,7 +100,7 @@ class ClassEventHandler implements InterfaceEventHandler {
 		register_shutdown_function(
 			create_function(
 				'',
-				'\AioSystem\Core\ClassEventHandler::_executeEventShutdown();'
+				'\AIOSystem\Core\ClassEventHandler::_executeEventShutdown();'
 			)
 		);
 	}

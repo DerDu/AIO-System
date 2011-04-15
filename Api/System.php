@@ -36,38 +36,46 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Core\ClassSystemFile as AioSystemFile;
-use \AioSystem\Core\ClassSystemDirectory as AioSystemDirectory;
+namespace AIOSystem\Api;
+use \AIOSystem\Core\ClassSystemFile as AIOSystemFile;
+use \AIOSystem\Core\ClassSystemDirectory as AIOSystemDirectory;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class System {
 	/**
 	 * @param string $FileLocation
-	 * @return \AioSystem\Core\ClassSystemFile
+	 * @return \AIOSystem\Core\ClassSystemFile
 	 */
 	public static function File( $FileLocation ) {
-		return AioSystemFile::Instance( $FileLocation );
+		return AIOSystemFile::Instance( $FileLocation );
 	}
 	/**
 	 * @param string $Directory
 	 * @param array $Type
 	 * @param bool $Recursive
-	 * @return \AioSystem\Core\ClassSystemFile[]
+	 * @return \AIOSystem\Core\ClassSystemFile[]
 	 */
 	public static function FileList( $Directory, $Type = array(), $Recursive = false ) {
-		return AioSystemDirectory::getFileList( $Directory, $Type, $Recursive );
+		return AIOSystemDirectory::getFileList( $Directory, $Type, $Recursive );
 	}
 	/**
-	 * @param \AioSystem\Core\ClassSystemFile[] $FileList
+	 * @param \AIOSystem\Core\ClassSystemFile[] $FileList
 	 * @param array $Filter
-	 * @return \AioSystem\Core\ClassSystemFile[]
+	 * @return \AIOSystem\Core\ClassSystemFile[]
 	 */
 	public static function FileListFilter( $FileList, $Filter = array() ) {
-		return AioSystemDirectory::applyFileListFilter( $FileList, $Filter );
+		return AIOSystemDirectory::applyFileListFilter( $FileList, $Filter );
+	}
+	/**
+	 * @static
+	 * @param string $Directory
+	 * @param bool $Recursive
+	 */
+	public static function DirectoryList( $Directory, $Recursive = false ) {
+		return AIOSystemDirectory::getDirectoryList( $Directory, $Recursive );
 	}
 	/**
 	 * @static
@@ -75,7 +83,7 @@ class System {
 	 * @return string
 	 */
 	public static function CreateDirectory( $Directory ) {
-		return AioSystemDirectory::createDirectory( $Directory );
+		return AIOSystemDirectory::createDirectory( $Directory );
 	}
 	/**
 	 * @static
@@ -83,7 +91,7 @@ class System {
 	 * @return string
 	 */
 	public static function DirectorySyntax( $Directory ) {
-		return AioSystemDirectory::adjustDirectorySyntax( $Directory );
+		return AIOSystemDirectory::adjustDirectorySyntax( $Directory );
 	}
 }
 ?>

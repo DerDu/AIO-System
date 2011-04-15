@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Module\Json\ClassJson as AioJson;
+namespace AIOSystem\Api;
+use \AIOSystem\Module\Json\ClassJson as AIOJson;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Json {
 	/**
@@ -50,7 +50,7 @@ class Json {
 	 * @return string
 	 */
 	public static function Encode( $Content ) {
-		return AioJson::Encode( $Content );
+		return AIOJson::Encode( $Content );
 	}
 	/**
 	 * @static
@@ -58,7 +58,7 @@ class Json {
 	 * @return mixed
 	 */
 	public static function Decode( $Json ) {
-		return AioJson::Encode( $Json );
+		return AIOJson::Decode( $Json );
 	}
 }
 ?>

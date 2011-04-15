@@ -36,13 +36,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Module\Mail\ClassPhpPop3 as AioPhpPop3;
-use \AioSystem\Module\Mail\ClassPhpMailer as AioPhpMailer;
+namespace AIOSystem\Api;
+use \AIOSystem\Module\Mail\ClassPhpPop3 as AIOPhpPop3;
+use \AIOSystem\Module\Mail\ClassPhpMailer as AIOPhpMailer;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Mail {
 	/**
@@ -56,21 +56,21 @@ class Mail {
 	 * @return resource
 	 */
 	public static function Pop3Open( $Host, $User, $Password, $Folder = 'INBOX', $Ssl = false, $Port = 110 ) {
-		return AioPhpPop3::phppop3_open( $Host, $User, $Password, $Folder, $Ssl, $Port );
+		return AIOPhpPop3::phppop3_open( $Host, $User, $Password, $Folder, $Ssl, $Port );
 	}
 	/**
 	 * @static
 	 * @return void
 	 */
 	public static function Pop3Close() {
-		return AioPhpPop3::phppop3_close();
+		return AIOPhpPop3::phppop3_close();
 	}
 	/**
 	 * @static
 	 * @return int
 	 */
 	public static function Pop3Count() {
-		return AioPhpPop3::phppop3_count();
+		return AIOPhpPop3::phppop3_count();
 	}
 	/**
 	 * @static
@@ -78,7 +78,7 @@ class Mail {
 	 * @return array
 	 */
 	public static function Pop3Search( $Criteria ) {
-		return AioPhpPop3::phppop3_search( $Criteria );
+		return AIOPhpPop3::phppop3_search( $Criteria );
 	}
 	/**
 	 * @static
@@ -86,7 +86,7 @@ class Mail {
 	 * @return void
 	 */
 	public static function Pop3Remove( $Message ) {
-		return AioPhpPop3::phppop3_remove( $Message );
+		return AIOPhpPop3::phppop3_remove( $Message );
 	}
 	/**
 	 * @static
@@ -94,7 +94,7 @@ class Mail {
 	 * @return string
 	 */
 	public static function Pop3Header( $Message ) {
-		return AioPhpPop3::phppop3_header( $Message );
+		return AIOPhpPop3::phppop3_header( $Message );
 	}
 	/**
 	 * @static
@@ -102,7 +102,7 @@ class Mail {
 	 * @return array
 	 */
 	public static function Pop3Read( $Message, $Parse = false ) {
-		return AioPhpPop3::phppop3_read( $Message, $Parse );
+		return AIOPhpPop3::phppop3_read( $Message, $Parse );
 	}
 	/**
 	 * @static
@@ -110,7 +110,7 @@ class Mail {
 	 * @return array
 	 */
 	public static function Pop3Attachment( $Message ) {
-		return AioPhpPop3::phppop3_attachment( $Message );
+		return AIOPhpPop3::phppop3_attachment( $Message );
 	}
 // ---------------------------------------------------------------------------------------
 	/**
@@ -122,14 +122,14 @@ class Mail {
 	 * @return void
 	 */
 	public static function Smtp( $Host, $User, $Password, $Port = 25 ) {
-		return AioPhpMailer::phpmailer_smtp( $Host, $User, $Password, $Port );
+		return AIOPhpMailer::phpmailer_smtp( $Host, $User, $Password, $Port );
 	}
 	/**
 	 * @static
 	 * @return void
 	 */
 	public static function Send() {
-		return AioPhpMailer::phpmailer_send();
+		return AIOPhpMailer::phpmailer_send();
 	}
 	/**
 	 * @static
@@ -137,7 +137,7 @@ class Mail {
 	 * @return void
 	 */
 	public static function Subject( $Text ) {
-		return AioPhpMailer::phpmailer_subject( $Text );
+		return AIOPhpMailer::phpmailer_subject( $Text );
 	}
 	/**
 	 * @static
@@ -145,7 +145,7 @@ class Mail {
 	 * @return void
 	 */
 	public static function Body( $Text ) {
-		return AioPhpMailer::phpmailer_body( $Text );
+		return AIOPhpMailer::phpmailer_body( $Text );
 	}
 	/**
 	 * @static
@@ -153,7 +153,7 @@ class Mail {
 	 * @return void
 	 */
 	public static function Attachment( $File ) {
-		return AioPhpMailer::phpmailer_attachment( $File );
+		return AIOPhpMailer::phpmailer_attachment( $File );
 	}
 	/**
 	 * @static
@@ -162,7 +162,7 @@ class Mail {
 	 * @return void
 	 */
 	public static function From( $Mail, $Name = '' ) {
-		return AioPhpMailer::phpmailer_from( $Mail, $Name );
+		return AIOPhpMailer::phpmailer_from( $Mail, $Name );
 	}
 	/**
 	 * @static
@@ -171,7 +171,7 @@ class Mail {
 	 * @return void
 	 */
 	public static function To( $Mail, $Name = '' ) {
-		return AioPhpMailer::phpmailer_to(  $Mail, $Name );
+		return AIOPhpMailer::phpmailer_to(  $Mail, $Name );
 	}
 	/**
 	 * @static
@@ -180,7 +180,7 @@ class Mail {
 	 * @return void
 	 */
 	public static function Reply( $Mail, $Name = '' ) {
-		return AioPhpMailer::phpmailer_reply( $Mail, $Name );
+		return AIOPhpMailer::phpmailer_reply( $Mail, $Name );
 	}
 }
 ?>

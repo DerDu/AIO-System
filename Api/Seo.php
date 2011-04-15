@@ -36,13 +36,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Core\ClassSeoUri as AioSeoUri;
-use \AioSystem\Library\ClassJQueryAddress as AioSeoDeeplink;
+namespace AIOSystem\Api;
+use \AIOSystem\Core\ClassSeoUri as AIOSeoUri;
+use \AIOSystem\Library\ClassJQueryAddress as AIOSeoDeeplink;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Seo {
 	/**
@@ -54,7 +54,7 @@ class Seo {
 	 * @return string
 	 */
 	public static function Path( $Path, $Level = 0 ) {
-		return AioSeoUri::uri_path( $Path, $Level );
+		return AIOSeoUri::uri_path( $Path, $Level );
 	}
 	/**
 	 * Add SEO-Url-Parameter to $_REQUEST
@@ -63,7 +63,7 @@ class Seo {
 	 * @return void
 	 */
 	public static function Request() {
-		return AioSeoUri::uri_request();
+		return AIOSeoUri::uri_request();
 	}
 	/**
 	 * @static
@@ -75,7 +75,7 @@ class Seo {
 	 * @return string
 	 */
 	public static function DeepLink( $Target, $File, $Name, $Parameter = array(), $Level = 0 ) {
-		return AioSeoDeeplink::jquery_address_deeplink( $Target, $File, $Name, $Parameter, $Level );
+		return AIOSeoDeeplink::jquery_address_deeplink( $Target, $File, $Name, $Parameter, $Level );
 	}
 }
 ?>

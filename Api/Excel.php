@@ -36,12 +36,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
-namespace AioSystem\Api;
-use \AioSystem\Module\Excel\ClassPhpExcel as AioExcel;
+namespace AIOSystem\Api;
+use \AIOSystem\Module\Excel\ClassPhpExcel as AIOExcel;
 /**
- * @package AioSystem\Api
+ * @package AIOSystem\Api
  */
 class Excel {
 	/**
@@ -51,7 +51,7 @@ class Excel {
 	 * @return void
 	 */
 	public static function Open( $Worksheet = 'Worksheet', $File = null ) {
-		return AioExcel::openFile( $Worksheet, $File );
+		return AIOExcel::openFile( $Worksheet, $File );
 	}
 	/**
 	 * @static
@@ -59,7 +59,7 @@ class Excel {
 	 * @return string Filename
 	 */
 	public static function Close( $File = null ) {
-		return AioExcel::closeFile( $File );
+		return AIOExcel::closeFile( $File );
 	}
 	/**
 	 * @static
@@ -67,7 +67,7 @@ class Excel {
 	 * @return string
 	 */
 	public static function WorksheetName( $Name = null ) {
-		return AioExcel::propertyWorksheetName( $Name );
+		return AIOExcel::propertyWorksheetName( $Name );
 	}
 	/**
 	 * @static
@@ -75,7 +75,7 @@ class Excel {
 	 * @return \PHPExcel_Worksheet
 	 */
 	public static function ActiveWorksheet( $Name = null ) {
-		return AioExcel::activeWorksheet( $Name );
+		return AIOExcel::activeWorksheet( $Name );
 	}
 	/**
 	 * @static
@@ -83,7 +83,7 @@ class Excel {
 	 * @return \PHPExcel_Worksheet
 	 */
 	public static function CreateWorksheet( $Name ) {
-		return AioExcel::createWorksheet( $Name );
+		return AIOExcel::createWorksheet( $Name );
 	}
 	/**
 	 * @static
@@ -93,7 +93,7 @@ class Excel {
 	 * @return void
 	 */
 	public static function CellValue( $Name, $Value, $Type = null ) {
-		return AioExcel::cellValue( $Name, $Value, $Type );
+		return AIOExcel::cellValue( $Name, $Value, $Type );
 	}
 	/**
 	 * @static
@@ -104,7 +104,7 @@ class Excel {
 	 * @return void
 	 */
 	public static function CellImage( $Name, $File, $Width, $Height ) {
-		return AioExcel::cellImage( $Name, $File, $Width, $Height );
+		return AIOExcel::cellImage( $Name, $File, $Width, $Height );
 	}
 	/**
 	 * CSS like cell styling
@@ -123,7 +123,7 @@ class Excel {
 	 * @return void
 	 */
 	public static function CellStyle( $Name, $Css = array() ) {
-		return AioExcel::cellStyle( $Name, $Css );
+		return AIOExcel::cellStyle( $Name, $Css );
 	}
 	/**
 	 * Merge cells
@@ -139,7 +139,7 @@ class Excel {
 	 * @return void
 	 */
 	public static function CellMerge( $Name ) {
-		return AioExcel::cellMerge( $Name );
+		return AIOExcel::cellMerge( $Name );
 	}
 	/**
 	 * Convert cell name to cell index
@@ -149,7 +149,7 @@ class Excel {
 	 * @return array
 	 */
 	public static function CellName2Index( $Name ) {
-		return AioExcel::convertCellNameToIndex( $Name );
+		return AIOExcel::convertCellNameToIndex( $Name );
 	}
 	/**
 	 *
@@ -161,7 +161,7 @@ class Excel {
 	 * @return string
 	 */
 	public static function CellIndex2Name( $IndexX, $IndexY ) {
-		return AioExcel::convertCellIndexToName( $IndexX, $IndexY );
+		return AIOExcel::convertCellIndexToName( $IndexX, $IndexY );
 	}
 }
 ?>
