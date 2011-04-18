@@ -124,7 +124,7 @@ class ClassHierarchicalData {
 		));
 	}
 
-	public function GetTreeHtml( Template $DataTemplateInstance = null, $FilterExpression = null, $HDTreeId = null ) {
+	public function GetTreeHtml( \AIOSystem\Module\Template\ClassTemplate $DataTemplateInstance = null, $FilterExpression = null, $HDTreeId = null ) {
 		$Data = $this->GetTree( $FilterExpression, $HDTreeId );
 		$IndentLevel = -1;
 		$Html = '';
