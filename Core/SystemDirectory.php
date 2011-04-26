@@ -49,7 +49,7 @@ interface InterfaceSystemDirectory {
 	public static function getFileList( $propertyDirectoryName, $propertyFileTypeList = array(), $isRecursive = false );
 	public static function applyFileListFilter( $propertyFileList, $propertyFilterList = array() );
 // ---------------------------------------------------------------------------------------
-	public static function adjustDirectorySyntax( $propertyDirectoryName );
+	public static function adjustDirectorySyntax( $Directory, $TrailingSeparator = true, $DirectorySeparator = ClassSystemDirectory::DIRECTORY_SEPARATOR_SLASH  );
 	public static function createDirectory( $propertyDirectoryName );
 	public static function relativeDirectory(  $propertyDirectoryName, $propertyDirectoryLocation );
 }
@@ -146,20 +146,43 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 	 *
 	 * Convert e.g Path1\Path2//Path3/../Path4 -> Path1/Path2/Path4/
 	 */
-	public static function adjustDirectorySyntax( $propertyDirectoryName ) {
-		// CONVERT \ TO /
-		$propertyDirectoryName = str_replace( array('\\','//'), '/', $propertyDirectoryName );
-		// RESOLVE "../"
-		$countRelativeLevel = substr_count( $propertyDirectoryName, '../' );
-		for( $runRelativeLevel = 0; $runRelativeLevel < $countRelativeLevel; $runRelativeLevel++ ) {
-			$propertyDirectoryName = preg_replace( '!\/?[^\/]*?\/\.\.!is', '', $propertyDirectoryName, 1 );
+	const DIRECTORY_SEPARATOR_SLASH = '/';
+	const DIRECTORY_SEPARATOR_BACKSLASH = '\\';
+	public static function adjustDirectorySyntax( $Directory, $TrailingSeparator = true, $DirectorySeparator = ClassSystemDirectory::DIRECTORY_SEPARATOR_SLASH ) {
+		switch( $DirectorySeparator ) {
+			case self::DIRECTORY_SEPARATOR_SLASH: {
+				// CONVERT \ TO /
+				$Directory = str_replace( array('\\','//'), '/', $Directory );
+				// RESOLVE "../"
+				$countRelativeLevel = substr_count( $Directory, '../' );
+				for( $runRelativeLevel = 0; $runRelativeLevel < $countRelativeLevel; $runRelativeLevel++ ) {
+					$Directory = preg_replace( '!\/?[^\/]*?\/\.\.!is', '', $Directory, 1 );
+				}
+				// HANDLE TRAILING /
+				if( $TrailingSeparator == true )
+				if( substr( $Directory, -1, 1 ) != '/' && !is_file( $Directory ) ) {
+					$Directory .= '/';
+				}
+				// BUILD CORRECT PATH
+				return str_replace( '//', '/', $Directory );
+			}
+			case self::DIRECTORY_SEPARATOR_BACKSLASH: {
+				// CONVERT / TO \
+				$Directory = str_replace( array('//','/','\\\\'), '\\', $Directory );
+				// RESOLVE "..\"
+				$countRelativeLevel = substr_count( $Directory, '..\\' );
+				for( $runRelativeLevel = 0; $runRelativeLevel < $countRelativeLevel; $runRelativeLevel++ ) {
+					$Directory = preg_replace( '!\\?[^\\]*?\\\.\.!is', '', $Directory, 1 );
+				}
+				// HANDLE TRAILING \
+				if( $TrailingSeparator == true )
+				if( substr( $Directory, -1, 1 ) != '\\' && !is_file( $Directory ) ) {
+					$Directory .= '\\';
+				}
+				// BUILD CORRECT PATH
+				return str_replace( '\\\\', '\\', $Directory );
+			}
 		}
-		// HANDLE TRAILING /
-		if( substr( $propertyDirectoryName, -1, 1 ) != '/' && !is_file( $propertyDirectoryName ) ) {
-			$propertyDirectoryName .= '/';
-		}
-		// BUILD CORRECT PATH
-		return str_replace( '//', '/', $propertyDirectoryName );
 	}
 	/**
 	 * @static
