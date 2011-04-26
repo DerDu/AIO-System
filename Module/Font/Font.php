@@ -86,7 +86,7 @@ class ClassFont implements InterfaceFont
 		if( file_exists( $string_image ) ) return $string_image;
 		// Check Font
 		if( !file_exists( self::font_file_name() ) ){
-			trigger_error('File not found!');
+			trigger_error('File not found! '.self::font_file_name());
 			return false;
 		}
 		// Fetch Font-Box
