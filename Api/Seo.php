@@ -54,7 +54,7 @@ class Seo {
 	 * @return string
 	 */
 	public static function Path( $Path, $Level = 0 ) {
-		return AIOSeoUri::uri_path( $Path, $Level );
+		return AIOSeoUri::UriPath( $Path, $Level );
 	}
 	/**
 	 * Add SEO-Url-Parameter to $_REQUEST
@@ -63,7 +63,7 @@ class Seo {
 	 * @return void
 	 */
 	public static function Request() {
-		return AIOSeoUri::uri_request();
+		return AIOSeoUri::UriRequest();
 	}
 	/**
 	 * @static
@@ -75,7 +75,7 @@ class Seo {
 	 * @return string
 	 */
 	public static function DeepLink( $Target, $File, $Name, $Parameter = array(), $Level = 0 ) {
-		return AIOSeoDeeplink::jquery_address_deeplink( $Target, $File, $Name, $Parameter, $Level );
+		return AIOSeoDeeplink::jQueryAddressDeeplink( $Target, $File, $Name, $Parameter, $Level );
 	}
 }
 ?>
