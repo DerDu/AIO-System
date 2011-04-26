@@ -43,6 +43,12 @@ namespace AIOSystem\Api;
  * @package AIOSystem\Api
  */
 class Html {
+	/**
+	 * @static
+	 * @param string $Directory
+	 * @param bool $Recursive
+	 * @return string
+	 */
 	public static function Style( $Directory, $Recursive = false ) {
 		$FileList = array();
 		if( is_dir( $Directory ) ) {
@@ -57,6 +63,12 @@ class Html {
 		}
 		return $Return;
 	}
+	/**
+	 * @static
+	 * @param string $Directory
+	 * @param bool $Recursive
+	 * @return string
+	 */
 	public static function Javascript( $Directory, $Recursive = false ) {
 		$FileList = array();
 		if( is_dir( $Directory ) ) {
