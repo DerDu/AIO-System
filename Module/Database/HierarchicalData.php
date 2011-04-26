@@ -51,7 +51,10 @@ use \AIOSystem\Api\Event;
 interface InterfaceHierarchicalData {
 
 }
-	
+/**
+ * @package AIOSystem\Module
+ * @subpackage Database
+ */
 class ClassHierarchicalData {
 	const propertyFieldNameId = '_HDTreeId';
 	const propertyFieldNameLink = '_HDTreeLink';
