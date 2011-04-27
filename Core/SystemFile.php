@@ -53,6 +53,7 @@ interface InterfaceSystemFile {
 	public function propertyFileSize( $propertyFileSize = null );
 	public function propertyFileTime( $propertyFileTime = null );
 	public function propertyFileContent( $propertyFileContent = null );
+	public function Hash();
 // ---------------------------------------------------------------------------------------
 	public function readFile( $ParsePhp = false );
 	public function writeFile( $_writeMode = 'wb' );
@@ -178,6 +179,11 @@ class ClassSystemFile implements InterfaceSystemFile {
 			$this->_loadFileAttributeList();
 		}
 	}
+
+	public function Hash() {
+		return sha1_file( $this->propertyFileLocation() );
+	}
+
 // ---------------------------------------------------------------------------------------
 	/**
 	 * @param null|string $propertyFileName
