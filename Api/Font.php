@@ -42,13 +42,15 @@ namespace AIOSystem\Api;
 use \AIOSystem\Core\ClassSystemDirectory as AIODirectory;
 use \AIOSystem\Module\Font\ClassFont as AIOFont;
 use \AIOSystem\Library\ClassFont as AIOLibraryFont;
+use \AIOSystem\Api\Image;
 /**
  * @package AIOSystem\Api
  */
 class Font {
 	public static function Image( $Text, $Size = null, $Color = null, $Font = null, $Level = 0 ) {
 		$Image = self::Create( $Text, $Size, $Color, $Font );
-		return '<img src="'.Seo::Path( AIODirectory::relativeDirectory( $Image, __DIR__.'/../../' ), $Level ).'" alt="'.$Text.'"/>';
+		$AIOImage = Image::Instance( $Image );
+		return '<img src="'.Seo::Path( AIODirectory::relativeDirectory( $Image, __DIR__.'/../../' ), $Level ).'" alt="'.$Text.'" width="'.$AIOImage->Width().'" height="'.$AIOImage->Height().'"/>';
 	}
 	/**
 	 * @static
