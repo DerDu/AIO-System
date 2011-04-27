@@ -95,5 +95,9 @@ class System {
 	public static function DirectorySyntax( $Directory, $Trailing = true, $Separator = self::DIRECTORY_SEPARATOR_SLASH ) {
 		return AIOSystemDirectory::adjustDirectorySyntax( $Directory, $Trailing, $Separator );
 	}
+
+	public static function RelativeDirectory( $Directory, $Location ) {
+		return AIOSystemDirectory::relativeDirectory( $Directory, $Location );
+	}
 }
 ?>
