@@ -84,9 +84,13 @@ class ClassCacheDisc implements InterfaceCacheDisc {
 	 * @param bool $isGlobal
 	 * @return bool|string
 	 */
-	public static function getCache( $propertyCacheParameter, $propertyCacheName = 'DefaultCache', $isGlobal = false ) {
-		if( false !== ( $propertyCacheParameter = self::isCached( $propertyCacheParameter ) ) ) {
-			return file_get_contents( self::getCacheLocation( $propertyCacheName, $isGlobal ).$propertyCacheParameter );
+	public static function getCache( $propertyCacheParameter, $propertyCacheName = 'DefaultCache', $isGlobal = false, $Location = false ) {
+		if( false !== ( $propertyCacheParameter = self::isCached( $propertyCacheParameter, $propertyCacheName, $isGlobal ) ) ) {
+			if( $Location ) {
+				return self::getCacheLocation( $propertyCacheName, $isGlobal ).$propertyCacheParameter;
+			} else {
+				return file_get_contents( self::getCacheLocation( $propertyCacheName, $isGlobal ).$propertyCacheParameter );
+			}
 		} else {
 			return false;
 		}
