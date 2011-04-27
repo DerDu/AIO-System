@@ -78,8 +78,8 @@ class Cache {
 	 * @param bool $Global
 	 * @return bool|string
 	 */
-	public static function Get( $Parameter, $Cache = 'DefaultCache', $Global = false ) {
-		return AIOCache::getCache( $Parameter, $Cache, $Global );
+	public static function Get( $Parameter, $Cache = 'DefaultCache', $Global = false, $Location = false ) {
+		return AIOCache::getCache( $Parameter, $Cache, $Global, $Location );
 	}
 	/**
 	 * Returns the current cache location
