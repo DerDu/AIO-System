@@ -182,7 +182,7 @@ class ClassTemplate implements InterfaceTemplate {
 	}
 	/**
 	 * @param string $Template
-	 * @param array $Array array( array( 'Template'=>'Value', ... ), ... )
+	 * @param array $Array array( array( 'Template'=>'Value or Sub-Repeat-Array', ... ), ... )
 	 * @return void
 	 */
 	public function Repeat( $Template, $Array ) {
