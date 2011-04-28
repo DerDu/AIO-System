@@ -39,6 +39,8 @@
  * @package AIOSystem\Api
  */
 namespace AIOSystem\Api;
+use \AIOSystem\Module\Video\ClassVideo as Video;
+
 /**
  * @package AIOSystem\Api
  */
@@ -82,6 +84,9 @@ class Html {
 			$Return .= '<script type="text/javascript" src="'.Seo::Path( $File->propertyFileLocation() ).'"></script>';
 		}
 		return $Return;
+	}
+	public static function Video( $File, $Option = array() ) {
+		return Video::Load( $File, $Option );
 	}
 }
 ?>
