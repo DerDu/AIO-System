@@ -1,8 +1,8 @@
 <?php
 /**
- * This file contains the API:Font
+ * Utf8Encoding
  *
- // ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------
  * LICENSE (BSD)
  *
  * Copyright (c) 2011, Gerd Christian Kunze
@@ -36,48 +36,45 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AIOSystem\Api
+ * Based on: http://de2.php.net/manual/de/function.utf8-decode.php#94801
+ * 
+ * @package AIOSystem\Module
+ * @subpackage Font
  */
-namespace AIOSystem\Api;
-use \AIOSystem\Core\ClassSystemDirectory as AIODirectory;
-use \AIOSystem\Module\Font\ClassFont as AIOFont;
-use \AIOSystem\Module\Font\ClassUtf8Encoding as AIOUtf8Encoding;
-use \AIOSystem\Library\ClassFont as AIOLibraryFont;
-use \AIOSystem\Api\Image;
+namespace AIOSystem\Module\Font;
 /**
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage Utf8Encoding
  */
-class Font {
-	public static function Image( $Text, $Size = null, $Color = null, $Font = null, $Level = 0 ) {
-		$Image = self::Create( $Text, $Size, $Color, $Font );
-		$AIOImage = Image::Instance( $Image );
-		return '<img src="'.Seo::Path( AIODirectory::relativeDirectory( $Image, __DIR__.'/../../' ), $Level ).'" alt="'.$Text.'" width="'.$AIOImage->Width().'" height="'.$AIOImage->Height().'"/>';
-	}
-	/**
-	 * @static
-	 * @param string $Text
-	 * @param null|int $Size
-	 * @param null|string $Color
-	 * @param null|string $Font
-	 * @return bool|string
-	 */
-	public static function Create( $Text, $Size = null, $Color = null, $Font = null ) {
-		return AIOFont::Create( $Text, $Size, $Color, $Font );
-	}
-	/**
-	 * @static
-	 * @param string $File
-	 * @return string
-	 */
-	public static function ConvertTTF2AFM( $File ) {
-		return AIOLibraryFont::convertTtf2Afm( $File );
-	}
-	public static function Utf8( $Content ) {
-		return AIOFont::font_utf8( $Content );
-	}
+interface InterfaceUtf8Encoding {
+	public static function MixedToLatin1( $Text );
+	public static function MixedToUtf8( $Text );
+}
+/**
+ * @package AIOSystem\Module
+ * @subpackage Utf8Encoding
+ */
+class ClassUtf8Encoding implements InterfaceUtf8Encoding {
+	private static $DictionaryLatin1ToUtf8 = null;
+	private static $DictionaryUtf8ToLatin1 = null;
 
+	private static function BuildDictionary() {
+		if( self::$DictionaryUtf8ToLatin1 === null || self::$DictionaryLatin1ToUtf8 === null ) {
+			for ($Run = 32; $Run <= 255; $Run++) {
+				self::$DictionaryLatin1ToUtf8[chr($Run)] = utf8_encode(chr($Run));
+				self::$DictionaryUtf8ToLatin1[utf8_encode(chr($Run))] = chr($Run);
+			}
+		}
+	}
+	public static function MixedToLatin1( $Text ) {
+		self::BuildDictionary();
+		foreach ( self::$DictionaryUtf8ToLatin1 as $Key => $Val) {
+			$Text = str_replace( $Key, $Val, $Text );
+		}
+		return $Text;
+	}
 	public static function MixedToUtf8( $Text ) {
-		return AIOUtf8Encoding::MixedToUtf8( $Text );
+		self::BuildDictionary();
+		return utf8_encode( self::MixedToLatin1( $Text ) );
 	}
 }
-?>
