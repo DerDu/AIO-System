@@ -85,7 +85,7 @@ class ClassVideo implements InterfaceVideo
 				return call_user_func_array( __NAMESPACE__.'\ClassVideoDriver::driver_'.$string_extension, array( $string_filename, $array_option ) );
 			}
 		} else {
-			throw new \Exception( 'Driver not available!' );
+			throw new \Exception( 'Driver not available! ('.$string_extension.')' );
 		}
 	}
 	private static function _imageSlide( $string_directory, $array_option )
@@ -93,8 +93,8 @@ class ClassVideo implements InterfaceVideo
 		$array_files = System::FileList( $string_directory, array('jpg','png','jpeg','bmp','tif') );
 
 		$str_return = '<div id="module-video-player-'.$array_option['player-id'].'" style="width: '.$array_option['width'].'px; height: '.$array_option['height'].'px; position: relative;">
-		<img alt="" src="'.$array_files[0]->propertyFileLocation().'" style=" position: absolute; width: '.$array_option['width'].'px; height: '.$array_option['height'].'px; display: none;" />
-		<img alt="" src="'.$array_files[0]->propertyFileLocation().'" style=" position: absolute; width: '.$array_option['width'].'px; height: '.$array_option['height'].'px; display: none;" />
+		<img alt="" src="'.Seo::Path( $array_files[0]->propertyFileLocation() ).'" style=" position: absolute; width: '.$array_option['width'].'px; height: '.$array_option['height'].'px; display: none;" />
+		<img alt="" src="'.Seo::Path( $array_files[0]->propertyFileLocation() ).'" style=" position: absolute; width: '.$array_option['width'].'px; height: '.$array_option['height'].'px; display: none;" />
 		</div>';
 		$array_slide['definition'] = '';
 		$array_slide['preload'] = '';
