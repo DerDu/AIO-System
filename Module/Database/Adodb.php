@@ -101,6 +101,7 @@ class ClassAdodb implements InterfaceAdodb
 		//$this->propertyAdodbResource()->debug=true;
 		if( ! $this->propertyAdodbResource()->Connect( $HostName, $UserName, $Password, $Database ) )
 		throw new \Exception( 'Connection failed!<br/>'.ClassDatabase::database_route() );
+		//$this->propertyAdodbResource()->password = $Password;
 	}
 	/**
 	 * @throws \Exception
@@ -117,7 +118,7 @@ class ClassAdodb implements InterfaceAdodb
 
 		if( $Cache ){
 			global $ADODB_CACHE_DIR;
-			$ADODB_CACHE_DIR =  Cache::Location( 'AIOAdodb5Shell' );
+			$ADODB_CACHE_DIR = Cache::Location( 'AIOAdodb5Shell' );
 			if( $this->bool_debug ) Event::Debug('Cached: '.$ADODB_CACHE_DIR);
 
 			$this->propertyAdodbResult( $this->propertyAdodbResource()->CacheExecute( $this->adodb5_cache_timeout, $Sql ) );
@@ -148,7 +149,7 @@ class ClassAdodb implements InterfaceAdodb
 	 */
 	public function createTable( $TableName, $TableFieldset ) {
 		// $TableFieldset: Array( Name, Type, Size, Options.. )
-		$NewDataDictionary = \NewDataDictionary( $this->propertyAdodbResource );
+		$NewDataDictionary = \NewDataDictionary( $this->propertyAdodbResource() );
 		return $NewDataDictionary->ExecuteSQLArray(
 			$NewDataDictionary->CreateTableSQL( $TableName, $TableFieldset )
 		);
@@ -157,7 +158,7 @@ class ClassAdodb implements InterfaceAdodb
 	 * @param string $TableName
 	 */
 	public function dropTable( $TableName ) {
-		$NewDataDictionary = \NewDataDictionary( $this->propertyAdodbResource );
+		$NewDataDictionary = \NewDataDictionary( $this->propertyAdodbResource() );
 		return $NewDataDictionary->ExecuteSQLArray(
 			$NewDataDictionary->DropTableSQL( $TableName )
 		);
@@ -197,13 +198,15 @@ class ClassAdodb implements InterfaceAdodb
 	 * @param bool $Delete
 	 * @return bool|int
 	 */
-	public function Record( $TableName, $FieldSet = array(), $Where = null, $Delete = false ) {
+	public function Record( $TableName, $FieldSet = array(), $Where = null, $Delete = false, $ADODB_ASSOC_CASE = null ) {
 		global $ADODB_ASSOC_CASE;
-		$ADODB_ASSOC_CASE = 2;
+		if( $ADODB_ASSOC_CASE === null ) {
+			$ADODB_ASSOC_CASE = 2;
+		}
 		if( $this->bool_debug ) Event::Debug('Record: '.$TableName);
 
 		if( !class_exists( 'ADODB_Active_Record' ) ) require_once(__DIR__ . '/Adodb/adodb-active-record.inc.php');
-		\ADODB_Active_Record::SetDatabaseAdapter( $this->propertyAdodbResource );
+		\ADODB_Active_Record::SetDatabaseAdapter( $this->propertyAdodbResource() );
 		// Create Object
 		$ADODB_Active_Record = new \ADODB_Active_Record( $TableName );
 		if( $Where !== null ) $ADODB_Active_Record->Load( implode(' AND ',(array)$Where) );
@@ -239,9 +242,15 @@ class ClassAdodb implements InterfaceAdodb
 	 * @return void
 	 */
 	public function __wakeup() {
+		//var_dump( $this->propertyAdodbResource() );
 		// Reestablish connection ?
-		if( !$this->propertyAdodbResource->IsConnected() ) {
-			$this->propertyAdodbResource->Connect( $this->propertyAdodbResource->host, $this->propertyAdodbResource->user, $this->propertyAdodbResource->password, $this->propertyAdodbResource->database );
+		if( !$this->propertyAdodbResource()->IsConnected() ) {
+			$this->propertyAdodbResource()->Connect(
+				$this->propertyAdodbResource()->host,
+				$this->propertyAdodbResource()->user,
+				$this->propertyAdodbResource()->password,
+				$this->propertyAdodbResource()->database
+			);
 		}
 	}
 }
