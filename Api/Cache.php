@@ -92,5 +92,15 @@ class Cache {
 	public static function Location( $Cache = 'DefaultCache', $Global = false ) {
 		return AIOCache::getCacheLocation( $Cache, $Global );
 	}
+	/**
+	 * Returns a cache file name
+	 *
+	 * @static
+	 * @param string $File
+	 * @return string
+	 */
+	public static function File( $File ) {
+		return AIOCache::getCacheFilename( $File );
+	}
 }
 ?>

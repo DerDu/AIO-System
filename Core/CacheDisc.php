@@ -137,6 +137,17 @@ class ClassCacheDisc implements InterfaceCacheDisc {
 		chmod( $propertyDirectoryName, 0777 );
 		return $propertyDirectoryName;
 	}
+	/**
+	 * @static
+	 * @param string $propertyCacheFileName
+	 * @return string
+	 */
+	public static function getCacheFilename( $propertyCacheFileName ) {
+		return  date('ymd')
+				.'_'.pathinfo($propertyCacheFileName,PATHINFO_FILENAME)
+				.'_'.time()
+				.'.'.pathinfo($propertyCacheFileName,PATHINFO_EXTENSION);
+	}
 // ---------------------------------------------------------------------------------------
 	/**
 	 * @static
