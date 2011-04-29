@@ -41,6 +41,7 @@
 namespace AIOSystem\Api;
 use \AIOSystem\Core\ClassSystemFile as AIOSystemFile;
 use \AIOSystem\Core\ClassSystemDirectory as AIOSystemDirectory;
+use \AIOSystem\Core\ClassDebugTimer as AIODebugTimer;
 /**
  * @package AIOSystem\Api
  */
@@ -98,6 +99,15 @@ class System {
 
 	public static function RelativeDirectory( $Directory, $Location ) {
 		return AIOSystemDirectory::relativeDirectory( $Directory, $Location );
+	}
+	/**
+	 * @static
+	 * @param string $Name
+	 * @param bool $Average
+	 * @return \AIOSystem\Core\ClassDebugTimer
+	 */
+	public static function DebugTimer( $Name = 'DebugTimer', $Average = false ) {
+		return AIODebugTimer::Timer( $Name, $Average );
 	}
 }
 ?>
