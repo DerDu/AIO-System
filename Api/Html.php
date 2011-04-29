@@ -88,5 +88,8 @@ class Html {
 	public static function Video( $File, $Option = array() ) {
 		return Video::Load( $File, $Option );
 	}
+	public static function Favicon( $File ) {
+		return '<link rel="shortcut icon" type="image/x-icon" href="'.Seo::Path( $File ).'">';
+	}
 }
 ?>
