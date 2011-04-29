@@ -69,6 +69,20 @@ class Database {
 	}
 	/**
 	 * @static
+	 * @return array|boolean|string
+	 */
+	public static function RouteList( $Index = null ) {
+		if( $Index !== null ) {
+			$List = AIODatabase::database_list();
+			if( array_key_exists( $Index, $List ) ) {
+				return $List[$Index];
+			}
+			return false;
+		}
+		return AIODatabase::database_list();
+	}
+	/**
+	 * @static
 	 * @return string
 	 */
 	public static function RouteEngine() {
