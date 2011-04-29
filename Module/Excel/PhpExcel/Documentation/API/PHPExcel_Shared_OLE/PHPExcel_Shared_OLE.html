@@ -13,8 +13,8 @@
   <tr>
     <td class="header_menu">
         
-                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                      		  [ <a href="../classtrees_PHPExcel_Shared_OLE.html" class="menu">class tree: PHPExcel_Shared_OLE</a> ]
+                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                          		  [ <a href="../classtrees_PHPExcel_Shared_OLE.html" class="menu">class tree: PHPExcel_Shared_OLE</a> ]
 		  [ <a href="../elementindex_PHPExcel_Shared_OLE.html" class="menu">index: PHPExcel_Shared_OLE</a> ]
 		  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]
     </td>
@@ -38,12 +38,14 @@
               <a href="../li_PHPExcel_Cell.html">PHPExcel_Cell</a><br />
               <a href="../li_PHPExcel_Reader.html">PHPExcel_Reader</a><br />
               <a href="../li_PHPExcel_Reader_Excel5.html">PHPExcel_Reader_Excel5</a><br />
+              <a href="../li_PHPExcel_Reader_Excel2007.html">PHPExcel_Reader_Excel2007</a><br />
               <a href="../li_PHPExcel_RichText.html">PHPExcel_RichText</a><br />
               <a href="../li_PHPExcel_Settings.html">PHPExcel_Settings</a><br />
               <a href="../li_PHPExcel_Shared.html">PHPExcel_Shared</a><br />
               <a href="../li_PHPExcel_Shared_Best_Fit.html">PHPExcel_Shared_Best_Fit</a><br />
               <a href="../li_PHPExcel_Shared_Escher.html">PHPExcel_Shared_Escher</a><br />
               <a href="../li_PHPExcel_Shared_OLE.html">PHPExcel_Shared_OLE</a><br />
+              <a href="../li_PHPExcel_Shared_ZipArchive.html">PHPExcel_Shared_ZipArchive</a><br />
               <a href="../li_PHPExcel_Style.html">PHPExcel_Style</a><br />
               <a href="../li_PHPExcel_Worksheet.html">PHPExcel_Worksheet</a><br />
               <a href="../li_PHPExcel_Worksheet_Drawing.html">PHPExcel_Worksheet_Drawing</a><br />
@@ -142,9 +144,6 @@ Source Location: /PHPExcel/Shared/OLE.php<br /><br />
     <li><a href="../PHPExcel_Shared_OLE/PHPExcel_Shared_OLE.html#methodread">read</a></li>
     <li><a href="../PHPExcel_Shared_OLE/PHPExcel_Shared_OLE.html#method_getBlockOffset">_getBlockOffset</a></li>
     <li><a href="../PHPExcel_Shared_OLE/PHPExcel_Shared_OLE.html#method_ppsTreeComplete">_ppsTreeComplete</a></li>
-    <li><a href="../PHPExcel_Shared_OLE/PHPExcel_Shared_OLE.html#method_readInt1">_readInt1</a></li>
-    <li><a href="../PHPExcel_Shared_OLE/PHPExcel_Shared_OLE.html#method_readInt2">_readInt2</a></li>
-    <li><a href="../PHPExcel_Shared_OLE/PHPExcel_Shared_OLE.html#method_readInt4">_readInt4</a></li>
     <li><a href="../PHPExcel_Shared_OLE/PHPExcel_Shared_OLE.html#method_readPpsWks">_readPpsWks</a></li>
   </ul>
 </td>
@@ -848,114 +847,6 @@ $index)</code>
         <div class="top">[ <a href="#top">Top</a> ]</div>
   </div>
   <hr />
-	<a name="method_readInt1"></a>
-	<h3>method _readInt1 <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared_OLE__PHPExcelSharedOLE.php.html#a228">228</a>]</span></h3>
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
-		<code>int _readInt1(
-resource
-$fh)</code>
-    </td></tr></table>
-    </td></tr></table><br />
-	
-		Reads a signed char.<br /><br /><br /><br />
-<h4>Tags:</h4>
-<div class="tags">
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
-  </tr>
-</table>
-</div>
-<br /><br />
-
-	
-        <h4>Parameters:</h4>
-    <div class="tags">
-    <table border="0" cellspacing="0" cellpadding="0">
-          <tr>
-        <td class="type">resource&nbsp;&nbsp;</td>
-        <td><b>$fh</b>&nbsp;&nbsp;</td>
-        <td>file handle</td>
-      </tr>
-        </table>
-    </div><br />
-        <div class="top">[ <a href="#top">Top</a> ]</div>
-  </div>
-  <hr />
-	<a name="method_readInt2"></a>
-	<h3>method _readInt2 <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared_OLE__PHPExcelSharedOLE.php.html#a240">240</a>]</span></h3>
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
-		<code>int _readInt2(
-resource
-$fh)</code>
-    </td></tr></table>
-    </td></tr></table><br />
-	
-		Reads an unsigned short (2 octets).<br /><br /><br /><br />
-<h4>Tags:</h4>
-<div class="tags">
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
-  </tr>
-</table>
-</div>
-<br /><br />
-
-	
-        <h4>Parameters:</h4>
-    <div class="tags">
-    <table border="0" cellspacing="0" cellpadding="0">
-          <tr>
-        <td class="type">resource&nbsp;&nbsp;</td>
-        <td><b>$fh</b>&nbsp;&nbsp;</td>
-        <td>file handle</td>
-      </tr>
-        </table>
-    </div><br />
-        <div class="top">[ <a href="#top">Top</a> ]</div>
-  </div>
-  <hr />
-	<a name="method_readInt4"></a>
-	<h3>method _readInt4 <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared_OLE__PHPExcelSharedOLE.php.html#a252">252</a>]</span></h3>
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
-		<code>int _readInt4(
-resource
-$fh)</code>
-    </td></tr></table>
-    </td></tr></table><br />
-	
-		Reads an unsigned long (4 octets).<br /><br /><br /><br />
-<h4>Tags:</h4>
-<div class="tags">
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
-  </tr>
-</table>
-</div>
-<br /><br />
-
-	
-        <h4>Parameters:</h4>
-    <div class="tags">
-    <table border="0" cellspacing="0" cellpadding="0">
-          <tr>
-        <td class="type">resource&nbsp;&nbsp;</td>
-        <td><b>$fh</b>&nbsp;&nbsp;</td>
-        <td>file handle</td>
-      </tr>
-        </table>
-    </div><br />
-        <div class="top">[ <a href="#top">Top</a> ]</div>
-  </div>
-  <hr />
 	<a name="method_readPpsWks"></a>
 	<h3>method _readPpsWks <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared_OLE__PHPExcelSharedOLE.php.html#a266">266</a>]</span></h3>
 	<div class="function">
@@ -1046,7 +937,7 @@ $blockId)</code>
 
         <div class="credit">
 		    <hr />
-		    Documentation generated on Thu, 26 Aug 2010 17:43:41 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+		    Documentation generated on Sun, 27 Feb 2011 16:32:53 -0800 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

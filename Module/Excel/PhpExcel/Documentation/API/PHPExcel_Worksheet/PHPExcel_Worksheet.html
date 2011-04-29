@@ -13,7 +13,7 @@
   <tr>
     <td class="header_menu">
         
-                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                            
                                                                                                               		  [ <a href="../classtrees_PHPExcel_Worksheet.html" class="menu">class tree: PHPExcel_Worksheet</a> ]
 		  [ <a href="../elementindex_PHPExcel_Worksheet.html" class="menu">index: PHPExcel_Worksheet</a> ]
 		  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]
@@ -38,12 +38,14 @@
               <a href="../li_PHPExcel_Cell.html">PHPExcel_Cell</a><br />
               <a href="../li_PHPExcel_Reader.html">PHPExcel_Reader</a><br />
               <a href="../li_PHPExcel_Reader_Excel5.html">PHPExcel_Reader_Excel5</a><br />
+              <a href="../li_PHPExcel_Reader_Excel2007.html">PHPExcel_Reader_Excel2007</a><br />
               <a href="../li_PHPExcel_RichText.html">PHPExcel_RichText</a><br />
               <a href="../li_PHPExcel_Settings.html">PHPExcel_Settings</a><br />
               <a href="../li_PHPExcel_Shared.html">PHPExcel_Shared</a><br />
               <a href="../li_PHPExcel_Shared_Best_Fit.html">PHPExcel_Shared_Best_Fit</a><br />
               <a href="../li_PHPExcel_Shared_Escher.html">PHPExcel_Shared_Escher</a><br />
               <a href="../li_PHPExcel_Shared_OLE.html">PHPExcel_Shared_OLE</a><br />
+              <a href="../li_PHPExcel_Shared_ZipArchive.html">PHPExcel_Shared_ZipArchive</a><br />
               <a href="../li_PHPExcel_Style.html">PHPExcel_Style</a><br />
               <a href="../li_PHPExcel_Worksheet.html">PHPExcel_Worksheet</a><br />
               <a href="../li_PHPExcel_Worksheet_Drawing.html">PHPExcel_Worksheet_Drawing</a><br />
@@ -127,7 +129,7 @@ Source Location: /PHPExcel/Worksheet.php<br /><br />
 
 <h4>Copyright:</h4>
 <ul>
-  <li>Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)</li>
+  <li>Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)</li>
 </ul>
                 <p class="implements">
             Implements interfaces:
@@ -229,11 +231,14 @@ Source Location: /PHPExcel/Worksheet.php<br /><br />
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodisTabColorSet">isTabColorSet</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodmergeCells">mergeCells</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodmergeCellsByColumnAndRow">mergeCellsByColumnAndRow</a></li>
+    <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodnamedRangeToArray">namedRangeToArray</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodprotectCells">protectCells</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodprotectCellsByColumnAndRow">protectCellsByColumnAndRow</a></li>
+    <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodrangeToArray">rangeToArray</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodrebindParent">rebindParent</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodrefreshColumnDimensions">refreshColumnDimensions</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodrefreshRowDimensions">refreshRowDimensions</a></li>
+    <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodremoveAutoFilter">removeAutoFilter</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodremoveColumn">removeColumn</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodremoveColumnByIndex">removeColumnByIndex</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodremoveConditionalStyles">removeConditionalStyles</a></li>
@@ -247,6 +252,7 @@ Source Location: /PHPExcel/Worksheet.php<br /><br />
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodsetCellValueByColumnAndRow">setCellValueByColumnAndRow</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodsetCellValueExplicit">setCellValueExplicit</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodsetCellValueExplicitByColumnAndRow">setCellValueExplicitByColumnAndRow</a></li>
+    <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodsetComments">setComments</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodsetConditionalStyles">setConditionalStyles</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodsetDataValidation">setDataValidation</a></li>
     <li><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html#methodsetDefaultStyle">setDefaultStyle</a></li>
@@ -303,7 +309,7 @@ PHPExcel_Worksheet<br /><br /><br /><br />
 <div class="tags">
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td><b>copyright:</b>&nbsp;&nbsp;</td><td>Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)</td>
+    <td><b>copyright:</b>&nbsp;&nbsp;</td><td>Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)</td>
   </tr>
 </table>
 </div>
@@ -317,7 +323,7 @@ PHPExcel_Worksheet<br /><br /><br /><br />
 <div class="tags">
   <hr />
 	<a name="methodextractSheetTitle"></a>
-	<h3>static method extractSheetTitle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2247">2247</a>]</span></h3>
+	<h3>static method extractSheetTitle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2360">2360</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -328,7 +334,7 @@ $returnRange = false])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
-		Extract worksheet title from range.<br /><br /><p>Example: extractSheetTitle('test!A1') ==&gt; 'A1'  Example: extractSheetTitle('test!A1', true) ==&gt; array('test', 'A1');</p><br /><br /><br />
+		Extract worksheet title from range.<br /><br /><p>Example: extractSheetTitle(&quot;testSheet!A1&quot;) ==&gt; 'A1'  Example: extractSheetTitle(&quot;'testSheet 1'!A1&quot;, true) ==&gt; array('testSheet 1', 'A1');</p><br /><br /><br />
 <h4>Tags:</h4>
 <div class="tags">
 <table border="0" cellspacing="0" cellpadding="0">
@@ -359,7 +365,7 @@ $returnRange = false])</code>
   </div>
   <hr />
 	<a name="methodgetInvalidCharacters"></a>
-	<h3>static method getInvalidCharacters <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a379">379</a>]</span></h3>
+	<h3>static method getInvalidCharacters <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a385">385</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -385,7 +391,7 @@ $returnRange = false])</code>
 
   <hr />
 	<a name="method__construct"></a>
-	<h3>constructor __construct <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a313">313</a>]</span></h3>
+	<h3>constructor __construct <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a327">327</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -427,7 +433,7 @@ $pTitle = 'Worksheet'])</code>
   </div>
   <hr />
 	<a name="methodcalculateColumnWidths"></a>
-	<h3>method calculateColumnWidths <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a542">542</a>]</span></h3>
+	<h3>method calculateColumnWidths <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a548">548</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -463,7 +469,7 @@ $calculateMergeCells = false])</code>
   </div>
   <hr />
 	<a name="methodcalculateWorksheetDimension"></a>
-	<h3>method calculateWorksheetDimension <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a530">530</a>]</span></h3>
+	<h3>method calculateWorksheetDimension <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a536">536</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -491,7 +497,7 @@ $calculateMergeCells = false])</code>
   </div>
   <hr />
 	<a name="methodcellExists"></a>
-	<h3>method cellExists <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1005">1005</a>]</span></h3>
+	<h3>method cellExists <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1022">1022</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -530,14 +536,14 @@ $pCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodcellExistsByColumnAndRow"></a>
-	<h3>method cellExistsByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1052">1052</a>]</span></h3>
+	<h3>method cellExistsByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1069">1069</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code>boolean cellExistsByColumnAndRow(
 [string
 $pColumn = 0], [string
-$pRow = 0])</code>
+$pRow = 1])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
@@ -572,7 +578,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodconditionalStylesExists"></a>
-	<h3>method conditionalStylesExists <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1190">1190</a>]</span></h3>
+	<h3>method conditionalStylesExists <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1206">1206</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -608,7 +614,7 @@ $pCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodcopy"></a>
-	<h3>method copy <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2454">2454</a>]</span></h3>
+	<h3>method copy <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2554">2554</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -633,7 +639,7 @@ $pCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methoddataValidationExists"></a>
-	<h3>method dataValidationExists <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2370">2370</a>]</span></h3>
+	<h3>method dataValidationExists <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2470">2470</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -675,7 +681,7 @@ $pCellCoordinate)</code>
   </div>
   <hr />
 	<a name="methoddisconnectCells"></a>
-	<h3>method disconnectCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a356">356</a>]</span></h3>
+	<h3>method disconnectCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a362">362</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -700,7 +706,7 @@ $pCellCoordinate)</code>
   </div>
   <hr />
 	<a name="methodduplicateStyle"></a>
-	<h3>method duplicateStyle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1272">1272</a>]</span></h3>
+	<h3>method duplicateStyle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1288">1288</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -745,7 +751,7 @@ $pRange = ''])</code>
   </div>
   <hr />
 	<a name="methodduplicateStyleArray"></a>
-	<h3>method duplicateStyleArray <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1340">1340</a>]</span></h3>
+	<h3>method duplicateStyleArray <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1356">1356</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -799,7 +805,7 @@ $pAdvanced = true])</code>
   </div>
   <hr />
 	<a name="methodfreezePane"></a>
-	<h3>method freezePane <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1665">1665</a>]</span></h3>
+	<h3>method freezePane <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1693">1693</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -838,14 +844,14 @@ $pCell = ''])</code>
   </div>
   <hr />
 	<a name="methodfreezePaneByColumnAndRow"></a>
-	<h3>method freezePaneByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1686">1686</a>]</span></h3>
+	<h3>method freezePaneByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1714">1714</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a> freezePaneByColumnAndRow(
 [int
 $pColumn = 0], [int
-$pRow = 0])</code>
+$pRow = 1])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
@@ -883,15 +889,16 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodfromArray"></a>
-	<h3>method fromArray <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2076">2076</a>]</span></h3>
+	<h3>method fromArray <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2119">2119</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a> fromArray(
 [array
 $source = null], [mixed
-$nullValue = null], [
-$pCell = 'A1'])</code>
+$nullValue = null], [string
+$startCell = 'A1'], [boolean
+$strictNullComparison = false])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
@@ -924,9 +931,14 @@ $pCell = 'A1'])</code>
         <td>Value in source array that stands for blank cell</td>
       </tr>
           <tr>
-        <td class="type">&nbsp;&nbsp;</td>
-        <td><b>$pCell</b>&nbsp;&nbsp;</td>
-        <td></td>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$startCell</b>&nbsp;&nbsp;</td>
+        <td>Insert array starting from this cell address as the top left coordinate</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$strictNullComparison</b>&nbsp;&nbsp;</td>
+        <td>Apply strict comparison when testing for null values in the array</td>
       </tr>
         </table>
     </div><br />
@@ -934,7 +946,7 @@ $pCell = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgarbageCollect"></a>
-	<h3>method garbageCollect <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2168">2168</a>]</span></h3>
+	<h3>method garbageCollect <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2284">2284</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -959,7 +971,7 @@ $pCell = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetActiveCell"></a>
-	<h3>method getActiveCell <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1975">1975</a>]</span></h3>
+	<h3>method getActiveCell <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2016">2016</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -987,7 +999,7 @@ $pCell = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetAutoFilter"></a>
-	<h3>method getAutoFilter <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1604">1604</a>]</span></h3>
+	<h3>method getAutoFilter <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1620">1620</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1012,7 +1024,7 @@ $pCell = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetBreaks"></a>
-	<h3>method getBreaks <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1387">1387</a>]</span></h3>
+	<h3>method getBreaks <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1403">1403</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1037,7 +1049,7 @@ $pCell = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetCell"></a>
-	<h3>method getCell <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a906">906</a>]</span></h3>
+	<h3>method getCell <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a925">925</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1079,14 +1091,14 @@ $pCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetCellByColumnAndRow"></a>
-	<h3>method getCellByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a977">977</a>]</span></h3>
+	<h3>method getCellByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a995">995</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Cell/PHPExcel_Cell.html">PHPExcel_Cell</a> getCellByColumnAndRow(
 [string
 $pColumn = 0], [string
-$pRow = 0])</code>
+$pRow = 1])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
@@ -1124,7 +1136,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetCellCacheController"></a>
-	<h3>method getCellCacheController <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a369">369</a>]</span></h3>
+	<h3>method getCellCacheController <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a375">375</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1149,7 +1161,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetCellCollection"></a>
-	<h3>method getCellCollection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a412">412</a>]</span></h3>
+	<h3>method getCellCollection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a418">418</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1185,7 +1197,7 @@ $pSorted = true])</code>
   </div>
   <hr />
 	<a name="methodgetColumnDimension"></a>
-	<h3>method getColumnDimension <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1084">1084</a>]</span></h3>
+	<h3>method getColumnDimension <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1100">1100</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1221,7 +1233,7 @@ $pColumn = 'A'])</code>
   </div>
   <hr />
 	<a name="methodgetColumnDimensionByColumn"></a>
-	<h3>method getColumnDimensionByColumn <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1106">1106</a>]</span></h3>
+	<h3>method getColumnDimensionByColumn <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1122">1122</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1263,7 +1275,7 @@ $pRow)</code>
   </div>
   <hr />
 	<a name="methodgetColumnDimensions"></a>
-	<h3>method getColumnDimensions <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a462">462</a>]</span></h3>
+	<h3>method getColumnDimensions <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a468">468</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1288,7 +1300,7 @@ $pRow)</code>
   </div>
   <hr />
 	<a name="methodgetComment"></a>
-	<h3>method getComment <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1923">1923</a>]</span></h3>
+	<h3>method getComment <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1964">1964</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1327,14 +1339,14 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetCommentByColumnAndRow"></a>
-	<h3>method getCommentByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1954">1954</a>]</span></h3>
+	<h3>method getCommentByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1995">1995</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel/PHPExcel_Comment.html">PHPExcel_Comment</a> getCommentByColumnAndRow(
 [int
 $pColumn = 0], [int
-$pRow = 0])</code>
+$pRow = 1])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
@@ -1369,7 +1381,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetComments"></a>
-	<h3>method getComments <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1911">1911</a>]</span></h3>
+	<h3>method getComments <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1939">1939</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1394,7 +1406,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetConditionalStyles"></a>
-	<h3>method getConditionalStyles <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1176">1176</a>]</span></h3>
+	<h3>method getConditionalStyles <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1192">1192</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1430,7 +1442,7 @@ $pCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetConditionalStylesCollection"></a>
-	<h3>method getConditionalStylesCollection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1215">1215</a>]</span></h3>
+	<h3>method getConditionalStylesCollection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1231">1231</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1455,7 +1467,7 @@ $pCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetDataValidation"></a>
-	<h3>method getDataValidation <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2335">2335</a>]</span></h3>
+	<h3>method getDataValidation <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2435">2435</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1491,7 +1503,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetDataValidationCollection"></a>
-	<h3>method getDataValidationCollection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2380">2380</a>]</span></h3>
+	<h3>method getDataValidationCollection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2480">2480</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1516,7 +1528,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetDefaultColumnDimension"></a>
-	<h3>method getDefaultColumnDimension <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a472">472</a>]</span></h3>
+	<h3>method getDefaultColumnDimension <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a478">478</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1541,7 +1553,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetDefaultRowDimension"></a>
-	<h3>method getDefaultRowDimension <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a452">452</a>]</span></h3>
+	<h3>method getDefaultRowDimension <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a458">458</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1566,7 +1578,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetDefaultStyle"></a>
-	<h3>method getDefaultStyle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1128">1128</a>]</span></h3>
+	<h3>method getDefaultStyle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1144">1144</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1597,7 +1609,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetDrawingCollection"></a>
-	<h3>method getDrawingCollection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a482">482</a>]</span></h3>
+	<h3>method getDrawingCollection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a488">488</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1622,7 +1634,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetFreezePane"></a>
-	<h3>method getFreezePane <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1653">1653</a>]</span></h3>
+	<h3>method getFreezePane <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1681">1681</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1647,7 +1659,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetHashCode"></a>
-	<h3>method getHashCode <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2227">2227</a>]</span></h3>
+	<h3>method getHashCode <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2338">2338</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1675,7 +1687,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetHeaderFooter"></a>
-	<h3>method getHeaderFooter <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a750">750</a>]</span></h3>
+	<h3>method getHeaderFooter <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a767">767</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1700,7 +1712,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetHighestColumn"></a>
-	<h3>method getHighestColumn <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a816">816</a>]</span></h3>
+	<h3>method getHighestColumn <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a835">835</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1728,7 +1740,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetHighestRow"></a>
-	<h3>method getHighestRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a826">826</a>]</span></h3>
+	<h3>method getHighestRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a845">845</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1756,7 +1768,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetHyperlink"></a>
-	<h3>method getHyperlink <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2280">2280</a>]</span></h3>
+	<h3>method getHyperlink <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2380">2380</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1792,7 +1804,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetHyperlinkCollection"></a>
-	<h3>method getHyperlinkCollection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2325">2325</a>]</span></h3>
+	<h3>method getHyperlinkCollection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2425">2425</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1817,7 +1829,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetMergeCells"></a>
-	<h3>method getMergeCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1493">1493</a>]</span></h3>
+	<h3>method getMergeCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1509">1509</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1842,7 +1854,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetPageMargins"></a>
-	<h3>method getPageMargins <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a728">728</a>]</span></h3>
+	<h3>method getPageMargins <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a745">745</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1867,7 +1879,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetPageSetup"></a>
-	<h3>method getPageSetup <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a706">706</a>]</span></h3>
+	<h3>method getPageSetup <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a723">723</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1892,7 +1904,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetParent"></a>
-	<h3>method getParent <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a603">603</a>]</span></h3>
+	<h3>method getParent <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a609">609</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1917,7 +1929,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetPrintGridlines"></a>
-	<h3>method getPrintGridlines <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1831">1831</a>]</span></h3>
+	<h3>method getPrintGridlines <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1859">1859</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1942,7 +1954,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetProtectedCells"></a>
-	<h3>method getProtectedCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1594">1594</a>]</span></h3>
+	<h3>method getProtectedCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1610">1610</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1967,7 +1979,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetProtection"></a>
-	<h3>method getProtection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a794">794</a>]</span></h3>
+	<h3>method getProtection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a811">811</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1992,7 +2004,7 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetRightToLeft"></a>
-	<h3>method getRightToLeft <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2053">2053</a>]</span></h3>
+	<h3>method getRightToLeft <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2094">2094</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2017,13 +2029,13 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetRowDimension"></a>
-	<h3>method getRowDimension <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1063">1063</a>]</span></h3>
+	<h3>method getRowDimension <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1080">1080</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet_RowDimension.html">PHPExcel_Worksheet_RowDimension</a> getRowDimension(
 [int
-$pRow = 0])</code>
+$pRow = 1])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
@@ -2053,7 +2065,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetRowDimensions"></a>
-	<h3>method getRowDimensions <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a442">442</a>]</span></h3>
+	<h3>method getRowDimensions <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a448">448</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2078,7 +2090,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetRowIterator"></a>
-	<h3>method getRowIterator <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2159">2159</a>]</span></h3>
+	<h3>method getRowIterator <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2275">2275</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2103,7 +2115,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetSelectedCell"></a>
-	<h3>method getSelectedCell <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1965">1965</a>]</span></h3>
+	<h3>method getSelectedCell <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2006">2006</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2131,7 +2143,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetSelectedCells"></a>
-	<h3>method getSelectedCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1985">1985</a>]</span></h3>
+	<h3>method getSelectedCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2026">2026</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2156,7 +2168,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetSheetState"></a>
-	<h3>method getSheetState <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a686">686</a>]</span></h3>
+	<h3>method getSheetState <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a703">703</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2184,7 +2196,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetSheetView"></a>
-	<h3>method getSheetView <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a772">772</a>]</span></h3>
+	<h3>method getSheetView <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a789">789</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2209,7 +2221,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetShowGridlines"></a>
-	<h3>method getShowGridlines <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1811">1811</a>]</span></h3>
+	<h3>method getShowGridlines <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1839">1839</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2234,7 +2246,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetShowRowColHeaders"></a>
-	<h3>method getShowRowColHeaders <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1851">1851</a>]</span></h3>
+	<h3>method getShowRowColHeaders <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1879">1879</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2259,7 +2271,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetShowSummaryBelow"></a>
-	<h3>method getShowSummaryBelow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1871">1871</a>]</span></h3>
+	<h3>method getShowSummaryBelow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1899">1899</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2284,7 +2296,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetShowSummaryRight"></a>
-	<h3>method getShowSummaryRight <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1891">1891</a>]</span></h3>
+	<h3>method getShowSummaryRight <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1919">1919</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2309,7 +2321,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetStyle"></a>
-	<h3>method getStyle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1159">1159</a>]</span></h3>
+	<h3>method getStyle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1175">1175</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2348,14 +2360,14 @@ $pCellCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodgetStyleByColumnAndRow"></a>
-	<h3>method getStyleByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1240">1240</a>]</span></h3>
+	<h3>method getStyleByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1256">1256</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Style/PHPExcel_Style.html">PHPExcel_Style</a> getStyleByColumnAndRow(
 [int
 $pColumn = 0], [int
-$pRow = 0])</code>
+$pRow = 1])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
@@ -2390,7 +2402,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetStyles"></a>
-	<h3>method getStyles <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1116">1116</a>]</span></h3>
+	<h3>method getStyles <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1132">1132</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2415,7 +2427,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetTabColor"></a>
-	<h3>method getTabColor <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2418">2418</a>]</span></h3>
+	<h3>method getTabColor <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2518">2518</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2440,7 +2452,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodgetTitle"></a>
-	<h3>method getTitle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a632">632</a>]</span></h3>
+	<h3>method getTitle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a638">638</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2465,7 +2477,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodhyperlinkExists"></a>
-	<h3>method hyperlinkExists <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2315">2315</a>]</span></h3>
+	<h3>method hyperlinkExists <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2415">2415</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2507,7 +2519,7 @@ $pCellCoordinate)</code>
   </div>
   <hr />
 	<a name="methodinsertNewColumnBefore"></a>
-	<h3>method insertNewColumnBefore <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1727">1727</a>]</span></h3>
+	<h3>method insertNewColumnBefore <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1755">1755</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2552,7 +2564,7 @@ $pNumCols = 1])</code>
   </div>
   <hr />
 	<a name="methodinsertNewColumnBeforeByIndex"></a>
-	<h3>method insertNewColumnBeforeByIndex <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1745">1745</a>]</span></h3>
+	<h3>method insertNewColumnBeforeByIndex <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1773">1773</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2597,7 +2609,7 @@ $pNumCols = 1])</code>
   </div>
   <hr />
 	<a name="methodinsertNewRowBefore"></a>
-	<h3>method insertNewRowBefore <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1709">1709</a>]</span></h3>
+	<h3>method insertNewRowBefore <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1737">1737</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2642,7 +2654,7 @@ $pNumRows = 1])</code>
   </div>
   <hr />
 	<a name="methodisTabColorSet"></a>
-	<h3>method isTabColorSet <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2444">2444</a>]</span></h3>
+	<h3>method isTabColorSet <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2544">2544</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2667,7 +2679,7 @@ $pNumRows = 1])</code>
   </div>
   <hr />
 	<a name="methodmergeCells"></a>
-	<h3>method mergeCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1399">1399</a>]</span></h3>
+	<h3>method mergeCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1415">1415</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2706,16 +2718,16 @@ $pRange = 'A1:A1'])</code>
   </div>
   <hr />
 	<a name="methodmergeCellsByColumnAndRow"></a>
-	<h3>method mergeCellsByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1441">1441</a>]</span></h3>
+	<h3>method mergeCellsByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1457">1457</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a> mergeCellsByColumnAndRow(
 [int
 $pColumn1 = 0], [int
-$pRow1 = 0], [int
+$pRow1 = 1], [int
 $pColumn2 = 0], [int
-$pRow2 = 0])</code>
+$pRow2 = 1])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
@@ -2762,8 +2774,71 @@ $pRow2 = 0])</code>
         <div class="top">[ <a href="#top">Top</a> ]</div>
   </div>
   <hr />
+	<a name="methodnamedRangeToArray"></a>
+	<h3>method namedRangeToArray <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2233">2233</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>array namedRangeToArray(
+[string
+$pNamedRange = ''], [mixed
+$nullValue = null], [boolean
+$calculateFormulas = true], [boolean
+$formatData = true], [boolean
+$returnCellRef = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Create array from a range of cells<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>throws:</b>&nbsp;&nbsp;</td><td>Exception</td>
+  </tr>
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$pNamedRange</b>&nbsp;&nbsp;</td>
+        <td>Name of the Named Range</td>
+      </tr>
+          <tr>
+        <td class="type">mixed&nbsp;&nbsp;</td>
+        <td><b>$nullValue</b>&nbsp;&nbsp;</td>
+        <td>Value returned in the array entry if a cell doesn't exist</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$calculateFormulas</b>&nbsp;&nbsp;</td>
+        <td>Should formulas be calculated?</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$formatData</b>&nbsp;&nbsp;</td>
+        <td>Should formatting be applied to cell values?</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$returnCellRef</b>&nbsp;&nbsp;</td>
+        <td>False - Return a simple array of rows and columns indexed by number counting from zero                                             True - Return rows and columns indexed by their actual row and column IDs</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
 	<a name="methodprotectCells"></a>
-	<h3>method protectCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1520">1520</a>]</span></h3>
+	<h3>method protectCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1536">1536</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2814,16 +2889,16 @@ $pAlreadyHashed = false])</code>
   </div>
   <hr />
 	<a name="methodprotectCellsByColumnAndRow"></a>
-	<h3>method protectCellsByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1545">1545</a>]</span></h3>
+	<h3>method protectCellsByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1561">1561</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a> protectCellsByColumnAndRow(
 [int
 $pColumn1 = 0], [int
-$pRow1 = 0], [int
+$pRow1 = 1], [int
 $pColumn2 = 0], [int
-$pRow2 = 0], [string
+$pRow2 = 1], [string
 $pPassword = ''], [boolean
 $pAlreadyHashed = false])</code>
     </td></tr></table>
@@ -2882,8 +2957,68 @@ $pAlreadyHashed = false])</code>
         <div class="top">[ <a href="#top">Top</a> ]</div>
   </div>
   <hr />
+	<a name="methodrangeToArray"></a>
+	<h3>method rangeToArray <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2165">2165</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>array rangeToArray(
+[string
+$pRange = 'A1'], [mixed
+$nullValue = null], [boolean
+$calculateFormulas = true], [boolean
+$formatData = true], [boolean
+$returnCellRef = false])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Create array from a range of cells<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">string&nbsp;&nbsp;</td>
+        <td><b>$pRange</b>&nbsp;&nbsp;</td>
+        <td>Range of cells (i.e. &quot;A1:B10&quot;), or just one cell (i.e. &quot;A1&quot;)</td>
+      </tr>
+          <tr>
+        <td class="type">mixed&nbsp;&nbsp;</td>
+        <td><b>$nullValue</b>&nbsp;&nbsp;</td>
+        <td>Value returned in the array entry if a cell doesn't exist</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$calculateFormulas</b>&nbsp;&nbsp;</td>
+        <td>Should formulas be calculated?</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$formatData</b>&nbsp;&nbsp;</td>
+        <td>Should formatting be applied to cell values?</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$returnCellRef</b>&nbsp;&nbsp;</td>
+        <td>False - Return a simple array of rows and columns indexed by number counting from zero                                             True - Return rows and columns indexed by their actual row and column IDs</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
 	<a name="methodrebindParent"></a>
-	<h3>method rebindParent <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a613">613</a>]</span></h3>
+	<h3>method rebindParent <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a619">619</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2919,7 +3054,7 @@ $parent)</code>
   </div>
   <hr />
 	<a name="methodrefreshColumnDimensions"></a>
-	<h3>method refreshColumnDimensions <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a492">492</a>]</span></h3>
+	<h3>method refreshColumnDimensions <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a498">498</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2944,7 +3079,7 @@ $parent)</code>
   </div>
   <hr />
 	<a name="methodrefreshRowDimensions"></a>
-	<h3>method refreshRowDimensions <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a511">511</a>]</span></h3>
+	<h3>method refreshRowDimensions <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a517">517</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -2968,8 +3103,33 @@ $parent)</code>
         <div class="top">[ <a href="#top">Top</a> ]</div>
   </div>
   <hr />
+	<a name="methodremoveAutoFilter"></a>
+	<h3>method removeAutoFilter <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1670">1670</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a> removeAutoFilter(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Remove autofilter<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
 	<a name="methodremoveColumn"></a>
-	<h3>method removeColumn <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1779">1779</a>]</span></h3>
+	<h3>method removeColumn <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1807">1807</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3014,7 +3174,7 @@ $pNumCols = 1])</code>
   </div>
   <hr />
 	<a name="methodremoveColumnByIndex"></a>
-	<h3>method removeColumnByIndex <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1798">1798</a>]</span></h3>
+	<h3>method removeColumnByIndex <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1826">1826</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3059,7 +3219,7 @@ $pNumCols = 1])</code>
   </div>
   <hr />
 	<a name="methodremoveConditionalStyles"></a>
-	<h3>method removeConditionalStyles <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1204">1204</a>]</span></h3>
+	<h3>method removeConditionalStyles <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1220">1220</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3095,7 +3255,7 @@ $pCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodremoveRow"></a>
-	<h3>method removeRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1761">1761</a>]</span></h3>
+	<h3>method removeRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1789">1789</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3140,7 +3300,7 @@ $pNumRows = 1])</code>
   </div>
   <hr />
 	<a name="methodresetTabColor"></a>
-	<h3>method resetTabColor <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2431">2431</a>]</span></h3>
+	<h3>method resetTabColor <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2531">2531</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3165,7 +3325,7 @@ $pNumRows = 1])</code>
   </div>
   <hr />
 	<a name="methodsetAutoFilter"></a>
-	<h3>method setAutoFilter <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1616">1616</a>]</span></h3>
+	<h3>method setAutoFilter <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1632">1632</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3204,16 +3364,16 @@ $pRange = ''])</code>
   </div>
   <hr />
 	<a name="methodsetAutoFilterByColumnAndRow"></a>
-	<h3>method setAutoFilterByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1639">1639</a>]</span></h3>
+	<h3>method setAutoFilterByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1656">1656</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a> setAutoFilterByColumnAndRow(
 [int
 $pColumn1 = 0], [int
-$pRow1 = 0], [int
+$pRow1 = 1], [int
 $pColumn2 = 0], [int
-$pRow2 = 0])</code>
+$pRow2 = 1])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
@@ -3261,7 +3421,7 @@ $pRow2 = 0])</code>
   </div>
   <hr />
 	<a name="methodsetBreak"></a>
-	<h3>method setBreak <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1354">1354</a>]</span></h3>
+	<h3>method setBreak <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1370">1370</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3306,14 +3466,14 @@ $pBreak = PHPExcel_Worksheet::BREAK_NONE])</code>
   </div>
   <hr />
 	<a name="methodsetBreakByColumnAndRow"></a>
-	<h3>method setBreakByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1377">1377</a>]</span></h3>
+	<h3>method setBreakByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1393">1393</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a> setBreakByColumnAndRow(
-[int
-$pColumn = 0], [int
-$pRow = 0], [int
+[integer
+$pColumn = 0], [integer
+$pRow = 1], [integer
 $pBreak = PHPExcel_Worksheet::BREAK_NONE])</code>
     </td></tr></table>
     </td></tr></table><br />
@@ -3337,17 +3497,17 @@ $pBreak = PHPExcel_Worksheet::BREAK_NONE])</code>
     <div class="tags">
     <table border="0" cellspacing="0" cellpadding="0">
           <tr>
-        <td class="type">int&nbsp;&nbsp;</td>
+        <td class="type">integer&nbsp;&nbsp;</td>
         <td><b>$pColumn</b>&nbsp;&nbsp;</td>
         <td>Numeric column coordinate of the cell</td>
       </tr>
           <tr>
-        <td class="type">int&nbsp;&nbsp;</td>
+        <td class="type">integer&nbsp;&nbsp;</td>
         <td><b>$pRow</b>&nbsp;&nbsp;</td>
         <td>Numeric row coordinate of the cell</td>
       </tr>
           <tr>
-        <td class="type">int&nbsp;&nbsp;</td>
+        <td class="type">integer&nbsp;&nbsp;</td>
         <td><b>$pBreak</b>&nbsp;&nbsp;</td>
         <td>Break type (type of PHPExcel_Worksheet::BREAK_*)</td>
       </tr>
@@ -3357,7 +3517,7 @@ $pBreak = PHPExcel_Worksheet::BREAK_NONE])</code>
   </div>
   <hr />
 	<a name="methodsetCellValue"></a>
-	<h3>method setCellValue <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a839">839</a>]</span></h3>
+	<h3>method setCellValue <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a858">858</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3408,14 +3568,14 @@ $returnCell = false])</code>
   </div>
   <hr />
 	<a name="methodsetCellValueByColumnAndRow"></a>
-	<h3>method setCellValueByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a859">859</a>]</span></h3>
+	<h3>method setCellValueByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a878">878</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a>|<a href="../PHPExcel_Cell/PHPExcel_Cell.html">PHPExcel_Cell</a> setCellValueByColumnAndRow(
 [string
 $pColumn = 0], [string
-$pRow = 0], [mixed
+$pRow = 1], [mixed
 $pValue = null], [bool
 $returnCell = false])</code>
     </td></tr></table>
@@ -3465,7 +3625,7 @@ $returnCell = false])</code>
   </div>
   <hr />
 	<a name="methodsetCellValueExplicit"></a>
-	<h3>method setCellValueExplicit <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a878">878</a>]</span></h3>
+	<h3>method setCellValueExplicit <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a897">897</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3513,14 +3673,14 @@ $pDataType = PHPExcel_Cell_DataType::TYPE_STRING])</code>
   </div>
   <hr />
 	<a name="methodsetCellValueExplicitByColumnAndRow"></a>
-	<h3>method setCellValueExplicitByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a894">894</a>]</span></h3>
+	<h3>method setCellValueExplicitByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a913">913</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a> setCellValueExplicitByColumnAndRow(
 [string
 $pColumn = 0], [string
-$pRow = 0], [mixed
+$pRow = 1], [mixed
 $pValue = null], [string
 $pDataType = PHPExcel_Cell_DataType::TYPE_STRING])</code>
     </td></tr></table>
@@ -3566,8 +3726,44 @@ $pDataType = PHPExcel_Cell_DataType::TYPE_STRING])</code>
         <div class="top">[ <a href="#top">Top</a> ]</div>
   </div>
   <hr />
+	<a name="methodsetComments"></a>
+	<h3>method setComments <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1950">1950</a>]</span></h3>
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a> setComments(
+[array
+$pValue = array()])</code>
+    </td></tr></table>
+    </td></tr></table><br />
+	
+		Set comments array for the entire sheet.<br /><br /><br /><br />
+<h4>Tags:</h4>
+<div class="tags">
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+</div>
+<br /><br />
+
+	
+        <h4>Parameters:</h4>
+    <div class="tags">
+    <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <td class="type">array&nbsp;&nbsp;</td>
+        <td><b>$pValue</b>&nbsp;&nbsp;</td>
+        <td>of PHPExcel_Comment</td>
+      </tr>
+        </table>
+    </div><br />
+        <div class="top">[ <a href="#top">Top</a> ]</div>
+  </div>
+  <hr />
 	<a name="methodsetConditionalStyles"></a>
-	<h3>method setConditionalStyles <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1227">1227</a>]</span></h3>
+	<h3>method setConditionalStyles <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1243">1243</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3609,7 +3805,7 @@ $pValue)</code>
   </div>
   <hr />
 	<a name="methodsetDataValidation"></a>
-	<h3>method setDataValidation <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2354">2354</a>]</span></h3>
+	<h3>method setDataValidation <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2454">2454</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3651,7 +3847,7 @@ $pDataValidation = null])</code>
   </div>
   <hr />
 	<a name="methodsetDefaultStyle"></a>
-	<h3>method setDefaultStyle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1141">1141</a>]</span></h3>
+	<h3>method setDefaultStyle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1157">1157</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3699,7 +3895,7 @@ $value)</code>
   </div>
   <hr />
 	<a name="methodsetHeaderFooter"></a>
-	<h3>method setHeaderFooter <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a761">761</a>]</span></h3>
+	<h3>method setHeaderFooter <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a778">778</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3735,7 +3931,7 @@ $pValue)</code>
   </div>
   <hr />
 	<a name="methodsetHyperlink"></a>
-	<h3>method setHyperlink <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2299">2299</a>]</span></h3>
+	<h3>method setHyperlink <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2399">2399</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3777,7 +3973,7 @@ $pHyperlink = null])</code>
   </div>
   <hr />
 	<a name="methodsetMergeCells"></a>
-	<h3>method setMergeCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1504">1504</a>]</span></h3>
+	<h3>method setMergeCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1520">1520</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3813,7 +4009,7 @@ $pValue = array()])</code>
   </div>
   <hr />
 	<a name="methodsetPageMargins"></a>
-	<h3>method setPageMargins <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a739">739</a>]</span></h3>
+	<h3>method setPageMargins <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a756">756</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3849,7 +4045,7 @@ $pValue)</code>
   </div>
   <hr />
 	<a name="methodsetPageSetup"></a>
-	<h3>method setPageSetup <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a717">717</a>]</span></h3>
+	<h3>method setPageSetup <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a734">734</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3885,7 +4081,7 @@ $pValue)</code>
   </div>
   <hr />
 	<a name="methodsetPrintGridlines"></a>
-	<h3>method setPrintGridlines <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1841">1841</a>]</span></h3>
+	<h3>method setPrintGridlines <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1869">1869</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3921,7 +4117,7 @@ $pValue = false])</code>
   </div>
   <hr />
 	<a name="methodsetProtection"></a>
-	<h3>method setProtection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a805">805</a>]</span></h3>
+	<h3>method setProtection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a822">822</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3957,7 +4153,7 @@ $pValue)</code>
   </div>
   <hr />
 	<a name="methodsetRightToLeft"></a>
-	<h3>method setRightToLeft <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2063">2063</a>]</span></h3>
+	<h3>method setRightToLeft <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2104">2104</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -3993,7 +4189,7 @@ $value = false])</code>
   </div>
   <hr />
 	<a name="methodsetSelectedCell"></a>
-	<h3>method setSelectedCell <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1996">1996</a>]</span></h3>
+	<h3>method setSelectedCell <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2037">2037</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4035,14 +4231,14 @@ $pCell)</code>
   </div>
   <hr />
 	<a name="methodsetSelectedCellByColumnAndRow"></a>
-	<h3>method setSelectedCellByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2043">2043</a>]</span></h3>
+	<h3>method setSelectedCellByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2084">2084</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a> setSelectedCellByColumnAndRow(
 [int
 $pColumn = 0], [int
-$pRow = 0])</code>
+$pRow = 1])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
@@ -4080,7 +4276,7 @@ $pRow = 0])</code>
   </div>
   <hr />
 	<a name="methodsetSelectedCells"></a>
-	<h3>method setSelectedCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2008">2008</a>]</span></h3>
+	<h3>method setSelectedCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2049">2049</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4119,7 +4315,7 @@ $pCoordinate = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodsetSharedStyle"></a>
-	<h3>method setSharedStyle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1256">1256</a>]</span></h3>
+	<h3>method setSharedStyle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1272">1272</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4167,7 +4363,7 @@ $pRange = ''])</code>
   </div>
   <hr />
 	<a name="methodsetSheetState"></a>
-	<h3>method setSheetState <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a696">696</a>]</span></h3>
+	<h3>method setSheetState <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a713">713</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4203,7 +4399,7 @@ $value = PHPExcel_Worksheet::SHEETSTATE_VISIBLE])</code>
   </div>
   <hr />
 	<a name="methodsetSheetView"></a>
-	<h3>method setSheetView <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a783">783</a>]</span></h3>
+	<h3>method setSheetView <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a800">800</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4239,7 +4435,7 @@ $pValue)</code>
   </div>
   <hr />
 	<a name="methodsetShowGridlines"></a>
-	<h3>method setShowGridlines <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1821">1821</a>]</span></h3>
+	<h3>method setShowGridlines <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1849">1849</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4275,7 +4471,7 @@ $pValue = false])</code>
   </div>
   <hr />
 	<a name="methodsetShowRowColHeaders"></a>
-	<h3>method setShowRowColHeaders <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1861">1861</a>]</span></h3>
+	<h3>method setShowRowColHeaders <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1889">1889</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4311,7 +4507,7 @@ $pValue = false])</code>
   </div>
   <hr />
 	<a name="methodsetShowSummaryBelow"></a>
-	<h3>method setShowSummaryBelow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1881">1881</a>]</span></h3>
+	<h3>method setShowSummaryBelow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1909">1909</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4347,7 +4543,7 @@ $pValue = true])</code>
   </div>
   <hr />
 	<a name="methodsetShowSummaryRight"></a>
-	<h3>method setShowSummaryRight <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1901">1901</a>]</span></h3>
+	<h3>method setShowSummaryRight <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1929">1929</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4383,7 +4579,7 @@ $pValue = true])</code>
   </div>
   <hr />
 	<a name="methodsetTitle"></a>
-	<h3>method setTitle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a643">643</a>]</span></h3>
+	<h3>method setTitle <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a649">649</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4419,7 +4615,7 @@ $pValue = 'Worksheet'])</code>
   </div>
   <hr />
 	<a name="methodshrinkRangeToFit"></a>
-	<h3>method shrinkRangeToFit <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2391">2391</a>]</span></h3>
+	<h3>method shrinkRangeToFit <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2491">2491</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4458,7 +4654,7 @@ $range)</code>
   </div>
   <hr />
 	<a name="methodsortCellCollection"></a>
-	<h3>method sortCellCollection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a429">429</a>]</span></h3>
+	<h3>method sortCellCollection <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a435">435</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4483,14 +4679,16 @@ $range)</code>
   </div>
   <hr />
 	<a name="methodtoArray"></a>
-	<h3>method toArray <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2110">2110</a>]</span></h3>
+	<h3>method toArray <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2257">2257</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code>array toArray(
 [mixed
 $nullValue = null], [boolean
-$calculateFormulas = true])</code>
+$calculateFormulas = true], [boolean
+$formatData = true], [boolean
+$returnCellRef = false])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
@@ -4512,12 +4710,22 @@ $calculateFormulas = true])</code>
           <tr>
         <td class="type">mixed&nbsp;&nbsp;</td>
         <td><b>$nullValue</b>&nbsp;&nbsp;</td>
-        <td>Value treated as &quot;null&quot;</td>
+        <td>Value returned in the array entry if a cell doesn't exist</td>
       </tr>
           <tr>
         <td class="type">boolean&nbsp;&nbsp;</td>
         <td><b>$calculateFormulas</b>&nbsp;&nbsp;</td>
         <td>Should formulas be calculated?</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$formatData</b>&nbsp;&nbsp;</td>
+        <td>Should formatting be applied to cell values?</td>
+      </tr>
+          <tr>
+        <td class="type">boolean&nbsp;&nbsp;</td>
+        <td><b>$returnCellRef</b>&nbsp;&nbsp;</td>
+        <td>False - Return a simple array of rows and columns indexed by number counting from zero                                             True - Return rows and columns indexed by their actual row and column IDs</td>
       </tr>
         </table>
     </div><br />
@@ -4525,7 +4733,7 @@ $calculateFormulas = true])</code>
   </div>
   <hr />
 	<a name="methodunfreezePane"></a>
-	<h3>method unfreezePane <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1696">1696</a>]</span></h3>
+	<h3>method unfreezePane <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1724">1724</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4550,7 +4758,7 @@ $calculateFormulas = true])</code>
   </div>
   <hr />
 	<a name="methodunmergeCells"></a>
-	<h3>method unmergeCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1454">1454</a>]</span></h3>
+	<h3>method unmergeCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1470">1470</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4589,16 +4797,16 @@ $pRange = 'A1:A1'])</code>
   </div>
   <hr />
 	<a name="methodunmergeCellsByColumnAndRow"></a>
-	<h3>method unmergeCellsByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1482">1482</a>]</span></h3>
+	<h3>method unmergeCellsByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1498">1498</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a> unmergeCellsByColumnAndRow(
 [int
 $pColumn1 = 0], [int
-$pRow1 = 0], [int
+$pRow1 = 1], [int
 $pColumn2 = 0], [int
-$pRow2 = 0])</code>
+$pRow2 = 1])</code>
     </td></tr></table>
     </td></tr></table><br />
 	
@@ -4646,7 +4854,7 @@ $pRow2 = 0])</code>
   </div>
   <hr />
 	<a name="methodunprotectCells"></a>
-	<h3>method unprotectCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1558">1558</a>]</span></h3>
+	<h3>method unprotectCells <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1574">1574</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4685,16 +4893,16 @@ $pRange = 'A1'])</code>
   </div>
   <hr />
 	<a name="methodunprotectCellsByColumnAndRow"></a>
-	<h3>method unprotectCellsByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1583">1583</a>]</span></h3>
+	<h3>method unprotectCellsByColumnAndRow <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a1599">1599</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
 		<code><a href="../PHPExcel_Worksheet/PHPExcel_Worksheet.html">PHPExcel_Worksheet</a> unprotectCellsByColumnAndRow(
 [int
 $pColumn1 = 0], [int
-$pRow1 = 0], [int
+$pRow1 = 1], [int
 $pColumn2 = 0], [int
-$pRow2 = 0], [string
+$pRow2 = 1], [string
 $pPassword = ''], [boolean
 $pAlreadyHashed = false])</code>
     </td></tr></table>
@@ -4754,7 +4962,7 @@ $pAlreadyHashed = false])</code>
   </div>
   <hr />
 	<a name="method__clone"></a>
-	<h3>method __clone <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2463">2463</a>]</span></h3>
+	<h3>method __clone <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Worksheet__PHPExcelWorksheet.php.html#a2563">2563</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -4829,7 +5037,7 @@ $pAlreadyHashed = false])</code>
 
         <div class="credit">
 		    <hr />
-		    Documentation generated on Thu, 26 Aug 2010 17:46:52 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+		    Documentation generated on Sun, 27 Feb 2011 16:37:13 -0800 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

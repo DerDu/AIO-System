@@ -14,7 +14,7 @@
     <td class="header_menu">
         
                                                         
-                                                                                                                                                                                                                                                                                                                                                                                                                          		  [ <a href="../classtrees_com-tecnick-tcpdf.html" class="menu">class tree: com-tecnick-tcpdf</a> ]
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  		  [ <a href="../classtrees_com-tecnick-tcpdf.html" class="menu">class tree: com-tecnick-tcpdf</a> ]
 		  [ <a href="../elementindex_com-tecnick-tcpdf.html" class="menu">index: com-tecnick-tcpdf</a> ]
 		  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]
     </td>
@@ -38,12 +38,14 @@
               <a href="../li_PHPExcel_Cell.html">PHPExcel_Cell</a><br />
               <a href="../li_PHPExcel_Reader.html">PHPExcel_Reader</a><br />
               <a href="../li_PHPExcel_Reader_Excel5.html">PHPExcel_Reader_Excel5</a><br />
+              <a href="../li_PHPExcel_Reader_Excel2007.html">PHPExcel_Reader_Excel2007</a><br />
               <a href="../li_PHPExcel_RichText.html">PHPExcel_RichText</a><br />
               <a href="../li_PHPExcel_Settings.html">PHPExcel_Settings</a><br />
               <a href="../li_PHPExcel_Shared.html">PHPExcel_Shared</a><br />
               <a href="../li_PHPExcel_Shared_Best_Fit.html">PHPExcel_Shared_Best_Fit</a><br />
               <a href="../li_PHPExcel_Shared_Escher.html">PHPExcel_Shared_Escher</a><br />
               <a href="../li_PHPExcel_Shared_OLE.html">PHPExcel_Shared_OLE</a><br />
+              <a href="../li_PHPExcel_Shared_ZipArchive.html">PHPExcel_Shared_ZipArchive</a><br />
               <a href="../li_PHPExcel_Style.html">PHPExcel_Style</a><br />
               <a href="../li_PHPExcel_Worksheet.html">PHPExcel_Worksheet</a><br />
               <a href="../li_PHPExcel_Worksheet_Drawing.html">PHPExcel_Worksheet_Drawing</a><br />
@@ -57,11 +59,23 @@
 		</a><br>
 			<a href="../com-tecnick-tcpdf/_PHPExcel---Shared---PDF---barcodes.php.html">		barcodes.php
 		</a><br>
+			<a href="../com-tecnick-tcpdf/_PHPExcel---Shared---PDF---config---lang---bra.php.html">		bra.php
+		</a><br>
 			<a href="../com-tecnick-tcpdf/_PHPExcel---Shared---PDF---config---lang---eng.php.html">		eng.php
+		</a><br>
+			<a href="../com-tecnick-tcpdf/_PHPExcel---Shared---PDF---config---lang---ger.php.html">		ger.php
 		</a><br>
 			<a href="../com-tecnick-tcpdf/_PHPExcel---Shared---PDF---htmlcolors.php.html">		htmlcolors.php
 		</a><br>
 			<a href="../com-tecnick-tcpdf/_PHPExcel---Shared---PDF---config---lang---ita.php.html">		ita.php
+		</a><br>
+			<a href="../com-tecnick-tcpdf/_PHPExcel---Shared---PDF---fonts---utils---makeallttffonts.php.html">		makeallttffonts.php
+		</a><br>
+			<a href="../com-tecnick-tcpdf/_PHPExcel---Shared---PDF---fonts---utils---makefont.php.html">		makefont.php
+		</a><br>
+			<a href="../com-tecnick-tcpdf/_PHPExcel---Shared---PDF---pdf417.php.html">		pdf417.php
+		</a><br>
+			<a href="../com-tecnick-tcpdf/_PHPExcel---Shared---PDF---qrcode.php.html">		qrcode.php
 		</a><br>
 			<a href="../com-tecnick-tcpdf/_PHPExcel---Shared---PDF---tcpdf.php.html">		tcpdf.php
 		</a><br>
@@ -76,9 +90,12 @@
       
             <b>Classes:</b><br />
         <div class="package">
-		    		<a href="../com-tecnick-tcpdf/TCPDF.html">TCPDF</a><br />
+		    		<a href="../com-tecnick-tcpdf/PDF417.html">PDF417</a><br />
+	    		<a href="../com-tecnick-tcpdf/QRcode.html">QRcode</a><br />
+	    		<a href="../com-tecnick-tcpdf/TCPDF.html">TCPDF</a><br />
 	    		<a href="../com-tecnick-tcpdf/TCPDF2DBarcode.html">TCPDF2DBarcode</a><br />
 	    		<a href="../com-tecnick-tcpdf/TCPDFBarcode.html">TCPDFBarcode</a><br />
+	    		<a href="../com-tecnick-tcpdf/TCPDF_UNICODE_DATA.html">TCPDF_UNICODE_DATA</a><br />
 	  </div>
                 </td>
     <td>
@@ -106,7 +123,7 @@ Source Location: /PHPExcel/Shared/PDF/barcodes.php<br /><br />
                 
 <h4>Version:</h4>
 <ul>
-  <li>1.0.008</li>
+  <li>1.0.011</li>
 </ul>
 
         
@@ -170,7 +187,7 @@ Source Location: /PHPExcel/Shared/PDF/barcodes.php<br /><br />
 <a name="class_details"></a>
 <h3>Class Details</h3>
 <div class="tags">
-[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a62">62</a>]<br />
+[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a55">55</a>]<br />
 PHP class to creates array representations for common 1D barcodes to be used with TCPDF (http://www.tcpdf.org).<br /><br /><br /><br /><br />
 <h4>Tags:</h4>
 <div class="tags">
@@ -179,7 +196,7 @@ PHP class to creates array representations for common 1D barcodes to be used wit
     <td><b>author:</b>&nbsp;&nbsp;</td><td>Nicola Asuni</td>
   </tr>
   <tr>
-    <td><b>version:</b>&nbsp;&nbsp;</td><td>1.0.008</td>
+    <td><b>version:</b>&nbsp;&nbsp;</td><td>1.0.011</td>
   </tr>
   <tr>
     <td><b>link:</b>&nbsp;&nbsp;</td><td><a href="http://www.tcpdf.org">http://www.tcpdf.org</a></td>
@@ -202,7 +219,7 @@ PHP class to creates array representations for common 1D barcodes to be used wit
 	<a name="var$barcode_array"></a>
 	<p></p>
 	<h4>$barcode_array = <span class="value"></span></h4>
-	<p>[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a68">68</a>]</p>
+	<p>[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a61">61</a>]</p>
   <br /><br />
 <h4>Tags:</h4>
 <div class="tags">
@@ -235,7 +252,7 @@ PHP class to creates array representations for common 1D barcodes to be used wit
 
   <hr />
 	<a name="method__construct"></a>
-	<h3>constructor __construct <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a84">84</a>]</span></h3>
+	<h3>constructor __construct <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a77">77</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -277,7 +294,7 @@ $type)</code>
   </div>
   <hr />
 	<a name="methodbarcode_c128"></a>
-	<h3>method barcode_c128 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a799">799</a>]</span></h3>
+	<h3>method barcode_c128 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a792">792</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -322,7 +339,7 @@ $type = 'B'])</code>
   </div>
   <hr />
 	<a name="methodbarcode_codabar"></a>
-	<h3>method barcode_codabar <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1487">1487</a>]</span></h3>
+	<h3>method barcode_codabar <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1480">1480</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -361,7 +378,7 @@ $code)</code>
   </div>
   <hr />
 	<a name="methodbarcode_code11"></a>
-	<h3>method barcode_code11 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1543">1543</a>]</span></h3>
+	<h3>method barcode_code11 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1536">1536</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -400,7 +417,7 @@ $code)</code>
   </div>
   <hr />
 	<a name="methodbarcode_code39"></a>
-	<h3>method barcode_code39 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a237">237</a>]</span></h3>
+	<h3>method barcode_code39 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a230">230</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -451,7 +468,7 @@ $checksum = false])</code>
   </div>
   <hr />
 	<a name="methodbarcode_code93"></a>
-	<h3>method barcode_code93 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a406">406</a>]</span></h3>
+	<h3>method barcode_code93 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a399">399</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -496,7 +513,7 @@ $checksum)</code>
   </div>
   <hr />
 	<a name="methodbarcode_eanext"></a>
-	<h3>method barcode_eanext <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1188">1188</a>]</span></h3>
+	<h3>method barcode_eanext <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1181">1181</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -541,7 +558,7 @@ $len = 5])</code>
   </div>
   <hr />
 	<a name="methodbarcode_eanupc"></a>
-	<h3>method barcode_eanupc <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a995">995</a>]</span></h3>
+	<h3>method barcode_eanupc <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a988">988</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -586,7 +603,7 @@ $len = 13])</code>
   </div>
   <hr />
 	<a name="methodbarcode_i25"></a>
-	<h3>method barcode_i25 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a735">735</a>]</span></h3>
+	<h3>method barcode_i25 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a728">728</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -631,7 +648,7 @@ $checksum = false])</code>
   </div>
   <hr />
 	<a name="methodbarcode_imb"></a>
-	<h3>method barcode_imb <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1724">1724</a>]</span></h3>
+	<h3>method barcode_imb <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1717">1717</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -670,7 +687,7 @@ $code)</code>
   </div>
   <hr />
 	<a name="methodbarcode_msi"></a>
-	<h3>method barcode_msi <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a605">605</a>]</span></h3>
+	<h3>method barcode_msi <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a598">598</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -715,7 +732,7 @@ $checksum = false])</code>
   </div>
   <hr />
 	<a name="methodbarcode_pharmacode"></a>
-	<h3>method barcode_pharmacode <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1635">1635</a>]</span></h3>
+	<h3>method barcode_pharmacode <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1628">1628</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -754,7 +771,7 @@ $code)</code>
   </div>
   <hr />
 	<a name="methodbarcode_pharmacode2t"></a>
-	<h3>method barcode_pharmacode2t <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1661">1661</a>]</span></h3>
+	<h3>method barcode_pharmacode2t <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1654">1654</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -793,7 +810,7 @@ $code)</code>
   </div>
   <hr />
 	<a name="methodbarcode_postnet"></a>
-	<h3>method barcode_postnet <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1263">1263</a>]</span></h3>
+	<h3>method barcode_postnet <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1256">1256</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -838,7 +855,7 @@ $planet = false])</code>
   </div>
   <hr />
 	<a name="methodbarcode_rms4cc"></a>
-	<h3>method barcode_rms4cc <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1336">1336</a>]</span></h3>
+	<h3>method barcode_rms4cc <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1329">1329</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -883,7 +900,7 @@ $kix = false])</code>
   </div>
   <hr />
 	<a name="methodbarcode_s25"></a>
-	<h3>method barcode_s25 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a664">664</a>]</span></h3>
+	<h3>method barcode_s25 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a657">657</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -928,7 +945,7 @@ $checksum = false])</code>
   </div>
   <hr />
 	<a name="methodbinseq_to_array"></a>
-	<h3>method binseq_to_array <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a705">705</a>]</span></h3>
+	<h3>method binseq_to_array <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a698">698</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -973,7 +990,7 @@ $bararray)</code>
   </div>
   <hr />
 	<a name="methodchecksum_code39"></a>
-	<h3>method checksum_code39 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a382">382</a>]</span></h3>
+	<h3>method checksum_code39 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a375">375</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1012,7 +1029,7 @@ $code)</code>
   </div>
   <hr />
 	<a name="methodchecksum_code93"></a>
-	<h3>method checksum_code93 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a534">534</a>]</span></h3>
+	<h3>method checksum_code93 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a527">527</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1051,7 +1068,7 @@ $code)</code>
   </div>
   <hr />
 	<a name="methodchecksum_s25"></a>
-	<h3>method checksum_s25 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a579">579</a>]</span></h3>
+	<h3>method checksum_s25 <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a572">572</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1090,7 +1107,7 @@ $code)</code>
   </div>
   <hr />
 	<a name="methoddec_to_hex"></a>
-	<h3>method dec_to_hex <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1848">1848</a>]</span></h3>
+	<h3>method dec_to_hex <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1841">1841</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1129,7 +1146,7 @@ $number)</code>
   </div>
   <hr />
 	<a name="methodencode_code39_ext"></a>
-	<h3>method encode_code39_ext <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a331">331</a>]</span></h3>
+	<h3>method encode_code39_ext <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a324">324</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1168,7 +1185,7 @@ $code)</code>
   </div>
   <hr />
 	<a name="methodgetBarcodeArray"></a>
-	<h3>method getBarcodeArray <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a92">92</a>]</span></h3>
+	<h3>method getBarcodeArray <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a85">85</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1193,7 +1210,7 @@ $code)</code>
   </div>
   <hr />
 	<a name="methodhex_to_dec"></a>
-	<h3>method hex_to_dec <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1872">1872</a>]</span></h3>
+	<h3>method hex_to_dec <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1865">1865</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1232,7 +1249,7 @@ $hex)</code>
   </div>
   <hr />
 	<a name="methodimb_crc11fcs"></a>
-	<h3>method imb_crc11fcs <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1889">1889</a>]</span></h3>
+	<h3>method imb_crc11fcs <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1882">1882</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1271,7 +1288,7 @@ $code_arr)</code>
   </div>
   <hr />
 	<a name="methodimb_reverse_us"></a>
-	<h3>method imb_reverse_us <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1925">1925</a>]</span></h3>
+	<h3>method imb_reverse_us <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1918">1918</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1310,7 +1327,7 @@ $num)</code>
   </div>
   <hr />
 	<a name="methodimb_tables"></a>
-	<h3>method imb_tables <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1942">1942</a>]</span></h3>
+	<h3>method imb_tables <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a1935">1935</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1355,7 +1372,7 @@ $size)</code>
   </div>
   <hr />
 	<a name="methodsetBarcode"></a>
-	<h3>method setBarcode <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a102">102</a>]</span></h3>
+	<h3>method setBarcode <span class="smalllinenumber">[line <a href="../__filesource/fsource_com-tecnick-tcpdf__PHPExcelSharedPDFbarcodes.php.html#a95">95</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -1400,7 +1417,7 @@ $type)</code>
 
         <div class="credit">
 		    <hr />
-		    Documentation generated on Thu, 26 Aug 2010 17:40:30 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+		    Documentation generated on Sun, 27 Feb 2011 16:28:24 -0800 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

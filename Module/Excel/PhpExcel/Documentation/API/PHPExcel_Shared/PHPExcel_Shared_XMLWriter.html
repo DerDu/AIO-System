@@ -13,8 +13,8 @@
   <tr>
     <td class="header_menu">
         
-                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                  		  [ <a href="../classtrees_PHPExcel_Shared.html" class="menu">class tree: PHPExcel_Shared</a> ]
+                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                      		  [ <a href="../classtrees_PHPExcel_Shared.html" class="menu">class tree: PHPExcel_Shared</a> ]
 		  [ <a href="../elementindex_PHPExcel_Shared.html" class="menu">index: PHPExcel_Shared</a> ]
 		  	    [ <a href="../elementindex.html" class="menu">all elements</a> ]
     </td>
@@ -38,12 +38,14 @@
               <a href="../li_PHPExcel_Cell.html">PHPExcel_Cell</a><br />
               <a href="../li_PHPExcel_Reader.html">PHPExcel_Reader</a><br />
               <a href="../li_PHPExcel_Reader_Excel5.html">PHPExcel_Reader_Excel5</a><br />
+              <a href="../li_PHPExcel_Reader_Excel2007.html">PHPExcel_Reader_Excel2007</a><br />
               <a href="../li_PHPExcel_RichText.html">PHPExcel_RichText</a><br />
               <a href="../li_PHPExcel_Settings.html">PHPExcel_Settings</a><br />
               <a href="../li_PHPExcel_Shared.html">PHPExcel_Shared</a><br />
               <a href="../li_PHPExcel_Shared_Best_Fit.html">PHPExcel_Shared_Best_Fit</a><br />
               <a href="../li_PHPExcel_Shared_Escher.html">PHPExcel_Shared_Escher</a><br />
               <a href="../li_PHPExcel_Shared_OLE.html">PHPExcel_Shared_OLE</a><br />
+              <a href="../li_PHPExcel_Shared_ZipArchive.html">PHPExcel_Shared_ZipArchive</a><br />
               <a href="../li_PHPExcel_Style.html">PHPExcel_Style</a><br />
               <a href="../li_PHPExcel_Worksheet.html">PHPExcel_Worksheet</a><br />
               <a href="../li_PHPExcel_Worksheet_Drawing.html">PHPExcel_Worksheet_Drawing</a><br />
@@ -104,7 +106,9 @@ Source Location: /PHPExcel/Shared/XMLWriter.php<br /><br />
 <tr><td valign="top">
 
 <h3><a href="#class_details">Class Overview</a></h3>
-<pre></pre><br />
+<pre>XMLWriter
+   |
+   --PHPExcel_Shared_XMLWriter</pre><br />
 <div class="description">PHPExcel_Shared_XMLWriter</div><br /><br />
 <h4>Author(s):</h4>
 <ul>
@@ -118,7 +122,7 @@ Source Location: /PHPExcel/Shared/XMLWriter.php<br /><br />
 
 <h4>Copyright:</h4>
 <ul>
-  <li>Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)</li>
+  <li>Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)</li>
 </ul>
         
 </td>
@@ -138,8 +142,7 @@ Source Location: /PHPExcel/Shared/XMLWriter.php<br /><br />
     <li><a href="../PHPExcel_Shared/PHPExcel_Shared_XMLWriter.html#method__construct">__construct</a></li>
     <li><a href="../PHPExcel_Shared/PHPExcel_Shared_XMLWriter.html#method__destruct">__destruct</a></li>
     <li><a href="../PHPExcel_Shared/PHPExcel_Shared_XMLWriter.html#methodgetData">getData</a></li>
-    <li><a href="../PHPExcel_Shared/PHPExcel_Shared_XMLWriter.html#methodwriteRaw">writeRaw</a></li>
-    <li><a href="../PHPExcel_Shared/PHPExcel_Shared_XMLWriter.html#method__call">__call</a></li>
+    <li><a href="../PHPExcel_Shared/PHPExcel_Shared_XMLWriter.html#methodwriteRawData">writeRawData</a></li>
   </ul>
 </td>
 
@@ -152,6 +155,266 @@ Source Location: /PHPExcel/Shared/XMLWriter.php<br /><br />
 
 
 
+<td valign="top">
+<h3>Inherited Methods</h3>
+<div class="tags">
+<h4>Class: XMLWriter (Internal Class)</h4>
+<dl>
+    <dt>
+    endAttribute (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    endCdata (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    endComment (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    endDocument (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    endDtd (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    endDtdAttlist (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    endDtdElement (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    endDtdEntity (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    endElement (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    endPi (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    flush (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    fullEndElement (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    openMemory (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    openUri (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    outputMemory (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    setIndent (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    setIndentString (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    startAttribute (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    startAttributeNs (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    startCdata (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    startComment (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    startDocument (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    startDtd (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    startDtdAttlist (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    startDtdElement (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    startDtdEntity (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    startElement (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    startElementNs (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    startPi (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    text (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    writeAttribute (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    writeAttributeNs (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    writeCdata (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    writeComment (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    writeDtd (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    writeDtdAttlist (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    writeDtdElement (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    writeDtdEntity (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    writeElement (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    writeElementNs (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    writePi (  )
+  </dt>
+  <dd>
+    
+  </dd>
+    <dt>
+    writeRaw (  )
+  </dt>
+  <dd>
+    
+  </dd>
+  </dl>
+</div>
+</td>
 
 </tr></table>
 <hr />
@@ -165,7 +428,7 @@ PHPExcel_Shared_XMLWriter<br /><br /><br /><br />
 <div class="tags">
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td><b>copyright:</b>&nbsp;&nbsp;</td><td>Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)</td>
+    <td><b>copyright:</b>&nbsp;&nbsp;</td><td>Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)</td>
   </tr>
 </table>
 </div>
@@ -180,7 +443,7 @@ PHPExcel_Shared_XMLWriter<br /><br /><br /><br />
 
   <hr />
 	<a name="method__construct"></a>
-	<h3>constructor __construct <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared__PHPExcelSharedXMLWriter.php.html#a69">69</a>]</span></h3>
+	<h3>constructor __construct <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared__PHPExcelSharedXMLWriter.php.html#a62">62</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -222,7 +485,7 @@ $pTemporaryStorageFolder = './'])</code>
   </div>
   <hr />
 	<a name="method__destruct"></a>
-	<h3>destructor __destruct <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared__PHPExcelSharedXMLWriter.php.html#a96">96</a>]</span></h3>
+	<h3>destructor __destruct <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared__PHPExcelSharedXMLWriter.php.html#a86">86</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -247,7 +510,7 @@ $pTemporaryStorageFolder = './'])</code>
   </div>
   <hr />
 	<a name="methodgetData"></a>
-	<h3>method getData <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared__PHPExcelSharedXMLWriter.php.html#a111">111</a>]</span></h3>
+	<h3>method getData <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared__PHPExcelSharedXMLWriter.php.html#a98">98</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
@@ -271,12 +534,12 @@ $pTemporaryStorageFolder = './'])</code>
         <div class="top">[ <a href="#top">Top</a> ]</div>
   </div>
   <hr />
-	<a name="methodwriteRaw"></a>
-	<h3>method writeRaw <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared__PHPExcelSharedXMLWriter.php.html#a140">140</a>]</span></h3>
+	<a name="methodwriteRawData"></a>
+	<h3>method writeRawData <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared__PHPExcelSharedXMLWriter.php.html#a113">113</a>]</span></h3>
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
-		<code>string writeRaw(
+		<code>string writeRawData(
 string
 $text)</code>
     </td></tr></table>
@@ -300,48 +563,6 @@ $text)</code>
           <tr>
         <td class="type">string&nbsp;&nbsp;</td>
         <td><b>$text</b>&nbsp;&nbsp;</td>
-        <td></td>
-      </tr>
-        </table>
-    </div><br />
-        <div class="top">[ <a href="#top">Top</a> ]</div>
-  </div>
-  <hr />
-	<a name="method__call"></a>
-	<h3>method __call <span class="smalllinenumber">[line <a href="../__filesource/fsource_PHPExcel_Shared__PHPExcelSharedXMLWriter.php.html#a126">126</a>]</span></h3>
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
-		<code>void __call(
-unknown_type
-$function, unknown_type
-$args)</code>
-    </td></tr></table>
-    </td></tr></table><br />
-	
-		Catch function calls (and pass them to internal XMLWriter)<br /><br /><br /><br />
-<h4>Tags:</h4>
-<div class="tags">
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td><b>access:</b>&nbsp;&nbsp;</td><td>public</td>
-  </tr>
-</table>
-</div>
-<br /><br />
-
-	
-        <h4>Parameters:</h4>
-    <div class="tags">
-    <table border="0" cellspacing="0" cellpadding="0">
-          <tr>
-        <td class="type">unknown_type&nbsp;&nbsp;</td>
-        <td><b>$function</b>&nbsp;&nbsp;</td>
-        <td></td>
-      </tr>
-          <tr>
-        <td class="type">unknown_type&nbsp;&nbsp;</td>
-        <td><b>$args</b>&nbsp;&nbsp;</td>
         <td></td>
       </tr>
         </table>
@@ -372,7 +593,7 @@ $args)</code>
 
         <div class="credit">
 		    <hr />
-		    Documentation generated on Thu, 26 Aug 2010 17:47:06 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+		    Documentation generated on Sun, 27 Feb 2011 16:37:30 -0800 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
 	      </div>
       </td></tr></table>
     </td>

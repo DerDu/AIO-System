@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (C) 2006 - 2010 PHPExcel
+ * Copyright (C) 2006 - 2011 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +20,9 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    1.7.4, 2010-08-26
+ * @version    1.7.6, 2011-02-27
  */
 
 /** Error reporting */
@@ -33,17 +33,43 @@ date_default_timezone_set('Europe/London');
 /** PHPExcel_IOFactory */
 require_once '../Classes/PHPExcel/IOFactory.php';
 
+?>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-echo date('H:i:s') . " Load from Open Office Calc file\n";
-$objPHPExcel = PHPExcel_IOFactory::load("OOCalcTest.ods");
+<title>PHPExcel OOCalc Reader Test</title>
 
-echo date('H:i:s') . " Write to Excel2007 format\n";
+</head>
+<body>
+
+<?php
+
+echo date('H:i:s') . " Load from OOCalc file\n";
+$callStartTime = microtime(true);
+
+$objReader = PHPExcel_IOFactory::createReader('OOCalc');
+$objPHPExcel = $objReader->load("OOCalcTest.ods");
+
+
+$callEndTime = microtime(true);
+$callTime = $callEndTime - $callStartTime;
+echo '<br />Call time to read Workbook was '.sprintf('%.4f',$callTime)." seconds<br />\n";
+// Echo memory usage
+echo date('H:i:s').' Current memory usage: '.(memory_get_usage(true) / 1024 / 1024)." MB<br /><hr />\n";
+
+
+echo date('H:i:s') . " Write to Excel2007 format<br />";
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 
 
 // Echo memory peak usage
-echo date('H:i:s') . " Peak memory usage: " . (memory_get_peak_usage(true) / 1024 / 1024) . " MB\r\n";
+echo date('H:i:s') . " Peak memory usage: " . (memory_get_peak_usage(true) / 1024 / 1024) . " MB<br />";
 
 // Echo done
-echo date('H:i:s') . " Done writing file.\r\n";
+echo date('H:i:s') . " Done writing file.<br />";
+
+?>
+<body>
+</html>
