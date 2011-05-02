@@ -42,6 +42,7 @@
 namespace AIOSystem\Module\Database;
 use \AIOSystem\Api\Session;
 use \AIOSystem\Api\Xml;
+use \AIOSystem\Api\Event;
 /**
  * @package AIOSystem\Module
  * @subpackage Database
@@ -82,6 +83,8 @@ class ClassDatabase implements InterfaceDatabase
 	private static $database_route = null;
 	private static $database_mtimeout = null;
 
+	public static $Debug = false;
+
 	public function __construct() {
 	}
 	public static function database_adodb5() {
@@ -118,15 +121,28 @@ class ClassDatabase implements InterfaceDatabase
 		if( count( self::$database_stage ) < 1 ){
 			// Load Class
 			if( !class_exists('cls__shell_adodb5') ) {
+				if( self::$Debug ) Event::Debug('Load ADODB5');
 				require_once(__DIR__ . '/Adodb.php');
 				if( !class_exists('ADOConnection') ) {
+					if( self::$Debug ) Event::Debug('Load ADODB5 Connection');
 					require_once(__DIR__ . '/Adodb/adodb.inc.php');
 				}
 			}
 			// Load Driver
 			foreach( (array)$array_route as $string_route ) {
 				self::$database_route = $string_route;
+				if( self::$Debug ) Event::Debug('Load Route: ');
+				if( self::$Debug ) Event::Debug(
+					array(
+						self::database_route_engine(),
+						self::database_route_host(),
+						self::database_route_user(),
+						self::database_route_database()
+					)
+				);
+				if( strlen( self::database_route_host() ) >0 )
 				if( !class_exists( 'ADODB_'.strtolower(self::database_route_engine()) ) ) {
+					if( self::$Debug ) Event::Debug('Load ADODB5 Driver: '.__DIR__.('/Adodb/drivers/adodb-'.strtolower(self::database_route_engine()).'.inc.php') );
 					//var_dump('Load Driver '.__DIR__.('/Adodb/drivers/adodb-'.strtolower(self::database_route_engine()).'.inc.php'));
 					require_once( __DIR__.('/Adodb/drivers/adodb-'.strtolower(self::database_route_engine()).'.inc.php') );
 				}
@@ -141,6 +157,15 @@ class ClassDatabase implements InterfaceDatabase
 			}
 		}
 	}
+	/**
+	 * @static
+	 * @param string $string_hosttype
+	 * @param string $string_hostname
+	 * @param string $string_username
+	 * @param string $string_password
+	 * @param string $string_database
+	 * @return null|string
+	 */
 	public static function database_open( $string_hosttype, $string_hostname, $string_username, $string_password, $string_database ) {
 		// Engine: Module-XMLFFDB ?
 		//if( strtoupper( $string_hosttype ) == 'XMLFFDB' ){
@@ -151,7 +176,12 @@ class ClassDatabase implements InterfaceDatabase
 			$object_adodb5_instance = ClassAdodb::Instance();
 		//}
 		self::database_route( strtoupper('ROUTE[ENGINE:'.$string_hosttype.':HOST:'.$string_hostname.':DB:'.$string_database.':USER:'.$string_username.']') );
-		$object_adodb5_instance->openAdodb( $string_hosttype, $string_hostname, $string_username, $string_password, $string_database );
+		if( $string_hostname === null && $string_username === null && $string_password === null && $string_database === null ) {
+			$object_adodb5_instance->openAdodbDsn( $string_hosttype );
+		} else {
+			$object_adodb5_instance->openAdodb( $string_hosttype, $string_hostname, $string_username, $string_password, $string_database );
+		}
+
 		self::$database_stage[self::$database_route] = $object_adodb5_instance;
 
 		self::database_session_set();

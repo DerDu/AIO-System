@@ -54,10 +54,23 @@ class Database {
 	 * @param  string $User
 	 * @param  string $Password
 	 * @param  string $Database
-	 * @return null
+	 * @return null|string
 	 */
 	public static function Open( $Type, $Host, $User, $Password, $Database ) {
 		return AIODatabase::database_open( $Type, $Host, $User, $Password, $Database );
+	}
+	/**
+	 * Open database connection
+	 *
+	 * <code>
+	 * driver : // username : password @ hostname / database ? options [ = value ]
+	 * </code>
+	 *
+	 * @param string $Dsn
+	 * @return null|string
+	 */
+	public static function OpenDsn( $Dsn ) {
+		return AIODatabase::database_open( $Dsn, null, null, null, null );
 	}
 	/**
 	 * @static

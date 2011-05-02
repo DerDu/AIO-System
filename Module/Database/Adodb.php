@@ -85,6 +85,20 @@ class ClassAdodb implements InterfaceAdodb
 		return $this->propertyAdodbResource;
 	}
 // ---------------------------------------------------------------------------------------
+	public function openAdodbDsn( $DsnString ) {
+		if( $this->bool_debug ) Event::Debug('Open: '.$DsnString);
+
+		$this->propertyAdodbResource( $Connection = NewADOConnection( $DsnString ) );
+		if( !is_object( $Connection ) ) {
+			$this->propertyAdodbResource()->debug=false;
+			throw new \Exception( 'Connection failed!<br/>'.ClassDatabase::database_route() );
+		}
+		if( $this->bool_debug ) Event::Debug( print_r($this->propertyAdodbResource(),true) );
+
+		$PwdMatch= array();
+		preg_match('!(?<=:)[^:]*(?=@)!is',$DsnString,$PwdMatch);
+		$this->propertyAdodbResource()->password = $PwdMatch[0];
+	}
 	/**
 	 * @throws \Exception
 	 * @param string $HostType
@@ -98,10 +112,10 @@ class ClassAdodb implements InterfaceAdodb
 		if( $this->bool_debug ) Event::Debug('Open: '.$HostName.'|'.$UserName.'|'.$Password.'|'.$Database);
 
 		$this->propertyAdodbResource( NewADOConnection( $HostType ) );
-		//$this->propertyAdodbResource()->debug=true;
+		$this->propertyAdodbResource()->debug=false;
 		if( ! $this->propertyAdodbResource()->Connect( $HostName, $UserName, $Password, $Database ) )
 		throw new \Exception( 'Connection failed!<br/>'.ClassDatabase::database_route() );
-		//$this->propertyAdodbResource()->password = $Password;
+		$this->propertyAdodbResource()->password = $Password;
 	}
 	/**
 	 * @throws \Exception
@@ -149,7 +163,7 @@ class ClassAdodb implements InterfaceAdodb
 	 */
 	public function createTable( $TableName, $TableFieldset ) {
 		// $TableFieldset: Array( Name, Type, Size, Options.. )
-		$NewDataDictionary = \NewDataDictionary( $this->propertyAdodbResource() );
+		$NewDataDictionary = \NewDataDictionary( $this->propertyAdodbResource );
 		return $NewDataDictionary->ExecuteSQLArray(
 			$NewDataDictionary->CreateTableSQL( $TableName, $TableFieldset )
 		);
@@ -158,7 +172,7 @@ class ClassAdodb implements InterfaceAdodb
 	 * @param string $TableName
 	 */
 	public function dropTable( $TableName ) {
-		$NewDataDictionary = \NewDataDictionary( $this->propertyAdodbResource() );
+		$NewDataDictionary = \NewDataDictionary( $this->propertyAdodbResource );
 		return $NewDataDictionary->ExecuteSQLArray(
 			$NewDataDictionary->DropTableSQL( $TableName )
 		);
