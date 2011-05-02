@@ -26,5 +26,7 @@ use \AIOSystem\Module\Journal\ClassJournalViewer as JournalViewer;
 	</div>
 </div>
 <script type="text/javascript">
-	jQuery('div#JournalViewerJournalContent').tabs({collapsible:true,selected:-1}).draggable({handle:'ul',cursor:'pointer'}).resizable();
+	jQuery(document).ready(function(){
+		jQuery('div#JournalViewerJournalContent').tabs({collapsible:true,selected:-1}).draggable({handle:'ul',cursor:'pointer'}).resizable();
+	});
 </script>

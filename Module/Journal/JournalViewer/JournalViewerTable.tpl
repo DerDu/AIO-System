@@ -38,6 +38,7 @@
 	</tfoot>
 </table>
 <script type="text/javascript">
+jQuery(document).ready(function(){
 	var oTable = jQuery('table#JournalViewerTableType{JournalType}').dataTable({
 		aaSorting: [[ 0, "desc" ]],
 		bAutoWidth: false,
@@ -50,4 +51,5 @@
 		.find('input').css({width:'100%'})
 	.parents('div.dataTables_wrapper')
 		.find('div.dataTables_length').css({float:'right'});
+});
 </script>
