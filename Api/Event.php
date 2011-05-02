@@ -72,8 +72,9 @@ class Event {
 	 * @static
 	 * @param  string $Content
 	 */
-	public static function Debug( $Content ) {
+	public static function Debug( $Content, $Location = '', $Position = '' ) {
 		AIOEventJournal::addEvent( $Content, 'Debug' );
+		AIOEventScreen::addEvent( 0, $Content, $Location, $Position, AIOEventScreen::SCREEN_DEBUG );
 	}
 	/**
 	 * @static

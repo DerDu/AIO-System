@@ -55,9 +55,10 @@ interface InterfaceEventScreen {
  * @subpackage Event
  */
 class ClassEventScreen implements InterfaceEventScreen {
-	const SCREEN_INFO = 0;
-	const SCREEN_ERROR = 1;
-	const SCREEN_EXCEPTION = 2;
+	const SCREEN_DEBUG = 0;
+	const SCREEN_INFO = 1;
+	const SCREEN_ERROR = 2;
+	const SCREEN_EXCEPTION = 3;
 // ---------------------------------------------------------------------------------------
 	public static function addEvent(
 		$propertyNumber, $propertyContent, $propertyLocation = '', $propertyPosition = '',
@@ -66,6 +67,10 @@ class ClassEventScreen implements InterfaceEventScreen {
 		if( ! ini_get('display_errors') ) return false;
 
 		switch( $propertyEventScreenType ) {
+			case self::SCREEN_DEBUG:{
+				print self::_screenDebug( $propertyContent );
+				return true;
+			}
 			case self::SCREEN_INFO:{
 				print self::_screenInfo( $propertyContent );
 				return true;
@@ -81,6 +86,11 @@ class ClassEventScreen implements InterfaceEventScreen {
 		}
 	}
 // ---------------------------------------------------------------------------------------
+	private static function _screenDebug( $propertyContent ) {
+		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #306030; color:#A0DDA0; border: 1px solid #55B73B; border-top: 1px solid #58C03E; border-bottom: 1px solid #57A83A; font-family: monospace; font-size:14px; overflow:auto;">'
+		."\n[Debug] <pre>".print_r($propertyContent,true)."</pre>"
+		.'</div>'."\n";
+	}
 	private static function _screenInfo( $propertyContent ) {
 		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #303080; color:#A0A0DD; border: 1px solid #553BB7; border-top: 1px solid #583EC0; border-bottom: 1px solid #573AA8; font-family: monospace; font-size:14px; overflow:auto;">'
 		."\n[Info] ".$propertyContent
