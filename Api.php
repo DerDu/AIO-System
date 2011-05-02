@@ -36,11 +36,15 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AioSystem
+ * @package AIOSystem
  */
-namespace AioSystem;
+namespace AIOSystem;
+use \AIOSystem\Api\Session;
+use \AIOSystem\Api\Seo;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Event;
 /**
- * @package AioSystem
+ * @package AIOSystem
  */
 class ClassApi {
 	const API_PREFIX_NAMESPACE = __NAMESPACE__;
@@ -50,7 +54,7 @@ class ClassApi {
 	/**
 	 * Setup API
 	 *
-	 * This registers the \AioSystem class auto load function
+	 * This registers the \AIOSystem class auto load function
 	 *
 	 * @static
 	 * @return void
@@ -62,9 +66,9 @@ class ClassApi {
 			spl_autoload_register( array(__CLASS__,'AutoLoader') );
 		}
 		require_once('Library\PhpFunction.php');
-		Core\ClassSession::startSession();
-		Core\ClassEventHandler::registerEventHandler(E_ALL,true);
-		self::WidgetStyle();
+		Session::Start();
+		Event::RegisterHandler( E_ALL, true );
+		//self::WidgetStyle();
 		self::$propertySetup = false;
 	}
 	/**
@@ -87,32 +91,39 @@ class ClassApi {
 		//var_dump( $propertyClassLocation );
 		if( file_exists( $propertyClassLocation ) ) {
 			require_once( $propertyClassLocation );
-			//\AioSystem\Api\Event::Debug( 'Load: '.$propertyClassLocation );
+			//\AIOSystem\Api\Event::Debug( 'Load: '.$propertyClassLocation );
 			if( self::$propertySetup === false || session_id() != '' ) {
-				//\AioSystem\Api\Event::Message( 'Load: '.$propertyClassLocation );
-				//var_dump( 'Load: '.$propertyClassLocation );
+				//\AIOSystem\Api\Event::Message( 'Load: '.$propertyClassLocation );
+				//var_dump( 'AIO Load: '.$propertyClassLocation );
 			}
 			return true;
 		} else {
 			return false;
 		}
 	}
+	/**
+	 * @static
+	 * @return string
+	 */
 	public static function WidgetStyle() {
-		$WidgetList = \AioSystem\Core\ClassSystemDirectory::getDirectoryList( 'Widget' );
-		$WidgetStyleList = \AioSystem\Api\Session::Read( __METHOD__ );
-		foreach( (array)$WidgetList as $Directory ) {
-			if( is_dir( $Directory.'Style' ) ) {
-				$WidgetStyle = \AioSystem\Core\ClassSystemDirectory::getFileList( $Directory.'Style', 'css' );
-				/** @var \AioSystem\Core\ClassSystemFile $WidgetStyleFile */
-				foreach( (array)$WidgetStyle as $WidgetStyleFile ) {
-					$StyleFile = \AioSystem\Api\Seo::Path( $WidgetStyleFile->propertyFileLocation() );
-					if( !in_array( $StyleFile, $WidgetStyleList ) ) {
-						array_push( $WidgetStyleList, $StyleFile );
+		$WidgetStyleList = Session::Read( __METHOD__ );
+		if( $WidgetStyleList === null ) {
+			$WidgetList = System::DirectoryList( 'Widget' );
+			$WidgetStyleList = array();
+			foreach( (array)$WidgetList as $Directory ) {
+				if( is_dir( $Directory.'Style' ) ) {
+					$WidgetStyle = System::FileList( $Directory.'Style', 'css' );
+					/** @var \AIOSystem\Core\ClassSystemFile $WidgetStyleFile */
+					foreach( (array)$WidgetStyle as $WidgetStyleFile ) {
+						$StyleFile = Seo::Path( $WidgetStyleFile->propertyFileLocation() );
+						if( !in_array( $StyleFile, $WidgetStyleList ) ) {
+							array_push( $WidgetStyleList, $StyleFile );
+						}
 					}
 				}
 			}
+			Session::Write( __METHOD__, $WidgetStyleList );
 		}
-		\AioSystem\Api\Session::Write( __METHOD__, $WidgetStyleList );
 		$Return = '';
 		foreach( (array)$WidgetStyleList as $StyleLocation ) {
 			$Return .= '<link rel="stylesheet" href="'.$StyleLocation.'"/>'."\n";
