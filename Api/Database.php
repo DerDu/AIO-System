@@ -148,6 +148,14 @@ class Database {
 		return AIODatabase::database_close( $Route );
 	}
 	/**
+	 * Database connection object
+	 *
+	 * @return \ADOConnection
+	 */
+	public static function ADOConnection() {
+		return AIODatabase::database_adodb5();
+	}
+	/**
 	 * Edit database record (INSERT/UPDATE)
 	 *
 	 * @static
@@ -164,7 +172,7 @@ class Database {
 	 * @param string $Table
 	 * @param string $WhereOrderBy
 	 * @param bool $ResultSet
-	 * @return array
+	 * @return array|\ADODB_Active_Record[]|void
 	 */
 	public static function RecordSet( $Table, $WhereOrderBy, $ResultSet = false ) {
 		return AIODatabase::database_recordset( $Table, $WhereOrderBy, $ResultSet );
