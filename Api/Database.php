@@ -152,7 +152,11 @@ class Database {
 	 *
 	 * @return \ADOConnection
 	 */
-	public static function ADOConnection() {
+	public static function ADOConnection( $ADODB_ASSOC_CASE = null ) {
+		global $ADODB_ASSOC_CASE;
+		if( $ADODB_ASSOC_CASE === null ) {
+			$ADODB_ASSOC_CASE = 2;
+		}
 		return AIODatabase::database_adodb5();
 	}
 	/**
