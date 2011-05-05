@@ -75,7 +75,7 @@ class ClassTemplate implements InterfaceTemplate {
 	 * @return ClassTemplate
 	 */
 	public static function Instance( $File, $ParsePhp = true ) {
-		return new ClassTemplate( $File, $ParsePhp = true );
+		return new ClassTemplate( $File, $ParsePhp );
 	}
 	public function __construct( $File, $ParsePhp = true ) {
 		$this->propertyAssignContent = Stack::Queue();
