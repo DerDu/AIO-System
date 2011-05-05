@@ -41,6 +41,7 @@
  */
 namespace AIOSystem\Core;
 use \AIOSystem\Api\System;
+use \AIOSystem\Api\Event;
 /**
  * @package AIOSystem\Core
  * @subpackage System
@@ -172,7 +173,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 				// RESOLVE "..\"
 				$countRelativeLevel = substr_count( $Directory, '..\\' );
 				for( $runRelativeLevel = 0; $runRelativeLevel < $countRelativeLevel; $runRelativeLevel++ ) {
-					$Directory = preg_replace( '!\\?[^\\]*?\\\.\.!is', '', $Directory, 1 );
+					$Directory = preg_replace( '!\\\\?[^\\\\]*?\\\\\.\.!is', '', $Directory, 1 );
 				}
 				// HANDLE TRAILING \
 				if( $TrailingSeparator == true )
@@ -195,10 +196,18 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 		foreach( (array)$directoryList as $directoryName ) {
 			$directoryLocation .= $directoryName;
 			if( !empty( $directoryLocation ) ) {
-				$directoryLocation = self::adjustDirectorySyntax( $directoryLocation );
-				if( !is_dir( $directoryLocation ) ) {
-					@mkdir( $directoryLocation );
+				if( substr( $_SERVER['DOCUMENT_ROOT'], 0, strlen( $directoryLocation ) ) != $directoryLocation ) {
+					$directoryLocation = self::adjustDirectorySyntax( $directoryLocation );
+					if( !is_dir( $directoryLocation ) ) {
+						if( false == @mkdir( $directoryLocation ) ) {
+							trigger_error('Could not create directory! '.$directoryLocation );
+						}
+					}
+				} else {
+					$directoryLocation .= '/';
 				}
+			} else {
+				$directoryLocation .= '/';
 			}
 		}
 		return $directoryLocation;
