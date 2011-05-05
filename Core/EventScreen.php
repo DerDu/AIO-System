@@ -88,7 +88,7 @@ class ClassEventScreen implements InterfaceEventScreen {
 // ---------------------------------------------------------------------------------------
 	private static function _screenDebug( $propertyContent ) {
 		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #306030; color:#A0DDA0; border: 1px solid #55B73B; border-top: 1px solid #58C03E; border-bottom: 1px solid #57A83A; font-family: monospace; font-size:14px; overflow:auto;">'
-		."\n[Debug] <pre>".print_r($propertyContent,true)."</pre>"
+		."\n[Debug] <pre>".htmlspecialchars(print_r($propertyContent,true))."</pre>"
 		.'</div>'."\n";
 	}
 	private static function _screenInfo( $propertyContent ) {
