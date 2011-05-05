@@ -182,7 +182,7 @@ class ClassAdodb implements InterfaceAdodb
 	 * @param string $TableName
 	 * @param string $WhereOrderBy
 	 * @param bool $ResultSet
-	 * @return array|void
+	 * @return array|\ADODB_Active_Record[]|void
 	 */
 	public function RecordSet( $TableName, $WhereOrderBy, $ResultSet = false ) {
 		global $ADODB_ASSOC_CASE;

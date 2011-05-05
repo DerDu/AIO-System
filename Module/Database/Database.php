@@ -302,6 +302,9 @@ class ClassDatabase implements InterfaceDatabase
 		return self::database_stage()->dropTable( $string_table_name );
 	}
 // ---------------------------------------------------------------------------------------
+	/**
+	 * @return array|\ADODB_Active_Record[]|void
+	 */
 	public static function database_recordset( $string_table_name, $string_where_order_by, $bool_resultset = false ) {
 		return self::database_stage()->RecordSet( $string_table_name, $string_where_order_by, $bool_resultset );
 	}
