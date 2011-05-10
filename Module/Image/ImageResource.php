@@ -79,20 +79,19 @@ class ClassImageResource implements InterfaceImageResource
 		$image_file = pathinfo( $image_file );
 		$image_extension = str_replace( array('jpg'), array('jpeg'), $image_file['extension'] );
 		switch( strtoupper($image_extension) ) {
-			case 'JPEG': { 
-				$image_save_function = 'image'.$image_extension; 
+			case 'JPEG': {
+				$image_save_function = 'image'.$image_extension;
 				$image_save_function( $image_resource, $image_file['dirname'].'/'.$image_file['basename'], $image_quality );
 				return true;
-				break; 
+				break;
 			}
 			default: {
-				$image_save_function = 'image'.$image_extension; 
-				$image_save_function( $image_resource, $image_file['dirname'].'/'.$image_file['basename'] ); 
+				$image_save_function = 'image'.$image_extension;
+				$image_save_function( $image_resource, $image_file['dirname'].'/'.$image_file['basename'] );
 				return true;
 				break;
 			}
 		}
-		return false;
 	}
 	public static function Create( $image_size_width, $image_size_height ) {
 		$image_resource = imagecreatetruecolor( $image_size_width, $image_size_height );
