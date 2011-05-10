@@ -46,6 +46,18 @@ use \AIOSystem\Api\Stack;
  * @subpackage Sprite
  */
 interface InterfaceSprite {
+	public static function Sprite();
+	public static function addItem( ClassSpriteItem $Item );
+	public static function addContainer( ClassSpriteContainer $Container );
+	public static function saveContainer( ClassSpriteContainer $Container );
+	public static function combineContainer();
+	public static function searchContainer( ClassSpriteItem $Item );
+	public static function sortItemStack( ClassSpriteItem $ItemA, ClassSpriteItem $ItemB );
+	public static function sortContainerStack( ClassSpriteContainer $ContainerA, ClassSpriteContainer $ContainerB );
+	public static function debugItemStack();
+	public static function debugContainerStack();
+	public static function debugSpriteStack();
+	public static function debugSpriteStructure();
 }
 /**
  * @package AIOSystem\Module
