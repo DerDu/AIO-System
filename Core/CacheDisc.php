@@ -63,16 +63,16 @@ class ClassCacheDisc implements InterfaceCacheDisc {
 // ---------------------------------------------------------------------------------------
 	/**
 	 * @static
-	 * @param mixed $propertyCacheParameter
-	 * @param string $propertyCacheName
+	 * @param mixed $Parameter
+	 * @param string $Name
 	 * @param bool $isGlobal
 	 * @return bool|string
 	 */
-	public static function isCached( $propertyCacheParameter, $propertyCacheName = 'DefaultCache', $isGlobal = false ) {
-		self::_runCacheTimeout();
-		$propertyCacheParameter = sha1( serialize( $propertyCacheParameter ) );
-		if( file_exists( self::getCacheLocation( $propertyCacheName, $isGlobal ).$propertyCacheParameter ) ) {
-			return $propertyCacheParameter;
+	public static function isCached( $Parameter, $Name = 'DefaultCache', $isGlobal = false, $setTimeoutSeconds = null ) {
+		self::_runCacheTimeout( $setTimeoutSeconds );
+		$Parameter = sha1( serialize( $Parameter ) );
+		if( file_exists( self::getCacheLocation( $Name, $isGlobal ).$Parameter ) ) {
+			return $Parameter;
 		} else {
 			return false;
 		}
@@ -153,7 +153,10 @@ class ClassCacheDisc implements InterfaceCacheDisc {
 	 * @static
 	 * @return void
 	 */
-	private static function _runCacheTimeout() {
+	private static function _runCacheTimeout( $Seconds = null ) {
+		if( $Seconds !== null ) {
+			self::$_propertyCacheTimeout = $Seconds;
+		}
 		$getFileList = ClassSystemDirectory::getFileList( self::_getCacheDirectory(), array(), true );
 		/** @var ClassSystemFile $ClassSystemFile */
 		foreach( (array)$getFileList as $ClassSystemFile ) {
