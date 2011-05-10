@@ -67,6 +67,12 @@ class ClassTemplate implements InterfaceTemplate {
 	private $propertyAssignContent = array();
 	/** @var \AIOSystem\Core\ClassStackQueue $propertyAssignRepeat */
 	private $propertyAssignRepeat = array();
+	/** @var array $EscapePattern */
+	private $EscapePattern = array(
+		'('=>'\(',')'=>'\)',
+		'['=>'\[',']'=>'\]',
+		'/'=>'\/',
+	);
 
 	/**
 	 * @static
@@ -126,6 +132,7 @@ class ClassTemplate implements InterfaceTemplate {
 					if( is_array( $Value ) ) {
 						$TemplateContentRow = $this->ParseRepeat( $Key, $Value, $TemplateContentRow );
 					} else {
+						$Key = str_replace( array_keys( $this->EscapePattern ), array_values( $this->EscapePattern ), $Key );
 						$TemplateContentRow = preg_replace( '!{'.$Key.'}!is', $Value, $TemplateContentRow );
 					}
 				}
@@ -151,6 +158,7 @@ class ClassTemplate implements InterfaceTemplate {
 						if( is_array( $Value ) ) {
 							$TemplateContentRow = $this->ParseRepeat( $Key, $Value, $TemplateContentRow );
 						} else {
+							$Key = str_replace( array_keys( $this->EscapePattern ), array_values( $this->EscapePattern ), $Key );
 							$TemplateContentRow = preg_replace( '!{'.$Key.'}!is', $Value, $TemplateContentRow );
 						}
 					}
