@@ -76,7 +76,7 @@ class ClassEventJournal implements InterfaceEventJournal {
 					.str_repeat('-',50)."\n"
 					.date("d.m.Y H:i:s",time())." SID:".strtoupper( session_id() )."\n"
 					.str_repeat('-',50)."\n"
-					.$propertyEventContent."\n"
+					.print_r($propertyEventContent,true)."\n"
 		);
 		$CoreSystemFile->writeFile('a');
 	}
