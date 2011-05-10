@@ -48,40 +48,40 @@ use \AIOSystem\Module\Sprite\ClassSpriteItem as AIOSpriteItem;
  * @package AIOSystem\Api
  */
 class Sprite {
-	public static function CssBackground( $File ) {
-		$Image = Image::Instance( $File );
+	public static function AddImage( $ImageToAdd ) {
+		$Image = Image::Instance( $ImageToAdd );
 		$SpriteItem = new AIOSpriteItem();
 		$SpriteItem->propertyContent( $Image );
 		$SpriteItem->propertyHeight( $Image->Height() );
 		$SpriteItem->propertyWidth( $Image->Width() );
 		AIOSprite::addItem( $SpriteItem );
 	}
-	public static function CssSprite( $File, $Prefix = '.AIOSI-' ) {
+	public static function Create( $SpriteImageName, $CssPrefix = '.AIOSI-' ) {
 		$Stack = AIOSprite::Sprite();
 		//AIOSprite::debugSpriteStructure();
 		//var_dump( $Stack );
-		$Sprite = Image::Instance( $File, AIOSprite::$_SpriteWidth, AIOSprite::$_SpriteHeight );
+		$Sprite = Image::Instance( $SpriteImageName, AIOSprite::$_SpriteWidth, AIOSprite::$_SpriteHeight );
 		$Css = '';
-		while( $Stack->peekQueueData() !== null ) {
+		while( $Stack->peekData() !== null ) {
 			/** @var \AIOSystem\Module\Sprite\ClassSpriteContainer $Container */
-			$Container = $Stack->popQueueData();
+			$Container = $Stack->popData();
 			$Item = $Container->propertyItem();
 			/** @var Image $Image */
 			$Image = $Item->propertyContent();
 			$Sprite->Layer( $Image->Resource(), $Container->propertyPositionX(), $Container->propertyPositionY() );
-			$Css .= $Prefix.
+			$Css .= $CssPrefix.
 				strtoupper(
 					preg_replace('!([^\w]|[\_])!is', '', substr(basename($Image->File()),0,-3))
 					//.'-ID'.$Image->Hash()
 				)
 				.' {'
-					." ".'background: transparent '.'url("'.$File.'") -'.$Container->propertyPositionX().'px -'.$Container->propertyPositionY().'px no-repeat;'
+					." ".'background: transparent '.'url("'.$SpriteImageName.'") -'.$Container->propertyPositionX().'px -'.$Container->propertyPositionY().'px no-repeat;'
 					." ".'width: '.$Container->propertyWidth().'px; height: '.$Container->propertyHeight().'px;'
 					." ".'display: block;'
 				." ".'} '."\n";
 		}
 		$Sprite->Save();
-		$CssFile = System::File( $Sprite->File().'.css' );
+		$CssFile = System::File( pathinfo( $Sprite->File(), PATHINFO_DIRNAME ).DIRECTORY_SEPARATOR.pathinfo( $Sprite->File(), PATHINFO_FILENAME ).'.css' );
 		$CssFile->propertyFileContent( $Css );
 		$CssFile->writeFile();
 	}
