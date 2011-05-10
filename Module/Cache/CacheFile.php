@@ -1,8 +1,8 @@
 <?php
 /**
- * This file contains the API:Cache
+ * Cache-Driver: File
  *
- // ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------
  * LICENSE (BSD)
  *
  * Copyright (c) 2011, Gerd Christian Kunze
@@ -36,60 +36,40 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage Cache
  */
-namespace AIOSystem\Api;
-use \AIOSystem\Module\Cache\ClassCache as AIOCache;
-use \AIOSystem\Module\Cache\ClassCacheFile as AIOCacheFile;
+namespace AIOSystem\Module\Cache;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Event;
 /**
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage Cache
  */
-class Cache {
-	/**
-	 * Set content to cache
-	 *
-	 * @static
-	 * @param mixed $Parameter
-	 * @param string $Content
-	 * @param string $Cache
-	 * @param bool $Global
-	 * @return bool
-	 */
-	public static function Set( $Identifier, $Content, $Location = 'DefaultCache', $Global = false, $Timeout = 3600 ) {
-		return AIOCacheFile::Set( $Identifier, $Content, $Timeout, $Location, $Global );
+class ClassCacheFile implements \AIOSystem\Module\Cache\InterfaceCache {
+	public static function Set( $Identifier, $Content, $Timeout = 3600, $Location = 'Common', $Global = false ) {
+		$File = System::File( ClassCache::Location( $Location, $Global ).(time()+$Timeout).'.'.strtoupper(sha1(serialize($Identifier))) );
+		$File->propertyFileContent( serialize($Content) );
+		$File->writeFile();
 	}
-	/**
-	 * Get content from cache
-	 *
-	 * @static
-	 * @param mixed $Parameter
-	 * @param string $Cache
-	 * @param bool $Global
-	 * @return bool|string
-	 */
-	public static function Get( $Identifier, $Location = 'DefaultCache', $Global = false ) {
-		return AIOCacheFile::Get( $Identifier, $Location, $Global );
+	public static function Get( $Identifier, $Location = 'Common', $Global = false ) {
+		$Directory = System::FileList( ClassCache::Location( $Location, $Global ), strtoupper(sha1(serialize($Identifier))) );
+		/** @var \AIOSystem\Core\ClassSystemFile $File */
+		foreach( (array)$Directory as $File ) {
+			if( $File->propertyFileName() >= time() ) {
+				return unserialize( $File->propertyFileContent() );
+			}
+		}
+		self::Clean( $Identifier, $Location, $Global );
+		return false;
 	}
-	/**
-	 * Returns the current cache location
-	 *
-	 * @static
-	 * @param string $Cache
-	 * @param bool $Global
-	 * @return string
-	 */
-	public static function Location( $Cache = 'DefaultCache', $Global = false ) {
-		return AIOCache::Location( $Cache, $Global );
-	}
-	/**
-	 * Returns a cache file name
-	 *
-	 * @static
-	 * @param string $File
-	 * @return string
-	 */
-	public static function File( $File ) {
-		return AIOCache::Filename( $File );
+	public static function Clean( $Identifier, $Location = 'Common', $Global = false ) {
+		$Directory = System::FileList( ClassCache::Location( $Location, $Global ) );
+		/** @var \AIOSystem\Core\ClassSystemFile $File */
+		foreach( (array)$Directory as $File ) {
+			if( $File->propertyFileName() < time() ) {
+				$File->removeFile();
+			}
+		}
 	}
 }
-?>

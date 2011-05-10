@@ -1,8 +1,8 @@
 <?php
 /**
- * This file contains the API:Cache
+ * Cache
  *
- // ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------
  * LICENSE (BSD)
  *
  * Copyright (c) 2011, Gerd Christian Kunze
@@ -36,60 +36,49 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage Cache
  */
-namespace AIOSystem\Api;
-use \AIOSystem\Module\Cache\ClassCache as AIOCache;
-use \AIOSystem\Module\Cache\ClassCacheFile as AIOCacheFile;
+namespace AIOSystem\Module\Cache;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Session;
 /**
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage Cache
  */
-class Cache {
-	/**
-	 * Set content to cache
-	 *
-	 * @static
-	 * @param mixed $Parameter
-	 * @param string $Content
-	 * @param string $Cache
-	 * @param bool $Global
-	 * @return bool
-	 */
-	public static function Set( $Identifier, $Content, $Location = 'DefaultCache', $Global = false, $Timeout = 3600 ) {
-		return AIOCacheFile::Set( $Identifier, $Content, $Timeout, $Location, $Global );
+interface InterfaceCache {
+	public static function Set( $Identifier, $Content, $Timeout = 3600, $Location = 'Common', $Global = false );
+	public static function Get( $Identifier, $Location = 'Common', $Global = false );
+	public static function Clean( $Identifier, $Location = 'Common', $Global = false );
+}
+/**
+ * @package AIOSystem\Module
+ * @subpackage Cache
+ */
+class ClassCache {
+	private static $CacheDirectory = '../../Cache';
+
+	public static function Filename( $FileName ) {
+		return  date('ymd')
+				.'_'.pathinfo($FileName,PATHINFO_FILENAME)
+				.'_'.time()
+				.'.'.pathinfo($FileName,PATHINFO_EXTENSION);
 	}
-	/**
-	 * Get content from cache
-	 *
-	 * @static
-	 * @param mixed $Parameter
-	 * @param string $Cache
-	 * @param bool $Global
-	 * @return bool|string
-	 */
-	public static function Get( $Identifier, $Location = 'DefaultCache', $Global = false ) {
-		return AIOCacheFile::Get( $Identifier, $Location, $Global );
+
+	public static function Location( $CacheName = 'Common', $isGlobal = false ) {
+		$Directory = System::CreateDirectory(
+			System::DirectorySyntax(
+				self::_cacheDirectory().'/'.$CacheName.(!$isGlobal?'/'.Session::Id():'')
+			)
+		);
+		chmod( $Directory, 0777 );
+		return $Directory;
 	}
-	/**
-	 * Returns the current cache location
-	 *
-	 * @static
-	 * @param string $Cache
-	 * @param bool $Global
-	 * @return string
-	 */
-	public static function Location( $Cache = 'DefaultCache', $Global = false ) {
-		return AIOCache::Location( $Cache, $Global );
-	}
-	/**
-	 * Returns a cache file name
-	 *
-	 * @static
-	 * @param string $File
-	 * @return string
-	 */
-	public static function File( $File ) {
-		return AIOCache::Filename( $File );
+
+	private static function _cacheDirectory() {
+		$CacheDirectory = System::DirectorySyntax( __DIR__.'/'.self::$CacheDirectory );
+		if( !is_dir( $CacheDirectory ) ) {
+			System::CreateDirectory( $CacheDirectory );
+		} return $CacheDirectory;
 	}
 }
-?>
