@@ -49,6 +49,7 @@ use \AIOSystem\Api\Event;
 class ClassApi {
 	const API_PREFIX_NAMESPACE = __NAMESPACE__;
 	const API_PREFIX_CLASS = 'Class';
+	const API_PREFIX_INTERFACE = 'Interface';
 	const API_PREFIX_WIDGET = 'Widget';
 	private static $propertySetup = true;
 	/**
@@ -84,6 +85,7 @@ class ClassApi {
 		$ClassName = array_pop( $propertyClassName );
 		$ClassName = preg_replace(
 						'!(^'.self::API_PREFIX_CLASS.'|'
+						.'^'.self::API_PREFIX_INTERFACE.'|'
 						.'^'.self::API_PREFIX_WIDGET.')!is'
 						, '', $ClassName );
 		array_push( $propertyClassName, $ClassName );
