@@ -358,6 +358,7 @@ class ClassHierarchicalData {
 			WHERE ".self::propertyFieldNameRight." = ".self::propertyFieldNameLeft." + 1;
 		");
 	}
+	/*
 	public function GetPath( $HDTreeLink = null, $FilterExpression = null ) {
 		$Request  = "SELECT * "
 					."FROM ".$this->propertyTableName()." AS HDNode, ".$this->propertyTableName()." AS HDParent "
@@ -371,6 +372,7 @@ class ClassHierarchicalData {
 		$Request .= "ORDER BY HDParent.".self::propertyFieldNameLeft;
 		return Database::Execute( $Request );
 	}
+	*/
 
 	/**
 	 * @param int $HDTreeId
@@ -387,7 +389,7 @@ class ClassHierarchicalData {
 	public function MoveNode( $CurrentHDTreeId, $TargetHDTreeId ) {
 		$this->ShiftTree( $CurrentHDTreeId, $TargetHDTreeId, 'MOVE' );
 	}
-	
+
 	public function SortNode( $CurrentHDTreeId, $TargetHDTreeId ) {
 		$this->ShiftTree( $CurrentHDTreeId, $TargetHDTreeId, 'SORT' );
 	}
