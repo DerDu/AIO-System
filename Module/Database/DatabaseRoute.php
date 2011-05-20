@@ -72,6 +72,7 @@ class DatabaseRoute {
 	}
 	public function Open() {
 		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		require_once( __DIR__ . '/Adodb/adodb.inc.php' );
 		if( $this->isDsnConnection ) {
 			$this->DatabaseAdapter( \NewADOConnection( $this->HostType() ) );
 			if( is_object( $this->DatabaseAdapter() ) ) {

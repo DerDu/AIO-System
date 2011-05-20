@@ -42,6 +42,7 @@
 namespace AIOSystem\Module\Database;
 use \AIOSystem\Module\Database\DatabaseRoute;
 use \AIOSystem\Api\Session;
+use \AIOSystem\Api\Stack;
 use \AIOSystem\Api\Cache;
 use \AIOSystem\Api\Xml;
 use \AIOSystem\Api\Event;
@@ -101,7 +102,6 @@ class Database implements InterfaceDatabase {
 	 */
 	public static function Open( $HostType, $HostName = null, $UserName = null, $UserPassword = null, $DatabaseName = null ) {
 		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
-		if( !function_exists( '\NewADOConnection' ) ) { self::LoadADODB(); }
 		$Route = new DatabaseRoute( $HostType, $HostName, $UserName, $UserPassword, $DatabaseName );
 		self::$DatabaseRouteList[$Route->Identifier()] = $Route;
 		self::_SaveDatabaseRouteList();
@@ -421,9 +421,10 @@ class Database implements InterfaceDatabase {
 	 * @param null|string $Class
 	 * @return void
 	 */
+	/*
 	public static function LoadADODB( $Class = null ) {
-		require_once( __DIR__ . '/Adodb/adodb.inc.php' );
-		require_once( __DIR__ . '/Adodb/adodb-active-record.inc.php');
+		//require_once( __DIR__ . '/Adodb/adodb.inc.php' );
+		//require_once( __DIR__ . '/Adodb/adodb-active-record.inc.php');
 		if( $Class !== null && !class_exists( $Class ) ) {
 			$Driver = __DIR__ . '/Adodb/drivers/'.str_replace('_','-',strtolower($Class)).'.inc.php';
 			if( self::DEBUG )Event::Message(__METHOD__ . $Driver,__FILE__,__LINE__);
@@ -434,25 +435,23 @@ class Database implements InterfaceDatabase {
 			}
 			return false;
 		}
-	}
+	}*/
 
 	private static function _SaveDatabaseRouteList() {
-		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
-		Session::Write( __CLASS__.':DatabaseRouteList', serialize( self::$DatabaseRouteList ) );
+		$OStack = Stack::Objects( __CLASS__ );
+		$OStack->SaveObject( 'List', self::$DatabaseRouteList );
 	}
 	private static function _SaveDatabaseRoute() {
-		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
-		Session::Write( __CLASS__.':DatabaseRoute', serialize( self::$DatabaseRoute ) );
+		$OStack = Stack::Objects( __CLASS__ );
+		$OStack->SaveObject( 'Route', self::$DatabaseRouteList );
 	}
 	private static function _LoadDatabaseRouteList() {
-		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
-		spl_autoload_register( array('\AIOSystem\Module\Database\Database','LoadADODB') );
-		self::$DatabaseRouteList = unserialize( Session::Read( __CLASS__.':DatabaseRouteList' ) );
+		$OStack = Stack::Objects( __CLASS__ );
+		self::$DatabaseRouteList = $OStack->LoadObject( 'List' );
 	}
 	private static function _LoadDatabaseRoute() {
-		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
-		spl_autoload_register( array('\AIOSystem\Module\Database\Database','LoadADODB') );
-		self::$DatabaseRoute = unserialize( Session::Read( __CLASS__.':DatabaseRoute' ) );
+		$OStack = Stack::Objects( __CLASS__ );
+		self::$DatabaseRouteList = $OStack->LoadObject( 'Route' );
 	}
 
 	private static function DatabaseRoute() {
@@ -470,7 +469,7 @@ class Database implements InterfaceDatabase {
 			throw new \Exception('No connection available!');
 		}
 		if( !is_object( self::$DatabaseRoute->DatabaseAdapter() ) ) {
-			self::LoadADODB();
+			//self::LoadADODB();
 			self::$DatabaseRoute->Open();
 		}
 		return self::$DatabaseRoute;
