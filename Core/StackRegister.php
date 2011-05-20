@@ -40,6 +40,8 @@
  * @subpackage Stack
  */
 namespace AIOSystem\Core;
+use \AIOSystem\Api\Session;
+use \AIOSystem\Api\Event;
 /**
  * @package AIOSystem\Core
  * @subpackage Stack
@@ -47,7 +49,7 @@ namespace AIOSystem\Core;
 interface InterfaceStackRegister {
 	public static function Instance();
 // ---------------------------------------------------------------------------------------
-	public function getRegister( $propertyRegisterIndex = 0 );
+	public function getRegister( $propertyRegisterIndex );
 	public function setRegister( $propertyRegisterIndex, $propertyRegisterData );
 	public function listRegister();
 }
@@ -57,28 +59,31 @@ interface InterfaceStackRegister {
  */
 class ClassStackRegister implements InterfaceStackRegister {
 	private $_propertyStackRegister = array();
+	/**
+	 * @var bool|string $_propertyStackPersistent
+	 */
 	private $_propertyStackPersistent = false;
 // ---------------------------------------------------------------------------------------
 	/**
-	 * @param bool $Persistent
+	 * @param bool|string $Persistent
 	 * @return ClassStackRegister
 	 */
 	public static function Instance( $Persistent = false ) {
 		return new ClassStackRegister( $Persistent );
 	}
 	/**
-	 * @param bool $Persistent
+	 * @param bool|string $Persistent
 	 */
 	function __construct( $Persistent = false ) {
 		$this->_propertyStackPersistent = $Persistent;
+		$this->_loadRegister();
 	}
-
 // ---------------------------------------------------------------------------------------
 	/**
-	 * @param int $propertyRegisterIndex
+	 * @param int|string $propertyRegisterIndex
 	 * @return mixed
 	 */
-	public function getRegister( $propertyRegisterIndex = null ) {
+	public function getRegister( $propertyRegisterIndex ) {
 		$this->_loadRegister();
 		if( ! isset( $this->_propertyStackRegister[$propertyRegisterIndex] ) ) return null;
 		return $this->_propertyStackRegister[$propertyRegisterIndex];
@@ -101,17 +106,16 @@ class ClassStackRegister implements InterfaceStackRegister {
 		$this->_loadRegister();
 		return $this->_propertyStackRegister;
 	}
-
 	private function _loadRegister() {
-		if( $this->_propertyStackPersistent === true && empty( $this->_propertyStackRegister ) ) {
-			if( null !== ( $Register = ClassSession::readSession( __CLASS__ ) ) ) {
-				$this->_propertyStackRegister = $Register;
+		if( $this->_propertyStackPersistent !== false && empty( $this->_propertyStackRegister ) ) {
+			if( null !== ( $Register = Session::Read( $this->_propertyStackPersistent ) ) ) {
+				$this->_propertyStackRegister = unserialize( Session::Decode( base64_decode( $Register ) ) );
 			}
 		}
 	}
 	private function _saveRegister() {
-		if( $this->_propertyStackPersistent === true ) {
-			ClassSession::writeSession( __CLASS__, $this->_propertyStackRegister );
+		if( $this->_propertyStackPersistent !== false ) {
+			Session::Write( $this->_propertyStackPersistent, base64_encode( Session::Encode( serialize( $this->_propertyStackRegister ) ) ) );
 		}
 	}
 }
