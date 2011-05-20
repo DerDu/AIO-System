@@ -39,7 +39,8 @@
  * @package AIOSystem\Api
  */
 namespace AIOSystem\Api;
-use \AIOSystem\Module\Database\ClassDatabase as AIODatabase;
+use \AIOSystem\Module\Database\Database as AIODatabase;
+use \AIOSystem\Module\Database\DatabaseRoute as AIODatabaseRoute;
 use \AIOSystem\Module\Database\ClassHierarchicalData as AIOHierarchicalData;
 /**
  * @package AIOSystem\Api
@@ -48,79 +49,64 @@ class Database {
 	/**
 	 * Open database connection
 	 *
-	 * @static
-	 * @param  string $Type
-	 * @param  string $Host
-	 * @param  string $User
-	 * @param  string $Password
-	 * @param  string $Database
-	 * @return null|string
-	 */
-	public static function Open( $Type, $Host, $User, $Password, $Database ) {
-		return AIODatabase::database_open( $Type, $Host, $User, $Password, $Database );
-	}
-	/**
-	 * Open database connection
-	 *
+	 * DSN example
 	 * <code>
 	 * driver : // username : password @ hostname / database ? options [ = value ]
 	 * </code>
 	 *
-	 * @param string $Dsn
-	 * @return null|string
+	 * @static
+	 * @param string $Type Engine or DSN
+	 * @param string|null $Host
+	 * @param string|null $User
+	 * @param string|null $Password
+	 * @param string|null $Database
+	 * @return string
 	 */
-	public static function OpenDsn( $Dsn ) {
-		return AIODatabase::database_open( $Dsn, null, null, null, null );
+	public static function Open( $Type, $Host = null, $User = null, $Password = null, $Database = null ) {
+		return AIODatabase::Open( $Type, $Host, $User, $Password, $Database );
 	}
 	/**
 	 * @static
 	 * @param null|string $Route
 	 * @return null
 	 */
-	public static function Route( $Route = null ) {
-		return AIODatabase::database_route( $Route );
+	public static function Route( $Identifier = null ) {
+		return AIODatabase::Route( $Identifier );
 	}
 	/**
 	 * @static
 	 * @return array|boolean|string
 	 */
-	public static function RouteList( $Index = null ) {
-		if( $Index !== null ) {
-			$List = AIODatabase::database_list();
-			if( array_key_exists( $Index, $List ) ) {
-				return $List[$Index];
-			}
-			return false;
-		}
-		return AIODatabase::database_list();
+	public static function RouteList() {
+		return AIODatabase::RouteList();
 	}
 	/**
 	 * @static
 	 * @return string
 	 */
 	public static function RouteEngine() {
-		return AIODatabase::database_route_engine();
+		return AIODatabase::RouteEngine();
 	}
 	/**
 	 * @static
 	 * @return string
 	 */
 	public static function RouteDatabase() {
-		return AIODatabase::database_route_database();
+		return AIODatabase::RouteDatabase();
 	}
 	/**
 	 * @static
 	 * @return string
 	 */
 	public static function RouteHost() {
-		return AIODatabase::database_route_host();
+		return AIODatabase::RouteHost();
 	}
 	/**
 	 * @static
 	 * @return string
 	 */
 	public static function RouteUser() {
-		return AIODatabase::database_route_user();
+		return AIODatabase::RouteUser();
 	}
 	/**
 	 * Execute sql statement
@@ -131,11 +117,11 @@ class Database {
 	 * @return array
 	 */
 	public static function Execute( $Sql, $Cache = false ) {
-		return AIODatabase::database_execute( $Sql, $Cache );
+		return AIODatabase::Execute( $Sql, $Cache );
 	}
 
 	public static function LastInsertId() {
-		return AIODatabase::database_last_id();
+		return AIODatabase::LastId();
 	}
 	/**
 	 * Close database connection
@@ -145,7 +131,7 @@ class Database {
 	 * @return void
 	 */
 	public static function Close( $Route = null ) {
-		return AIODatabase::database_close( $Route );
+		return AIODatabase::Close( $Route );
 	}
 	/**
 	 * Database connection object
@@ -157,7 +143,7 @@ class Database {
 		if( $ADODB_ASSOC_CASE === null ) {
 			$ADODB_ASSOC_CASE = 2;
 		}
-		return AIODatabase::database_adodb5();
+		return AIODatabase::Pipe();
 	}
 	/**
 	 * Edit database record (INSERT/UPDATE)
@@ -170,7 +156,7 @@ class Database {
 	 * @return bool
 	 */
 	public static function Record( $Table, $Fieldset = array(), $Where = null, $Delete = false ) {
-		return AIODatabase::database_record( $Table, $Fieldset, $Where, $Delete );
+		return AIODatabase::Record( $Table, $Fieldset, $Where, $Delete );
 	}
 	/**
 	 * @param string $Table
@@ -179,7 +165,7 @@ class Database {
 	 * @return array|\ADODB_Active_Record[]|void
 	 */
 	public static function RecordSet( $Table, $WhereOrderBy, $ResultSet = false ) {
-		return AIODatabase::database_recordset( $Table, $WhereOrderBy, $ResultSet );
+		return AIODatabase::RecordSet( $Table, $WhereOrderBy, $ResultSet );
 	}
 	/**
 	 * Create database table
@@ -229,7 +215,7 @@ class Database {
 	 * @return bool
 	 */
 	public static function CreateTable( $Name, $Fieldset ) {
-		return AIODatabase::database_create_table( $Name, $Fieldset );
+		return AIODatabase::CreateTable( $Name, $Fieldset );
 	}
 	/**
 	 * Drop database table
@@ -239,7 +225,7 @@ class Database {
 	 * @return bool
 	 */
 	public static function DropTable( $Name ) {
-		return AIODatabase::database_drop_table( $Name );
+		return AIODatabase::DropTable( $Name );
 	}
 	/**
 	 * @static
@@ -248,7 +234,7 @@ class Database {
 	 * @return void
 	 */
 	public static function CreateStructure( $XmlFile, $Drop = false ) {
-		return AIODatabase::database_structure( $XmlFile, $Drop );
+		return AIODatabase::Structure( $XmlFile, $Drop );
 	}
 	/**
 	 * @static
@@ -263,14 +249,13 @@ class Database {
 	 * @return bool
 	 */
 	public static function TransactionBegin() {
-		return AIODatabase::database_begin_transaction();
+		return AIODatabase::BeginTransaction();
 	}
 	/**
 	 * @static
 	 * @return bool|null
 	 */
 	public static function TransactionEnd() {
-		return AIODatabase::database_complete_transaction();
+		return AIODatabase::CompleteTransaction();
 	}
 }
-?>
