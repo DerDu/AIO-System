@@ -42,6 +42,7 @@ namespace AIOSystem\Api;
 use \AIOSystem\Core\ClassStackQueue as AIOStackQueue;
 use \AIOSystem\Core\ClassStackPriority as AIOStackPriority;
 use \AIOSystem\Core\ClassStackRegister as AIOStackRegister;
+use \AIOSystem\Core\ClassStackObject as AIOStackObject;
 /**
  * @package AIOSystem\Api
  */
@@ -63,11 +64,19 @@ class Stack {
 	}
 	/**
 	 * @static
-	 * @param bool $Persistent
+	 * @param bool|string $Persistent
 	 * @return \AIOSystem\Core\ClassStackRegister
 	 */
 	public static function Register( $Persistent = false ) {
 		return AIOStackRegister::Instance( $Persistent );
+	}
+	/**
+	 * @static
+	 * @param bool|string $Persistent
+	 * @return \AIOSystem\Core\ClassStackObject
+	 */
+	public static function Objects( $Persistent = true ) {
+		return AIOStackObject::Instance( $Persistent );
 	}
 }
 ?>
