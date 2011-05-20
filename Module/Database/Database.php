@@ -40,7 +40,9 @@
  * @subpackage Database
  */
 namespace AIOSystem\Module\Database;
+use \AIOSystem\Module\Database\DatabaseRoute;
 use \AIOSystem\Api\Session;
+use \AIOSystem\Api\Cache;
 use \AIOSystem\Api\Xml;
 use \AIOSystem\Api\Event;
 /**
@@ -48,363 +50,461 @@ use \AIOSystem\Api\Event;
  * @subpackage Database
  */
 interface InterfaceDatabase {
-	public static function database_open( $string_hosttype, $string_hostname, $string_username, $string_password, $string_database );
-	public static function database_route( $string_database_route = null );
-	public static function database_list();
-	public static function database_execute( $string_statement, $bool_cached = false );
-	public static function database_close( $string_database_route = null );
+	public static function Open( $HostType, $HostName = null, $UserName = null, $UserPassword = null, $DatabaseName = null );
+	public static function Pipe();
+	public static function Close();
 
-	public static function database_last_id();
+	public static function Route( $Identifier = null );
+	public static function RouteList();
 
-	public static function database_route_engine();
-	public static function database_route_host();
-	public static function database_route_database();
-	public static function database_route_user();
+	public static function RouteEngine();
+	public static function RouteHost();
+	public static function RouteDatabase();
+	public static function RouteUser();
+	public static function RoutePassword();
 
-	public static function database_create_table( $string_table_name, $array_table_fieldset );
-	public static function database_drop_table( $string_table_name );
+	public static function Execute( $Statement, $Cache = false );
+	public static function LastId();
 
-	public static function database_recordset( $string_table_name, $string_where_order_by, $bool_resultset = false );
-	public static function database_record( $string_table_name, $array_fieldset = array(), $array_where = null, $bool_delete = false );
+	public static function CreateTable( $Table, $FieldSet );
+	public static function DropTable( $Table );
+	public static function Structure( $XmlStructureFile, $DropBeforeCreate = false );
 
-	public static function database_adodb5();
-	public static function database_structure( $string_xml_file, $bool_drop = false );
+	public static function Record( $Table, $FieldSet = array(), $Where = null, $Delete = false );
+	public static function RecordSet( $Table, $WhereOrderBy, $asResultArray = false );
+
+	public static function BeginTransaction();
+	public static function CompleteTransaction();
 }
 /**
  * @package AIOSystem\Module
  * @subpackage Database
  */
-class ClassDatabase implements InterfaceDatabase
-{
+class Database implements InterfaceDatabase {
+	const DEBUG = false;
+	const ADODB_CACHE_DIR = 'Adodb5Sql';
+	const ADODB_ASSOC_CASE = 2;
+
+	/** @var array|DatabaseRoute[] $DatabaseRoute */
+	private static $DatabaseRouteList = array();
+	/** @var null|DatabaseRoute $DatabaseRoute */
+	private static $DatabaseRoute = null;
+
 	/**
-	 * @var \AIOSystem\Module\Database\ClassAdodb[] $database_stage
+	 * @static
+	 * @param string $HostType
+	 * @param null|string $HostName
+	 * @param null|string $UserName
+	 * @param null|string $UserPassword
+	 * @param null|string $DatabaseName
+	 * @return string
 	 */
-	private static $database_stage = array();
-	private static $database_route = null;
-	private static $database_mtimeout = null;
-
-	public static $Debug = false;
-
-	public function __construct() {
+	public static function Open( $HostType, $HostName = null, $UserName = null, $UserPassword = null, $DatabaseName = null ) {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		if( !function_exists( '\NewADOConnection' ) ) { self::LoadADODB(); }
+		$Route = new DatabaseRoute( $HostType, $HostName, $UserName, $UserPassword, $DatabaseName );
+		self::$DatabaseRouteList[$Route->Identifier()] = $Route;
+		self::_SaveDatabaseRouteList();
+		self::$DatabaseRoute = $Route;
+		self::_SaveDatabaseRoute();
+		$Route->Open();
+		return $Route->Identifier();
 	}
-	public static function database_adodb5() {
-		return self::database_stage()->adodb5_object();
+	/**
+	 * RoutePipe -> ADODB
+	 *
+	 * @static
+	 * @throws \Exception
+	 * @return \ADOConnection
+	 */
+	public static function Pipe() {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		return self::DatabaseRoute()->Pipe();
 	}
-	private static function database_session_set() {
-		Session::Write( 'AIO-Database[ROUTE]',
-			\AIOSystem\Library\ClassEncryption::encodeSessionEncryption(
-				serialize( self::database_list() )
-			)
-		);
-		Session::Write( 'AIO-Database[STAGE]',
-			\AIOSystem\Library\ClassEncryption::encodeSessionEncryption(
-				serialize( self::$database_stage )
-			)
-		);
+	/**
+	 * Close current route
+	 *
+	 * @static
+	 * @return void
+	 */
+	public static function Close() {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		self::Pipe()->Close();
+		unset( self::$DatabaseRouteList[self::$DatabaseRoute->Identifier()] );
+		self::_SaveDatabaseRouteList();
+		self::$DatabaseRoute = end(self::$DatabaseRouteList);
+		self::_SaveDatabaseRoute();
 	}
-	private static function database_session_get() {
-		if( self::$database_route === null ){
-			$array_route = unserialize(
-			\AIOSystem\Library\ClassEncryption::decodeSessionEncryption(
-				Session::Read( 'AIO-Database[ROUTE]' )
-			));
-			self::$database_route = array();
-			foreach( (array)$array_route as $string_route ) {
-				if( substr( $string_route, 0, 5 ) == 'ROUTE' ){
-					self::$database_route = $string_route;
-				}
-			}
-		} else {
-			$array_route = array( self::$database_route );
-		}
 
-		if( count( self::$database_stage ) < 1 ){
-			// Load Class
-			if( !class_exists('cls__shell_adodb5') ) {
-				if( self::$Debug ) Event::Debug('Load ADODB5');
-				require_once(__DIR__ . '/Adodb.php');
-				if( !class_exists('ADOConnection') ) {
-					if( self::$Debug ) Event::Debug('Load ADODB5 Connection');
-					require_once(__DIR__ . '/Adodb/adodb.inc.php');
-				}
-			}
-			// Load Driver
-			foreach( (array)$array_route as $string_route ) {
-				self::$database_route = $string_route;
-				if( self::$Debug ) Event::Debug('Load Route: ');
-				if( self::$Debug ) Event::Debug(
-					array(
-						self::database_route_engine(),
-						self::database_route_host(),
-						self::database_route_user(),
-						self::database_route_database()
-					)
-				);
-				if( strlen( self::database_route_host() ) >0 )
-				if( !class_exists( 'ADODB_'.strtolower(self::database_route_engine()) ) ) {
-					if( self::$Debug ) Event::Debug('Load ADODB5 Driver: '.__DIR__.('/Adodb/drivers/adodb-'.strtolower(self::database_route_engine()).'.inc.php') );
-					//var_dump('Load Driver '.__DIR__.('/Adodb/drivers/adodb-'.strtolower(self::database_route_engine()).'.inc.php'));
-					require_once( __DIR__.('/Adodb/drivers/adodb-'.strtolower(self::database_route_engine()).'.inc.php') );
-				}
-			}
-
-			$array_stage = unserialize(
-			\AIOSystem\Library\ClassEncryption::decodeSessionEncryption(
-				Session::Read( 'AIO-Database[STAGE]' )
-			));
-			if( is_array( $array_stage ) ){
-				self::$database_stage = $array_stage;
-			}
-		}
+	/**
+	 * Set: Select Route / Get: Current Route-Identifier
+	 *
+	 * @static
+	 * @param null|string $Identifier
+	 * @return string
+	 */
+	public static function Route( $Identifier = null ) {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		if( $Identifier !== null ) {
+			self::_LoadDatabaseRouteList();
+			self::$DatabaseRoute = self::$DatabaseRouteList[$Identifier];
+		} return self::DatabaseRoute()->Identifier();
 	}
 	/**
 	 * @static
-	 * @param string $string_hosttype
-	 * @param string $string_hostname
-	 * @param string $string_username
-	 * @param string $string_password
-	 * @param string $string_database
+	 * @return array|false
+	 */
+	public static function RouteList() {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		if( empty(self::$DatabaseRouteList) ) {
+			self::_LoadDatabaseRouteList();
+		}
+		return array_keys( self::$DatabaseRouteList );
+	}
+
+	/**
+	 * @static
 	 * @return null|string
 	 */
-	public static function database_open( $string_hosttype, $string_hostname, $string_username, $string_password, $string_database ) {
-		// Engine: Module-XMLFFDB ?
-		//if( strtoupper( $string_hosttype ) == 'XMLFFDB' ){
-			//if( !class_exists( 'cls__module_xmlffdb_engine' ) ) require_once( __DIR__.'/../module/module.xmlffdb_engine.php' );
-			//$object_adodb5_instance = new cls__module_xmlffdb_engine();
-			//$string_username = $string_password = 'DUMMY';
-		//} else {
-			$object_adodb5_instance = ClassAdodb::Instance();
-		//}
-		self::database_route( strtoupper('ROUTE[ENGINE:'.$string_hosttype.':HOST:'.$string_hostname.':DB:'.$string_database.':USER:'.$string_username.']') );
-		if( $string_hostname === null && $string_username === null && $string_password === null && $string_database === null ) {
-			$object_adodb5_instance->openAdodbDsn( $string_hosttype );
-		} else {
-			$object_adodb5_instance->openAdodb( $string_hosttype, $string_hostname, $string_username, $string_password, $string_database );
-		}
-
-		self::$database_stage[self::$database_route] = $object_adodb5_instance;
-
-		self::database_session_set();
-
-		return self::$database_route;
-	}
-	public static function database_list() {
-		self::database_session_get();
-		return array_keys( self::$database_stage );
-	}
-	public static function database_route( $string_database_default = null ) {
-		if( $string_database_default !== null ) self::$database_route = $string_database_default;
-		return self::$database_route;
-	}
-	public static function database_route_engine() {
-		preg_match( '!(?<=\[ENGINE:).*?(?=:HOST:)!is', self::database_route(), $array_match );
-		return $array_match[0];
-	}
-	public static function database_route_host() {
-		preg_match( '!(?<=:HOST:).*?(?=:DB:)!is', self::database_route(), $array_match );
-		return $array_match[0];
-	}
-	public static function database_route_database() {
-		preg_match( '!(?<=:DB:).*?(?=:USER:)!is', self::database_route(), $array_match );
-		return $array_match[0];
-	}
-	public static function database_route_user() {
-		preg_match( '!(?<=:USER:).*?(?=\])!is', self::database_route(), $array_match );
-		return $array_match[0];
-	}
-	public static function database_execute( $string_statement, $bool_cached = false ) {
-		self::database_mtimeout(true);
-		$array_result = self::database_stage()->executeAdodb( $string_statement, $bool_cached );
-		self::database_mtimeout(false);
-		return $array_result;
-	}
-
-	public static function database_last_id() {
-		return self::database_stage()->adodb5_object()->Insert_ID();
-	}
-
-	public static function database_close( $string_database_route = null ) {
-		if( $string_database_route !== null ){
-			self::database_route($string_database_route);
-			self::database_stage()->closeAdodb();
-			self::database_stage($string_database_route);
-		} else {
-			self::database_stage()->closeAdodb();
-			self::database_stage(self::database_route());
-		}
-	}
-	private static function database_stage( $string_database_route2close = null ) {
-		self::database_session_get();
-		if( !isset( self::$database_stage[self::database_route()] ) ){
-			throw new \Exception( 'Connection not available!<br/>'.self::database_route() );
-		}
-		if( $string_database_route2close !== null ) {
-			unset(self::$database_stage[$string_database_route2close]);
-			return true;
-		}
-		return self::$database_stage[self::database_route()];
-	}
-	private static function database_mtimeout( $bool_set = true ) {
-		if( $bool_set ){
-			self::$database_mtimeout = ini_get('max_execution_time');
-			ini_set('max_execution_time', 0 );
-		} else {
-			ini_set('max_execution_time', self::$database_mtimeout );
-		}
-	}
-// ---------------------------------------------------------------------------------------
-	public static function database_create_table( $string_table_name, $array_table_fieldset ) {
-		// $array_table_fieldset: Array( Name, Type, Size, Options.. )
-		return self::database_stage()->createTable( $string_table_name, $array_table_fieldset );
-		/*
-		-------------------------------
-		Type:
-		-------------------------------
-		C:  Varchar, capped to 255 characters.
-		X:  Larger varchar, capped to 4000 characters (to be compatible with Oracle).
-		XL: For Oracle, returns CLOB, otherwise the largest varchar size.
-		C2: Multibyte varchar
-		X2: Multibyte varchar (largest size)
-		B:  BLOB (binary large object)
-		D:  Date (some databases do not support this, and we return a datetime type)
-		T:  Datetime or Timestamp accurate to the second.
-		TS: Datetime or Timestamp supporting Sub-second accuracy.
-			Supported by Oracle, PostgreSQL and SQL Server currently.
-			Otherwise equivalent to T.
-		L:  Integer field suitable for storing booleans (0 or 1)
-		I:  Integer (mapped to I4)
-		I1: 1-byte integer
-		I2: 2-byte integer
-		I4: 4-byte integer
-		I8: 8-byte integer
-		F:  Floating point number
-		N:  Numeric or decimal number
-		-------------------------------
-		Options:
-		-------------------------------
-		AUTO            For autoincrement number. Emulated with triggers if not available.
-						Sets NOTNULL also.
-		AUTOINCREMENT   Same as auto.
-		KEY             Primary key field. Sets NOTNULL also. Compound keys are supported.
-		PRIMARY         Same as KEY.
-		DEF				Synonym for DEFAULT for lazy typists.
-		DEFAULT         The default value. Character strings are auto-quoted unless
-						the string begins and ends with spaces, eg ' SYSDATE '.
-		NOTNULL         If field is not null.
-		DEFDATE         Set default value to call function to get today's date.
-		DEFTIMESTAMP    Set default to call function to get today's datetime.
-		NOQUOTE         Prevents autoquoting of default string values.
-		CONSTRAINTS     Additional constraints defined at the end of the field
-						definition.
-		*/
-	}
-	public static function database_drop_table( $string_table_name ) {
-		return self::database_stage()->dropTable( $string_table_name );
-	}
-// ---------------------------------------------------------------------------------------
-	/**
-	 * @return array|\ADODB_Active_Record[]|void
-	 */
-	public static function database_recordset( $string_table_name, $string_where_order_by, $bool_resultset = false ) {
-		return self::database_stage()->RecordSet( $string_table_name, $string_where_order_by, $bool_resultset );
+	public static function RouteEngine() {
+		return self::$DatabaseRoute->HostType();
 	}
 	/**
 	 * @static
-	 * @param string $string_table_name
-	 * @param array $array_fieldset
-	 * @param null|array $array_where
-	 * @param bool $bool_delete
+	 * @return null|string
+	 */
+	public static function RouteDatabase() {
+		return self::$DatabaseRoute->DatabaseName();
+	}
+	/**
+	 * @static
+	 * @return null|string
+	 */
+	public static function RouteHost() {
+		return self::$DatabaseRoute->HostName();
+	}
+	/**
+	 * @static
+	 * @return null|string
+	 */
+	public static function RoutePassword() {
+		return self::$DatabaseRoute->UserPassword();
+	}
+	/**
+	 * @static
+	 * @return null|string
+	 */
+	public static function RouteUser() {
+		return self::$DatabaseRoute->UserName();
+	}
+
+	/**
+	 * @static
+	 * @throws \Exception
+	 * @param string $Statement
+	 * @param bool $Cache
 	 * @return bool
 	 */
-	public static function database_record( $string_table_name, $array_fieldset = array(), $array_where = null, $bool_delete = false ) {
-		// TODO: [REMOVE] Unstable Bugfix
-		return self::database_record_bugfix( $string_table_name, $array_fieldset, $array_where, $bool_delete );
+	public static function Execute( $Statement, $Cache = false ) {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		//$Timeout = ini_set('max_execution_time',0);
+		self::Pipe()->SetFetchMode( ADODB_FETCH_ASSOC );
+		if( $Cache === false ) {
+			$Result = self::Pipe()->Execute( $Statement );
+		} else {
+			global $ADODB_CACHE_DIR;
+			$ADODB_CACHE_DIR = Cache::Location( self::ADODB_CACHE_DIR );
+			$Result = self::Pipe()->CacheExecute( ($Cache===true?30:$Cache), $Statement );
+		}
+		if( $Result === false ) {
+			throw new \Exception( 'Execution failed!'
+				.'<br/><br/>'.self::Pipe()->ErrorNo().' : '.self::Pipe()->ErrorMsg()."\n\n"
+				.'<blockquote>'.$Statement.'</blockquote>'
+			);
+		} else {
+			if( preg_match( '!^select!is', trim($Statement) ) ) {
+				return $Result->GetArray();
+			} else {
+				return true;
+			}
+		}
+	}
+	/**
+	 * @static
+	 * @param string $Table
+	 * @param string $Column
+	 * @return int
+	 */
+	public static function LastId( $Table = '', $Column = '' ) {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		return self::Pipe()->Insert_ID( $Table, $Column );
+	}
+
+	/**
+	 * Create Table
+	 *
+	 * -------------------------------
+	 * Type:
+	 * -------------------------------
+	 * C:  Varchar, capped to 255 characters.
+	 * X:  Larger varchar, capped to 4000 characters (to be compatible with Oracle).
+	 * XL: For Oracle, returns CLOB, otherwise the largest varchar size.
+	 * C2: Multibyte varchar
+	 * X2: Multibyte varchar (largest size)
+	 * B:  BLOB (binary large object)
+	 * D:  Date (some databases do not support this, and we return a datetime type)
+	 * T:  Datetime or Timestamp accurate to the second.
+	 * TS: Datetime or Timestamp supporting Sub-second accuracy.
+	 * 	Supported by Oracle, PostgreSQL and SQL Server currently.
+	 * 	Otherwise equivalent to T.
+	 * L:  Integer field suitable for storing booleans (0 or 1)
+	 * I:  Integer (mapped to I4)
+	 * I1: 1-byte integer
+	 * I2: 2-byte integer
+	 * I4: 4-byte integer
+	 * I8: 8-byte integer
+	 * F:  Floating point number
+	 * N:  Numeric or decimal number
+	 * -------------------------------
+	 * Options:
+	 * -------------------------------
+	 * AUTO            For autoincrement number. Emulated with triggers if not available.
+	 *                 Sets NOTNULL also.
+	 * AUTOINCREMENT   Same as auto.
+	 * KEY             Primary key field. Sets NOTNULL also. Compound keys are supported.
+	 * PRIMARY         Same as KEY.
+	 * DEF             Synonym for DEFAULT for lazy typists.
+	 * DEFAULT         The default value. Character strings are auto-quoted unless
+	 *                 the string begins and ends with spaces, eg ' SYSDATE '.
+	 * NOTNULL         If field is not null.
+	 * DEFDATE         Set default value to call function to get today's date.
+	 * DEFTIMESTAMP    Set default to call function to get today's datetime.
+	 * NOQUOTE         Prevents autoquoting of default string values.
+	 * CONSTRAINTS     Additional constraints defined at the end of the field
+	 *                 definition.
+	 * -------------------------------
+	 * @static
+	 * @param string $Table
+	 * @param array $FieldSet Array( Array( Name, Type, Size, Options ... ), ... )
+	 * @return void
+	 */
+	public static function CreateTable( $Table, $FieldSet ) {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		$Dictionary = \NewDataDictionary( self::Pipe() );
+		return $Dictionary->ExecuteSQLArray(
+			$Dictionary->CreateTableSQL( $Table, $FieldSet )
+		);
+	}
+	/**
+	 * Drop Table
+	 *
+	 * @static
+	 * @param string $Table
+	 * @return void
+	 */
+	public static function DropTable( $Table ) {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		$Dictionary = \NewDataDictionary( self::Pipe() );
+		return $Dictionary->ExecuteSQLArray(
+			$Dictionary->DropTableSQL( $Table )
+		);
+	}
+	/**
+	 * Create database structure
+	 *
+	 * @static
+	 * @param string $XmlStructureFile
+	 * @param bool $DropBeforeCreate
+	 * @return void
+	 */
+	public static function Structure( $XmlStructureFile, $DropBeforeCreate = false ) {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		$XmlStructure = Xml::Parser( $XmlStructureFile )->searchXmlNode('database_definition');
+		$XmlTableList = $XmlStructure->groupXmlNode( 'database_table' );
+		/** @var \AIOSystem\Core\ClassXmlNode $Table */
+		foreach( (array)$XmlTableList as $Table ){
+			$TableList = array();
+			$XmlColumnList = $Table->groupXmlNode( 'database_column' );
+			/** @var \AIOSystem\Core\ClassXmlNode $Column */
+			foreach( (array)$XmlColumnList as $Column ){
+				$ColumnList = array();
+				array_push( $ColumnList, $Column->propertyAttribute( 'column_name' ) );
+				array_push( $ColumnList, $Column->propertyAttribute( 'column_type' ) );
+				array_push( $ColumnList, $Column->propertyAttribute( 'column_size' ) );
+				$XmlOptionList = $Column->groupXmlNode( 'database_option' );
+				/** @var \AIOSystem\Core\ClassXmlNode $Option */
+				foreach( (array)$XmlOptionList as $Option ){
+					// Option => Column
+					if( strlen( $Option->propertyContent() ) == 0 ){
+						array_push( $ColumnList, $Option->propertyAttribute( 'option_name' ) );
+					} else {
+						$ColumnList[$Option->propertyAttribute( 'option_name' )] = $Option->propertyContent();
+					}
+				}
+				// Column => Table
+				array_push( $TableList, $ColumnList );
+			}
+			// Drop Table ?
+			if( $DropBeforeCreate ){
+				self::DropTable( $Table->propertyAttribute( 'table_name' ) );
+			}
+			// Table => Database
+			self::CreateTable( $Table->propertyAttribute( 'table_name' ) ,$TableList );
+		}
+	}
+
+	/**
+	 * @static
+	 * @param string $Table
+	 * @param array $FieldSet
+	 * @param array $Where
+	 * @param bool $Delete
+	 * @return array|bool
+	 */
+	public static function Record( $Table, $FieldSet = array(), $Where = array(), $Delete = false ) {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
 		// TODO: [FIX BUG] In shell.Record oAR->Save on Fieldset DB != Fieldset INSERT (e.g MSSQL NOT NULL)
-		//return self::database_stage()->Record( $string_table_name, $array_fieldset, $array_where, $bool_delete );
+		// TODO: [REMOVE] Unstable Bugfix
+		return self::_recordBugFix( $Table, $FieldSet, $Where, $Delete );
 	}
 	/**
 	 * @static
-	 * @param string $string_table_name
-	 * @param array $array_fieldset
-	 * @param null|array $array_where
-	 * @param bool $bool_delete
+	 * @param string $Table
+	 * @param string $WhereOrderBy
+	 * @param bool $asResultArray
+	 * @return array|void
+	 */
+	public static function RecordSet( $Table, $WhereOrderBy, $asResultArray = false) {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		global $ADODB_ASSOC_CASE;
+		$ADODB_ASSOC_CASE = self::ADODB_ASSOC_CASE;
+		if( $asResultArray === false ) {
+			return self::Pipe()->GetActiveRecords( $Table, $WhereOrderBy );
+		} else {
+			$RecordList = self::Pipe()->GetActiveRecords( $Table, $WhereOrderBy );
+			$ReturnList = array();
+			if( !empty( $RecordList ) ) {
+				$Fieldset = $RecordList[0]->GetAttributeNames();
+				foreach( (array)$RecordList as $Index => $Record ) {
+					foreach( (array)$Fieldset as $Name ) {
+						$ReturnList[$Index][$Name] = $Record->$Name;
+					}
+				}
+			}
+			return $ReturnList;
+		}
+	}
+
+	/**
+	 * Begin transaction
+	 *
 	 * @return bool
 	 */
-	private static function database_record_bugfix( $string_table_name, $array_fieldset = array(), $array_where = null, $bool_delete = false ) {
-		if( $bool_delete ){
-			if( $array_where !== null ){
-				return self::database_execute( "DELETE FROM ".$string_table_name." WHERE ".implode(' AND ',(array)$array_where) );
+	public static function BeginTransaction() {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		return self::Pipe()->StartTrans();
+	}
+	/**
+	 * Complete transaction (Auto:Commit/Rollback)
+	 *
+	 * @return bool|null
+	 */
+	public static function CompleteTransaction() {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		return self::Pipe()->CompleteTrans();
+	}
+
+	/**
+	 * AutoLoader (ADODB-Driver)
+	 *
+	 * @static
+	 * @param null|string $Class
+	 * @return void
+	 */
+	public static function LoadADODB( $Class = null ) {
+		require_once( __DIR__ . '/Adodb/adodb.inc.php' );
+		require_once( __DIR__ . '/Adodb/adodb-active-record.inc.php');
+		if( $Class !== null && !class_exists( $Class ) ) {
+			$Driver = __DIR__ . '/Adodb/drivers/'.str_replace('_','-',strtolower($Class)).'.inc.php';
+			if( self::DEBUG )Event::Message(__METHOD__ . $Driver,__FILE__,__LINE__);
+			if( file_exists( $Driver ) ) {
+				if( self::DEBUG )Event::Message(__METHOD__.' Driver: '.$Driver,__FILE__,__LINE__);
+				require_once( $Driver );
+				return true;
+			}
+			return false;
+		}
+	}
+
+	private static function _SaveDatabaseRouteList() {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		Session::Write( __CLASS__.':DatabaseRouteList', serialize( self::$DatabaseRouteList ) );
+	}
+	private static function _SaveDatabaseRoute() {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		Session::Write( __CLASS__.':DatabaseRoute', serialize( self::$DatabaseRoute ) );
+	}
+	private static function _LoadDatabaseRouteList() {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		spl_autoload_register( array('\AIOSystem\Module\Database\Database','LoadADODB') );
+		self::$DatabaseRouteList = unserialize( Session::Read( __CLASS__.':DatabaseRouteList' ) );
+	}
+	private static function _LoadDatabaseRoute() {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		spl_autoload_register( array('\AIOSystem\Module\Database\Database','LoadADODB') );
+		self::$DatabaseRoute = unserialize( Session::Read( __CLASS__.':DatabaseRoute' ) );
+	}
+
+	private static function DatabaseRoute() {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		if( empty(self::$DatabaseRouteList) ) {
+			self::_LoadDatabaseRouteList();
+		}
+		if( self::$DatabaseRoute === null ) {
+			self::_LoadDatabaseRoute();
+		}
+		if( self::$DatabaseRoute === null && !empty(self::$DatabaseRouteList) ) {
+			self::$DatabaseRoute = end(self::$DatabaseRouteList);
+		}
+		if( self::$DatabaseRoute === null ) {
+			throw new \Exception('No connection available!');
+		}
+		if( !is_object( self::$DatabaseRoute->DatabaseAdapter() ) ) {
+			self::LoadADODB();
+			self::$DatabaseRoute->Open();
+		}
+		return self::$DatabaseRoute;
+	}
+
+	/**
+	 * @static
+	 * @param string $Table
+	 * @param array $Fieldset
+	 * @param array $Where
+	 * @param bool $Delete
+	 * @return array|bool
+	 */
+	private static function _recordBugFix( $Table, $Fieldset = array(), $Where = array(), $Delete = false ) {
+		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
+		if( $Delete ){
+			if( !empty($Where) ){
+				return self::Execute( "DELETE FROM ".$Table." WHERE ".implode(' AND ',(array)$Where) );
 			} else {
 				return false;
 			}
 		} else {
-			$array_result = self::database_execute( "SELECT * FROM ".$string_table_name." WHERE ".implode(' AND ',(array)$array_where) );
-			if( empty($array_result) ){
-				return self::database_execute( "INSERT INTO ".$string_table_name
-					." ( ".implode( ', ', array_keys( (array)$array_fieldset ) )." ) "
-					." VALUES ( '".implode( "', '", array_values( (array)$array_fieldset ) )."' ) " );
+			$Result = self::Execute( "SELECT * FROM ".$Table." WHERE ".implode(' AND ',(array)$Where) );
+			if( empty($Result) ){
+				return self::Execute( "INSERT INTO ".$Table
+					." ( ".implode( ', ', array_keys( (array)$Fieldset ) )." ) "
+					." VALUES ( '".implode( "', '", array_values( (array)$Fieldset ) )."' ) " );
 			} else {
-				$string_sql_update = 'UPDATE '.$string_table_name.' SET ';
-				foreach( (array)$array_fieldset as $string_field_name => $string_field_value ){
-					$string_sql_update .= $string_field_name." = '".$string_field_value."', ";
+				$Update = 'UPDATE '.$Table.' SET ';
+				foreach( (array)$Fieldset as $Column => $Value ){
+					$Update .= $Column." = '".$Value."', ";
 				}
-				return self::database_execute( substr( $string_sql_update, 0, -2 )." WHERE ".implode( ' AND ', array_values( (array)$array_where ) ) );
+				return self::Execute( substr( $Update, 0, -2 )." WHERE ".implode( ' AND ', array_values( (array)$Where ) ) );
 			}
 		}
-	}
-	public static function database_structure( $string_xml_file, $bool_drop = false ) {
-		$object_database_definition = Xml::Parser( $string_xml_file )->searchXmlNode('database_definition');
-		$object_database_table_list = $object_database_definition->groupXmlNode( 'database_table' );
-		/** @var \AIOSystem\Core\ClassXmlNode $object_database_table */
-		foreach( (array)$object_database_table_list as $object_database_table ){
-			$array_table = array();
-
-			$object_database_column_list = $object_database_table->groupXmlNode( 'database_column' );
-			/** @var \AIOSystem\Core\ClassXmlNode $object_database_column */
-			foreach( (array)$object_database_column_list as $object_database_column ){
-				$array_column = array();
-				array_push( $array_column, $object_database_column->propertyAttribute( 'column_name' ) );
-				array_push( $array_column, $object_database_column->propertyAttribute( 'column_type' ) );
-				array_push( $array_column, $object_database_column->propertyAttribute( 'column_size' ) );
-
-				$object_database_option_list = $object_database_column->groupXmlNode( 'database_option' );
-				/** @var \AIOSystem\Core\ClassXmlNode $object_database_option */
-				foreach( (array)$object_database_option_list as $object_database_option ){
-					// Option => Column
-					if( strlen( $object_database_option->propertyContent() ) == 0 )
-					array_push( $array_column, $object_database_option->propertyAttribute( 'option_name' ) );
-					else
-					$array_column[$object_database_option->propertyAttribute( 'option_name' )] = $object_database_option->propertyContent();
-				}
-				// Column => Table
-				array_push( $array_table, $array_column );
-			}
-			// Drop Table ?
-			if( $bool_drop ){
-				self::database_drop_table(
-					$object_database_table->propertyAttribute( 'table_name' )
-				);
-			}
-			// Table => Database
-			self::database_create_table(
-				$object_database_table->propertyAttribute( 'table_name' )
-				,$array_table
-			);
-		}
-	}
-	/**
-	 * @static
-	 * @return bool
-	 */
-	public static function database_begin_transaction() {
-		return self::database_adodb5()->StartTrans();
-	}
-	/**
-	 * @static
-	 * @return bool|null
-	 */
-	public static function database_complete_transaction() {
-		return self::database_adodb5()->CompleteTrans();
 	}
 }
-?>
