@@ -40,9 +40,10 @@
  */
 namespace AIOSystem\Api;
 use \AIOSystem\Core\ClassSession as AIOSession;
+use \AIOSystem\Library\ClassEncryption as AIOEncryption;
 /**
  * API-Session
- *  
+ *
  * @package AIOSystem\Api
  */
 class Session {
@@ -76,6 +77,22 @@ class Session {
 	 */
 	public static function Id() {
 		return AIOSession::getSessionId();
+	}
+	/**
+	 * @static
+	 * @param string $Content
+	 * @return string
+	 */
+	public static function Encode( $Content ) {
+		return AIOEncryption::encodeSessionEncryption( $Content );
+	}
+	/**
+	 * @static
+	 * @param string $Content
+	 * @return string
+	 */
+	public static function Decode( $Content ) {
+		return AIOEncryption::decodeSessionEncryption( $Content );
 	}
 }
 ?>
