@@ -79,5 +79,8 @@ class Font {
 	public static function MixedToUtf8( $Text ) {
 		return AIOUtf8Encoding::MixedToUtf8( $Text );
 	}
+	public static function MixedToLatin1( $Text ) {
+		return AIOUtf8Encoding::MixedToLatin1( $Text );
+	}
 }
 ?>
