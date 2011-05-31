@@ -59,6 +59,7 @@ interface InterfaceSystemDirectory {
  * @subpackage System
  */
 class ClassSystemDirectory implements InterfaceSystemDirectory {
+	const DEBUG = true;
 	/**
 	 * @static
 	 * @param string $propertyDirectoryName
@@ -184,6 +185,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 				return str_replace( '\\\\', '\\', $Directory );
 			}
 		}
+		return false;
 	}
 	/**
 	 * @static
@@ -191,6 +193,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 	 * @return string
 	 */
 	public static function createDirectory( $propertyDirectoryName ) {
+		self::FixIISDocumentRoot();
 		$directoryList = explode( "/", self::adjustDirectorySyntax( $propertyDirectoryName ) );
 		$directoryLocation = '';
 		foreach( (array)$directoryList as $directoryName ) {
@@ -245,6 +248,30 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 			}
 		}
 		return substr( preg_replace('!/{1}$!is', '', self::adjustDirectorySyntax( $relativeDirectory ).$propertyDirectoryFileName ), 1);
+	}
+
+	/**
+	 * Problem to fix: The $_SERVER["DOCUMENT_ROOT"] is empty in IIS.
+	 *
+	 * Based on: http://fyneworks.blogspot.com/2007/08/php-documentroot-in-iis-windows-servers.html
+	 * Added by Diego, 13-AUG-2007.
+	 *
+	 * @static
+	 * @return void
+	 */
+	private static function FixIISDocumentRoot() {
+		// let's make sure the $_SERVER['DOCUMENT_ROOT'] variable is set
+		if(!isset($_SERVER['DOCUMENT_ROOT'])){
+			if(isset($_SERVER['SCRIPT_FILENAME'])){
+				$_SERVER['DOCUMENT_ROOT'] = str_replace( '\\', '/', substr($_SERVER['SCRIPT_FILENAME'], 0, 0-strlen($_SERVER['PHP_SELF'])));
+			};
+		};
+		if(!isset($_SERVER['DOCUMENT_ROOT'])){
+			if(isset($_SERVER['PATH_TRANSLATED'])){
+				$_SERVER['DOCUMENT_ROOT'] = str_replace( '\\', '/', substr(str_replace('\\\\', '\\', $_SERVER['PATH_TRANSLATED']), 0, 0-strlen($_SERVER['PHP_SELF'])));
+			};
+		};
+		// $_SERVER['DOCUMENT_ROOT'] is now set - you can use it as usual...
 	}
 }
 ?>
