@@ -40,6 +40,7 @@
  * @subpackage Event
  */
 namespace AIOSystem\Core;
+use \AIOSystem\Api\Font;
 /**
  * @package AIOSystem\Core
  * @subpackage Event
@@ -65,7 +66,6 @@ class ClassEventScreen implements InterfaceEventScreen {
 		$propertyEventScreenType = ClassEventScreen::SCREEN_ERROR
 	) {
 		if( ! ini_get('display_errors') ) return false;
-
 		switch( $propertyEventScreenType ) {
 			case self::SCREEN_DEBUG:{
 				print self::_screenDebug( $propertyContent, $propertyLocation, $propertyPosition );
@@ -84,11 +84,12 @@ class ClassEventScreen implements InterfaceEventScreen {
 				return true;
 			}
 		}
+		return false;
 	}
 // ---------------------------------------------------------------------------------------
 	private static function _screenDebug( $propertyContent, $propertyLocation, $propertyPosition ) {
 		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #306030; color:#A0DDA0; border: 1px solid #55B73B; border-top: 1px solid #58C03E; border-bottom: 1px solid #57A83A; font-family: monospace; font-size:14px; overflow:auto;">'
-		."\n[Debug] <pre>".htmlspecialchars(print_r($propertyContent,true))."</pre>"
+		."\n[Debug] <pre>".htmlspecialchars(Font::MixedToUtf8(print_r($propertyContent,true)))."</pre>"
 				.'<br/>'
 				.'<span style="font-family: monospace; font-size: 10px;color:#60C060;">'
 					.'In '.$propertyLocation
@@ -98,7 +99,7 @@ class ClassEventScreen implements InterfaceEventScreen {
 	}
 	private static function _screenInfo( $propertyContent, $propertyLocation, $propertyPosition ) {
 		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #303080; color:#A0A0DD; border: 1px solid #553BB7; border-top: 1px solid #583EC0; border-bottom: 1px solid #573AA8; font-family: monospace; font-size:14px; overflow:auto;">'
-		."\n[Info] ".$propertyContent.'<br/>'
+		."\n[Info] ".Font::MixedToUtf8(print_r($propertyContent,true)).'<br/>'
 			.'<span style="font-family: monospace; font-size: 10px;color:#6060C0;">'
 				.'In '.$propertyLocation
 				.' at line '.$propertyPosition
@@ -107,7 +108,7 @@ class ClassEventScreen implements InterfaceEventScreen {
 	}
 	private static function _screenError( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
 		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; overflow:auto;">'
-		."\n".$propertyContent.'<br/>'
+		."\n".Font::MixedToUtf8(print_r($propertyContent),true).'<br/>'
 			.'<span style="font-family: monospace; font-size: 10px;color:#DDA0A0;">'
 				.'Code ['.$propertyNumber.']'
 				.' thrown in '.$propertyLocation
@@ -118,7 +119,7 @@ class ClassEventScreen implements InterfaceEventScreen {
 	private static function _screenException( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
 		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto; margin-bottom: 1px; background-color:#702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; overflow: auto;">'
 		."\n".'<strong style="color:#DDA0A0;">Unexpected Error:</strong><br /><br />'
-		.preg_replace_callback( '!\#([1-9]{1}|[0-9]{2,}) !is', create_function('$exception_replace','return str_replace("#","<br/>#",$exception_replace[0]);'), $propertyContent )
+		.preg_replace_callback( '!\#([1-9]{1}|[0-9]{2,}) !is', create_function('$exception_replace','return str_replace("#","<br/>#",$exception_replace[0]);'), Font::MixedToUtf8(print_r($propertyContent,true)) )
 		.'<br />'
 			.'<span style="font-family: monospace; font-size: 10px;color:#DDA0A0;">'
 				.'Code ['.$propertyNumber.']'
