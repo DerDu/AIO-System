@@ -53,15 +53,17 @@ class Html {
 	 */
 	public static function Style( $Directory, $Recursive = false ) {
 		$FileList = array();
-		if( is_dir( $Directory ) ) {
-			$FileList = System::FileList( $Directory, array('css'), $Recursive );
-		} else if( is_file( $Directory ) ) {
+		if( is_dir( realpath($Directory) ) ) {
+			$FileList = System::FileList( realpath($Directory), array('css'), $Recursive );
+		} else if( is_file( realpath($Directory) ) ) {
 			return '<link rel="stylesheet" href="'.Seo::Path( $Directory ).'"/>';
+		} else {
+			trigger_error('Style not available! '.$Directory );
 		}
 		$Return = '';
 		/** @var \AIOSystem\Core\ClassSystemFile $File */
 		foreach( (array)$FileList as $File ) {
-			$Return .= '<link rel="stylesheet" href="'.Seo::Path( $File->propertyFileLocation() ).'"/>';
+			$Return .= '<link rel="stylesheet" href="'.Seo::Path( $Directory.System::DirectorySyntax( DIRECTORY_SEPARATOR.System::RelativeDirectory( $File->propertyFileLocation(), realpath($Directory) ),false) ).'"/>';
 		}
 		return $Return;
 	}
@@ -73,15 +75,17 @@ class Html {
 	 */
 	public static function Javascript( $Directory, $Recursive = false ) {
 		$FileList = array();
-		if( is_dir( $Directory ) ) {
-			$FileList = System::FileList( $Directory, array('js'), $Recursive );
-		} else if( is_file( $Directory ) ) {
+		if( is_dir( realpath($Directory) ) ) {
+			$FileList = System::FileList( realpath($Directory), array('js'), $Recursive );
+		} else if( is_file( realpath($Directory) ) ) {
 			return '<script type="text/javascript" src="'.Seo::Path( $Directory ).'"></script>';
+		} else {
+			trigger_error('JavaScript not available! '.$Directory );
 		}
 		$Return = '';
 		/** @var \AIOSystem\Core\ClassSystemFile $File */
 		foreach( (array)$FileList as $File ) {
-			$Return .= '<script type="text/javascript" src="'.Seo::Path( $File->propertyFileLocation() ).'"></script>';
+			$Return .= '<script type="text/javascript" src="'.Seo::Path( $Directory.System::DirectorySyntax( DIRECTORY_SEPARATOR.System::RelativeDirectory( $File->propertyFileLocation(), realpath($Directory) ),false) ).'"></script>';
 		}
 		return $Return;
 	}
@@ -89,7 +93,7 @@ class Html {
 		return Video::Load( $File, $Option );
 	}
 	public static function Favicon( $File ) {
-		return '<link rel="shortcut icon" type="image/x-icon" href="'.Seo::Path( $File ).'">';
+		return '<link rel="shortcut icon" type="image/x-icon" href="'.Seo::Path( $File ).'"/>';
 	}
 }
 ?>
