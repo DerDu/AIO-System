@@ -42,6 +42,7 @@
 namespace AIOSystem\Module\Template;
 use \AIOSystem\Api\System;
 use \AIOSystem\Api\Stack;
+use \AIOSystem\Api\Cache;
 use \AIOSystem\Api\Event;
 /**
  * @package AIOSystem\Module
@@ -67,6 +68,8 @@ class ClassTemplate implements InterfaceTemplate {
 	private $propertyAssignContent = array();
 	/** @var \AIOSystem\Core\ClassStackQueue $propertyAssignRepeat */
 	private $propertyAssignRepeat = array();
+	/** @var bool $ParseAfterContent */
+	private $ParsePhpAfterContent = false;
 	/** @var array $EscapePattern */
 	private $EscapePattern = array(
 		'('=>'\(',')'=>'\)',
@@ -80,10 +83,10 @@ class ClassTemplate implements InterfaceTemplate {
 	 * @param string $File
 	 * @return ClassTemplate
 	 */
-	public static function Instance( $File, $ParsePhp = true ) {
-		return new ClassTemplate( $File, $ParsePhp );
+	public static function Instance( $File, $ParsePhp = true, $ParsePhpAfterContent = false ) {
+		return new ClassTemplate( $File, $ParsePhp, $ParsePhpAfterContent );
 	}
-	public function __construct( $File, $ParsePhp = true ) {
+	public function __construct( $File, $ParsePhp = true, $ParsePhpAfterContent = false ) {
 		$this->propertyAssignContent = Stack::Queue();
 		$this->propertyAssignRepeat = Stack::Queue();
 		if( file_exists( $File ) ) {
@@ -93,7 +96,12 @@ class ClassTemplate implements InterfaceTemplate {
 			Event::Message('Load Template: '.$File);
 			throw new \Exception( 'Template not available!' );
 		}
-		$this->propertyTemplateContent = $this->propertyTemplateFile->readFile( $ParsePhp );
+		if( $ParsePhpAfterContent ) {
+			$this->propertyTemplateContent = $this->propertyTemplateFile->readFile( false );
+			$this->ParsePhpAfterContent = true;
+		} else {
+			$this->propertyTemplateContent = $this->propertyTemplateFile->readFile( $ParsePhp );
+		}
 	}
 	/**
 	 * @param null|string $Content
@@ -174,6 +182,12 @@ class ClassTemplate implements InterfaceTemplate {
 			$Content = preg_replace( '!{'.$Replace[0].'}!is', $Replace[1], $Content );
 		}
 		$this->propertyTemplateContent = $Content;
+
+		if( $this->ParsePhpAfterContent ) {
+			Cache::Set( $this->propertyTemplateContent, $this->propertyTemplateContent, 'Template', false, 10 );
+			ob_start(); include( Cache::GetLocation( $this->propertyTemplateContent, 'Template', false ) );
+			$this->propertyTemplateContent = ob_get_clean();
+		}
 		return $this->propertyTemplateContent;
 	}
 	/**
