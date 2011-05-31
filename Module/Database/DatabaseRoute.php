@@ -59,14 +59,14 @@ class DatabaseRoute {
 
 	private $isDsnConnection = false;
 
-	function __construct( $HostType, $HostName = null, $UserName = null, $UserPassword = null, $DatabaseName = null ) {
+	function __construct( $HostType, $HostName = null, $UserName = null, $UserPassword = null, $DatabaseName = null, $asDsn = false ) {
 		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
 		$this->HostType( $HostType );
 		$this->HostName( $HostName );
 		$this->UserName( $UserName );
 		$this->UserPassword( $UserPassword );
 		$this->DatabaseName( $DatabaseName );
-		if( $this->HostName() === null && $this->UserName() === null && $this->UserPassword() === null && $this->DatabaseName() === null ) {
+		if( $asDsn || ( $this->HostName() === null && $this->UserName() === null && $this->UserPassword() === null && $this->DatabaseName() === null ) ) {
 			$this->isDsnConnection = true;
 		}
 	}
@@ -74,21 +74,44 @@ class DatabaseRoute {
 		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
 		require_once( __DIR__ . '/Adodb/adodb.inc.php' );
 		if( $this->isDsnConnection ) {
-			$this->DatabaseAdapter( \NewADOConnection( $this->HostType() ) );
+			if( self::DEBUG )Event::Message('DSN',__FILE__,__LINE__);
+			if( $this->HostType() == 'odbc_mssql' ) {
+				if( self::DEBUG )Event::Message('ODBC',__FILE__,__LINE__);
+				$this->DatabaseAdapter( \NewADOConnection( $this->HostType() ) );
+				$this->DatabaseAdapter()->debug = self::DEBUG;
+				$Check = $this->DatabaseAdapter()->Connect( $this->HostName(), $this->UserName(), $this->UserPassword() );
+				if( $Check ) {
+					if( self::DEBUG )Event::Debug($Check,__FILE__,__LINE__);
+					$this->DatabaseAdapter()->password = $this->UserPassword();
+					return true;
+				} else {
+					if( self::DEBUG )Event::Debug($Check,__FILE__,__LINE__);
+					throw new \Exception( 'Connection failed!' );
+				}
+			}
+
+			$Check = $this->DatabaseAdapter( \NewADOConnection( $this->HostType() ) );
 			if( is_object( $this->DatabaseAdapter() ) ) {
 				$this->DatabaseAdapter()->debug = self::DEBUG;
 				$Password = array();
 				preg_match('!(?<=:)[^:]*(?=@)!is',$this->HostType(),$Password);
 				$this->DatabaseAdapter()->password = $Password[0];
+				return true;
 			} else {
+				if( self::DEBUG )Event::Debug($Check,__FILE__,__LINE__);
 				throw new \Exception( 'Connection failed!' );
 			}
 		} else {
+			if( self::DEBUG )Event::Message('Default',__FILE__,__LINE__);
 			$this->DatabaseAdapter( \NewADOConnection( $this->HostType() ) );
 			$this->DatabaseAdapter()->debug = self::DEBUG;
-			if( $this->DatabaseAdapter()->Connect( $this->HostName(), $this->UserName(), $this->UserPassword(), $this->DatabaseName() ) ) {
+			$Check = $this->DatabaseAdapter()->Connect( $this->HostName(), $this->UserName(), $this->UserPassword(), $this->DatabaseName() );
+			if( $Check ) {
+				if( self::DEBUG )Event::Debug($Check,__FILE__,__LINE__);
 				$this->DatabaseAdapter()->password = $this->UserPassword();
+				return true;
 			} else {
+				if( self::DEBUG )Event::Debug($Check,__FILE__,__LINE__);
 				throw new \Exception( 'Connection failed!' );
 			}
 		}
@@ -115,7 +138,7 @@ class DatabaseRoute {
 		return $this->DatabaseAdapter();
 	}
 	/**
-	 * @return void
+	 * @return bool
 	 */
 	public function Close() {
 		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);

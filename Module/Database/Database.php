@@ -51,7 +51,7 @@ use \AIOSystem\Api\Event;
  * @subpackage Database
  */
 interface InterfaceDatabase {
-	public static function Open( $HostType, $HostName = null, $UserName = null, $UserPassword = null, $DatabaseName = null );
+	public static function Open( $HostType, $HostName = null, $UserName = null, $UserPassword = null, $DatabaseName = null, $asDsn = false );
 	public static function Pipe();
 	public static function Close();
 
@@ -100,9 +100,9 @@ class Database implements InterfaceDatabase {
 	 * @param null|string $DatabaseName
 	 * @return string
 	 */
-	public static function Open( $HostType, $HostName = null, $UserName = null, $UserPassword = null, $DatabaseName = null ) {
+	public static function Open( $HostType, $HostName = null, $UserName = null, $UserPassword = null, $DatabaseName = null, $asDsn = false ) {
 		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
-		$Route = new DatabaseRoute( $HostType, $HostName, $UserName, $UserPassword, $DatabaseName );
+		$Route = new DatabaseRoute( $HostType, $HostName, $UserName, $UserPassword, $DatabaseName, $asDsn );
 		self::$DatabaseRouteList[$Route->Identifier()] = $Route;
 		self::_SaveDatabaseRouteList();
 		self::$DatabaseRoute = $Route;
@@ -365,6 +365,11 @@ class Database implements InterfaceDatabase {
 		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
 		// TODO: [FIX BUG] In shell.Record oAR->Save on Fieldset DB != Fieldset INSERT (e.g MSSQL NOT NULL)
 		// TODO: [REMOVE] Unstable Bugfix
+		if( self::DEBUG )Event::Debug($Table,__FILE__,__LINE__);
+		if( self::DEBUG )Event::Debug($FieldSet,__FILE__,__LINE__);
+		if( self::DEBUG )Event::Debug($Where,__FILE__,__LINE__);
+		if( self::DEBUG )Event::Debug($Delete,__FILE__,__LINE__);
+
 		return self::_recordBugFix( $Table, $FieldSet, $Where, $Delete );
 	}
 	/**
@@ -376,7 +381,9 @@ class Database implements InterfaceDatabase {
 	 */
 	public static function RecordSet( $Table, $WhereOrderBy, $asResultArray = false) {
 		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
-		global $ADODB_ASSOC_CASE;
+		if( self::DEBUG )Event::Debug($Table,__FILE__,__LINE__);
+		if( self::DEBUG )Event::Debug($WhereOrderBy,__FILE__,__LINE__);
+		if( self::DEBUG )Event::Debug($asResultArray,__FILE__,__LINE__);
 		$ADODB_ASSOC_CASE = self::ADODB_ASSOC_CASE;
 		if( $asResultArray === false ) {
 			return self::Pipe()->GetActiveRecords( $Table, $WhereOrderBy );

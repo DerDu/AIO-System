@@ -62,8 +62,8 @@ class Database {
 	 * @param string|null $Database
 	 * @return string
 	 */
-	public static function Open( $Type, $Host = null, $User = null, $Password = null, $Database = null ) {
-		return AIODatabase::Open( $Type, $Host, $User, $Password, $Database );
+	public static function Open( $Type, $Host = null, $User = null, $Password = null, $Database = null, $Dsn = false ) {
+		return AIODatabase::Open( $Type, $Host, $User, $Password, $Database, $Dsn );
 	}
 	/**
 	 * @static
