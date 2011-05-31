@@ -40,6 +40,7 @@
  * @subpackage Seo
  */
 namespace AIOSystem\Core;
+use \AIOSystem\Api\Event;
 /**
  * @package AIOSystem\Core
  * @subpackage Seo
@@ -54,11 +55,12 @@ interface InterfaceSeoUri {
  * @package AIOSystem\Core
  * @subpackage Seo
  */
-class ClassSeoUri implements InterfaceSeoUri
-{
+class ClassSeoUri implements InterfaceSeoUri {
+	const DEBUG = false;
+
 	private static $string_separator_char = '~';
 	private static $string_path_carrier = 'URI-PATH';
-	
+
 	public static function UriPath( $string_path_relative, $integer_path_level = 0 )
 	{
 		if( !isset($_SERVER['SERVER_PORT']) ) $_SERVER['SERVER_PORT'] = '';
@@ -77,12 +79,15 @@ class ClassSeoUri implements InterfaceSeoUri
 		// Build correct path
 		return $integer_path_port .= str_replace( '//', '/', (isset($_SERVER['SERVER_NAME'])?$_SERVER['SERVER_NAME'].'/':'')
 			//.':'.$_SERVER['SERVER_PORT']
-			.$string_path_relative 
+			.$string_path_relative
 		);
 	}
 	public static function UriRequest()
 	{
 		$array_uri_filter = self::UriFilter( self::UriString() );
+		if(self::DEBUG){Event::Message(__METHOD__,__FILE__,__LINE__);}
+		if(self::DEBUG){Event::Debug(self::UriString(),__FILE__,__LINE__);}
+		if(self::DEBUG){Event::Debug($array_uri_filter,__FILE__,__LINE__);}
 		foreach( (array)$array_uri_filter as $string_uri_content )
 		{
 			$array_uri_content = explode( self::UriSeparator(), $string_uri_content );
@@ -96,6 +101,7 @@ class ClassSeoUri implements InterfaceSeoUri
 			array('![\w\d\s\.\-\:]*?'.self::UriSeparator().'[\w\d\s\.\-\:]*?(/|(?=\?)|$)!is','!\?.*$!is','!\/$!is'),
 			'', urldecode( self::UriString() )
 		);
+		if(self::DEBUG){Event::Debug($_REQUEST,__FILE__,__LINE__);}
 	}
 	public static function UriCarrier( $string_path_carrier = null ) {
 		if( $string_path_carrier !== null ) self::$string_path_carrier = $string_path_carrier; return self::$string_path_carrier;
@@ -106,11 +112,12 @@ class ClassSeoUri implements InterfaceSeoUri
 
 	private static function UriString()
 	{
+		self::FixIISRequestUri();
 		return substr( $_SERVER['REQUEST_URI'], strlen( $_SERVER['SCRIPT_NAME'] ) );
 	}
 	private static function UriFilter( $filter_seo_uri )
 	{
-		// CUT QUESTION-STRING 
+		// CUT QUESTION-STRING
 		$filter_seo_uri = explode( '?', $filter_seo_uri );
 		$filter_seo_uri = explode( '/', $filter_seo_uri[0] );
 		$filter_seo = create_function( '$filter_seo_uri',
@@ -119,6 +126,28 @@ class ClassSeoUri implements InterfaceSeoUri
 		.self::UriSeparator().'[^'
 		.self::UriSeparator().']*$!is", $filter_seo_uri );' );
 		return array_filter( $filter_seo_uri, $filter_seo );
+	}
+
+	/**
+	 * Problem to fix: The $_SERVER["REQUEST_URI"] is empty in IIS.
+	 *
+	 * Based on: http://www.dokeos.com/forum/viewtopic.php?t=8335#p36966
+	 * Added by Ivan Tcholakov, 28-JUN-2006.
+	 *
+	 * @static
+	 * @return void
+	 */
+	private static function FixIISRequestUri() {
+		if (empty($_SERVER['REQUEST_URI'])) {
+			$URI = $_SERVER['SCRIPT_NAME'];
+			if (!empty($_SERVER['PATH_INFO'])) {
+				$URI .= $_SERVER['PATH_INFO'];
+			}
+			if (!empty($_SERVER['QUERY_STRING'])) {
+				$URI .= '?'.$_SERVER['QUERY_STRING'];
+			}
+			$_SERVER['REQUEST_URI'] = $URI;
+		}
 	}
 }
 ?>
