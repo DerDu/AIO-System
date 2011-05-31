@@ -49,10 +49,11 @@ class Cache {
 	 * Set content to cache
 	 *
 	 * @static
-	 * @param mixed $Parameter
+	 * @param mixed $Identifier
 	 * @param string $Content
-	 * @param string $Cache
-	 * @param bool $Global
+	 * @param string $Location - Default: 'DefaultCache'
+	 * @param bool $Global - Default: false
+	 * @param int $Timeout - Default: 3600
 	 * @return bool
 	 */
 	public static function Set( $Identifier, $Content, $Location = 'DefaultCache', $Global = false, $Timeout = 3600 ) {
@@ -62,13 +63,25 @@ class Cache {
 	 * Get content from cache
 	 *
 	 * @static
-	 * @param mixed $Parameter
-	 * @param string $Cache
+	 * @param mixed $Identifier
+	 * @param string $Location
 	 * @param bool $Global
 	 * @return bool|string
 	 */
 	public static function Get( $Identifier, $Location = 'DefaultCache', $Global = false ) {
 		return AIOCacheFile::Get( $Identifier, $Location, $Global );
+	}
+	/**
+	 * Get location of cache file
+	 *
+	 * @static
+	 * @param mixed $Identifier
+	 * @param string $Location
+	 * @param bool $Global
+	 * @return bool|string
+	 */
+	public static function GetLocation( $Identifier, $Location = 'DefaultCache', $Global = false ) {
+		return AIOCacheFile::Location( $Identifier, $Location, $Global );
 	}
 	/**
 	 * Returns the current cache location
