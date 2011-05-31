@@ -48,19 +48,42 @@ use \AIOSystem\Api\Event;
  */
 class ClassCacheFile implements \AIOSystem\Module\Cache\InterfaceCache {
 	public static function Set( $Identifier, $Content, $Timeout = 3600, $Location = 'Common', $Global = false ) {
-		$File = System::File( ClassCache::Location( $Location, $Global ).(time()+$Timeout).'.'.strtoupper(sha1(serialize($Identifier))) );
-		$File->propertyFileContent( serialize($Content) );
+		self::Clean( $Identifier, $Location, $Global );
+		$File = System::File( ClassCache::Location( $Location, $Global ).(time()+$Timeout).'.'.self::Identifier( $Identifier ) );
+		if( is_box( $Content ) ) {
+			$File->propertyFileContent( serialize($Content) );
+		} else {
+			$File->propertyFileContent( $Content );
+		}
 		$File->writeFile();
 	}
 	public static function Get( $Identifier, $Location = 'Common', $Global = false ) {
-		$Directory = System::FileList( ClassCache::Location( $Location, $Global ), strtoupper(sha1(serialize($Identifier))) );
+		/** @var \AIOSystem\Core\ClassSystemFile[] $Directory */
+		$Directory = System::FileList( ClassCache::Location( $Location, $Global ), self::Identifier( $Identifier ) );
 		/** @var \AIOSystem\Core\ClassSystemFile $File */
 		foreach( (array)$Directory as $File ) {
 			if( $File->propertyFileName() >= time() ) {
-				return unserialize( $File->propertyFileContent() );
+				/**
+				 * Detect serialize
+				 */
+				if( preg_match( '!^(a|o):[0-9]+:("|{)!is', $File->propertyFileContent() ) ) {
+					return unserialize( $File->propertyFileContent() );
+				} else {
+					return $File->propertyFileContent();
+				}
 			}
 		}
-		self::Clean( $Identifier, $Location, $Global );
+		return false;
+	}
+	public static function Location( $Identifier, $Location = 'Common', $Global = false ) {
+		/** @var \AIOSystem\Core\ClassSystemFile[] $Directory */
+		$Directory = System::FileList( ClassCache::Location( $Location, $Global ), self::Identifier( $Identifier ) );
+		/** @var \AIOSystem\Core\ClassSystemFile $File */
+		foreach( (array)$Directory as $File ) {
+			if( file_exists( $File->propertyFileLocation() ) ) {
+				return $File->propertyFileLocation();
+			}
+		}
 		return false;
 	}
 	public static function Clean( $Identifier, $Location = 'Common', $Global = false ) {
@@ -71,5 +94,8 @@ class ClassCacheFile implements \AIOSystem\Module\Cache\InterfaceCache {
 				$File->removeFile();
 			}
 		}
+	}
+	private static function Identifier( $Identifier ) {
+		return strtoupper(sha1(serialize($Identifier)));
 	}
 }
