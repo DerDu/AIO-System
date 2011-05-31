@@ -68,7 +68,7 @@ class ClassCache {
 	public static function Location( $CacheName = 'Common', $isGlobal = false ) {
 		$Directory = System::CreateDirectory(
 			System::DirectorySyntax(
-				self::_cacheDirectory().'/'.$CacheName.(!$isGlobal?'/'.Session::Id():'')
+				self::_cacheDirectory().'/'.$CacheName.(!$isGlobal?'/'.strtoupper(Session::Id()):'')
 			)
 		);
 		chmod( $Directory, 0777 );
