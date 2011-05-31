@@ -49,8 +49,8 @@ class Template {
 	 * @param string $FileLocation
 	 * @return \AIOSystem\Module\Template\ClassTemplate
 	 */
-	public static function Load( $FileLocation, $ParsePhp = true ) {
-		return AIOTemplate::Instance( $FileLocation, $ParsePhp );
+	public static function Load( $FileLocation, $ParsePhp = true, $ParsePhpAfterContent = false ) {
+		return AIOTemplate::Instance( $FileLocation, $ParsePhp, $ParsePhpAfterContent );
 	}
 }
 ?>
