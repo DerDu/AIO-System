@@ -118,7 +118,27 @@ if (!function_exists('array_intersect_key')) {
 		return $array_result;
 	}
 }
-
+/**
+ * Based on: http://www.php.net/manual/de/function.array-search.php#95926
+ */
+if (!function_exists('array_search_recursive')) {
+	function array_search_recursive( $Needle, $Haystack, $PartialMatches = false, $SearchKeys = false) {
+		if( !is_array( $Haystack ) ) {
+			return false;
+		}
+		foreach( $Haystack as $Key => $Value) {
+			$Subject = ($SearchKeys) ? $Key : $Value;
+			if( $Needle === $Subject ) {
+				return $Key;
+			} else if( $PartialMatches && @strpos( $Subject, $Needle ) !== false ) {
+				return $Key;
+			} else if( is_array( $Value ) && array_search_recursive( $Needle, $Value, $PartialMatches, $SearchKeys ) !== false ) {
+				return $Key;
+			}
+		}
+		return false;
+	}
+}
 // ---------------------------------------------------------------------------------------
 // PHP STRING : STR_PAD_?
 if( ! function_exists('str_pad_right') ) {
