@@ -100,6 +100,17 @@ class System {
 	public static function RelativeDirectory( $Directory, $Location ) {
 		return AIOSystemDirectory::relativeDirectory( $Directory, $Location );
 	}
+	public static function DirectoryRoot() {
+		return AIOSystemDirectory::DocumentRoot();
+	}
+	public static function DirectoryCurrent() {
+		return AIOSystemDirectory::CurrentDirectory();
+	}
+
+	public static function FileUpload() {
+		return \AIOSystem\Module\Upload\Upload::Process();
+	}
+
 	/**
 	 * @static
 	 * @param string $Name
