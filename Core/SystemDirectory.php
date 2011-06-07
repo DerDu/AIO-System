@@ -250,6 +250,15 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 		return substr( preg_replace('!/{1}$!is', '', self::adjustDirectorySyntax( $relativeDirectory ).$propertyDirectoryFileName ), 1);
 	}
 
+	public static function DocumentRoot() {
+		self::FixIISDocumentRoot();
+		return $_SERVER['DOCUMENT_ROOT'];
+	}
+
+	public static function CurrentDirectory() {
+		return self::DocumentRoot().dirname($_SERVER['SCRIPT_NAME']);
+	}
+
 	/**
 	 * Problem to fix: The $_SERVER["DOCUMENT_ROOT"] is empty in IIS.
 	 *
