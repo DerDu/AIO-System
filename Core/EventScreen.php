@@ -108,7 +108,7 @@ class ClassEventScreen implements InterfaceEventScreen {
 	}
 	private static function _screenError( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
 		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; overflow:auto;">'
-		."\n".Font::MixedToUtf8(print_r($propertyContent),true).'<br/>'
+		."\n".Font::MixedToUtf8(print_r($propertyContent,true)).'<br/>'
 			.'<span style="font-family: monospace; font-size: 10px;color:#DDA0A0;">'
 				.'Code ['.$propertyNumber.']'
 				.' thrown in '.$propertyLocation
