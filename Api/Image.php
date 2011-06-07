@@ -45,7 +45,27 @@ use \AIOSystem\Module\Image\ClassImageLayer as AIOImageLayer;
 /**
  * @package AIOSystem\Api
  */
-class Image {
+interface InterfaceImage {
+	public static function Instance( $File, $Width = null, $Height = null );
+	public function Load( $File );
+	public function Save( $File = null );
+	public function Create( $Width, $Height );
+	public function Hash();
+	public function File();
+	public function ResizePixel( $Width = null, $Height = null );
+	public function ResizePixelAbsolute( $Width = null, $Height = null );
+	public function ResizePercent( $Width = null, $Height = null );
+	public function ResizePercentAbsolute( $Width = null, $Height = null );
+	public function Layer( $File, $OffsetX = 0, $OffsetY = 0 );
+	public function Rotate( $Angle, $Background = 127 );
+	public function Width();
+	public function Height();
+	public function Resource( \resource $Resource = null );
+}
+/**
+ * @package AIOSystem\Api
+ */
+class Image implements InterfaceImage {
 
 	private $_propertyFile = null;
 	private $_propertyResource = null;
@@ -57,7 +77,7 @@ class Image {
 	 * @param string $File
 	 * @param null|int $Width
 	 * @param null|int $Height
-	 * @return Image
+	 * @return \AIOSystem\Api\Image
 	 */
 	public static function Instance( $File, $Width = null, $Height = null ) {
 		$ClassImage = new Image();
@@ -106,6 +126,29 @@ class Image {
 	 */
 	public function File() {
 		return $this->_propertyFile();
+	}
+
+	public function Thumbnail( $Width = 100, $Height = 100, $Path = null, $Timeout = null ) {
+		if( $Path === null ) {
+			$Path = System::DirectorySyntax( pathinfo( $this->_propertyFile(), PATHINFO_DIRNAME ), true, DIRECTORY_SEPARATOR );
+		} else {
+			$Path = System::CreateDirectory( System::DirectorySyntax( $Path, true, DIRECTORY_SEPARATOR ) );
+		}
+		if( $Timeout === null ) {
+			$Timeout = (60*60*24*7);
+		}
+		if( !preg_match('!-Thumbnail$!',pathinfo( $this->_propertyFile(), PATHINFO_FILENAME ) ) ) {
+			$Thumbnail = $Path
+				.pathinfo( $this->_propertyFile(), PATHINFO_FILENAME )
+				.'-Thumbnail.'
+				.pathinfo( $this->_propertyFile(), PATHINFO_EXTENSION );
+			if( !file_exists( $Thumbnail ) || filemtime( $Thumbnail ) > ( time() + $Timeout ) ) {
+				$this->ResizePixel( $Width, $Height );
+				$this->Save( $Thumbnail );
+			} else {
+				$this->_propertyFile( $Thumbnail );
+			}
+		}
 	}
 // ---------------------------------------------------------------------------------------
 	public function ResizePixel( $Width = null, $Height = null ) {
