@@ -43,14 +43,14 @@ use \AIOSystem\Core\ClassXmlParser as AIOXmlParser;
 use \AIOSystem\Core\ClassXmlNode as AIOXmlNode;
 /**
  * Xml
- *  
+ *
  * @package AIOSystem\Api
  */
 class Xml {
 	/**
 	 * Parse XML-Content
 	 *
-	 * Can be used to read XML code into Object 
+	 * Can be used to read XML code into Object
 	 *
 	 * @static
 	 * @param string|Core\ClassXmlNode $Source XML to parse or Node-Instance to pass through
@@ -67,6 +67,51 @@ class Xml {
 	 */
 	public static function Create() {
 		return AIOXmlNode::Instance();
+	}
+
+	public static function Name( \AIOSystem\Core\ClassXmlNode &$Node, $Name = null ) {
+		if( $Name !== null ) {
+			$Node->propertyName( $Name );
+		} return $Node->propertyName();
+	}
+	public static function Attribute( \AIOSystem\Core\ClassXmlNode &$Node, $Name, $Value = null ) {
+		if( $Name === null ) {
+			if( $Value !== null ) {
+				$Node->propertyAttributeList( $Value );
+			} return $Node->propertyAttributeList();
+		} else {
+			if( $Value !== null ) {
+				$Node->propertyAttribute( $Name, $Value );
+			} return $Node->propertyAttribute( $Name );
+		}
+	}
+	public static function Content( \AIOSystem\Core\ClassXmlNode &$Node, $Content = null ) {
+		if( $Content !== null ) {
+			$Node->propertyContent( $Content );
+		} return $Node->propertyContent();
+	}
+
+	public static function Search( \AIOSystem\Core\ClassXmlNode &$In, $Name, $AttributeList = array(), $Index = null, $isSearchRoot = false ) {
+		return $In->searchXmlNode( $Name, $AttributeList, $Index, $isSearchRoot );
+	}
+	public static function Remove( \AIOSystem\Core\ClassXmlNode &$From, $Name, $AttributeList = array(), $Index = null, $isSearchRoot = false ) {
+		return $From->removeXmlNode( $Name, $AttributeList, $Index, $isSearchRoot );
+	}
+	public static function Parent( \AIOSystem\Core\ClassXmlNode &$Node, \AIOSystem\Core\ClassXmlNode $Parent = null ) {
+		if( $Parent !== null ) {
+			$Node->propertyParent( $Parent );
+		} return $Node->propertyParent();
+	}
+
+	public static function ListChild( \AIOSystem\Core\ClassXmlNode &$From, $Name, $AttributeList = array(), $isDescendant = null ) {
+		return $From->groupXmlNode( $Name, $AttributeList, $isDescendant );
+	}
+	public static function AddChild( \AIOSystem\Core\ClassXmlNode &$ParentNode, \AIOSystem\Core\ClassXmlNode &$ChildNode ) {
+		return $ParentNode->appendXmlNode( $ChildNode );
+	}
+
+	public static function Code( \AIOSystem\Core\ClassXmlNode &$Node ) {
+		return $Node->codeXmlNode();
 	}
 }
 ?>
