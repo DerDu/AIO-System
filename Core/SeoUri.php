@@ -110,7 +110,7 @@ class ClassSeoUri implements InterfaceSeoUri {
 		if( $string_separator_char !== null ) self::$string_separator_char = $string_separator_char; return self::$string_separator_char;
 	}
 
-	private static function UriString()
+	public static function UriString()
 	{
 		self::FixIISRequestUri();
 		return substr( $_SERVER['REQUEST_URI'], strlen( $_SERVER['SCRIPT_NAME'] ) );
