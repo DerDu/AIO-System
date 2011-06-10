@@ -42,6 +42,7 @@ namespace AIOSystem\Api;
 use \AIOSystem\Module\Image\ClassImageResource as AIOImageResource;
 use \AIOSystem\Module\Image\ClassImageResize as AIOImageResize;
 use \AIOSystem\Module\Image\ClassImageLayer as AIOImageLayer;
+use \AIOSystem\Module\Image\ClassImageType as AIOImageType;
 /**
  * @package AIOSystem\Api
  */
@@ -92,6 +93,14 @@ class Image implements InterfaceImage {
 		}
 		return $ClassImage;
 	}
+	/**
+	 * @static
+	 * @param string $MimeType
+	 * @return string|false
+	 */
+	public static function MimeTypeToExtension( $MimeType ) {
+		return AIOImageType::MimeTypeToExtension( $MimeType );
+	}
 // ---------------------------------------------------------------------------------------
 	/**
 	 * @param string $File
@@ -127,7 +136,6 @@ class Image implements InterfaceImage {
 	public function File() {
 		return $this->_propertyFile();
 	}
-
 	public function Thumbnail( $Width = 100, $Height = 100, $Path = null, $Timeout = null ) {
 		if( $Path === null ) {
 			$Path = System::DirectorySyntax( pathinfo( $this->_propertyFile(), PATHINFO_DIRNAME ), true, DIRECTORY_SEPARATOR );
