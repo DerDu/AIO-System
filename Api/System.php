@@ -91,6 +91,14 @@ class System {
 	 * @param string $Directory
 	 * @return string
 	 */
+	public static function RemoveDirectory( $Directory, $Recursive = false ) {
+		return AIOSystemDirectory::removeDirectory( $Directory, $Recursive );
+	}
+	/**
+	 * @static
+	 * @param string $Directory
+	 * @return string
+	 */
 	const DIRECTORY_SEPARATOR_SLASH = AIOSystemDirectory::DIRECTORY_SEPARATOR_SLASH;
 	const DIRECTORY_SEPARATOR_BACKSLASH = AIOSystemDirectory::DIRECTORY_SEPARATOR_BACKSLASH;
 	public static function DirectorySyntax( $Directory, $Trailing = true, $Separator = self::DIRECTORY_SEPARATOR_SLASH ) {
