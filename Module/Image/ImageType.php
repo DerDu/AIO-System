@@ -53,25 +53,25 @@ interface InterfaceImageType {
  * @subpackage Image
  */
 class ClassImageType implements InterfaceImageType {
-	public static function MimeTypeToExtension( $MimeType ) {
+	public static function MimeTypeToExtension( $MimeType, $SkipDot = false ) {
 		switch( $MimeType ) {
-			case image_type_to_mime_type( IMAGETYPE_GIF ): return image_type_to_extension( IMAGETYPE_GIF );
-			case image_type_to_mime_type( IMAGETYPE_JPEG ): return str_replace(array('E','e'),'',image_type_to_extension( IMAGETYPE_JPEG ));
-			case image_type_to_mime_type( IMAGETYPE_PNG ): return image_type_to_extension( IMAGETYPE_PNG );
-			case image_type_to_mime_type( IMAGETYPE_SWF ): return image_type_to_extension( IMAGETYPE_SWF );
-			case image_type_to_mime_type( IMAGETYPE_PSD ): return image_type_to_extension( IMAGETYPE_PSD );
-			case image_type_to_mime_type( IMAGETYPE_BMP ): return image_type_to_extension( IMAGETYPE_BMP );
-			case image_type_to_mime_type( IMAGETYPE_TIFF_II ): return image_type_to_extension( IMAGETYPE_TIFF_II );
-			case image_type_to_mime_type( IMAGETYPE_TIFF_MM ): return image_type_to_extension( IMAGETYPE_TIFF_MM );
-			case image_type_to_mime_type( IMAGETYPE_JPC ): return image_type_to_extension( IMAGETYPE_JPC );
-			case image_type_to_mime_type( IMAGETYPE_JP2 ): return image_type_to_extension( IMAGETYPE_JP2 );
-			case image_type_to_mime_type( IMAGETYPE_JPX ): return image_type_to_extension( IMAGETYPE_JPX );
-			case image_type_to_mime_type( IMAGETYPE_JB2 ): return image_type_to_extension( IMAGETYPE_JB2 );
-			case image_type_to_mime_type( IMAGETYPE_SWC ): return image_type_to_extension( IMAGETYPE_SWC );
-			case image_type_to_mime_type( IMAGETYPE_IFF ): return image_type_to_extension( IMAGETYPE_IFF );
-			case image_type_to_mime_type( IMAGETYPE_WBMP ): return image_type_to_extension( IMAGETYPE_WBMP );
-			case image_type_to_mime_type( IMAGETYPE_XBM ): return image_type_to_extension( IMAGETYPE_XBM );
-			case image_type_to_mime_type( IMAGETYPE_ICO ): return image_type_to_extension( IMAGETYPE_ICO );
+			case image_type_to_mime_type( IMAGETYPE_GIF ): return image_type_to_extension( IMAGETYPE_GIF, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_JPEG ): return str_replace(array('E','e'),'',image_type_to_extension( IMAGETYPE_JPEG, ($SkipDot?false:true) ));
+			case image_type_to_mime_type( IMAGETYPE_PNG ): return image_type_to_extension( IMAGETYPE_PNG, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_SWF ): return image_type_to_extension( IMAGETYPE_SWF, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_PSD ): return image_type_to_extension( IMAGETYPE_PSD, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_BMP ): return image_type_to_extension( IMAGETYPE_BMP, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_TIFF_II ): return image_type_to_extension( IMAGETYPE_TIFF_II, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_TIFF_MM ): return image_type_to_extension( IMAGETYPE_TIFF_MM, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_JPC ): return image_type_to_extension( IMAGETYPE_JPC, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_JP2 ): return image_type_to_extension( IMAGETYPE_JP2, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_JPX ): return image_type_to_extension( IMAGETYPE_JPX, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_JB2 ): return image_type_to_extension( IMAGETYPE_JB2, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_SWC ): return image_type_to_extension( IMAGETYPE_SWC, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_IFF ): return image_type_to_extension( IMAGETYPE_IFF, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_WBMP ): return image_type_to_extension( IMAGETYPE_WBMP, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_XBM ): return image_type_to_extension( IMAGETYPE_XBM, ($SkipDot?false:true) );
+			case image_type_to_mime_type( IMAGETYPE_ICO ): return image_type_to_extension( IMAGETYPE_ICO, ($SkipDot?false:true) );
 			default: return false;
 		}
 	}
