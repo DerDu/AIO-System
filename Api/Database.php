@@ -170,6 +170,10 @@ class Database {
 	/**
 	 * Create database table
 	 *
+	 * <code>
+	 * array( array( 'Name', 'Type', 'Length', 'Option', 'Option', ... ) )
+	 * </code>
+	 *
 	 * Type:
 	 *
 	 * C:  Varchar, capped to 255 characters.
