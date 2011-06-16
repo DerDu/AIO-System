@@ -41,6 +41,7 @@
 namespace AIOSystem\Api;
 use \AIOSystem\Module\Cache\ClassCache as AIOCache;
 use \AIOSystem\Module\Cache\ClassCacheFile as AIOCacheFile;
+use \AIOSystem\Module\Cache\Serializer as AIOSerializer;
 /**
  * @package AIOSystem\Api
  */
@@ -72,13 +73,25 @@ class Cache {
 		return AIOCacheFile::Get( $Identifier, $Location, $Global );
 	}
 	/**
+	 * Get cache time
+	 *
+	 * @static
+	 * @param mixed $Identifier
+	 * @param string $Location
+	 * @param bool $Global
+	 * @return int
+	 */
+	public static function GetTime( $Identifier, $Location = 'DefaultCache', $Global = false ) {
+		return AIOCacheFile::Time( $Identifier, $Location, $Global );
+	}
+	/**
 	 * Get location of cache file
 	 *
 	 * @static
 	 * @param mixed $Identifier
 	 * @param string $Location
 	 * @param bool $Global
-	 * @return bool|string
+	 * @return bool|string File location or false
 	 */
 	public static function GetLocation( $Identifier, $Location = 'DefaultCache', $Global = false ) {
 		return AIOCacheFile::Location( $Identifier, $Location, $Global );
@@ -103,6 +116,26 @@ class Cache {
 	 */
 	public static function File( $File ) {
 		return AIOCache::Filename( $File );
+	}
+	/**
+	 * @param \Object $Object
+	 * @return \AIOSystem\Module\Cache\Serializer
+	 */
+	public static function SerializeObject( $Object ) {
+		return AIOSerializer::Instance( $Object );
+	}
+	/**
+	 * Returns a generated cache file location
+	 *
+	 * @static
+	 * @param mixed $Identifier
+	 * @param string $Location
+	 * @param bool $Global
+	 * @param int $Timeout
+	 * @return string
+	 */
+	public static function CacheFile( $Identifier, $Location = 'Common', $Global = false, $Timeout = 3600 ) {
+		return AIOCacheFile::GenerateCacheFileName( $Identifier, $Location, $Global, $Timeout );
 	}
 }
 ?>
