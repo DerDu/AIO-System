@@ -82,26 +82,54 @@ class ClassSeoUri implements InterfaceSeoUri {
 			.$string_path_relative
 		);
 	}
-	public static function UriRequest()
-	{
-		$array_uri_filter = self::UriFilter( self::UriString() );
+	public static function UriRequest( $UriString = null, &$Parameter = null ) {
+		if( $UriString === null ) {
+			$array_uri_filter = self::UriFilter( self::UriString() );
+		} else {
+			$array_uri_filter = self::UriFilter( $UriString );
+		}
+		//Event::Debug( $UriString );
 		if(self::DEBUG){Event::Message(__METHOD__,__FILE__,__LINE__);}
 		if(self::DEBUG){Event::Debug(self::UriString(),__FILE__,__LINE__);}
 		if(self::DEBUG){Event::Debug($array_uri_filter,__FILE__,__LINE__);}
-		foreach( (array)$array_uri_filter as $string_uri_content )
-		{
+		foreach( (array)$array_uri_filter as $string_uri_content ) {
 			$array_uri_content = explode( self::UriSeparator(), $string_uri_content );
-			if( preg_match( '!^[a-zA-Z_\x7f-\xff\-\:][a-zA-Z0-9_\x7f-\xff\-\:]*$!', urldecode( $array_uri_content[0] ) ) )
-			{
-				$_REQUEST[urldecode( $array_uri_content[0] )] = urldecode( $array_uri_content[1] );
+			if( preg_match( '!^[a-zA-Z_\x7f-\xff\-\:][a-zA-ZöäüÖÄÜ0-9_\>\|\=\x7f-\xff\-\:]*$!', urldecode( $array_uri_content[0] ) ) ) {
+				if( $UriString === null ) {
+					//Event::Message('UriString UnSet',__METHOD__);
+					//$_REQUEST[urldecode( $array_uri_content[0] )] = urldecode( $array_uri_content[1] );
+					if( $Parameter !== null ) {
+						//Event::Message('Parameter Set',__METHOD__);
+						$Parameter[urldecode( $array_uri_content[0] )] = urldecode( $array_uri_content[1] );
+					} else {
+						//Event::Message('Parameter UnSet',__METHOD__);
+						$_REQUEST[urldecode( $array_uri_content[0] )] = urldecode( $array_uri_content[1] );
+					}
+				} else {
+					//Event::Message('UriString Set',__METHOD__);
+					if( $Parameter !== null ) {
+						//Event::Message('Parameter Set',__METHOD__);
+						$Parameter[urldecode( $array_uri_content[0] )] = urldecode( $array_uri_content[1] );
+					} else {
+						//Event::Message('Parameter UnSet',__METHOD__);
+						$_REQUEST[urldecode( $array_uri_content[0] )] = urldecode( $array_uri_content[1] );
+					}
+				}
 			}
 		}
 		// KILL PARAMETER, KILL QUESTION-STRING, KILL TRAILING-SLASH
-		$_REQUEST[self::UriCarrier()] = preg_replace(
-			array('![\w\d\s\.\-\:]*?'.self::UriSeparator().'[\w\d\s\.\-\:]*?(/|(?=\?)|$)!is','!\?.*$!is','!\/$!is'),
-			'', urldecode( self::UriString() )
-		);
-		if(self::DEBUG){Event::Debug($_REQUEST,__FILE__,__LINE__);}
+		if( $UriString === null ) {
+			return $_REQUEST[self::UriCarrier()] = preg_replace(
+				array('![\w\d\s\.\-\:]*?'.self::UriSeparator().'[\w\d\s\.\-\:\>\|\=öäüÖÄÜ]*?(/|(?=\?)|$)!is','!\?.*$!is','!\/$!is'),
+				'', urldecode( self::UriString() )
+			);
+		} else {
+			return preg_replace(
+				array('![\w\d\s\.\-\:]*?'.self::UriSeparator().'[\w\d\s\.\-\:\>\|\=öäüÖÄÜ]*?(/|(?=\?)|$)!is','!\?.*$!is','!\/$!is'),
+				'', urldecode( $UriString )
+			);
+		}
+		//if(self::DEBUG){Event::Debug($_REQUEST,__FILE__,__LINE__);}
 	}
 	public static function UriCarrier( $string_path_carrier = null ) {
 		if( $string_path_carrier !== null ) self::$string_path_carrier = $string_path_carrier; return self::$string_path_carrier;
