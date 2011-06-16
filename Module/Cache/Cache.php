@@ -46,15 +46,6 @@ use \AIOSystem\Api\Session;
  * @package AIOSystem\Module
  * @subpackage Cache
  */
-interface InterfaceCache {
-	public static function Set( $Identifier, $Content, $Timeout = 3600, $Location = 'Common', $Global = false );
-	public static function Get( $Identifier, $Location = 'Common', $Global = false );
-	public static function Clean( $Identifier, $Location = 'Common', $Global = false );
-}
-/**
- * @package AIOSystem\Module
- * @subpackage Cache
- */
 class ClassCache {
 	private static $CacheDirectory = '../../Cache';
 
