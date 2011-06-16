@@ -46,10 +46,19 @@ use \AIOSystem\Api\Event;
  * @package AIOSystem\Module
  * @subpackage Cache
  */
-class ClassCacheFile implements \AIOSystem\Module\Cache\InterfaceCache {
+interface InterfaceCacheFile {
+	public static function Set( $Identifier, $Content, $Timeout = 3600, $Location = 'Common', $Global = false );
+	public static function Get( $Identifier, $Location = 'Common', $Global = false );
+	public static function Clean( $Identifier, $Location = 'Common', $Global = false );
+}
+/**
+ * @package AIOSystem\Module
+ * @subpackage Cache
+ */
+class ClassCacheFile implements InterfaceCacheFile {
 	public static function Set( $Identifier, $Content, $Timeout = 3600, $Location = 'Common', $Global = false ) {
 		self::Clean( $Identifier, $Location, $Global );
-		$File = System::File( ClassCache::Location( $Location, $Global ).(time()+$Timeout).'.'.self::Identifier( $Identifier ) );
+		$File = System::File( self::GenerateCacheFileName( $Identifier, $Location, $Global, $Timeout ) );
 		if( is_box( $Content ) ) {
 			$File->propertyFileContent( serialize($Content) );
 		} else {
@@ -62,7 +71,8 @@ class ClassCacheFile implements \AIOSystem\Module\Cache\InterfaceCache {
 		$Directory = System::FileList( ClassCache::Location( $Location, $Global ), self::Identifier( $Identifier ) );
 		/** @var \AIOSystem\Core\ClassSystemFile $File */
 		foreach( (array)$Directory as $File ) {
-			if( $File->propertyFileName() >= time() ) {
+			if( pathinfo( $File->propertyFileName(), PATHINFO_FILENAME ) >= time() ) {
+			//if( $File->propertyFileName() >= time() ) {
 				/**
 				 * Detect serialize
 				 */
@@ -75,6 +85,25 @@ class ClassCacheFile implements \AIOSystem\Module\Cache\InterfaceCache {
 		}
 		return false;
 	}
+	public static function Time( $Identifier, $Location = 'Common', $Global = false ) {
+		/** @var \AIOSystem\Core\ClassSystemFile[] $Directory */
+		$Directory = System::FileList( ClassCache::Location( $Location, $Global ), self::Identifier( $Identifier ) );
+		/** @var \AIOSystem\Core\ClassSystemFile $File */
+		foreach( (array)$Directory as $File ) {
+			if( pathinfo( $File->propertyFileName(), PATHINFO_FILENAME ) >= time() ) {
+				return pathinfo( $File->propertyFileName(), PATHINFO_FILENAME );
+			}
+		}
+		return time();
+	}
+
+	/**
+	 * @static
+	 * @param mixed $Identifier
+	 * @param string $Location
+	 * @param bool $Global
+	 * @return bool|null|string
+	 */
 	public static function Location( $Identifier, $Location = 'Common', $Global = false ) {
 		/** @var \AIOSystem\Core\ClassSystemFile[] $Directory */
 		$Directory = System::FileList( ClassCache::Location( $Location, $Global ), self::Identifier( $Identifier ) );
@@ -85,6 +114,17 @@ class ClassCacheFile implements \AIOSystem\Module\Cache\InterfaceCache {
 			}
 		}
 		return false;
+	}
+	/**
+	 * @static
+	 * @param mixed $Identifier
+	 * @param string $Location
+	 * @param bool $Global
+	 * @param int $Timeout
+	 * @return string
+	 */
+	public static function GenerateCacheFileName( $Identifier, $Location = 'Common', $Global = false, $Timeout = 3600 ) {
+		return ClassCache::Location( $Location, $Global ).(time()+$Timeout).'.'.self::Identifier( $Identifier );
 	}
 	public static function Clean( $Identifier, $Location = 'Common', $Global = false ) {
 		$Directory = System::FileList( ClassCache::Location( $Location, $Global ) );
