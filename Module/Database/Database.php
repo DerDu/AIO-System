@@ -290,7 +290,8 @@ class Database implements InterfaceDatabase {
 	 */
 	public static function CreateTable( $Table, $FieldSet ) {
 		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
-		$Dictionary = \NewDataDictionary( self::Pipe() );
+		$Pipe =  self::Pipe();
+		$Dictionary = \NewDataDictionary( $Pipe );
 		return $Dictionary->ExecuteSQLArray(
 			$Dictionary->CreateTableSQL( $Table, $FieldSet )
 		);
@@ -304,7 +305,8 @@ class Database implements InterfaceDatabase {
 	 */
 	public static function DropTable( $Table ) {
 		if( self::DEBUG )Event::Message(__METHOD__,__FILE__,__LINE__);
-		$Dictionary = \NewDataDictionary( self::Pipe() );
+		$Pipe =  self::Pipe();
+		$Dictionary = \NewDataDictionary( $Pipe );
 		return $Dictionary->ExecuteSQLArray(
 			$Dictionary->DropTableSQL( $Table )
 		);
