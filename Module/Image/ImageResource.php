@@ -40,6 +40,8 @@
  * @subpackage Image
  */
 namespace AIOSystem\Module\Image;
+use \AIOSystem\Api\System;
+use \AIOSystem\Api\Event;
 /**
  * @package AIOSystem\Module
  * @subpackage Image
@@ -68,14 +70,21 @@ class ClassImageResource implements InterfaceImageResource
 		if( file_exists( $image_file['dirname'].'/'.$image_file['basename'] ) ) {
 			if( self::_gdlib( $image_file['extension'] ) ) {
 				$image_load_function = 'imagecreatefrom'.str_replace( array('JPG','jpg'), 'jpeg', $image_file['extension'] );
-				return $image_load_function( $image_file['dirname'].'/'.$image_file['basename'] );
+				if( false !== ( $Resource = @$image_load_function( $image_file['dirname'].DIRECTORY_SEPARATOR.$image_file['basename'] ) ) ) {
+					return $Resource;
+				}
+				else Event::Error(0,'Could not load '.$image_file['dirname'].DIRECTORY_SEPARATOR.$image_file['basename'],__FILE__,__LINE__);
 			}
-			else trigger_error(strtoupper(__METHOD__).'<br/>File-Type ['.strtoupper($image_file['extension']).'] not supportet!');
+			else Event::Error(0,'File-Type ['.strtoupper($image_file['extension']).'] not supportet!',__FILE__,__LINE__);
 		}
-		else trigger_error(strtoupper(__METHOD__).'<br/>File ['.$image_file['dirname'].'/'.$image_file['basename'].'] not found!');
+		else Event::Error(0,'File ['.$image_file['dirname'].DIRECTORY_SEPARATOR.$image_file['basename'].'] not found!',__FILE__,__LINE__);
 		return false;
 	}
 	public static function Save( $image_resource, $image_file, $image_quality = 100 ) {
+		if( !is_resource( $image_resource ) ) {
+			Event::Error(0,'Could not save '.System::DirectorySyntax($image_file,false,DIRECTORY_SEPARATOR),__FILE__,__LINE__);
+			return false;
+		}
 		$image_file = pathinfo( $image_file );
 		$image_extension = str_replace( array('jpg'), array('jpeg'), $image_file['extension'] );
 		switch( strtoupper($image_extension) ) {
