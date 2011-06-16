@@ -70,6 +70,8 @@ class ClassTemplate implements InterfaceTemplate {
 	private $propertyAssignRepeat = array();
 	/** @var bool $ParseAfterContent */
 	private $ParsePhpAfterContent = false;
+	/** @var bool $isTemplateContent */
+	private $isTemplateContent = false;
 	/** @var array $EscapePattern */
 	private $EscapePattern = array(
 		'('=>'\(',')'=>'\)',
@@ -83,24 +85,36 @@ class ClassTemplate implements InterfaceTemplate {
 	 * @param string $File
 	 * @return ClassTemplate
 	 */
-	public static function Instance( $File, $ParsePhp = true, $ParsePhpAfterContent = false ) {
-		return new ClassTemplate( $File, $ParsePhp, $ParsePhpAfterContent );
+	public static function Instance( $File, $ParsePhp = true, $ParsePhpAfterContent = false, $isTemplateContent = false ) {
+		return new ClassTemplate( $File, $ParsePhp, $ParsePhpAfterContent, $isTemplateContent );
 	}
-	public function __construct( $File, $ParsePhp = true, $ParsePhpAfterContent = false ) {
+	public function __construct( $File, $ParsePhp = true, $ParsePhpAfterContent = false, $isTemplateContent = false ) {
 		$this->propertyAssignContent = Stack::Queue();
 		$this->propertyAssignRepeat = Stack::Queue();
-		if( file_exists( $File ) ) {
+		if( !$isTemplateContent && file_exists( $File ) ) {
 			$this->propertyTemplateFile = System::File( $File );
 			//var_dump( 'Load: '.$File );
+		} else if( $isTemplateContent ) {
+			$this->isTemplateContent = $isTemplateContent;
 		} else {
 			Event::Message('Load Template: '.$File);
 			throw new \Exception( 'Template not available!' );
 		}
-		if( $ParsePhpAfterContent ) {
-			$this->propertyTemplateContent = $this->propertyTemplateFile->readFile( false );
-			$this->ParsePhpAfterContent = true;
+		if( $this->isTemplateContent ) {
+			if( $ParsePhpAfterContent ) {
+				// TODO: Parse PHP not available
+				$this->Content( $File );
+				$this->ParsePhpAfterContent = true;
+			} else {
+				$this->Content( $File );
+			}
 		} else {
-			$this->propertyTemplateContent = $this->propertyTemplateFile->readFile( $ParsePhp );
+			if( $ParsePhpAfterContent ) {
+				$this->Content( $this->propertyTemplateFile->readFile( false ) );
+				$this->ParsePhpAfterContent = true;
+			} else {
+				$this->Content( $this->propertyTemplateFile->readFile( $ParsePhp ) );
+			}
 		}
 	}
 	/**
@@ -151,12 +165,22 @@ class ClassTemplate implements InterfaceTemplate {
 		return $Content;
 	}
 	/**
+	 * Parse Template
+	 *
+	 * @param  boolean $doCleanup
 	 * @return string
 	 */
-	public function Parse() {
+	public function Parse( $doCleanup = false ) {
+		// LeftOver -> Empty String
+		if( true === $doCleanup ) {
+			$PlaceholderList = $this->Fetch('.*?');
+			foreach( $PlaceholderList[0] as $Placeholder ) {
+				$this->Assign( $Placeholder, '' );
+			}
+		}
 		while( $this->propertyAssignRepeat->peekData() !== null ) {
 			$Repeat = $this->propertyAssignRepeat->popData();
-			$Content = $this->propertyTemplateContent;
+			$Content = $this->Content();
 			preg_match_all( '!{'.$Repeat[0].'}(.*?){\/'.$Repeat[0].'}!is', $Content , $Matches );
 			foreach( (array)$Matches[1] as $TemplateIndex => $TemplateContent ) {
 				$TemplateRepeat = '';
@@ -174,21 +198,21 @@ class ClassTemplate implements InterfaceTemplate {
 				}
 				$Content = preg_replace( '!{'.$Repeat[0].'}(.*?){\/'.$Repeat[0].'}!is', $TemplateRepeat, $Content, 1 );
 			}
-			$this->propertyTemplateContent = $Content;
+			$this->Content( $Content );
 		}
-		$Content = $this->propertyTemplateContent;
+		$Content = $this->Content();
 		while( $this->propertyAssignContent->peekData() !== null ) {
 			$Replace = $this->propertyAssignContent->popData();
 			$Content = preg_replace( '!{'.$Replace[0].'}!is', $Replace[1], $Content );
 		}
-		$this->propertyTemplateContent = $Content;
+		$this->Content( $Content );
 
 		if( $this->ParsePhpAfterContent ) {
-			Cache::Set( $this->propertyTemplateContent, $this->propertyTemplateContent, 'Template', false, 10 );
-			ob_start(); include( Cache::GetLocation( $this->propertyTemplateContent, 'Template', false ) );
-			$this->propertyTemplateContent = ob_get_clean();
+			Cache::Set( $this->Content(), $this->Content(), 'Template', false, 10 );
+			ob_start(); include( Cache::GetLocation( $this->Content(), 'Template', false ) );
+			$this->Content( ob_get_clean() );
 		}
-		return $this->propertyTemplateContent;
+		return $this->Content();
 	}
 	/**
 	 * @param string|array $Template
@@ -201,6 +225,12 @@ class ClassTemplate implements InterfaceTemplate {
 		} else {
 			$this->propertyAssignContent->pushData( array( $Template, $Value ) );
 		}
+	}
+
+	public function Fetch( $TemplateRegExp ) {
+		$Matches = array();
+		preg_match_all( '!(?<={)'.str_replace('!','\!',$TemplateRegExp).'(?=})!is', $this->Content(), $Matches );
+		return $Matches;
 	}
 	/**
 	 * @param string $Template
