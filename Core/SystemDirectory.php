@@ -52,6 +52,7 @@ interface InterfaceSystemDirectory {
 // ---------------------------------------------------------------------------------------
 	public static function adjustDirectorySyntax( $Directory, $TrailingSeparator = true, $DirectorySeparator = ClassSystemDirectory::DIRECTORY_SEPARATOR_SLASH  );
 	public static function createDirectory( $propertyDirectoryName );
+	public static function removeDirectory( $propertyDirectoryName );
 	public static function relativeDirectory(  $propertyDirectoryName, $propertyDirectoryLocation );
 }
 /**
@@ -69,7 +70,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 	 */
 	public static function getFileList( $propertyDirectoryName, $propertyFileTypeList = array(), $isRecursive = false ) {
 		$getFileList = array();
-		if( !is_object( $directoryHandler = dir( $propertyDirectoryName ) ) ) {
+		if( !is_object( $directoryHandler = @dir( $propertyDirectoryName ) ) ) {
 			return false;
 		}
 		while ( false !== ( $directoryEntryName = $directoryHandler->read() ) ) {
@@ -81,10 +82,19 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 				} else {
 					if( ! empty( $propertyFileTypeList ) ) {
 						$directoryEntryFileType = explode( '.', $directoryEntryName );
-						if( in_array( array_pop( $directoryEntryFileType ), (array)$propertyFileTypeList ) ) {
-							$isMatch = true;
+						$directoryEntryFileType = array_pop( $directoryEntryFileType );
+						if( is_array( $propertyFileTypeList ) ) {
+							if( in_array( $directoryEntryFileType, (array)$propertyFileTypeList ) ) {
+								$isMatch = true;
+							} else {
+								$isMatch = false;
+							}
 						} else {
-							$isMatch = false;
+							if( preg_match( '!'.$propertyFileTypeList.'!is', $directoryEntryFileType ) ) {
+								$isMatch = true;
+							} else {
+								$isMatch = false;
+							}
 						}
 					} else {
 						$isMatch = true;
@@ -107,14 +117,14 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 	 */
 	public static function getDirectoryList( $propertyDirectoryName, $isRecursive = false ) {
 		$getDirectoryList = array();
-		if( !is_object( $directoryHandler = dir( $propertyDirectoryName ) ) ) {
+		if( !is_object( $directoryHandler = @dir( $propertyDirectoryName ) ) ) {
 			return false;
 		}
 		while ( false !== ( $directoryEntryName = $directoryHandler->read() ) ) {
 			if( $directoryEntryName != '.' && $directoryEntryName != '..' ) {
-				if( is_dir( $propertyDirectoryName.'/'.$directoryEntryName ) ) {
+				if( is_dir( $propertyDirectoryName.DIRECTORY_SEPARATOR.$directoryEntryName ) ) {
 					if( $isRecursive ) {
-						$getDirectoryList = array_merge( $getDirectoryList, (array)self::getDirectoryList( $propertyDirectoryName.$directoryEntryName, $isRecursive ) );
+						$getDirectoryList = array_merge( $getDirectoryList, (array)self::getDirectoryList( $propertyDirectoryName.DIRECTORY_SEPARATOR.$directoryEntryName, $isRecursive ) );
 					}
 						$getDirectoryList[] = self::adjustDirectorySyntax( $propertyDirectoryName.'/'.$directoryEntryName );
 				}
@@ -203,7 +213,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 					$directoryLocation = self::adjustDirectorySyntax( $directoryLocation );
 					if( !is_dir( $directoryLocation ) ) {
 						if( false == @mkdir( $directoryLocation ) ) {
-							trigger_error('Could not create directory! '.$directoryLocation );
+							Event::Error(0,'Could not create directory! '.$directoryLocation,__FILE__,__LINE__);
 						}
 					}
 				} else {
@@ -214,6 +224,28 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 			}
 		}
 		return $directoryLocation;
+	}
+
+	public static function removeDirectory( $propertyDirectoryName, $Recursive = false ) {
+		self::FixIISDocumentRoot();
+		$directoryLocation = self::adjustDirectorySyntax( $propertyDirectoryName, false, DIRECTORY_SEPARATOR );
+		if( false === $Recursive ) {
+			if( false == @rmdir( $directoryLocation ) ) {
+				Event::Error(0,'Could not remove directory! '.$directoryLocation,__FILE__,__LINE__);
+			}
+		} else {
+			/** @var \AIOSystem\Core\ClassSystemFile[] $FileList */
+			$FileList = self::getFileList( $directoryLocation, array(), true );
+			/** @var \AIOSystem\Core\ClassSystemFile $File */
+			foreach( (array)$FileList as $File ) {
+				$File->removeFile();
+			}
+			$DirectoryList = self::getDirectoryList( $directoryLocation, true );
+			foreach( (array)$DirectoryList as $Directory ) {
+				self::removeDirectory( $Directory, false );
+			}
+			self::removeDirectory( $directoryLocation, false );
+		}
 	}
 	/**
 	 * @static
