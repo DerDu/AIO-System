@@ -62,15 +62,14 @@ class ClassApi {
 	 */
 	public static function Setup(){
 		self::$propertySetup = true;
-		$splAutoLoad = spl_autoload_functions();
-		if( $splAutoLoad === false || empty( $splAutoLoad ) || !in_array( array(__CLASS__,'Load'), $splAutoLoad, true ) ) {
-			spl_autoload_register( array(__CLASS__,'AutoLoader') );
-		}
+		spl_autoload_register( array(__CLASS__,'AutoLoader') );
 		require_once('Library\PhpFunction.php');
 		Session::Start();
 		Event::RegisterHandler( E_ALL, true );
+		Seo::Request();
 		//self::WidgetStyle();
 		self::$propertySetup = false;
+		ini_set( "docref_root", "http://www.php.net/" );
 	}
 	/**
 	 * Load class files
