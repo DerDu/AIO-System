@@ -60,10 +60,12 @@ class Seo {
 	 * Add SEO-Url-Parameter to $_REQUEST
 	 *
 	 * @static
-	 * @return void
+	 * @param null|string $UriString
+	 * @param null|array $Parameter
+	 * @return string
 	 */
-	public static function Request() {
-		return AIOSeoUri::UriRequest();
+	public static function Request( $UriString = null, &$Parameter = null ) {
+		return AIOSeoUri::UriRequest( $UriString, $Parameter );
 	}
 	/**
 	 * @static
@@ -76,6 +78,57 @@ class Seo {
 	 */
 	public static function DeepLink( $Target, $File, $Name, $Parameter = array(), $Level = 0 ) {
 		return AIOSeoDeeplink::jQueryAddressDeeplink( $Target, $File, $Name, $Parameter, $Level );
+	}
+	public static function NameConvention( $Name ) {
+		$Convert = array(
+			'Ä'=>'Ae','ä'=>'ae',
+			'Ö'=>'Oe','ö'=>'oe',
+			'Ü'=>'Ue','ü'=>'ue',
+			'ß'=>'ss',
+			'â'=>'ae','ô'=>'oe',
+			'é'=>'ee','ó'=>'oe',
+			'è'=>'e','ò'=>'o',
+			'´'=>'-','_'=>'-','§'=>' Paragraph ',
+			'&'=>' und '
+		);
+		$Name = str_replace( array_keys( $Convert ), array_values( $Convert ), $Name );
+		$Convert = array(
+			'a' => array( 230,229,227,226,225,224 ),
+			'A' => array( 197,195,194,193,192 ),
+			'e' => array( 235,234,233,232 ),
+			'f' => array( 131 ),
+			'c' => array( 231,162 ),
+			'C' => array( 199 ),
+			'D' => array( 208 ),
+			'E' => array( 203,202,201,200 ),
+			'i' => array( 239,238,237,236,161 ),
+			'I' => array( 207,206,205,204 ),
+			'L' => array( 163 ),
+			'n' => array( 241 ),
+			'N' => array( 209 ),
+			'o' => array( 240,245,244,243,242 ),
+			'O' => array( 213,212,211,210 ),
+			'S' => array( 138 ),
+			'u' => array( 251,250,249 ),
+			'U' => array( 219,218,217 ),
+			'y' => array( 255,253 ),
+			'Y' => array( 221,165,159 ),
+		);
+		for( $Run = (strlen( $Name )-1); $Run > 0; $Run-- ) {
+			$Ord = ord( $Name[$Run] );
+			if( $Ord < 32 ) {
+				$Name[$Run] = ' ';
+			}
+			if( $Ord > 127 ) {
+				Event::Message($Ord.':'.chr($Ord).'->'.array_search_recursive( $Ord, $Convert ));
+				$Name[$Run] = array_search_recursive( $Ord, $Convert );
+			}
+		}
+		$Name = preg_replace(
+			array( '![^\w\d\s\-\.]!is', '!\s{2,}!is', '!(^\s+|\s+$)!is', '!\s!is', '!-{2,}!is', '!\.{2,}!is' ),
+			array( '', ' ', '', '-', '-', '.' ), $Name
+		);
+		return strtoupper($Name[0]).substr($Name,1);
 	}
 }
 ?>
