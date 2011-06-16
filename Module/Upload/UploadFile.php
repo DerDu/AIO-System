@@ -40,6 +40,9 @@
  * @subpackage UploadFile
  */
 namespace AIOSystem\Module\Upload;
+use \AIOSystem\Api\Font;
+use \AIOSystem\Api\Seo;
+use \AIOSystem\Api\Event;
 /**
  * @package AIOSystem\Module
  * @subpackage UploadFile
@@ -47,10 +50,15 @@ namespace AIOSystem\Module\Upload;
 interface InterfaceUploadFile {
 	public function SaveTo( $Destination, $Overwrite = false );
 	public function Field();
-	public function Name();
+	public function Name( $Name = null );
+	public function NameSeo( $Name = null );
 	public function Size();
+
 	public function Type();
+	public function TypeCheck();
+
 	public function Location();
+
 	public function Error();
 	public function ErrorMessage();
 }
@@ -73,16 +81,26 @@ class UploadFile implements InterfaceUploadFile {
 		$this->Type = $Type;
 		$this->Location = $Location;
 		$this->Error = $Error;
+		/**
+		 * DON'T trust $Type !
+		 * Re-check -> PHP: FILEINFO_MIME_TYPE
+		 */
+		$this->TypeCheck();
 	}
 
 	/**
 	 * @param string $Destination
+	 * @param bool $Overwrite
+	 * @param bool $UseSeoName
 	 * @return bool|int
 	 */
-	public function SaveTo( $Destination, $Overwrite = false ) {
+	public function SaveTo( $Destination, $Overwrite = false, $UseSeoName = false ) {
 		if( $this->Error() != 0 ) {
 			return $this->Error();
 		} else {
+			if( $UseSeoName === true ) {
+				$this->Name( $this->NameSeo() );
+			}
 			if( $Overwrite === false && file_exists( $Destination.DIRECTORY_SEPARATOR.$this->Name() ) ) {
 				return false;
 			} else {
@@ -94,14 +112,54 @@ class UploadFile implements InterfaceUploadFile {
 	public function Field() {
 		return $this->Field;
 	}
-	public function Name() {
-		return $this->Name;
+	public function Name( $Name = null ) {
+		if( $Name !== null ) {
+			$this->Name = $Name;
+		} return $this->Name;
+	}
+	public function NameSeo( $Name = null ) {
+		if( $Name === null ) {
+			$Name = $this->Name();
+		}
+		return Seo::NameConvention( $Name );
 	}
 	public function Size() {
 		return $this->Size;
 	}
 	public function Type() {
 		return $this->Type;
+	}
+	/**
+	 * Check/Correct MIME-Type
+	 *
+	 * Returns:
+	 *
+	 * true  - The file type is correct
+	 * false - The file type was wrong, but was successfully corrected
+	 * null  - The file type could not be determined
+	 *
+	 * @return bool|null
+	 */
+	public function TypeCheck() {
+		if( class_exists( '\finfo' ) ) {
+			$Info = new \finfo( FILEINFO_MIME_TYPE );
+			if( $this->Type() != $Info->file( $this->Location() ) ) {
+				$this->Type = $Info->file( $this->Location() );
+				return false;
+			}
+			return true;
+		} else {
+			$InfoApp = array();
+			$Info = getimagesize( $this->Location(), $InfoApp );
+			if( $Info === false ) {
+				return null;
+			}
+			if( $this->Type() != $Info['mime'] ) {
+				$this->Type = $Info['mime'];
+				return false;
+			}
+			return true;
+		}
 	}
 	public function Location() {
 		return $this->Location;
