@@ -72,6 +72,8 @@ class Image implements InterfaceImage {
 	private $_propertyResource = null;
 	private $_propertyWidth = null;
 	private $_propertyHeight = null;
+	private $_propertyExtension = null;
+	private $_propertyMimeType = null;
 // ---------------------------------------------------------------------------------------
 	/**
 	 * @static
@@ -91,6 +93,7 @@ class Image implements InterfaceImage {
 		} else {
 			trigger_error( 'File not found' );
 		}
+		$ClassImage->_propertyExtension = AIOImageType::MimeTypeToExtension( $ClassImage->MimeType() );
 		return $ClassImage;
 	}
 	/**
@@ -98,8 +101,8 @@ class Image implements InterfaceImage {
 	 * @param string $MimeType
 	 * @return string|false
 	 */
-	public static function MimeTypeToExtension( $MimeType ) {
-		return AIOImageType::MimeTypeToExtension( $MimeType );
+	public static function MimeTypeToExtension( $MimeType, $SkipDot = false ) {
+		return AIOImageType::MimeTypeToExtension( $MimeType, $SkipDot );
 	}
 // ---------------------------------------------------------------------------------------
 	/**
@@ -110,6 +113,7 @@ class Image implements InterfaceImage {
 		$this->_propertyResource(false);
 		$this->_propertyWidth(false);
 		$this->_propertyHeight(false);
+		$this->_propertyMimeType = null;
 	}
 	/**
 	 * @param null|string $File
@@ -136,6 +140,49 @@ class Image implements InterfaceImage {
 	public function File() {
 		return $this->_propertyFile();
 	}
+	public function MimeType() {
+		if( $this->_propertyMimeType === null ) {
+			if( class_exists( '\finfo' ) ) {
+				$Info = new \finfo( FILEINFO_MIME_TYPE );
+				if( $this->_propertyMimeType != $Info->file( $this->File() ) ) {
+					$this->_propertyMimeType = $Info->file( $this->File() );
+				}
+			} else {
+				$InfoApp = array();
+				$Info = getimagesize( $this->File(), $InfoApp );
+				if( $Info === false ) {
+					return false;
+				}
+				if( $this->_propertyMimeType != $Info['mime'] ) {
+					$this->_propertyMimeType = $Info['mime'];
+				}
+			}
+		}
+		return $this->_propertyMimeType;
+	}
+/*
+	public function Thumbnail( $Width = 100, $Height = 100, $Path = null, $Timeout = null ) {
+		$CacheIdentifierObject = array_merge( array( $this->_propertyFile(), $Width, $Height, $Path, 'Object' ) );
+		$CacheIdentifierImage = array_merge( array( $this->_propertyFile(), $Width, $Height, $Path, 'Image' ) );
+		/** @var \AIOSystem\Module\Cache\Serializer $SerializerThumbnail */
+/*		if( false === ( $SerializerThumbnail = Cache::Get( $CacheIdentifierObject, 'ImageThumbLink'.DIRECTORY_SEPARATOR.'x'.$Width.'y'.$Height, true ) ) ) {
+			$this->ResizePixel( $Width, $Height );
+			$this->Save( Cache::CacheFile( $CacheIdentifierImage, 'ImageThumbLink'.DIRECTORY_SEPARATOR.'x'.$Width.'y'.$Height, true, $Timeout ), $this->MimeType() );
+			Cache::Set( $CacheIdentifierObject, Cache::SerializeObject( $this ), 'ImageThumbLink'.DIRECTORY_SEPARATOR.'x'.$Width.'y'.$Height, true );
+			$this->Save( $this->File().$this->_propertyExtension, $this->MimeType() );
+		} else {
+			/** @var Image $Thumbnail */
+/*			$Thumbnail = $SerializerThumbnail->Load();
+			$this->Load( $Thumbnail->File() );
+			$this->_propertyResource( AIOImageResource::Load( $Thumbnail->File() ) );
+			$this->_propertyExtension = AIOImageType::MimeTypeToExtension( $this->MimeType() );
+			$this->Save( $Thumbnail->File().$this->_propertyExtension, $this->MimeType() );
+			Event::Debug( $Thumbnail );
+			Event::Debug( $this );
+		}
+	}
+*/
+
 	public function Thumbnail( $Width = 100, $Height = 100, $Path = null, $Timeout = null ) {
 		if( $Path === null ) {
 			$Path = System::DirectorySyntax( pathinfo( $this->_propertyFile(), PATHINFO_DIRNAME ), true, DIRECTORY_SEPARATOR );
