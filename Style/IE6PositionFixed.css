@@ -1,0 +1,11 @@
+/*IE6 Hack*/
+/*position:fixed for Internet Explorer 6*/
+/*-----------------------------------------------*/
+* html {
+    overflow-y: hidden;
+}
+* html body {
+    height: 100%;
+    overflow: auto;
+}
+/*----------------------------------------------*/
