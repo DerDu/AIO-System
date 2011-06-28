@@ -71,7 +71,11 @@ class ClassStackObject implements InterfaceStackObject {
 	public function LoadObject( $Identifier ) {
 		/** @var \AIOSystem\Module\Cache\Serializer $Serializer */
 		$Serializer = $this->StackRegister->getRegister( $Identifier );
-		return $Serializer->Load();
+		if( is_object( $Serializer ) ) {
+			return $Serializer->Load();
+		} else {
+			return false;
+		}
 	}
 	public function SaveObject( $Identifier, $Object ) {
 		$Serializer = Serializer::Instance( $Object );
