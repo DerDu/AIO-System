@@ -42,7 +42,7 @@ namespace AIOSystem\Api;
 use \AIOSystem\Core\ClassProxyFile as AIOProxy;
 /**
  * Proxy
- *  
+ *
  * @package AIOSystem\Api
  */
 class Proxy {
@@ -56,6 +56,13 @@ class Proxy {
 	 */
 	public static function Setup( $Host = null, $Port = null, $User = null, $Password = null ) {
 		AIOProxy::setFileProxy( $Host, $Port, $User, $Password );
+	}
+	/**
+	 * @static
+	 * @return int|boolean
+	 */
+	public static function IsUsed() {
+		return AIOProxy::isFileProxy();
 	}
 	/**
 	 * @static
