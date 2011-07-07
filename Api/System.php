@@ -94,27 +94,43 @@ class System {
 	public static function RemoveDirectory( $Directory, $Recursive = false ) {
 		return AIOSystemDirectory::removeDirectory( $Directory, $Recursive );
 	}
+
+	const DIRECTORY_SEPARATOR_SLASH = AIOSystemDirectory::DIRECTORY_SEPARATOR_SLASH;
+	const DIRECTORY_SEPARATOR_BACKSLASH = AIOSystemDirectory::DIRECTORY_SEPARATOR_BACKSLASH;
 	/**
 	 * @static
 	 * @param string $Directory
+	 * @param boolean $Trailing
+	 * @param string $Separator
 	 * @return string
 	 */
-	const DIRECTORY_SEPARATOR_SLASH = AIOSystemDirectory::DIRECTORY_SEPARATOR_SLASH;
-	const DIRECTORY_SEPARATOR_BACKSLASH = AIOSystemDirectory::DIRECTORY_SEPARATOR_BACKSLASH;
 	public static function DirectorySyntax( $Directory, $Trailing = true, $Separator = self::DIRECTORY_SEPARATOR_SLASH ) {
 		return AIOSystemDirectory::adjustDirectorySyntax( $Directory, $Trailing, $Separator );
 	}
-
+	/**
+	 * @static
+	 * @param string $Directory
+	 * @param string $Location
+	 * @return string
+	 */
 	public static function RelativeDirectory( $Directory, $Location ) {
 		return AIOSystemDirectory::relativeDirectory( $Directory, $Location );
 	}
+	/**
+	 * @return string
+	 */
 	public static function DirectoryRoot() {
 		return AIOSystemDirectory::DocumentRoot();
 	}
+	/**
+	 * @return string
+	 */
 	public static function DirectoryCurrent() {
 		return AIOSystemDirectory::CurrentDirectory();
 	}
-
+	/**
+	 * @return \AIOSystem\Module\Upload\UploadFile[]
+	 */
 	public static function FileUpload() {
 		return \AIOSystem\Module\Upload\Upload::Process();
 	}
