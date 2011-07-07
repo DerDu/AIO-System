@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>File Source for Database.php</title>
+	<link rel="stylesheet" type="text/css" href="../media/style.css">
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+	<td class="header-top-left"><img src="../media/logo.png" border="0" alt="phpDocumentor " /></td>
+    <td class="header-top-right">AIOSystem-Api<br /><div class="header-top-right-subpackage"></div></td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+      
+                        
+                      		[ <a href="../classtrees_AIOSystem-Api.html" class="menu">class tree: AIOSystem-Api</a> ]
+		[ <a href="../elementindex_AIOSystem-Api.html" class="menu">index: AIOSystem-Api</a> ]
+            [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">AIOSystem-Api</div>
+      <b>Packages:</b><br />
+  <div class="package">
+              <a href="../li_AIOSystem-Api.html">AIOSystem-Api</a><br />
+      	</div>
+      <br />
+                        <br />
+                      </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1 align="center">Source for file Database.php</h1>
+<p>Documentation is available at <a href="../AIOSystem-Api/_Database.php.html">Database.php</a></p>
+<div class="src-code"><span class="php">
+<ol><li><div class="src-line"><a name="a1"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a2"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a3"></a><span class="src-doc">&nbsp;*&nbsp;This&nbsp;file&nbsp;contains&nbsp;the&nbsp;API:Database</span></div></li>
+<li><div class="src-line"><a name="a4"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a5"></a><span class="src-doc">&nbsp;//&nbsp;---------------------------------------------------------------------------------------</span></div></li>
+<li><div class="src-line"><a name="a6"></a><span class="src-doc">&nbsp;*&nbsp;LICENSE&nbsp;(BSD)</span></div></li>
+<li><div class="src-line"><a name="a7"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a8"></a><span class="src-doc">&nbsp;*&nbsp;Copyright&nbsp;(c)&nbsp;2011,&nbsp;Gerd&nbsp;Christian&nbsp;Kunze</span></div></li>
+<li><div class="src-line"><a name="a9"></a><span class="src-doc">&nbsp;*&nbsp;All&nbsp;rights&nbsp;reserved.</span></div></li>
+<li><div class="src-line"><a name="a10"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a11"></a><span class="src-doc">&nbsp;*&nbsp;Redistribution&nbsp;and&nbsp;use&nbsp;in&nbsp;source&nbsp;and&nbsp;binary&nbsp;forms,&nbsp;with&nbsp;or&nbsp;without</span></div></li>
+<li><div class="src-line"><a name="a12"></a><span class="src-doc">&nbsp;*&nbsp;modification,&nbsp;are&nbsp;permitted&nbsp;provided&nbsp;that&nbsp;the&nbsp;following&nbsp;conditions&nbsp;are</span></div></li>
+<li><div class="src-line"><a name="a13"></a><span class="src-doc">&nbsp;*&nbsp;met:</span></div></li>
+<li><div class="src-line"><a name="a14"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a15"></a><span class="src-doc">&nbsp;*&nbsp;&nbsp;*&nbsp;Redistributions&nbsp;of&nbsp;source&nbsp;code&nbsp;must&nbsp;retain&nbsp;the&nbsp;above&nbsp;copyright</span></div></li>
+<li><div class="src-line"><a name="a16"></a><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;notice,&nbsp;this&nbsp;list&nbsp;of&nbsp;conditions&nbsp;and&nbsp;the&nbsp;following&nbsp;disclaimer.</span></div></li>
+<li><div class="src-line"><a name="a17"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a18"></a><span class="src-doc">&nbsp;*&nbsp;&nbsp;*&nbsp;Redistributions&nbsp;in&nbsp;binary&nbsp;form&nbsp;must&nbsp;reproduce&nbsp;the&nbsp;above&nbsp;copyright</span></div></li>
+<li><div class="src-line"><a name="a19"></a><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;notice,&nbsp;this&nbsp;list&nbsp;of&nbsp;conditions&nbsp;and&nbsp;the&nbsp;following&nbsp;disclaimer&nbsp;in&nbsp;the</span></div></li>
+<li><div class="src-line"><a name="a20"></a><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;documentation&nbsp;and/or&nbsp;other&nbsp;materials&nbsp;provided&nbsp;with&nbsp;the&nbsp;distribution.</span></div></li>
+<li><div class="src-line"><a name="a21"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a22"></a><span class="src-doc">&nbsp;*&nbsp;&nbsp;*&nbsp;Neither&nbsp;the&nbsp;name&nbsp;of&nbsp;Gerd&nbsp;Christian&nbsp;Kunze&nbsp;nor&nbsp;the&nbsp;names&nbsp;of&nbsp;the</span></div></li>
+<li><div class="src-line"><a name="a23"></a><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;contributors&nbsp;may&nbsp;be&nbsp;used&nbsp;to&nbsp;endorse&nbsp;or&nbsp;promote&nbsp;products&nbsp;derived&nbsp;from</span></div></li>
+<li><div class="src-line"><a name="a24"></a><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;software&nbsp;without&nbsp;specific&nbsp;prior&nbsp;written&nbsp;permission.</span></div></li>
+<li><div class="src-line"><a name="a25"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a26"></a><span class="src-doc">&nbsp;*&nbsp;THIS&nbsp;SOFTWARE&nbsp;IS&nbsp;PROVIDED&nbsp;BY&nbsp;THE&nbsp;COPYRIGHT&nbsp;HOLDERS&nbsp;AND&nbsp;CONTRIBUTORS&nbsp;&quot;AS</span></div></li>
+<li><div class="src-line"><a name="a27"></a><span class="src-doc">&nbsp;*&nbsp;IS&quot;&nbsp;AND&nbsp;ANY&nbsp;EXPRESS&nbsp;OR&nbsp;IMPLIED&nbsp;WARRANTIES,&nbsp;INCLUDING,&nbsp;BUT&nbsp;NOT&nbsp;LIMITED&nbsp;TO,</span></div></li>
+<li><div class="src-line"><a name="a28"></a><span class="src-doc">&nbsp;*&nbsp;THE&nbsp;IMPLIED&nbsp;WARRANTIES&nbsp;OF&nbsp;MERCHANTABILITY&nbsp;AND&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR</span></div></li>
+<li><div class="src-line"><a name="a29"></a><span class="src-doc">&nbsp;*&nbsp;PURPOSE&nbsp;ARE&nbsp;DISCLAIMED.&nbsp;IN&nbsp;NO&nbsp;EVENT&nbsp;SHALL&nbsp;THE&nbsp;COPYRIGHT&nbsp;OWNER&nbsp;OR</span></div></li>
+<li><div class="src-line"><a name="a30"></a><span class="src-doc">&nbsp;*&nbsp;CONTRIBUTORS&nbsp;BE&nbsp;LIABLE&nbsp;FOR&nbsp;ANY&nbsp;DIRECT,&nbsp;INDIRECT,&nbsp;INCIDENTAL,&nbsp;SPECIAL,</span></div></li>
+<li><div class="src-line"><a name="a31"></a><span class="src-doc">&nbsp;*&nbsp;EXEMPLARY,&nbsp;OR&nbsp;CONSEQUENTIAL&nbsp;DAMAGES&nbsp;(INCLUDING,&nbsp;BUT&nbsp;NOT&nbsp;LIMITED&nbsp;TO,</span></div></li>
+<li><div class="src-line"><a name="a32"></a><span class="src-doc">&nbsp;*&nbsp;PROCUREMENT&nbsp;OF&nbsp;SUBSTITUTE&nbsp;GOODS&nbsp;OR&nbsp;SERVICES;&nbsp;LOSS&nbsp;OF&nbsp;USE,&nbsp;DATA,&nbsp;OR</span></div></li>
+<li><div class="src-line"><a name="a33"></a><span class="src-doc">&nbsp;*&nbsp;PROFITS;&nbsp;OR&nbsp;BUSINESS&nbsp;INTERRUPTION)&nbsp;HOWEVER&nbsp;CAUSED&nbsp;AND&nbsp;ON&nbsp;ANY&nbsp;THEORY&nbsp;OF</span></div></li>
+<li><div class="src-line"><a name="a34"></a><span class="src-doc">&nbsp;*&nbsp;LIABILITY,&nbsp;WHETHER&nbsp;IN&nbsp;CONTRACT,&nbsp;STRICT&nbsp;LIABILITY,&nbsp;OR&nbsp;TORT&nbsp;(INCLUDING</span></div></li>
+<li><div class="src-line"><a name="a35"></a><span class="src-doc">&nbsp;*&nbsp;NEGLIGENCE&nbsp;OR&nbsp;OTHERWISE)&nbsp;ARISING&nbsp;IN&nbsp;ANY&nbsp;WAY&nbsp;OUT&nbsp;OF&nbsp;THE&nbsp;USE&nbsp;OF&nbsp;THIS</span></div></li>
+<li><div class="src-line"><a name="a36"></a><span class="src-doc">&nbsp;*&nbsp;SOFTWARE,&nbsp;EVEN&nbsp;IF&nbsp;ADVISED&nbsp;OF&nbsp;THE&nbsp;POSSIBILITY&nbsp;OF&nbsp;SUCH&nbsp;DAMAGE.</span></div></li>
+<li><div class="src-line"><a name="a37"></a><span class="src-doc">//&nbsp;---------------------------------------------------------------------------------------</span></div></li>
+<li><div class="src-line"><a name="a38"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a39"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;AIOSystem\Api</span></div></li>
+<li><div class="src-line"><a name="a40"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a41"></a>namespace&nbsp;<span class="src-id">AIOSystem</span>\<span class="src-id">Api</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a42"></a>use&nbsp;\<span class="src-id">AIOSystem</span>\<span class="src-id">Module</span>\<span class="src-id"><a href="../AIOSystem-Api/Database.html">Database</a></span>\<span class="src-id"><a href="../AIOSystem-Api/Database.html">Database</a>&nbsp;</span><span class="src-key">as&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a43"></a>use&nbsp;\<span class="src-id">AIOSystem</span>\<span class="src-id">Module</span>\<span class="src-id"><a href="../AIOSystem-Api/Database.html">Database</a></span>\<span class="src-id">DatabaseRoute&nbsp;</span><span class="src-key">as&nbsp;</span><span class="src-id">AIODatabaseRoute</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a44"></a>use&nbsp;\<span class="src-id">AIOSystem</span>\<span class="src-id">Module</span>\<span class="src-id"><a href="../AIOSystem-Api/Database.html">Database</a></span>\<span class="src-id">ClassHierarchicalData&nbsp;</span><span class="src-key">as&nbsp;</span><span class="src-id">AIOHierarchicalData</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a45"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a46"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;AIOSystem\Api</span></div></li>
+<li><div class="src-line"><a name="a47"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a48"></a><span class="src-key">class&nbsp;</span><a href="../AIOSystem-Api/Database.html">Database</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a49"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a50"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Open&nbsp;database&nbsp;connection</span></div></li>
+<li><div class="src-line"><a name="a51"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a52"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;DSN&nbsp;example</span></div></li>
+<li><div class="src-line"><a name="a53"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&lt;code&gt;</span></div></li>
+<li><div class="src-line"><a name="a54"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;driver&nbsp;:&nbsp;//&nbsp;username&nbsp;:&nbsp;password&nbsp;@&nbsp;hostname&nbsp;/&nbsp;database&nbsp;?&nbsp;options&nbsp;[&nbsp;=&nbsp;value&nbsp;]</span></div></li>
+<li><div class="src-line"><a name="a55"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&lt;/code&gt;</span></div></li>
+<li><div class="src-line"><a name="a56"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a57"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a58"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$Type&nbsp;</span><span class="src-doc">Engine&nbsp;or&nbsp;DSN</span></div></li>
+<li><div class="src-line"><a name="a59"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string</span><span class="src-doc">|</span><span class="src-doc-type">null</span><span class="src-doc-var">$Host&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a60"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string</span><span class="src-doc">|</span><span class="src-doc-type">null</span><span class="src-doc-var">$User&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a61"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string</span><span class="src-doc">|</span><span class="src-doc-type">null</span><span class="src-doc-var">$Password&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a62"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string</span><span class="src-doc">|</span><span class="src-doc-type">null</span><span class="src-doc-var">$Database&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a63"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a64"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a65"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodOpen">Open</a><span class="src-sym">(&nbsp;</span><span class="src-var">$Type</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Host&nbsp;</span>=&nbsp;<span class="src-id">null</span><span class="src-sym">,&nbsp;</span><span class="src-var">$User&nbsp;</span>=&nbsp;<span class="src-id">null</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Password&nbsp;</span>=&nbsp;<span class="src-id">null</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Database&nbsp;</span>=&nbsp;<span class="src-id">null</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Dsn&nbsp;</span>=&nbsp;<span class="src-id">false&nbsp;</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a66"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">Open</span><span class="src-sym">(&nbsp;</span><span class="src-var">$Type</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Host</span><span class="src-sym">,&nbsp;</span><span class="src-var">$User</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Password</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Database</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Dsn&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a67"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a68"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodConnection">Connection</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a69"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a70"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a71"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a72"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a73"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">null</span><span class="src-doc">|</span><span class="src-doc-type">string</span><span class="src-doc-var">$Route&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a74"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">null&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a75"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a76"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodRoute">Route</a><span class="src-sym">(&nbsp;</span><span class="src-var">$Identifier&nbsp;</span>=&nbsp;<span class="src-id">null&nbsp;</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a77"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">Route</span><span class="src-sym">(&nbsp;</span><span class="src-var">$Identifier&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a78"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a79"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a80"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a81"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">array</span><span class="src-doc">|</span><span class="src-doc-type">boolean</span><span class="src-doc">|</span><span class="src-doc-type">string</span></div></li>
+<li><div class="src-line"><a name="a82"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a83"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodRouteList">RouteList</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a84"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">RouteList</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a85"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a86"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a87"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a88"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a89"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a90"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodRouteEngine">RouteEngine</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a91"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">RouteEngine</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a92"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a93"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a94"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a95"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a96"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a97"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodRouteDatabase">RouteDatabase</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a98"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">RouteDatabase</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a99"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a100"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a101"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a102"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a103"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a104"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodRouteHost">RouteHost</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a105"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">RouteHost</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a106"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a107"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a108"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a109"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a110"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a111"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodRouteUser">RouteUser</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a112"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">RouteUser</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a113"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a114"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a115"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Execute&nbsp;sql&nbsp;statement</span></div></li>
+<li><div class="src-line"><a name="a116"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a117"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a118"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$Sql&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a119"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">bool&nbsp;</span><span class="src-doc-var">$Cache&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a120"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">array&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a121"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a122"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodExecute">Execute</a><span class="src-sym">(&nbsp;</span><span class="src-var">$Sql</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Cache&nbsp;</span>=&nbsp;<span class="src-id">false&nbsp;</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a123"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">Execute</span><span class="src-sym">(&nbsp;</span><span class="src-var">$Sql</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Cache&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a124"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a125"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a126"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodLastInsertId">LastInsertId</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a127"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">LastId</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a128"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a129"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a130"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Close&nbsp;database&nbsp;connection</span></div></li>
+<li><div class="src-line"><a name="a131"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a132"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a133"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">null</span><span class="src-doc">|</span><span class="src-doc-type">string</span><span class="src-doc-var">$Route&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a134"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">void&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a135"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a136"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodClose">Close</a><span class="src-sym">(&nbsp;</span><span class="src-var">$Route&nbsp;</span>=&nbsp;<span class="src-id">null&nbsp;</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a137"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">Close</span><span class="src-sym">(&nbsp;</span><span class="src-var">$Route&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a138"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a139"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a140"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Database&nbsp;connection&nbsp;object</span></div></li>
+<li><div class="src-line"><a name="a141"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a142"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">\ADOConnection&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a143"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a144"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodADOConnection">ADOConnection</a><span class="src-sym">(&nbsp;</span><span class="src-var">$ADODB_ASSOC_CASE&nbsp;</span>=&nbsp;<span class="src-id">null&nbsp;</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a145"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">global&nbsp;</span><span class="src-var">$ADODB_ASSOC_CASE</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a146"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(&nbsp;</span><span class="src-var">$ADODB_ASSOC_CASE&nbsp;</span>===&nbsp;<span class="src-id">null&nbsp;</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a147"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$ADODB_ASSOC_CASE&nbsp;</span>=&nbsp;<span class="src-num">2</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a148"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a149"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">Pipe</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a150"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a151"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a152"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Edit&nbsp;database&nbsp;record&nbsp;(INSERT/UPDATE)</span></div></li>
+<li><div class="src-line"><a name="a153"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a154"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a155"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$Table&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a156"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">array&nbsp;</span><span class="src-doc-var">$Fieldset&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a157"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">null</span><span class="src-doc">|</span><span class="src-doc-type">array</span><span class="src-doc-var">$Where&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a158"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">bool&nbsp;</span><span class="src-doc-var">$Delete&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a159"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">bool&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a160"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a161"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodRecord">Record</a><span class="src-sym">(&nbsp;</span><span class="src-var">$Table</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Fieldset&nbsp;</span>=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Where&nbsp;</span>=&nbsp;<span class="src-id">null</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Delete&nbsp;</span>=&nbsp;<span class="src-id">false&nbsp;</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a162"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">Record</span><span class="src-sym">(&nbsp;</span><span class="src-var">$Table</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Fieldset</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Where</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Delete&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a163"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a164"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a165"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$Table&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a166"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$WhereOrderBy&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a167"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">bool&nbsp;</span><span class="src-doc-var">$ResultSet&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a168"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">array</span><span class="src-doc">|</span><span class="src-doc-type">\ADODB_Active_Record[]</span><span class="src-doc">|</span><span class="src-doc-type">void</span></div></li>
+<li><div class="src-line"><a name="a169"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a170"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodRecordSet">RecordSet</a><span class="src-sym">(&nbsp;</span><span class="src-var">$Table</span><span class="src-sym">,&nbsp;</span><span class="src-var">$WhereOrderBy</span><span class="src-sym">,&nbsp;</span><span class="src-var">$ResultSet&nbsp;</span>=&nbsp;<span class="src-id">false&nbsp;</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a171"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">RecordSet</span><span class="src-sym">(&nbsp;</span><span class="src-var">$Table</span><span class="src-sym">,&nbsp;</span><span class="src-var">$WhereOrderBy</span><span class="src-sym">,&nbsp;</span><span class="src-var">$ResultSet&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a172"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a173"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a174"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Create&nbsp;database&nbsp;table</span></div></li>
+<li><div class="src-line"><a name="a175"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a176"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&lt;code&gt;</span></div></li>
+<li><div class="src-line"><a name="a177"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;array(&nbsp;array(&nbsp;'Name',&nbsp;'Type',&nbsp;'Length',&nbsp;'Option',&nbsp;'Option',&nbsp;...&nbsp;)&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a178"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&lt;/code&gt;</span></div></li>
+<li><div class="src-line"><a name="a179"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a180"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Type:</span></div></li>
+<li><div class="src-line"><a name="a181"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a182"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;C:&nbsp;&nbsp;Varchar,&nbsp;capped&nbsp;to&nbsp;255&nbsp;characters.</span></div></li>
+<li><div class="src-line"><a name="a183"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;X:&nbsp;&nbsp;Larger&nbsp;varchar,&nbsp;capped&nbsp;to&nbsp;4000&nbsp;characters&nbsp;(to&nbsp;be&nbsp;compatible&nbsp;with&nbsp;Oracle).</span></div></li>
+<li><div class="src-line"><a name="a184"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;XL:&nbsp;For&nbsp;Oracle,&nbsp;returns&nbsp;CLOB,&nbsp;otherwise&nbsp;the&nbsp;largest&nbsp;varchar&nbsp;size.</span></div></li>
+<li><div class="src-line"><a name="a185"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;C2:&nbsp;Multibyte&nbsp;varchar</span></div></li>
+<li><div class="src-line"><a name="a186"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;X2:&nbsp;Multibyte&nbsp;varchar&nbsp;(largest&nbsp;size)</span></div></li>
+<li><div class="src-line"><a name="a187"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;B:&nbsp;&nbsp;BLOB&nbsp;(binary&nbsp;large&nbsp;object)</span></div></li>
+<li><div class="src-line"><a name="a188"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;D:&nbsp;&nbsp;Date&nbsp;(some&nbsp;databases&nbsp;do&nbsp;not&nbsp;support&nbsp;this,&nbsp;and&nbsp;we&nbsp;return&nbsp;a&nbsp;datetime&nbsp;type)</span></div></li>
+<li><div class="src-line"><a name="a189"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;T:&nbsp;&nbsp;Datetime&nbsp;or&nbsp;Timestamp&nbsp;accurate&nbsp;to&nbsp;the&nbsp;second.</span></div></li>
+<li><div class="src-line"><a name="a190"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;TS:&nbsp;Datetime&nbsp;or&nbsp;Timestamp&nbsp;supporting&nbsp;Sub-second&nbsp;accuracy.</span></div></li>
+<li><div class="src-line"><a name="a191"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Supported&nbsp;by&nbsp;Oracle,&nbsp;PostgreSQL&nbsp;and&nbsp;SQL&nbsp;Server&nbsp;currently.</span></div></li>
+<li><div class="src-line"><a name="a192"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise&nbsp;equivalent&nbsp;to&nbsp;T.</span></div></li>
+<li><div class="src-line"><a name="a193"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;L:&nbsp;&nbsp;Integer&nbsp;field&nbsp;suitable&nbsp;for&nbsp;storing&nbsp;booleans&nbsp;(0&nbsp;or&nbsp;1)</span></div></li>
+<li><div class="src-line"><a name="a194"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;I:&nbsp;&nbsp;Integer&nbsp;(mapped&nbsp;to&nbsp;I4)</span></div></li>
+<li><div class="src-line"><a name="a195"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;I1:&nbsp;1-byte&nbsp;integer</span></div></li>
+<li><div class="src-line"><a name="a196"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;I2:&nbsp;2-byte&nbsp;integer</span></div></li>
+<li><div class="src-line"><a name="a197"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;I4:&nbsp;4-byte&nbsp;integer</span></div></li>
+<li><div class="src-line"><a name="a198"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;I8:&nbsp;8-byte&nbsp;integer</span></div></li>
+<li><div class="src-line"><a name="a199"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;F:&nbsp;&nbsp;Floating&nbsp;point&nbsp;number</span></div></li>
+<li><div class="src-line"><a name="a200"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;N:&nbsp;&nbsp;Numeric&nbsp;or&nbsp;decimal&nbsp;number</span></div></li>
+<li><div class="src-line"><a name="a201"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a202"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Options:</span></div></li>
+<li><div class="src-line"><a name="a203"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a204"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;AUTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;autoincrement&nbsp;number.&nbsp;Emulated&nbsp;with&nbsp;triggers&nbsp;if&nbsp;not&nbsp;available.</span></div></li>
+<li><div class="src-line"><a name="a205"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets&nbsp;NOTNULL&nbsp;also.</span></div></li>
+<li><div class="src-line"><a name="a206"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;AUTOINCREMENT&nbsp;&nbsp;&nbsp;Same&nbsp;as&nbsp;auto.</span></div></li>
+<li><div class="src-line"><a name="a207"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;KEY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Primary&nbsp;key&nbsp;field.&nbsp;Sets&nbsp;NOTNULL&nbsp;also.&nbsp;Compound&nbsp;keys&nbsp;are&nbsp;supported.</span></div></li>
+<li><div class="src-line"><a name="a208"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;PRIMARY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Same&nbsp;as&nbsp;KEY.</span></div></li>
+<li><div class="src-line"><a name="a209"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;DEF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Synonym&nbsp;for&nbsp;DEFAULT&nbsp;for&nbsp;lazy&nbsp;typists.</span></div></li>
+<li><div class="src-line"><a name="a210"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;DEFAULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;default&nbsp;value.&nbsp;Character&nbsp;strings&nbsp;are&nbsp;auto-quoted&nbsp;unless</span></div></li>
+<li><div class="src-line"><a name="a211"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;string&nbsp;begins&nbsp;and&nbsp;ends&nbsp;with&nbsp;spaces,&nbsp;eg&nbsp;'&nbsp;SYSDATE&nbsp;'.</span></div></li>
+<li><div class="src-line"><a name="a212"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;NOTNULL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;field&nbsp;is&nbsp;not&nbsp;null.</span></div></li>
+<li><div class="src-line"><a name="a213"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;DEFDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set&nbsp;default&nbsp;value&nbsp;to&nbsp;call&nbsp;function&nbsp;to&nbsp;get&nbsp;today's&nbsp;date.</span></div></li>
+<li><div class="src-line"><a name="a214"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;DEFTIMESTAMP&nbsp;&nbsp;&nbsp;&nbsp;Set&nbsp;default&nbsp;to&nbsp;call&nbsp;function&nbsp;to&nbsp;get&nbsp;today's&nbsp;datetime.</span></div></li>
+<li><div class="src-line"><a name="a215"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;NOQUOTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prevents&nbsp;autoquoting&nbsp;of&nbsp;default&nbsp;string&nbsp;values.</span></div></li>
+<li><div class="src-line"><a name="a216"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;CONSTRAINTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Additional&nbsp;constraints&nbsp;defined&nbsp;at&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;field</span></div></li>
+<li><div class="src-line"><a name="a217"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;definition.</span></div></li>
+<li><div class="src-line"><a name="a218"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a219"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a220"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$Name&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a221"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">array&nbsp;</span><span class="src-doc-var">$Fieldset&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a222"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">bool&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a223"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a224"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodCreateTable">CreateTable</a><span class="src-sym">(&nbsp;</span><span class="src-var">$Name</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Fieldset&nbsp;</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a225"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">CreateTable</span><span class="src-sym">(&nbsp;</span><span class="src-var">$Name</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Fieldset&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a226"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a227"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a228"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Drop&nbsp;database&nbsp;table</span></div></li>
+<li><div class="src-line"><a name="a229"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a230"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a231"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$Name&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a232"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">bool&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a233"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a234"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodDropTable">DropTable</a><span class="src-sym">(&nbsp;</span><span class="src-var">$Name&nbsp;</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a235"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">DropTable</span><span class="src-sym">(&nbsp;</span><span class="src-var">$Name&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a236"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a237"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a238"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a239"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$XmlFile&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a240"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">bool&nbsp;</span><span class="src-doc-var">$Drop&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a241"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">void&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a242"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a243"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodCreateStructure">CreateStructure</a><span class="src-sym">(&nbsp;</span><span class="src-var">$XmlFile</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Drop&nbsp;</span>=&nbsp;<span class="src-id">false&nbsp;</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a244"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">Structure</span><span class="src-sym">(&nbsp;</span><span class="src-var">$XmlFile</span><span class="src-sym">,&nbsp;</span><span class="src-var">$Drop&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a245"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a246"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a247"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a248"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$TableName&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a249"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">\AIOSystem\Module\Database\ClassHierarchicalData&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a250"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a251"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodHierarchicalData">HierarchicalData</a><span class="src-sym">(&nbsp;</span><span class="src-var">$TableName&nbsp;</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a252"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIOHierarchicalData</span><span class="src-sym">::</span><span class="src-id">Instance</span><span class="src-sym">(&nbsp;</span><span class="src-var">$TableName&nbsp;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a253"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a254"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a255"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a256"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">bool&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a257"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a258"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodTransactionBegin">TransactionBegin</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a259"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">BeginTransaction</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a260"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a261"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a262"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><a name="a263"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">bool</span><span class="src-doc">|</span><span class="src-doc-type">null</span></div></li>
+<li><div class="src-line"><a name="a264"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a265"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../AIOSystem-Api/Database.html#methodTransactionEnd">TransactionEnd</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a266"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">AIODatabase</span><span class="src-sym">::</span><span class="src-id">CompleteTransaction</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a267"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a268"></a><span class="src-sym">}</span></div></li>
+</ol>
+</span></div>
+        <div class="credit">
+		    <hr class="separator" />
+		    Documentation generated on Thu, 07 Jul 2011 15:54:20 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.3</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
