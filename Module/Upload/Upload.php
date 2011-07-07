@@ -94,12 +94,24 @@ class Upload implements InterfaceUpload {
 		}
 		return self::$FileList->listData();
 	}
+	/**
+	 * @static
+	 * @return int
+	 */
 	public static function isEnabled() {
 		return ini_get('file_uploads');
 	}
+	/**
+	 * @static
+	 * @return string
+	 */
 	public static function getMaxFileSize() {
 		return ini_get('upload_max_filesize');
 	}
+	/**
+	 * @static
+	 * @return string
+	 */
 	public static function getMaxPostSize() {
 		return ini_get('post_max_size');
 	}

@@ -67,11 +67,17 @@ interface InterfaceUploadFile {
  * @subpackage UploadFile
  */
 class UploadFile implements InterfaceUploadFile {
+	/** @var null|string $Field */
 	private $Field = null;
+	/** @var null|string $Name */
 	private $Name = null;
+	/** @var null|int $Size */
 	private $Size = null;
+	/** @var null|string $Type */
 	private $Type = null;
+	/** @var null|string $Location */
 	private $Location = null;
+	/** @var int $Error */
 	private $Error = 0;
 
 	public function __construct( $Field, $Name, $Size, $Type, $Location, $Error ) {
@@ -87,7 +93,6 @@ class UploadFile implements InterfaceUploadFile {
 		 */
 		$this->TypeCheck();
 	}
-
 	/**
 	 * @param string $Destination
 	 * @param bool $Overwrite
@@ -108,24 +113,40 @@ class UploadFile implements InterfaceUploadFile {
 			}
 		}
 	}
-
+	/**
+	 * @return string
+	 */
 	public function Field() {
 		return $this->Field;
 	}
+	/**
+	 * @param null|string $Name
+	 * @return string
+	 */
 	public function Name( $Name = null ) {
 		if( $Name !== null ) {
 			$this->Name = $Name;
 		} return $this->Name;
 	}
+	/**
+	 * @param null|string $Name
+	 * @return string
+	 */
 	public function NameSeo( $Name = null ) {
 		if( $Name === null ) {
 			$Name = $this->Name();
 		}
 		return Seo::NameConvention( $Name );
 	}
+	/**
+	 * @return int
+	 */
 	public function Size() {
 		return $this->Size;
 	}
+	/**
+	 * @return string
+	 */
 	public function Type() {
 		return $this->Type;
 	}
@@ -161,13 +182,21 @@ class UploadFile implements InterfaceUploadFile {
 			return true;
 		}
 	}
+	/**
+	 * @return string
+	 */
 	public function Location() {
 		return $this->Location;
 	}
+	/**
+	 * @return int
+	 */
 	public function Error() {
 		return $this->Error;
 	}
-
+	/**
+	 * @return bool|string
+	 */
 	public function ErrorMessage() {
 		$Message = parse_ini_file( __DIR__.DIRECTORY_SEPARATOR.'Message.ini', false );
 		switch( $this->Error() ) {
