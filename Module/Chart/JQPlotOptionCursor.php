@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the API:Chart
+ * jQPlot
  *
  // ---------------------------------------------------------------------------------------
  * LICENSE (BSD)
@@ -36,28 +36,50 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage jQPlot
  */
-namespace AIOSystem\Api;
-use \AIOSystem\Module\Chart\ClassPhplot as AIOChart;
-use \AIOSystem\Module\Chart\JQPlot;
+namespace AIOSystem\Module\Chart;
 /**
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage jQPlot
  */
-class Chart {
-	/**
-	 * @static
-	 * @param int $Width
-	 * @param int $Height
-	 * @param null|string $Output
-	 * @param null|string $Background
-	 * @return \PHPlot
-	 */
-	public static function Instance( $Width = 600, $Height = 400, $Output = null, $Background = null ) {
-		return AIOChart::Instance( $Width, $Height, $Output, $Background );
+class JQPlotOptionCursor extends JQPlotOptionSeries {
+	public function ShowCursor( $Switch = false ) {
+		$this->PlotOption['cursor']['show'] = $Switch;
 	}
-	public static function JQPlot( $Width = 450, $Height = 300, $JSData = null, $JSOption = null ) {
-		return JQPlot::Instance( $Width, $Height, $JSData, $JSOption );
+	public function SetCursorStyle( $CssCursor = 'crosshair' ) {
+		$this->PlotOption['cursor']['style'] = $CssCursor;
+	}
+
+	public function SetCursorZoom( $Switch = false ) {
+		$this->PlotOption['cursor']['zoom'] = $Switch;
+		$this->ShowCursor(true);
+		// TODO: wont work correctly
+		$this->SetCursorZoomResetClick(true);
+	}
+	public function SetCursorZoomResetClick( $Switch = true ) {
+		$this->PlotOption['cursor']['clickReset'] = $Switch;
+		$this->PlotOption['cursor']['dblClickReset'] = ($Switch?false:true);
+	}
+
+	public function ShowCursorTooltip( $Switch = true ) {
+		$this->PlotOption['cursor']['showTooltip'] = $Switch;
+	}
+	const CURSOR_TOOLTIP_LOCATION_NW = 'nw';
+	const CURSOR_TOOLTIP_LOCATION_N = 'n';
+	const CURSOR_TOOLTIP_LOCATION_NE = 'ne';
+	const CURSOR_TOOLTIP_LOCATION_E = 'e';
+	const CURSOR_TOOLTIP_LOCATION_SE = 'se';
+	const CURSOR_TOOLTIP_LOCATION_S = 's';
+	const CURSOR_TOOLTIP_LOCATION_SW = 'sw';
+	const CURSOR_TOOLTIP_LOCATION_W = 'w';
+	public function SetCursorTooltipLocation( $Direction = self::CURSOR_TOOLTIP_LOCATION_SE ) {
+		$this->PlotOption['cursor']['tooltipLocation'] = $Direction;
+	}
+
+	public function ShowCursorLine( $ShowVertical = false, $ShowHorizontal = false ) {
+		$this->PlotOption['cursor']['showVerticalLine'] = $ShowVertical;
+		$this->PlotOption['cursor']['showHorizontalLine'] = $ShowHorizontal;
 	}
 }
-?>

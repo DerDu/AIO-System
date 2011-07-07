@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the API:Chart
+ * jQPlot
  *
  // ---------------------------------------------------------------------------------------
  * LICENSE (BSD)
@@ -36,28 +36,33 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage jQPlot
  */
-namespace AIOSystem\Api;
-use \AIOSystem\Module\Chart\ClassPhplot as AIOChart;
-use \AIOSystem\Module\Chart\JQPlot;
+namespace AIOSystem\Module\Chart;
+use \AIOSystem\Api\Json;
 /**
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage jQPlot
  */
-class Chart {
-	/**
-	 * @static
-	 * @param int $Width
-	 * @param int $Height
-	 * @param null|string $Output
-	 * @param null|string $Background
-	 * @return \PHPlot
-	 */
-	public static function Instance( $Width = 600, $Height = 400, $Output = null, $Background = null ) {
-		return AIOChart::Instance( $Width, $Height, $Output, $Background );
+class JQPlotOptionLegend extends JQPlotOptionAxes {
+	public function ShowLegend( $Switch ) {
+		$this->PlotOption['legend']['show'] = $Switch;
 	}
-	public static function JQPlot( $Width = 450, $Height = 300, $JSData = null, $JSOption = null ) {
-		return JQPlot::Instance( $Width, $Height, $JSData, $JSOption );
+	const LEGEND_LOCATION_NW = 'nw';
+	const LEGEND_LOCATION_N = 'n';
+	const LEGEND_LOCATION_NE = 'ne';
+	const LEGEND_LOCATION_E = 'e';
+	const LEGEND_LOCATION_SE = 'se';
+	const LEGEND_LOCATION_S = 's';
+	const LEGEND_LOCATION_SW = 'sw';
+	const LEGEND_LOCATION_W = 'w';
+	public function SetLegendLocation( $Direction = self::LEGEND_LOCATION_NE ) {
+		$this->PlotOption['legend']['location'] = $Direction;
+	}
+
+	public function SetLegendOffset( $OffsetX = 12, $OffsetY = 12 ) {
+		$this->PlotOption['legend']['xoffset'] = $OffsetX;
+		$this->PlotOption['legend']['yoffset'] = $OffsetY;
 	}
 }
-?>

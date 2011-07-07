@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the API:Chart
+ * jQPlot
  *
  // ---------------------------------------------------------------------------------------
  * LICENSE (BSD)
@@ -36,28 +36,61 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage jQPlot
  */
-namespace AIOSystem\Api;
-use \AIOSystem\Module\Chart\ClassPhplot as AIOChart;
-use \AIOSystem\Module\Chart\JQPlot;
+namespace AIOSystem\Module\Chart;
+use \AIOSystem\Api\Event;
 /**
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage jQPlot
  */
-class Chart {
+class JQPlotOptionCommon {
+	/** @var array $PlotOption */
+	protected $PlotOption = array();
 	/**
-	 * @static
-	 * @param int $Width
-	 * @param int $Height
-	 * @param null|string $Output
-	 * @param null|string $Background
-	 * @return \PHPlot
+	 * @return string
 	 */
-	public static function Instance( $Width = 600, $Height = 400, $Output = null, $Background = null ) {
-		return AIOChart::Instance( $Width, $Height, $Output, $Background );
-	}
-	public static function JQPlot( $Width = 450, $Height = 300, $JSData = null, $JSOption = null ) {
-		return JQPlot::Instance( $Width, $Height, $JSData, $JSOption );
+	protected function createOptions( $PlotOption = null ) {
+		// Special "TypeCast"
+		$defineTypeNumberObject = array(
+			'seriesColors',
+			'renderer',
+			'labelRenderer',
+			'tickRenderer'
+		);
+		if( $PlotOption === null ) {
+			$PlotOption = $this->PlotOption;
+			$Root = true;
+		} else {
+			$Root = false;
+		}
+		$OptionString = '';
+		foreach( (array)$PlotOption as $Key => $Value ) {
+			if( !empty( $OptionString ) ) {
+				$OptionString .= ',';
+			}
+			if( is_array( $Value ) ) {
+				$OptionString .= $Key.':{'.$this->createOptions( $Value )."}";
+			} else {
+				if( is_num( $Value ) || in_array( $Key, $defineTypeNumberObject ) ) {
+					$OptionString .= $Key.":".$Value."";
+				} else if( $Value === null ) {
+					$OptionString .= $Key.":null";
+				} else if( $Value === true ) {
+					$OptionString .= $Key.":true";
+				} else if( $Value === false ) {
+					$OptionString .= $Key.":false";
+				} else {
+					$OptionString .= $Key.":'".$Value."'";
+				}
+			}
+		}
+
+		if( $Root ) {
+			return '{'.$OptionString.'}';
+		} else {
+			return $OptionString;
+		}
 	}
 }
-?>

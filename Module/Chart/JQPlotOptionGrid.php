@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the API:Chart
+ * jQPlot
  *
  // ---------------------------------------------------------------------------------------
  * LICENSE (BSD)
@@ -36,28 +36,60 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage jQPlot
  */
-namespace AIOSystem\Api;
-use \AIOSystem\Module\Chart\ClassPhplot as AIOChart;
-use \AIOSystem\Module\Chart\JQPlot;
+namespace AIOSystem\Module\Chart;
+use \AIOSystem\Api\Json;
 /**
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage jQPlot
  */
-class Chart {
+class JQPlotOptionGrid extends JQPlotOptionCommon {
+	// TODO: grid:renderer: $.jqplot.CanvasGridRenderer
+	// TODO: grid:rendererOptions: {}
 	/**
-	 * @static
-	 * @param int $Width
-	 * @param int $Height
-	 * @param null|string $Output
-	 * @param null|string $Background
-	 * @return \PHPlot
+	 * @param boolean $Switch
+	 * @return void
 	 */
-	public static function Instance( $Width = 600, $Height = 400, $Output = null, $Background = null ) {
-		return AIOChart::Instance( $Width, $Height, $Output, $Background );
+	public function ShowGrid( $Switch = true ) {
+		$this->PlotOption['grid']['drawGridLines'] = $Switch;
+		$this->PlotOption['axesDefaults']['tickOptions']['showGridline'] = $Switch;
 	}
-	public static function JQPlot( $Width = 450, $Height = 300, $JSData = null, $JSOption = null ) {
-		return JQPlot::Instance( $Width, $Height, $JSData, $JSOption );
+
+	public function SetGridColor( $CssColor = '#CCCCCC' ) {
+		$this->PlotOption['grid']['gridLineColor'] = $CssColor;
+	}
+	public function SetGridBackground( $CssColor = '#FFFDF6' ) {
+		$this->PlotOption['grid']['background'] = $CssColor;
+	}
+
+	public function ShowGridBorder( $Switch = true ) {
+		$this->PlotOption['grid']['borderWidth'] = ($Switch?2:0);
+	}
+	public function SetGridBorderWidth( $Width = 2 ) {
+		$this->PlotOption['grid']['borderWidth'] = $Width;
+	}
+	public function SetGridBorderColor( $CssColor = '#999999' ) {
+		$this->PlotOption['grid']['borderColor'] = $CssColor;
+	}
+
+	public function ShowGridShadow( $Switch = true ) {
+		$this->PlotOption['grid']['shadow'] = $Switch;
+	}
+	public function SetGridShadowAngle( $Angle = 45 ) {
+		$this->PlotOption['grid']['shadowAngle'] = $Angle;
+	}
+	public function SetGridShadowOffset( $Offset = 1.5 ) {
+		$this->PlotOption['grid']['shadowOffset'] = $Offset;
+	}
+	public function SetGridShadowWidth( $Width = 3 ) {
+		$this->PlotOption['grid']['shadowWidth'] = $Width;
+	}
+	public function SetGridShadowDepth( $Depth = 3 ) {
+		$this->PlotOption['grid']['shadowDepth'] = $Depth;
+	}
+	public function SetGridShadowAlpha( $Alpha = 0.07 ) {
+		$this->PlotOption['grid']['shadowAlpha'] = $Alpha;
 	}
 }
-?>

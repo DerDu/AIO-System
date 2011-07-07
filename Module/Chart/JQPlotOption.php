@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the API:Chart
+ * jQPlot
  *
  // ---------------------------------------------------------------------------------------
  * LICENSE (BSD)
@@ -36,28 +36,20 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // ---------------------------------------------------------------------------------------
  *
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage jQPlot
  */
-namespace AIOSystem\Api;
-use \AIOSystem\Module\Chart\ClassPhplot as AIOChart;
-use \AIOSystem\Module\Chart\JQPlot;
+namespace AIOSystem\Module\Chart;
 /**
- * @package AIOSystem\Api
+ * @package AIOSystem\Module
+ * @subpackage jQPlot
  */
-class Chart {
+class JQPlotOption extends JQPlotOptionCursor {
 	/**
-	 * @static
-	 * @param int $Width
-	 * @param int $Height
-	 * @param null|string $Output
-	 * @param null|string $Background
-	 * @return \PHPlot
+	 * @param string $Text
+	 * @return void
 	 */
-	public static function Instance( $Width = 600, $Height = 400, $Output = null, $Background = null ) {
-		return AIOChart::Instance( $Width, $Height, $Output, $Background );
-	}
-	public static function JQPlot( $Width = 450, $Height = 300, $JSData = null, $JSOption = null ) {
-		return JQPlot::Instance( $Width, $Height, $JSData, $JSOption );
+	public function SetTitle( $Text ) {
+		$this->PlotOption['title'] = $Text;
 	}
 }
-?>
