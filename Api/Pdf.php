@@ -44,50 +44,112 @@ use \AIOSystem\Module\Pdf\ClassEzpdf as AIOPdf;
  * @package AIOSystem\Api
  */
 class Pdf {
+	/**
+	 * @static
+	 * @param string $File
+	 * @return void
+	 */
 	public static function Open( $File ) {
-		return AIOPdf::ezpdf_open( $File );
+		AIOPdf::ezpdf_open( $File );
 	}
+	/**
+	 * @static
+	 * @return void
+	 */
 	public static function Close() {
-		return AIOPdf::ezpdf_close();
+		AIOPdf::ezpdf_close();
 	}
-
+	/**
+	 * @static
+	 * @param string $File
+	 * @return void
+	 */
 	public static function FontFamily( $File ) {
-		return AIOPdf::ezpdf_font_family( $File );
+		AIOPdf::ezpdf_font_family( $File );
 	}
+	/**
+	 * @static
+	 * @param null|int $Size
+	 * @return int
+	 */
 	public static function FontSize( $Size = null ) {
 		return AIOPdf::ezpdf_font_size( $Size );
 	}
+	/**
+	 * @static
+	 * @param null|string $Align
+	 * @return string
+	 */
 	public static function FontAlign( $Align = null ) {
 		return AIOPdf::ezpdf_font_align( $Align );
 	}
+	/**
+	 * @static
+	 * @param null|string $Color
+	 * @return string
+	 */
 	public static function FontColor( $Color = null ) {
 		return AIOPdf::ezpdf_font_color( $Color );
 	}
+	/**
+	 * @static
+	 * @param null|float $Height
+	 * @return int
+	 */
 	public static function FontLineHeight( $Height = null ) {
 		return AIOPdf::ezpdf_font_lineheight( $Height );
 	}
+	/**
+	 * @static
+	 * @param null|float $Top
+	 * @param null|float $Right
+	 * @param null|float $Bottom
+	 * @param null|float $Left
+	 * @return array
+	 */
 	public static function FontMargin( $Top = null, $Right = null, $Bottom = null, $Left = null ) {
 		return AIOPdf::ezpdf_font_margin( $Top, $Right, $Bottom, $Left );
 	}
-
+	/**
+	 * @static
+	 * @param string $Text
+	 * @return bool
+	 */
 	public static function Text( $Text ) {
 		return AIOPdf::ezpdf_text( $Text );
 	}
+	/**
+	 * @static
+	 * @param string $Text
+	 * @return string
+	 */
 	public static function TextEncode( $Text ) {
 		return AIOPdf::ezpdf_utf8( $Text );
 	}
-
+	/**
+	 * @static
+	 * @param string $File
+	 * @return bool
+	 */
 	public static function Image( $File ) {
 		return AIOPdf::ezpdf_image( $File );
 	}
+	/**
+	 * @static
+	 * @param array $Content
+	 * @param string|array $Column
+	 * @param string $Title
+	 * @param array $Extension
+	 * @return float
+	 */
 	public static function Table( $Content, $Column = '', $Title = '', $Extension = array() ) {
 		return AIOPdf::ezpdf_table( $Content, $Column, $Title, $Extension );
 	}
 	/**
 	 * @static
-	 * @param  array $Content
-	 * @param  array $Column
-	 * @param  string|function $Callback
+	 * @param array $Content
+	 * @param array $Column
+	 * @param string|function $Callback
 	 * @return array
 	 */
 	public static function TableMap( $Content, $Column, $Callback ) {
@@ -107,7 +169,7 @@ class Pdf {
 	 * @return void
 	 */
 	public static function Line() {
-		return AIOPdf::ezpdf_line();
+		AIOPdf::ezpdf_line();
 	}
 	/**
 	 * @static
