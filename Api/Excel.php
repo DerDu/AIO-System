@@ -40,6 +40,7 @@
  */
 namespace AIOSystem\Api;
 use \AIOSystem\Module\Excel\ClassPhpExcel as AIOExcel;
+use \AIOSystem\Module\Excel\DataTable as AIODataTable;
 /**
  * @package AIOSystem\Api
  */
@@ -51,7 +52,7 @@ class Excel {
 	 * @return void
 	 */
 	public static function Open( $Worksheet = 'Worksheet', $File = null ) {
-		return AIOExcel::openFile( $Worksheet, $File );
+		AIOExcel::openFile( $Worksheet, $File );
 	}
 	/**
 	 * @static
@@ -93,7 +94,7 @@ class Excel {
 	 * @return void
 	 */
 	public static function CellValue( $Name, $Value, $Type = null ) {
-		return AIOExcel::cellValue( $Name, $Value, $Type );
+		AIOExcel::cellValue( $Name, $Value, $Type );
 	}
 	/**
 	 * @static
@@ -104,7 +105,7 @@ class Excel {
 	 * @return void
 	 */
 	public static function CellImage( $Name, $File, $Width, $Height ) {
-		return AIOExcel::cellImage( $Name, $File, $Width, $Height );
+		AIOExcel::cellImage( $Name, $File, $Width, $Height );
 	}
 	/**
 	 * CSS like cell styling
@@ -123,7 +124,7 @@ class Excel {
 	 * @return void
 	 */
 	public static function CellStyle( $Name, $Css = array() ) {
-		return AIOExcel::cellStyle( $Name, $Css );
+		AIOExcel::cellStyle( $Name, $Css );
 	}
 	/**
 	 * Merge cells
@@ -139,7 +140,22 @@ class Excel {
 	 * @return void
 	 */
 	public static function CellMerge( $Name ) {
-		return AIOExcel::cellMerge( $Name );
+		AIOExcel::cellMerge( $Name );
+	}
+	/**
+	 * Toggle wrap for cell content
+	 *
+	 * Default: Off (false)
+	 * Usage: 'Example\nLineBreak'
+	 * Char: \n
+	 *
+	 * @static
+	 * @param string $Name
+	 * @param boolean $Toggle
+	 * @return void
+	 */
+	public static function CellWrap( $Name, $Toggle = false ) {
+		AIOExcel::cellWrap( $Name, $Toggle );
 	}
 	/**
 	 * Convert cell name to cell index
@@ -162,6 +178,14 @@ class Excel {
 	 */
 	public static function CellIndex2Name( $IndexX, $IndexY ) {
 		return AIOExcel::convertCellIndexToName( $IndexX, $IndexY );
+	}
+	/**
+	 * @static
+	 * @param array $Data
+	 * @return \AIOSystem\Module\Excel\DataTable
+	 */
+	public static function DataTable( $Data = array(), $Hidden = false ) {
+		return AIODataTable::Instance( $Data, $Hidden );
 	}
 }
 ?>

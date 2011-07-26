@@ -136,8 +136,12 @@ class ClassPhpExcel implements InterfacePhpExcel
 	public static function pageSetup( $propertyValue ) {
 		$propertyValue = strtoupper( $propertyValue );
 		$ActiveSheet = self::activeWorksheet()->getPageSetup();
-		if( preg_match( '!^PAPERSIZE_!is', $propertyValue ) ) return $ActiveSheet->setPaperSize( self::_constant( $propertyValue ) );
-		if( preg_match( '!^ORIENTATION_!is', $propertyValue ) ) return $ActiveSheet->setOrientation( self::_constant( $propertyValue ) );
+		if( preg_match( '!^PAPERSIZE_!is', $propertyValue ) ) {
+			return $ActiveSheet->setPaperSize( self::_constant( $propertyValue ) );
+		}
+		if( preg_match( '!^ORIENTATION_!is', $propertyValue ) ) {
+			return $ActiveSheet->setOrientation( self::_constant( $propertyValue ) );
+		}
 		throw new \Exception('Value not available!');
 	}
 // PHPEXCEL : WORKSHEET ------------------------------------------------------------------
@@ -262,6 +266,17 @@ class ClassPhpExcel implements InterfacePhpExcel
 	 */
 	public static function cellMerge( $CellRange ) {
 		self::activeWorksheet()->mergeCells( $CellRange );
+	}
+	/**
+	 * Break cell
+	 *
+	 * @static
+	 * @param string $Cell
+	 * @param int $Type
+	 * @return void
+	 */
+	public static function cellWrap( $Cell, $Toggle = false ) {
+		self::activeWorksheet()->getStyle( $Cell )->getAlignment()->setWrapText( $Toggle );
 	}
 // PHPEXCEL : COMMON ---------------------------------------------------------------------
 	/**
