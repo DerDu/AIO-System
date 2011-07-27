@@ -43,6 +43,8 @@ use \AIOSystem\Module\Journal\ClassJournalViewer as AIOJournalViewer;
 use \AIOSystem\Core\ClassEventJournal as AIOEventJournal;
 use \AIOSystem\Core\ClassEventScreen as AIOEventScreen;
 use \AIOSystem\Core\ClassEventHandler as AIOEventHandler;
+use \AIOSystem\Core\ClassEventError as AIOEventError;
+use \AIOSystem\Core\ClassEventException as AIOEventException;
 /**
  * @package AIOSystem\Api
  */
@@ -92,7 +94,8 @@ class Event {
 	 * @return void
 	 */
 	public static function Error( $Id, $Content, $Location, $Position ) {
-		AIOEventScreen::addEvent( $Id, $Content, $Location, $Position, AIOEventScreen::SCREEN_ERROR );
+		AIOEventError::eventHandler( $Id, $Content, $Location, $Position );
+		//AIOEventScreen::addEvent( $Id, $Content, $Location, $Position, AIOEventScreen::SCREEN_ERROR );
 	}
 	/**
 	 * @static
@@ -103,7 +106,8 @@ class Event {
 	 * @return void
 	 */
 	public static function Exception( $Id, $Content, $Location, $Position ) {
-		AIOEventScreen::addEvent( $Id, $Content, $Location, $Position, AIOEventScreen::SCREEN_EXCEPTION );
+		AIOEventException::eventHandler( $Id, $Content, $Location, $Position );
+		//AIOEventScreen::addEvent( $Id, $Content, $Location, $Position, AIOEventScreen::SCREEN_EXCEPTION );
 	}
 	public static function Result( $Key, $Content = null ) {
 		if( self::$EventRegister === null ) {
