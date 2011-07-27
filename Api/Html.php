@@ -39,7 +39,9 @@
  * @package AIOSystem\Api
  */
 namespace AIOSystem\Api;
+use \AIOSystem\Api\Event;
 use \AIOSystem\Module\Video\ClassVideo as Video;
+use \AIOSystem\Module\Excel\DataTable as DataTable;
 
 /**
  * @package AIOSystem\Api
@@ -56,14 +58,26 @@ class Html {
 		if( is_dir( realpath($Directory) ) ) {
 			$FileList = System::FileList( realpath($Directory), array('css'), $Recursive );
 		} else if( is_file( realpath($Directory) ) ) {
-			return '<link rel="stylesheet" href="'.Seo::Path( $Directory ).'"/>';
+			//return '<link rel="stylesheet" href="'.Seo::Path( $Directory ).'"/>';
+			return '<link rel="stylesheet" href="'.Seo::Path(
+					System::RelativeDirectory(
+						System::DirectorySyntax( realpath($Directory), DIRECTORY_SEPARATOR ),
+						System::DirectorySyntax( System::DirectoryRoot(), DIRECTORY_SEPARATOR )
+					)
+				,-1 ).'"/>';
 		} else {
 			trigger_error('Style not available! '.$Directory );
 		}
 		$Return = '';
 		/** @var \AIOSystem\Core\ClassSystemFile $File */
 		foreach( (array)$FileList as $File ) {
-			$Return .= '<link rel="stylesheet" href="'.Seo::Path( $Directory.System::DirectorySyntax( DIRECTORY_SEPARATOR.System::RelativeDirectory( $File->propertyFileLocation(), realpath($Directory) ),false) ).'"/>';
+			//$Return .= '<link rel="stylesheet" href="'.Seo::Path( $Directory.System::DirectorySyntax( DIRECTORY_SEPARATOR.System::RelativeDirectory( $File->propertyFileLocation(), realpath($Directory) ),false) ).'"/>';
+			$Return .= '<link rel="stylesheet" href="'.Seo::Path(
+					System::RelativeDirectory(
+						System::DirectorySyntax( $File->propertyFileLocation(), DIRECTORY_SEPARATOR ),
+						System::DirectorySyntax( System::DirectoryRoot(), DIRECTORY_SEPARATOR )
+					)
+				,-1).'"/>';
 		}
 		return $Return;
 	}
@@ -78,14 +92,26 @@ class Html {
 		if( is_dir( realpath($Directory) ) ) {
 			$FileList = System::FileList( realpath($Directory), array('js'), $Recursive );
 		} else if( is_file( realpath($Directory) ) ) {
-			return '<script type="text/javascript" src="'.Seo::Path( $Directory ).'"></script>';
+			//return '<script type="text/javascript" src="'.Seo::Path( $Directory ).'"></script>';
+			return '<script type="text/javascript" src="'.Seo::Path(
+					System::RelativeDirectory(
+						System::DirectorySyntax( realpath($Directory), DIRECTORY_SEPARATOR ),
+						System::DirectorySyntax( System::DirectoryRoot(), DIRECTORY_SEPARATOR )
+					)
+				,-1 ).'"></script>';
 		} else {
 			trigger_error('JavaScript not available! '.$Directory );
 		}
 		$Return = '';
 		/** @var \AIOSystem\Core\ClassSystemFile $File */
 		foreach( (array)$FileList as $File ) {
-			$Return .= '<script type="text/javascript" src="'.Seo::Path( $Directory.System::DirectorySyntax( DIRECTORY_SEPARATOR.System::RelativeDirectory( $File->propertyFileLocation(), realpath($Directory) ),false) ).'"></script>';
+			//$Return .= '<script type="text/javascript" src="'.Seo::Path( $Directory.System::DirectorySyntax( DIRECTORY_SEPARATOR.System::RelativeDirectory( $File->propertyFileLocation(), realpath($Directory) ),false) ).'"></script>';
+			$Return .= '<script type="text/javascript" src="'.Seo::Path(
+					System::RelativeDirectory(
+						System::DirectorySyntax( $File->propertyFileLocation(), DIRECTORY_SEPARATOR ),
+						System::DirectorySyntax( System::DirectoryRoot(), DIRECTORY_SEPARATOR )
+					)
+				,-1).'"></script>';
 		}
 		return $Return;
 	}
@@ -94,6 +120,9 @@ class Html {
 	}
 	public static function Favicon( $File ) {
 		return '<link rel="shortcut icon" type="image/x-icon" href="'.Seo::Path( $File ).'"/>';
+	}
+	public static function DataTable( $Data = array(), $Hidden = false ) {
+		return DataTable::Instance( $Data, $Hidden );
 	}
 }
 ?>
