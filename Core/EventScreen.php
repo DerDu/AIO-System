@@ -88,7 +88,7 @@ class ClassEventScreen implements InterfaceEventScreen {
 	}
 // ---------------------------------------------------------------------------------------
 	private static function _screenDebug( $propertyContent, $propertyLocation, $propertyPosition ) {
-		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #306030; color:#A0DDA0; border: 1px solid #55B73B; border-top: 1px solid #58C03E; border-bottom: 1px solid #57A83A; font-family: monospace; font-size:14px; overflow:auto;">'
+		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #306030; color:#A0DDA0; border: 1px solid #55B73B; border-top: 1px solid #58C03E; border-bottom: 1px solid #57A83A; font-family: monospace; font-size:14px; text-align: left; overflow:auto;">'
 		."\n[Debug] <pre>".htmlspecialchars(Font::MixedToUtf8(print_r($propertyContent,true)))."</pre>"
 				.'<br/>'
 				.'<span style="font-family: monospace; font-size: 10px;color:#60C060;">'
@@ -98,7 +98,7 @@ class ClassEventScreen implements InterfaceEventScreen {
 		.'</div>'."\n";
 	}
 	private static function _screenInfo( $propertyContent, $propertyLocation, $propertyPosition ) {
-		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #303080; color:#A0A0DD; border: 1px solid #553BB7; border-top: 1px solid #583EC0; border-bottom: 1px solid #573AA8; font-family: monospace; font-size:14px; overflow:auto;">'
+		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #303080; color:#A0A0DD; border: 1px solid #553BB7; border-top: 1px solid #583EC0; border-bottom: 1px solid #573AA8; font-family: monospace; font-size:14px; text-align: left; overflow:auto;">'
 		."\n[Info] ".Font::MixedToUtf8(print_r($propertyContent,true)).'<br/>'
 			.'<span style="font-family: monospace; font-size: 10px;color:#6060C0;">'
 				.'In '.$propertyLocation
@@ -107,7 +107,7 @@ class ClassEventScreen implements InterfaceEventScreen {
 		.'</div>'."\n";
 	}
 	private static function _screenError( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
-		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; overflow:auto;">'
+		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto auto 1px auto; background-color: #702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; text-align: left; overflow:auto;">'
 		."\n".Font::MixedToUtf8(print_r($propertyContent,true)).'<br/>'
 			.'<span style="font-family: monospace; font-size: 10px;color:#DDA0A0;">'
 				.'Code ['.$propertyNumber.']'
@@ -117,7 +117,7 @@ class ClassEventScreen implements InterfaceEventScreen {
 		.'</div>'."\n";
 	}
 	private static function _screenException( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
-		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto; margin-bottom: 1px; background-color:#702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; overflow: auto;">'
+		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto; margin-bottom: 1px; background-color:#702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; text-align: left; overflow: auto;">'
 		."\n".'<strong style="color:#DDA0A0;">Unexpected Error:</strong><br /><br />'
 		.preg_replace_callback( '!\#([1-9]{1}|[0-9]{2,}) !is', create_function('$exception_replace','return str_replace("#","<br/>#",$exception_replace[0]);'), Font::MixedToUtf8(print_r($propertyContent,true)) )
 		.'<br />'
