@@ -71,7 +71,10 @@ class ClassSeoUri implements InterfaceSeoUri {
 			case '21': $integer_path_port = 'ftp://'; break;
 			default: $integer_path_port = '';
 		}
-		$string_path_relative = str_replace('\\','/',dirname($_SERVER['SCRIPT_NAME'])).'/'.str_repeat( '../', $integer_path_level ).$string_path_relative;
+		$string_path_relative = ($integer_path_level!=-1?str_replace('\\','/',dirname($_SERVER['SCRIPT_NAME'])):'')
+			.'/'
+			.str_repeat( '../', ($integer_path_level!=-1?$integer_path_level:0) )
+			.$string_path_relative;
 		// Resolve "../"
 		$integer_path_relative_count = substr_count( $string_path_relative, '../' );
 		for( $integer_path_relative_run = 0; $integer_path_relative_run < $integer_path_relative_count; $integer_path_relative_run++ )
