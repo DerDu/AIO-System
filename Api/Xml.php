@@ -63,7 +63,7 @@ class Xml {
 	 * Create XML-Node Instance
 	 *
 	 * @static
-	 * @return Core\ClassXmlNode
+	 * @return \AIOSystem\Core\ClassXmlNode
 	 */
 	public static function Create() {
 		return AIOXmlNode::Instance();
