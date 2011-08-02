@@ -42,6 +42,8 @@
 namespace AIOSystem\Module\Excel;
 use \AIOSystem\Api\System;
 use \AIOSystem\Api\Image;
+use \AIOSystem\Api\Event;
+use \AIOSystem\Api\Json;
 /**
  * @package AIOSystem\Module
  * @subpackage Excel
@@ -117,6 +119,20 @@ class ClassPhpExcel implements InterfacePhpExcel
 		self::propertyTimeout( false );
 		return $propertyFileName;
 	}
+	/**
+	 * Hash content
+	 *
+	 * @static
+	 * @return string
+	 */
+	public static function hashFile() {
+		$Content = self::activeWorksheet()->getParent()->getAllSheets();
+		$Value = '';
+		foreach( $Content as $Item ) {
+			$Value .= Json::Encode( $Item->toArray() );
+		}
+		return sha1( $Value );
+	}
 // PHPEXCEL : PAGE -----------------------------------------------------------------------
 	/**
 	 * @static
@@ -131,7 +147,7 @@ class ClassPhpExcel implements InterfacePhpExcel
 	 * @static
 	 * @throws \Exception
 	 * @param string $propertyValue
-	 * @return void
+	 * @return \PHPExcel_Worksheet_PageSetup
 	 */
 	public static function pageSetup( $propertyValue ) {
 		$propertyValue = strtoupper( $propertyValue );
@@ -249,7 +265,7 @@ class ClassPhpExcel implements InterfacePhpExcel
 	 * @return void
 	 */
 	public static function cellStyle( $propertyCellName, $propertyCssList = array() ) {
-		self::activeWorksheet()->getStyle( $propertyCellName )->applyFromArray( self::_style( $propertyCssList ) );
+		self::activeWorksheet()->getStyle( $propertyCellName )->applyFromArray( self::_style( $propertyCssList, $propertyCellName ) );
 	}
 	/**
 	 * Merge cells
@@ -268,11 +284,11 @@ class ClassPhpExcel implements InterfacePhpExcel
 		self::activeWorksheet()->mergeCells( $CellRange );
 	}
 	/**
-	 * Break cell
+	 * Wrap cell content
 	 *
 	 * @static
 	 * @param string $Cell
-	 * @param int $Type
+	 * @param bool $Toggle
 	 * @return void
 	 */
 	public static function cellWrap( $Cell, $Toggle = false ) {
@@ -288,6 +304,16 @@ class ClassPhpExcel implements InterfacePhpExcel
 		$coordinateFromString = \PHPExcel_Cell::coordinateFromString( $propertyCellName );
 		$coordinateFromString[0] = \PHPExcel_Cell::columnIndexFromString( $coordinateFromString[0] );
 		return $coordinateFromString;
+	}
+	/**
+	 * @static
+	 * @param string $propertyCellName
+	 * @return string
+	 */
+	public static function convertCellNameToColumn( $propertyCellName ) {
+		$Match = array();
+		preg_match( '!^([a-z]+).*?$!is', $propertyCellName, $Match );
+		return $Match[1];
 	}
 	/**
 	 * @static
@@ -335,7 +361,7 @@ class ClassPhpExcel implements InterfacePhpExcel
 	 * @param array $propertyCssList
 	 * @return array
 	 */
-	private static function _style( $propertyCssList = array() ) {
+	private static function _style( $propertyCssList = array(), $propertyCellName = null ) {
 		$_style = array();
 		foreach( (array)$propertyCssList as $propertyCssAttribute => $propertyCssValue ){
 			$propertyCssValue = trim( strtolower( $propertyCssValue ) );
@@ -343,6 +369,15 @@ class ClassPhpExcel implements InterfacePhpExcel
 			switch( $propertyCssAttribute ) {
 				case 'color': {
 					$_style['font']['color']['rgb'] = substr( $propertyCssValue, -6 );
+					break;
+				}
+				case 'background-color': {
+					$_style['fill'] = array(
+						'type' => \PHPExcel_Style_Fill::FILL_SOLID,
+						'color' => array(
+							'rgb' => substr( $propertyCssValue, -6 )
+						)
+					);
 					break;
 				}
 				case 'font-weight': {
@@ -380,6 +415,18 @@ class ClassPhpExcel implements InterfacePhpExcel
 				}
 				case 'number-format': {
 					$_style['numberformat']['code'] = $propertyCssValue;
+					break;
+				}
+				case 'width': {
+					if( $propertyCssValue == 'auto' ) {
+						self::activeWorksheet()->getColumnDimension( self::convertCellNameToColumn( $propertyCellName ) )->setAutoSize( true );
+					} else {
+						self::activeWorksheet()->getColumnDimension( self::convertCellNameToColumn( $propertyCellName ) )->setWidth( $propertyCssValue );
+					}
+					break;
+				}
+				default: {
+					Event::Error( 0, 'Style not available: '.$propertyCssAttribute, __FILE__, __LINE__ );
 				}
 			}
 		}
