@@ -60,9 +60,9 @@ class ClassCacheFile implements InterfaceCacheFile {
 		self::Clean( $Identifier, $Location, $Global );
 		$File = System::File( self::GenerateCacheFileName( $Identifier, $Location, $Global, $Timeout ) );
 		if( is_box( $Content ) ) {
-			$File->propertyFileContent( serialize($Content) );
+			$File->FileContent( serialize($Content) );
 		} else {
-			$File->propertyFileContent( $Content );
+			$File->FileContent( $Content );
 		}
 		$File->writeFile();
 	}
@@ -76,10 +76,10 @@ class ClassCacheFile implements InterfaceCacheFile {
 				/**
 				 * Detect serialize
 				 */
-				if( preg_match( '!^(a|o):[0-9]+:("|{)!is', $File->propertyFileContent() ) ) {
-					return unserialize( $File->propertyFileContent() );
+				if( preg_match( '!^(a|o):[0-9]+:("|{)!is', $File->FileContent() ) ) {
+					return unserialize( $File->FileContent() );
 				} else {
-					return $File->propertyFileContent();
+					return $File->FileContent();
 				}
 			}
 		}
