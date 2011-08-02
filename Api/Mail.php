@@ -126,7 +126,7 @@ class Mail {
 	}
 	/**
 	 * @static
-	 * @return void
+	 * @return string
 	 */
 	public static function Send() {
 		return AIOPhpMailer::phpmailer_send();
@@ -137,7 +137,7 @@ class Mail {
 	 * @return void
 	 */
 	public static function Subject( $Text ) {
-		return AIOPhpMailer::phpmailer_subject( $Text );
+		return AIOPhpMailer::phpmailer_subject( utf8_decode( $Text ) );
 	}
 	/**
 	 * @static
@@ -145,7 +145,7 @@ class Mail {
 	 * @return void
 	 */
 	public static function Body( $Text ) {
-		return AIOPhpMailer::phpmailer_body( $Text );
+		return AIOPhpMailer::phpmailer_body( nl2br( utf8_decode( $Text ) ) );
 	}
 	/**
 	 * @static
@@ -164,6 +164,9 @@ class Mail {
 	public static function From( $Mail, $Name = '' ) {
 		return AIOPhpMailer::phpmailer_from( $Mail, $Name );
 	}
+	public static function CheckAddress( $Mail ) {
+		return AIOPhpMailer::phpmailer_check_to( $Mail );
+	}
 	/**
 	 * @static
 	 * @param string $Mail
@@ -171,7 +174,25 @@ class Mail {
 	 * @return void
 	 */
 	public static function To( $Mail, $Name = '' ) {
-		return AIOPhpMailer::phpmailer_to(  $Mail, $Name );
+		return AIOPhpMailer::phpmailer_to( $Mail, $Name );
+	}
+	/**
+	 * @static
+	 * @param string $Mail
+	 * @param string $Name
+	 * @return void
+	 */
+	public static function ToCC( $Mail, $Name = '' ) {
+		return AIOPhpMailer::phpmailer_to_cc( $Mail, $Name );
+	}
+	/**
+	 * @static
+	 * @param string $Mail
+	 * @param string $Name
+	 * @return void
+	 */
+	public static function ToBCC( $Mail, $Name = '' ) {
+		return AIOPhpMailer::phpmailer_to_bcc( $Mail, $Name );
 	}
 	/**
 	 * @static
