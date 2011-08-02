@@ -129,7 +129,7 @@ class ClassEzpdf implements InterfaceEzpdf {
 	}
 	public static function ezpdf_close() {
 		$ClassSystemFile = System::File( self::ezpdf_filename() );
-		$ClassSystemFile->propertyFileContent( self::ezpdf_instance()->ezOutput() );
+		$ClassSystemFile->FileContent( self::ezpdf_instance()->ezOutput() );
 		$ClassSystemFile->writeFile();
 	}
 // ezPDF : FONT --------------------------------------------------------------------------

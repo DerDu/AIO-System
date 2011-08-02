@@ -115,7 +115,7 @@ class ClassPhpPop3 implements InterfacePhpPop3
 				$ClassSystemFile = System::File(
 					Cache::Location(__CLASS__).'ATTACHMENT.'.$integer_message_number.'.'.$integer_part.'-'.$array_part['filename']
 				);
-				$ClassSystemFile->propertyFileContent( $array_part['data'] );
+				$ClassSystemFile->FileContent( $array_part['data'] );
 				$ClassSystemFile->writeFile();
 				array_push( $array_attachment, $ClassSystemFile );
 			}
