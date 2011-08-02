@@ -145,9 +145,9 @@ class Excel {
 	/**
 	 * Toggle wrap for cell content
 	 *
+	 * Char: \n (10)
+	 * Usage: "Example\nLineBreak"
 	 * Default: Off (false)
-	 * Usage: 'Example\nLineBreak'
-	 * Char: \n
 	 *
 	 * @static
 	 * @param string $Name
@@ -178,14 +178,6 @@ class Excel {
 	 */
 	public static function CellIndex2Name( $IndexX, $IndexY ) {
 		return AIOExcel::convertCellIndexToName( $IndexX, $IndexY );
-	}
-	/**
-	 * @static
-	 * @param array $Data
-	 * @return \AIOSystem\Module\Excel\DataTable
-	 */
-	public static function DataTable( $Data = array(), $Hidden = false ) {
-		return AIODataTable::Instance( $Data, $Hidden );
 	}
 }
 ?>
