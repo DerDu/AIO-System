@@ -40,6 +40,7 @@
  * @subpackage System
  */
 namespace AIOSystem\Core;
+use \AIOSystem\Api\Event;
 /**
  * @package AIOSystem\Core
  * @subpackage System
@@ -61,7 +62,7 @@ class ClassSystemWrite implements InterfaceSystemWrite {
 	 * @param null|string $propertyFileName
 	 * @param null|string $propertyFileContent
 	 * @param string $_writeMode
-	 * @return void
+	 * @return boolean
 	 */
 	public static function writeFile( $propertyFileName = null, $propertyFileContent = null, $_writeMode = 'wb' ) {
 		if( self::_writeMode( strtoupper( $_writeMode ) ) === false ) {
@@ -69,15 +70,16 @@ class ClassSystemWrite implements InterfaceSystemWrite {
 		}
 		switch( strtoupper( $_writeMode ) ) {
 			case 'A': {
-				if( ( $writeFileHandler = @fopen( $propertyFileName, 'a' ) ) === false	) {
-					throw new \Exception( 'File-Access failed!' );
+				if( ( $writeFileHandler = @fopen( $propertyFileName, 'a' ) ) !== false	) {
+					if( @fwrite( $writeFileHandler, $propertyFileContent ) === false ) {
+						return false;
+					}
+					if( @fclose( $writeFileHandler ) === false ) {
+						return false;
+					}
+					return true;
 				}
-				if( @fwrite( $writeFileHandler, $propertyFileContent ) === false ) {
-					throw new \Exception( 'File-Write failed!' );
-				}
-				if( @fclose( $writeFileHandler ) === false ) {
-					throw new \Exception( 'File-Close failed!' );
-				}
+				return false;
 				break;
 			}
 			default: {
@@ -107,16 +109,96 @@ class ClassSystemWrite implements InterfaceSystemWrite {
 				// WRITE CACHE TO FILE
 				// Cause: Unlink not needed ?
 				// [Fix] Windows XAMPP PHP 5 Error -> Unlink necessary
+				/*
+				if( self::removeFile( $propertyFileName ) === false ) {
+					throw new \Exception( 'File-UnLink failed!' );
+				}*/
+
+				$Timeout = 15;
+				while( ( $Check = self::removeFile( $propertyFileName ) ) === false && $Timeout > 0 ) {
+					@usleep( round( rand( 1,1000 )*1000 ) );
+					$Timeout--;
+				}
+				if( $Check === false ) {
+					throw new \Exception( 'File-UnLink failed!' );
+				}
+
+				$Timeout = 15;
+				while( ( $Check = self::renameFile( $writeCacheFile, $propertyFileName ) ) === false && $Timeout > 0 ) {
+					@usleep( round( rand( 1,1000 )*1000 ) );
+					$Timeout--;
+				}
+				if( $Check === false ) {
+					throw new \Exception( 'File-Write failed!' );
+				}
+				/*
 				if( is_file( $propertyFileName ) ) {
 					if( @unlink( $propertyFileName ) === false ) {
 						throw new \Exception( 'File-UnLink failed!' );
 					}
-				}
+				}*//*
 				if( @rename( $writeCacheFile, $propertyFileName ) === false ) {
 					throw new \Exception( 'File-Write failed!' );
-				}
+				}*/
+				return true;
 			}
 		}
+	}
+	public static function renameFile( $File, $NewFile ) {
+		return self::_writeLockRename( $File, $NewFile );
+	}
+	private static function _writeLockRename( $File, $NewFile, $Timeout = 15 ) {
+		if( is_file( $File ) ) {
+			if(
+				( false !== ( $HandlerA = @fopen( $File, "r" ) ) )
+				&& ( false !== ( $HandlerB = @fopen( $NewFile, "w" ) ) )
+			){
+				$TimeoutA = $TimeoutB = $Timeout;
+				while( @flock( $HandlerA, LOCK_EX | LOCK_NB ) === false && $TimeoutA > 0 ) {
+					@usleep( round( rand( 1,1000 )*1000 ) );
+					$TimeoutA--;
+				}
+				if( $TimeoutA > 0 ) {
+					while( @flock( $HandlerB, LOCK_EX | LOCK_NB ) === false && $TimeoutB > 0 ) {
+						@usleep( round( rand( 1,1000 )*1000 ) );
+						$TimeoutB--;
+					}
+					if( $TimeoutB > 0 ) {
+						@flock( $HandlerA, LOCK_UN );
+						@fclose( $HandlerA );
+						@flock( $HandlerB, LOCK_UN );
+						@fclose( $HandlerB );
+						return @rename( $File, $NewFile );
+					}
+				}
+				@flock( $HandlerA, LOCK_UN );
+				@fclose( $HandlerA );
+				@fclose( $HandlerB );
+			}
+		}
+		return false;
+	}
+	public static function removeFile( $File ) {
+		return self::_writeLockUnlink( $File );
+	}
+	private static function _writeLockUnlink( $File, $Timeout = 15 ) {
+		if( is_file( $File ) ) {
+			if( false !== ( $Handler = @fopen( $File, "w" ) ) ) {
+				while( @flock( $Handler, LOCK_EX | LOCK_NB ) === false && $Timeout > 0 ) {
+					@usleep( round( rand( 1,1000 )*1000 ) );
+					$Timeout--;
+				}
+				if( $Timeout > 0 ) {
+					@flock( $Handler, LOCK_UN );
+					@fclose( $Handler );
+					return @unlink( $File );
+				}
+				@fclose( $Handler );
+			}
+		} else {
+			return true;
+		}
+		return false;
 	}
 // ---------------------------------------------------------------------------------------
 	/**

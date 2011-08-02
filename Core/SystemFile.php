@@ -40,6 +40,7 @@
  * @subpackage System
  */
 namespace AIOSystem\Core;
+use \AIOSystem\Api\Event;
 /**
  * @package AIOSystem\Core
  * @subpackage System
@@ -52,7 +53,7 @@ interface InterfaceSystemFile {
 	public function propertyFileLocation( $propertyFileLocation = null );
 	public function propertyFileSize( $propertyFileSize = null );
 	public function propertyFileTime( $propertyFileTime = null );
-	public function propertyFileContent( $propertyFileContent = null );
+	public function FileContent( $propertyFileContent = null );
 	public function Hash();
 // ---------------------------------------------------------------------------------------
 	public function readFile( $ParsePhp = false );
@@ -104,7 +105,11 @@ class ClassSystemFile implements InterfaceSystemFile {
 	 * @return void
 	 */
 	public function writeFile( $_writeMode = 'wb' ) {
-		ClassSystemWrite::writeFile( $this->propertyFileLocation(), $this->propertyFileContent(), $_writeMode );
+		if( is_array( $this->FileContent() ) ) {
+			ClassSystemWrite::writeFile( $this->propertyFileLocation(), implode( PHP_EOL, $this->FileContent() ), $_writeMode );
+		} else {
+			ClassSystemWrite::writeFile( $this->propertyFileLocation(), $this->FileContent(), $_writeMode );
+		}
 		$this->_loadFileAttributeList();
 		$this->_hasChanged = false;
 	}
@@ -114,7 +119,11 @@ class ClassSystemFile implements InterfaceSystemFile {
 	 * @return void
 	 */
 	public function writeFileAs( $propertyFileLocation, $_writeMode = 'wb' ) {
-		ClassSystemWrite::writeFile( $propertyFileLocation, $this->propertyFileContent(), $_writeMode );
+		if( is_array( $this->FileContent() ) ) {
+			ClassSystemWrite::writeFile( $propertyFileLocation, implode( PHP_EOL, $this->FileContent() ), $_writeMode );
+		} else {
+			ClassSystemWrite::writeFile( $propertyFileLocation, $this->FileContent(), $_writeMode );
+		}
 		$this->propertyFileLocation( $propertyFileLocation );
 		$this->_loadFileAttributeList();
 		$this->_hasChanged = false;
@@ -123,31 +132,44 @@ class ClassSystemFile implements InterfaceSystemFile {
 	 * @param bool $ParsePhp
 	 * @return string
 	 */
-	public function readFile( $ParsePhp = false ) {
+	public function readFile( $ParsePhp = false, $ParseArray = false ) {
 		if( is_file( $this->propertyFileLocation() ) ) {
 			if( $ParsePhp ) {
 				ob_start(); include( $this->propertyFileLocation() );
-				$this->propertyFileContent( ob_get_clean() );
+				$this->FileContent( ob_get_clean() );
+			} elseif( $ParseArray ) {
+				$this->FileContent( file( $this->propertyFileLocation() ) );
 			} else {
-				$this->propertyFileContent( file_get_contents( $this->propertyFileLocation() ) );
+				$this->FileContent( file_get_contents( $this->propertyFileLocation() ) );
 			}
 		} else {
-			$this->propertyFileContent('');
+			if( $ParseArray ) {
+				$this->FileContent( array() );
+			} else {
+				$this->FileContent('');
+			}
 		}
 		$this->_hasChanged = false;
-		return $this->propertyFileContent();
+		return $this->FileContent();
 	}
 	/**
 	 * @param string $propertyFileLocation
-	 * @return void
+	 * @return boolean
 	 */
 	public function moveFile( $propertyFileLocation ) {
 		if( file_exists( $this->propertyFileLocation() ) ) {
-			if( rename( $this->propertyFileLocation(), $propertyFileLocation ) ) {
+			if( $Return = ClassSystemWrite::renameFile( $this->propertyFileLocation(), $propertyFileLocation ) ) {
 				$this->propertyFileLocation( $propertyFileLocation );
 				$this->_loadFileAttributeList();
 			}
+			return $Return;
+			/*
+			if( rename( $this->propertyFileLocation(), $propertyFileLocation ) ) {
+				$this->propertyFileLocation( $propertyFileLocation );
+				$this->_loadFileAttributeList();
+			}*/
 		}
+		return false;
 	}
 	/**
 	 * @param string $propertyFileLocation
@@ -162,13 +184,18 @@ class ClassSystemFile implements InterfaceSystemFile {
 		}
 	}
 	/**
-	 * @return void
+	 * @return boolean
 	 */
 	public function removeFile() {
+		Event::Message(__LINE__,__METHOD__);
 		if( file_exists( $this->propertyFileLocation() ) ) {
-			unlink( $this->propertyFileLocation() );
+			$Return = ClassSystemWrite::removeFile( $this->propertyFileLocation() );
+			//unlink( $this->propertyFileLocation() );
+			Event::Message(__LINE__,__METHOD__);
 			unset($this);
+			return $Return;
 		}
+		return false;
 	}
 	/**
 	 * @return void
@@ -181,7 +208,11 @@ class ClassSystemFile implements InterfaceSystemFile {
 	}
 
 	public function Hash() {
-		return sha1_file( $this->propertyFileLocation() );
+		if( file_exists( $this->propertyFileLocation() ) ) {
+			return sha1_file( $this->propertyFileLocation() );
+		} else {
+			return null;
+		}
 	}
 
 // ---------------------------------------------------------------------------------------
@@ -234,13 +265,22 @@ class ClassSystemFile implements InterfaceSystemFile {
 	 * @param null|string $propertyFileContent
 	 * @return null|string
 	 */
-	public function propertyFileContent( $propertyFileContent = null ) {
+	public function FileContent( $propertyFileContent = null ) {
 		if( $propertyFileContent !== null ) {
 			if( $this->_propertyFileContent !== null ) $this->_hasChanged = true;
 			$this->_propertyFileContent = $propertyFileContent;
 		}
 		if( $this->_propertyFileContent === null ) {
 			$this->readFile();
+		} return $this->_propertyFileContent;
+	}
+	public function FileContentArray( $propertyFileContent = null ) {
+		if( $propertyFileContent !== null ) {
+			if( $this->_propertyFileContent !== null ) $this->_hasChanged = true;
+			$this->_propertyFileContent = $propertyFileContent;
+		}
+		if( $this->_propertyFileContent === null ) {
+			$this->readFile( false, true );
 		} return $this->_propertyFileContent;
 	}
 // ---------------------------------------------------------------------------------------
