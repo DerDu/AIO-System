@@ -59,8 +59,14 @@ class ClassEventError implements InterfaceEventError {
 			2047=>'ALL',2048=>'STRICT',4096=>'RECOVERABLE ERROR',8192=>'DEPRECATED',
 			16384=>'USER DEPRECATED',30719=>'ALL'
 	);
+	private static $_propertyNumberIgnoreList = array(
+			2048
+	);
 // ---------------------------------------------------------------------------------------
 	public static function eventHandler( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
+		if( in_array( $propertyNumber, self::$_propertyNumberIgnoreList ) ) {
+			return null;
+		}
 		self::_eventToScreen(
 			$propertyNumber.(isset(self::$_propertyNumberList[$propertyNumber])?' '.self::$_propertyNumberList[$propertyNumber]:''),
 			$propertyContent, $propertyLocation, $propertyPosition
@@ -69,6 +75,7 @@ class ClassEventError implements InterfaceEventError {
 			$propertyNumber.(isset(self::$_propertyNumberList[$propertyNumber])?' '.self::$_propertyNumberList[$propertyNumber]:''),
 			$propertyContent, $propertyLocation, $propertyPosition
 		);
+		return true;
 	}
 // ---------------------------------------------------------------------------------------
 	private static function _eventToScreen( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {

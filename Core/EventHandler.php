@@ -40,6 +40,15 @@
  * @subpackage Event
  */
 namespace AIOSystem\Core;
+require_once( __DIR__ . '/EventTypehint.php' );
+require_once( __DIR__ . '/EventError.php' );
+require_once( __DIR__ . '/EventScreen.php' );
+require_once( __DIR__ . '/EventJournal.php' );
+require_once( __DIR__ . '/SystemDirectory.php' );
+require_once( __DIR__ . '/SystemFile.php' );
+require_once( __DIR__ . '/SystemWrite.php' );
+require_once( __DIR__ . '/../Api/Font.php' );
+require_once( __DIR__ . '/../Module/Font/Utf8Encoding.php' );
 /**
  * @package AIOSystem\Core
  * @subpackage Event

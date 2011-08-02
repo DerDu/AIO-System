@@ -71,7 +71,7 @@ class ClassEventJournal implements InterfaceEventJournal {
 			$CoreSystemFile->moveFile( substr($propertyJournalName,0,-4).'.'.date('YmdHis').'.txt' );
 			$CoreSystemFile = System::File( $propertyJournalName );
 		}
-		$CoreSystemFile->propertyFileContent(
+		$CoreSystemFile->FileContent(
 					( $CoreSystemFile->propertyFileSize() != 0 ? "\n" : '' )
 					.str_repeat('-',50)."\n"
 					.date("d.m.Y H:i:s",time())." SID:".strtoupper( session_id() )."\n"
@@ -95,7 +95,7 @@ class ClassEventJournal implements InterfaceEventJournal {
 		return ClassSystemDirectory::applyFileListFilter( $directoryFileList,
 			array(
 				'propertyFileName'=>'^Journal\..*?\.txt',
-				'propertyFileContent'=>'([0-9]{2}\.[0-9]{2}\.[0-9]{4}) ([0-9]{2}:[0-9]{2}:[0-9]{2}) SID:',
+				'FileContent'=>'([0-9]{2}\.[0-9]{2}\.[0-9]{4}) ([0-9]{2}:[0-9]{2}:[0-9]{2}) SID:',
 				'propertyFileTime'=>$regexpIntegerBetween
 			)
 		);
@@ -110,9 +110,9 @@ class ClassEventJournal implements InterfaceEventJournal {
 		/** @var ClassSystemFile $ClassSystemFile */
 		$Content = '';
 		foreach( (array)$ClassSystemFileList as $ClassSystemFile ) {
-			$ClassSystemFile->propertyFileContent();
+			$ClassSystemFile->FileContent();
 			$Content .= "\n\n".trim(
-				preg_replace( '!\n\n(-{50})!is', "\n".$ClassSystemFile->propertyFileName().'${1}', $ClassSystemFile->propertyFileContent() )
+				preg_replace( '!\n\n(-{50})!is', "\n".$ClassSystemFile->propertyFileName().'${1}', $ClassSystemFile->FileContent() )
 			)."\n".$ClassSystemFile->propertyFileName();
 		}
 		$Match = array();
