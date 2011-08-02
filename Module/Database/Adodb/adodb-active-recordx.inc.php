@@ -1,7 +1,7 @@
 <?php
 /*
 
-@version V5.06 29 Sept 2008   (c) 2000-2010 John Lim (jlim#natsoft.com). All rights reserved.
+@version V5.06 29 Sept 2008   (c) 2000-2011 John Lim (jlim#natsoft.com). All rights reserved.
   Latest version is available at http://adodb.sourceforge.net
  
   Released under both BSD license and Lesser GPL library license. 
@@ -518,7 +518,7 @@ class ADODB_Active_Record {
 		if ($ADODB_ACTIVE_CACHESECS && $ADODB_CACHE_DIR) {
 			$activetab->_created = time();
 			$s = serialize($activetab);
-			if (!function_exists('adodb_write_file')) include(ADODB_DIR . '/adodb-csvlib.inc.php');
+			if (!function_exists('adodb_write_file')) include(ADODB_DIR.'/adodb-csvlib.inc.php');
 			adodb_write_file($fname,$s);
 		}
 		if (isset($activedb->tables[$table])) {
@@ -1203,7 +1203,7 @@ function adodb_GetActiveRecordsClass(&$db, $class, $tableObj,$whereOrderBy,$bind
 		
 		
 		if (!isset($_ADODB_ACTIVE_DBS)) {
-			include(ADODB_DIR . '/adodb-active-record.inc.php');
+			include(ADODB_DIR.'/adodb-active-record.inc.php');
 		}	
 		if (!class_exists($class)) {
 			$db->outp_throw("Unknown class $class in GetActiveRecordsClass()",'GetActiveRecordsClass');

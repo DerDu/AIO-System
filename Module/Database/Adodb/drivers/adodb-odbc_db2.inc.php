@@ -1,6 +1,6 @@
 <?php
 /* 
-V5.11 5 May 2010   (c) 2000-2010 John Lim (jlim#natsoft.com). All rights reserved.
+V5.12 30 June 2011   (c) 2000-2011 John Lim (jlim#natsoft.com). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -90,7 +90,7 @@ to DB2 full rights to the DB2 SQLLIB directory, and place the user in the DBUSER
 if (!defined('ADODB_DIR')) die();
 
 if (!defined('_ADODB_ODBC_LAYER')) {
-	include(ADODB_DIR . "/drivers/adodb-odbc.inc.php");
+	include(ADODB_DIR."/drivers/adodb-odbc.inc.php");
 }
 if (!defined('ADODB_ODBC_DB2')){
 define('ADODB_ODBC_DB2',1);

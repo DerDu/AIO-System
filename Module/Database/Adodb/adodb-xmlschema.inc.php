@@ -92,8 +92,8 @@ if( !defined( 'XMLS_DEFAULT_UPGRADE_METHOD' ) ) {
 * Include the main ADODB library
 */
 if( !defined( '_ADODB_LAYER' ) ) {
-	require('adodb.inc.php');
-	require('adodb-datadict.inc.php');
+	require( 'adodb.inc.php' );
+	require( 'adodb-datadict.inc.php' );
 }
 
 /**

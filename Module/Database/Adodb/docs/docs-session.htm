@@ -26,13 +26,13 @@ V5.11 5 May 2010  (c) 2000-2010 John Lim (jlim#natsoft.com)
 <p> <font size="1">This software is dual licensed using BSD-Style and
 LGPL. This means you can use it in compiled proprietary and commercial
 products. </font>
-<p>Useful ADOdb links: <a href="http://adodb.sourceforge.net/docs-session.htm#download">Download</a>
-&nbsp; <a href="http://adodb.sourceforge.net/docs-session.htm#docs">Other Docs</a>
+<p>Useful ADOdb links: <a href="http://adodb.sourceforge.net/#download">Download</a>
+&nbsp; <a href="http://adodb.sourceforge.net/#docs">Other Docs</a>
 </p>
 <h2>Introduction</h2>
 <p> This document discusses the newer session handler adodb-session2.php. If
   you have used the older adodb-session.php, then be forewarned that you will
-  need to alter your session table format. Otherwise everything is <a href="docs-session.htm#compat">backward
+  need to alter your session table format. Otherwise everything is <a href="#compat">backward
   compatible</a>.
   Here are the <a href="docs-session.old.htm">older
     docs</a> for
@@ -44,7 +44,8 @@ session, as the user moves from page to page. </p>
 <p>To use session variables, call session_start() at the beginning of
 your web page, before your HTTP headers are sent. Then for every
 variable you want to keep alive for the duration of the session, call
-session_register($variable_name). By default, the session handler will
+variable you want to keep alive for the duration of the session, use $_SESSION['variablename']. 
+ By default, the session handler will
 keep track of the session by using a cookie. You can save objects or
 arrays in session variables also.
 </p>

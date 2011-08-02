@@ -1,6 +1,6 @@
 <?php
 /*
- V5.11 5 May 2010   (c) 2000-2010 John Lim (jlim#natsoft.com). All rights reserved.
+ V5.12 30 June 2011   (c) 2000-2011 John Lim (jlim#natsoft.com). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -14,13 +14,14 @@
 // security - hide paths
 if (!defined('ADODB_DIR')) die();
 
-include_once(ADODB_DIR . "/drivers/adodb-postgres64.inc.php");
+include_once(ADODB_DIR."/drivers/adodb-postgres64.inc.php");
 
 class ADODB_postgres7 extends ADODB_postgres64 {
 	var $databaseType = 'postgres7';	
 	var $hasLimit = true;	// set to true for pgsql 6.5+ only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
 	var $ansiOuter = true;
 	var $charSet = true; //set to true for Postgres 7 and above - PG client supports encodings
+	
 	
 	function ADODB_postgres7() 
 	{

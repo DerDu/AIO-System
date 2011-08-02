@@ -1,7 +1,7 @@
 <?php
 /*
 
-@version V5.11 5 May 2010   (c) 2000-2010 John Lim (jlim#natsoft.com). All rights reserved.
+@version V5.12 30 June 2011   (c) 2000-2011 John Lim (jlim#natsoft.com). All rights reserved.
   Latest version is available at http://adodb.sourceforge.net
  
   Released under both BSD license and Lesser GPL library license. 
@@ -466,7 +466,7 @@ class ADODB_Active_Record {
 		if ($ADODB_ACTIVE_CACHESECS && $ADODB_CACHE_DIR) {
 			$activetab->_created = time();
 			$s = serialize($activetab);
-			if (!function_exists('adodb_write_file')) include(ADODB_DIR . '/adodb-csvlib.inc.php');
+			if (!function_exists('adodb_write_file')) include(ADODB_DIR.'/adodb-csvlib.inc.php');
 			adodb_write_file($fname,$s);
 		}
 		if (isset($activedb->tables[$table])) {
@@ -694,7 +694,7 @@ class ADODB_Active_Record {
 			$qry .= ' WHERE '.$where;
 		}
 		$row = $db->GetRow($qry,$bindarr);
-
+		
 		if (isset($savem)) $db->SetFetchMode($savem);
 		$ADODB_FETCH_MODE = $save;
 		

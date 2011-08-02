@@ -32,9 +32,9 @@ This implementation differs from Zend Framework's implementation in the followin
 <li>No field name conversion to camel-caps style, unlike Zend's implementation which will convert field names such as 'first_name' to 'firstName'.<p>
 <li>NewADOConnection::GetActiveRecords() and ADOConnection::GetActiveRecordsClass() functions in adodb.inc.php.<p>
 <li>Caching of table metadata so it is only queried once per table, no matter how many Active Records are created.<p>
-<li>PHP5 version of ADOdb_Active_Record now supports <a href=docs-active-record.htm#onetomany>one-to-many</a> relationships.<p>
-<li>New adodb-active-recordx.inc.php, which is an <a href=docs-active-record.htm#recordx>Active Record eXtended</a> implementation that support JOINs for higher performance when loading children, and other nice features.<p>
-<li>Lots of  <a href=docs-active-record.htm#additional>additional functionality</a>.<p>
+<li>PHP5 version of ADOdb_Active_Record now supports <a href=#onetomany>one-to-many</a> relationships.<p>
+<li>New adodb-active-recordx.inc.php, which is an <a href=#recordx>Active Record eXtended</a> implementation that support JOINs for higher performance when loading children, and other nice features.<p>
+<li>Lots of  <a href=#additional>additional functionality</a>.<p> 
 </ul>
 <P>
 ADOdb_Active_Record is designed upon the principles of the "ActiveRecord" design pattern, which was first described by Martin Fowler. The ActiveRecord pattern has been implemented in many forms across the spectrum of programming languages. ADOdb_Active_Record attempts to represent the database as closely to native PHP objects as possible.
@@ -405,7 +405,7 @@ linked by <strong>persons.id = children.person_id</strong>. The variable $person
 	$person2 = new person();
 	$p = $person2->children;  ## $p is an empty array()
 </pre>
-<P>By default, data returned by HasMany() is unsorted. To define an order by clause (or define a SELECT LIMIT window), see <a href=docs-active-record.htm#loadrelations>LoadRelations()</a> below. Another point is that all children are loaded only when the child member is accessed (in __get), and not when the Load() function of the parent object is called. This helps to conserve memory.
+<P>By default, data returned by HasMany() is unsorted. To define an order by clause (or define a SELECT LIMIT window), see <a href=#loadrelations>LoadRelations()</a> below. Another point is that all children are loaded only when the child member is accessed (in __get), and not when the Load() function of the parent object is called. This helps to conserve memory.
 
 <p>To create and save new parent and child records:
 <pre>
