@@ -40,6 +40,7 @@
  * @subpackage Mail
  */
 namespace AIOSystem\Module\Mail;
+use \AIOSystem\Api\Event;
 /**
  * @package AIOSystem\Module
  * @subpackage Mail
@@ -66,43 +67,109 @@ class ClassPhpMailer implements InterfacePhpMailer
 {
 	/** @var \PHPMailer $phpmailer_instance */
 	private static $phpmailer_instance = null;
+
 	public function __construct() {
 	}
 // EXECUTION------------------------------------------------------------------------------------
 	public static function phpmailer_send()
 	{
-		self::phpmailer_instance()->Send();
+		ob_start(); self::phpmailer_instance()->Send(); $Status = ob_get_contents();ob_end_clean();
+		if( self::phpmailer_instance()->IsError() ) {
+			Event::Error( 0, self::phpmailer_instance()->ErrorInfo, __FILE__, __LINE__ );
+			self::phpmailer_instance()->error_count = 0;
+			self::phpmailer_instance()->ErrorInfo = null;
+		}
 		self::$phpmailer_instance = null;
+		return $Status;
 	}
 // CONTENT -------------------------------------------------------------------------------
 	public static function phpmailer_subject( $string_subject_text )
 	{
-		self::phpmailer_instance()->Subject = $string_subject_text;
+		ob_start(); self::phpmailer_instance()->Subject = $string_subject_text; ob_end_clean();
+		if( self::phpmailer_instance()->IsError() ) {
+			Event::Error( 0, self::phpmailer_instance()->ErrorInfo, __FILE__, __LINE__ );
+			self::phpmailer_instance()->error_count = 0;
+			self::phpmailer_instance()->ErrorInfo = null;
+		}
 	}
-	public static function phpmailer_body( $string_body_text )
-	{
-		self::phpmailer_instance()->MsgHTML( $string_body_text );
+	public static function phpmailer_body( $string_body_text, $isHtml = true ) {
+		ob_start(); self::phpmailer_instance()->IsHTML( $isHtml ); ob_end_clean();
+		ob_start(); self::phpmailer_instance()->MsgHTML( $string_body_text ); ob_end_clean();
+		if( self::phpmailer_instance()->IsError() ) {
+			Event::Error( 0, self::phpmailer_instance()->ErrorInfo, __FILE__, __LINE__ );
+			self::phpmailer_instance()->error_count = 0;
+			self::phpmailer_instance()->ErrorInfo = null;
+		}
 	}
 	public static function phpmailer_attachment( $string_filename )
 	{
-		if( file_exists( $string_filename ) ) self::phpmailer_instance()->AddAttachment( $string_filename );
+		ob_start(); if( file_exists( $string_filename ) ) self::phpmailer_instance()->AddAttachment( $string_filename ); ob_end_clean();
+		if( self::phpmailer_instance()->IsError() ) {
+			Event::Error( 0, self::phpmailer_instance()->ErrorInfo, __FILE__, __LINE__ );
+			self::phpmailer_instance()->error_count = 0;
+			self::phpmailer_instance()->ErrorInfo = null;
+		}
 	}
 // ADDRESS -------------------------------------------------------------------------------
 	public static function phpmailer_from( $string_from_mail, $string_from_name = '' )
 	{
-		self::phpmailer_instance()->SetFrom( $string_from_mail, $string_from_name );
+		ob_start(); self::phpmailer_instance()->SetFrom( $string_from_mail, $string_from_name ); ob_end_clean();
+		if( self::phpmailer_instance()->IsError() ) {
+			Event::Error( 0, self::phpmailer_instance()->ErrorInfo, __FILE__, __LINE__ );
+			self::phpmailer_instance()->error_count = 0;
+			self::phpmailer_instance()->ErrorInfo = null;
+		}
 	}
+	public static function phpmailer_check_to( $string_to_mail ) {
+		ob_start(); self::phpmailer_instance()->ValidateAddress( $string_to_mail ); $Status = ob_get_contents();ob_end_clean();
+		if( self::phpmailer_instance()->IsError() ) {
+			Event::Error( 0, self::phpmailer_instance()->ErrorInfo, __FILE__, __LINE__ );
+			self::phpmailer_instance()->error_count = 0;
+			self::phpmailer_instance()->ErrorInfo = null;
+		}
+		return $Status;
+	}
+
 	public static function phpmailer_to( $string_to_mail, $string_to_name = '' )
 	{
-		self::phpmailer_instance()->AddAddress( $string_to_mail, $string_to_name );
+		ob_start(); self::phpmailer_instance()->AddAddress( $string_to_mail, $string_to_name ); ob_end_clean();
+		if( self::phpmailer_instance()->IsError() ) {
+			Event::Error( 0, self::phpmailer_instance()->ErrorInfo, __FILE__, __LINE__ );
+			self::phpmailer_instance()->error_count = 0;
+			self::phpmailer_instance()->ErrorInfo = null;
+		}
+	}
+	public static function phpmailer_to_cc( $string_to_mail, $string_to_name = '' )
+	{
+		ob_start(); self::phpmailer_instance()->AddCC( $string_to_mail, $string_to_name ); ob_end_clean();
+		if( self::phpmailer_instance()->IsError() ) {
+			Event::Error( 0, self::phpmailer_instance()->ErrorInfo, __FILE__, __LINE__ );
+			self::phpmailer_instance()->error_count = 0;
+			self::phpmailer_instance()->ErrorInfo = null;
+		}
+	}
+	public static function phpmailer_to_bcc( $string_to_mail, $string_to_name = '' )
+	{
+		ob_start(); self::phpmailer_instance()->AddBCC( $string_to_mail, $string_to_name ); ob_end_clean();
+		if( self::phpmailer_instance()->IsError() ) {
+			Event::Error( 0, self::phpmailer_instance()->ErrorInfo, __FILE__, __LINE__ );
+			self::phpmailer_instance()->error_count = 0;
+			self::phpmailer_instance()->ErrorInfo = null;
+		}
 	}
 	public static function phpmailer_reply( $string_reply_mail, $string_reply_name = '' )
 	{
-		self::phpmailer_instance()->AddReplyTo( $string_reply_mail, $string_reply_name );
+		ob_start(); self::phpmailer_instance()->AddReplyTo( $string_reply_mail, $string_reply_name ); ob_end_clean();
+		if( self::phpmailer_instance()->IsError() ) {
+			Event::Error( 0, self::phpmailer_instance()->ErrorInfo, __FILE__, __LINE__ );
+			self::phpmailer_instance()->error_count = 0;
+			self::phpmailer_instance()->ErrorInfo = null;
+		}
 	}
 // AUTHENTICATION ------------------------------------------------------------------------
 	public static function phpmailer_smtp( $string_hostname, $string_username, $string_password, $string_smtpport = 25 )
 	{
+		ob_start();
 		self::phpmailer_instance()->IsSMTP();
 		//self::phpmailer_instance()->SMTPDebug = 2;
 		self::phpmailer_instance()->SMTPAuth = true;
@@ -110,13 +177,19 @@ class ClassPhpMailer implements InterfacePhpMailer
 		self::phpmailer_instance()->Username = $string_username;
 		self::phpmailer_instance()->Password = $string_password;
 		self::phpmailer_instance()->Port = $string_smtpport;
+		ob_end_clean();
+		if( self::phpmailer_instance()->IsError() ) {
+			Event::Error( 0, self::phpmailer_instance()->ErrorInfo, __FILE__, __LINE__ );
+			self::phpmailer_instance()->error_count = 0;
+			self::phpmailer_instance()->ErrorInfo = null;
+		}
 	}
 // ---------------------------------------------------------------------------------------
 	private static function phpmailer_instance()
 	{
 		if( self::$phpmailer_instance === null ) {
 			if( !class_exists('PHPMailer') ) require_once(dirname(__FILE__) . '/PhpMailer/class.phpmailer.php');
-			self::$phpmailer_instance = new \PHPMailer(true);
+			self::$phpmailer_instance = new \PHPMailer();
 		}
 		return self::$phpmailer_instance;
 	}
