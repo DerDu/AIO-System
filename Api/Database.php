@@ -131,7 +131,7 @@ class Database {
 	 * @return void
 	 */
 	public static function Close( $Route = null ) {
-		return AIODatabase::Close( $Route );
+		AIODatabase::Close( $Route );
 	}
 	/**
 	 * Database connection object
@@ -238,7 +238,7 @@ class Database {
 	 * @return void
 	 */
 	public static function CreateStructure( $XmlFile, $Drop = false ) {
-		return AIODatabase::Structure( $XmlFile, $Drop );
+		AIODatabase::Structure( $XmlFile, $Drop );
 	}
 	/**
 	 * @static
