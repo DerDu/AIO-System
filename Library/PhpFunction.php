@@ -139,6 +139,27 @@ if (!function_exists('array_search_recursive')) {
 		return false;
 	}
 }
+/**
+ * Merges the arrays by using a callback function for data comparison
+ */
+if (!function_exists('array_merge_urecursive')) {
+	function array_merge_urecursive( array $array1, array $_, $data_compare_function ) {
+		foreach( (array)$_ as $Index => $Value ) {
+			if( is_array( $Value ) ) {
+				if( !isset( $array1[$Index] ) ) {
+					$array1[$Index] = array();
+				}
+				$array1[$Index] = array_merge_urecursive( $array1[$Index], $Value, $data_compare_function );
+			} else {
+				if( $data_compare_function( $Value, $array1 ) ) {
+					array_push( $array1, $Value );
+				}
+			}
+		}
+		return $array1;
+	}
+}
+
 // ---------------------------------------------------------------------------------------
 // PHP STRING : STR_PAD_?
 if( ! function_exists('str_pad_right') ) {
