@@ -61,28 +61,28 @@ class ClassSeoUri implements InterfaceSeoUri {
 	private static $string_separator_char = '~';
 	private static $string_path_carrier = 'URI-PATH';
 
-	public static function UriPath( $string_path_relative, $integer_path_level = 0 )
-	{
+	public static function UriPath( $PathRelative, $PathLevel = 0 ) {
 		if( !isset($_SERVER['SERVER_PORT']) ) $_SERVER['SERVER_PORT'] = '';
-
 		switch( $_SERVER['SERVER_PORT'] )
 		{
-			case '80': $integer_path_port = 'http://'; break;
-			case '21': $integer_path_port = 'ftp://'; break;
-			default: $integer_path_port = '';
+			case '80': $PathPort = 'http://'; break;
+			case '21': $PathPort = 'ftp://'; break;
+			default: $PathPort = 'http://';
 		}
-		$string_path_relative = ($integer_path_level!=-1?str_replace('\\','/',dirname($_SERVER['SCRIPT_NAME'])):'')
+		// Define "../"
+		$PathRelative = ($PathLevel!=-1?str_replace('\\','/',dirname($_SERVER['SCRIPT_NAME'])):'')
 			.'/'
-			.str_repeat( '../', ($integer_path_level!=-1?$integer_path_level:0) )
-			.$string_path_relative;
+			.str_repeat( '../', ($PathLevel!=-1?$PathLevel:0) )
+			.$PathRelative;
 		// Resolve "../"
-		$integer_path_relative_count = substr_count( $string_path_relative, '../' );
-		for( $integer_path_relative_run = 0; $integer_path_relative_run < $integer_path_relative_count; $integer_path_relative_run++ )
-		$string_path_relative = preg_replace( '!\/[^\/]*?\/\.\.!is', '', $string_path_relative );
+		$PathRelativeCount = substr_count( $PathRelative, '../' );
+		for( $PathRelativeRun = 0; $PathRelativeRun < $PathRelativeCount; $PathRelativeRun++ )
+		$PathRelative = preg_replace( '!\/[^\/]*?\/\.\.!is', '', $PathRelative );
 		// Build correct path
-		return $integer_path_port .= str_replace( '//', '/', (isset($_SERVER['SERVER_NAME'])?$_SERVER['SERVER_NAME'].'/':'')
-			//.':'.$_SERVER['SERVER_PORT']
-			.$string_path_relative
+		return $PathPort . str_replace( '//', '/', (isset($_SERVER['SERVER_NAME'])?$_SERVER['SERVER_NAME']:'')
+			.(is_numeric($_SERVER['SERVER_PORT'])?':'.$_SERVER['SERVER_PORT']:'')
+			.(isset($_SERVER['SERVER_NAME'])?'/':'')
+			.$PathRelative
 		);
 	}
 	public static function UriRequest( $UriString = null, &$Parameter = null ) {
@@ -134,11 +134,11 @@ class ClassSeoUri implements InterfaceSeoUri {
 		}
 		//if(self::DEBUG){Event::Debug($_REQUEST,__FILE__,__LINE__);}
 	}
-	public static function UriCarrier( $string_path_carrier = null ) {
-		if( $string_path_carrier !== null ) self::$string_path_carrier = $string_path_carrier; return self::$string_path_carrier;
+	public static function UriCarrier( $PathCarrier = null ) {
+		if( $PathCarrier !== null ) self::$string_path_carrier = $PathCarrier; return self::$string_path_carrier;
 	}
-	public static function UriSeparator( $string_separator_char = null ) {
-		if( $string_separator_char !== null ) self::$string_separator_char = $string_separator_char; return self::$string_separator_char;
+	public static function UriSeparator( $SeparatorChar = null ) {
+		if( $SeparatorChar !== null ) self::$string_separator_char = $SeparatorChar; return self::$string_separator_char;
 	}
 
 	public static function UriString()
@@ -146,17 +146,17 @@ class ClassSeoUri implements InterfaceSeoUri {
 		self::FixIISRequestUri();
 		return substr( $_SERVER['REQUEST_URI'], strlen( $_SERVER['SCRIPT_NAME'] ) );
 	}
-	private static function UriFilter( $filter_seo_uri )
+	private static function UriFilter( $Uri )
 	{
 		// CUT QUESTION-STRING
-		$filter_seo_uri = explode( '?', $filter_seo_uri );
-		$filter_seo_uri = explode( '/', $filter_seo_uri[0] );
-		$filter_seo = create_function( '$filter_seo_uri',
+		$Uri = explode( '?', $Uri );
+		$Uri = explode( '/', $Uri[0] );
+		$Filter = create_function( '$filter_seo_uri',
 		'return preg_match("!^[^'
 		.self::UriSeparator().']+?'
 		.self::UriSeparator().'[^'
 		.self::UriSeparator().']*$!is", $filter_seo_uri );' );
-		return array_filter( $filter_seo_uri, $filter_seo );
+		return array_filter( $Uri, $Filter );
 	}
 
 	/**
