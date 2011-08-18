@@ -84,7 +84,7 @@ class ClassEventHandler implements InterfaceEventHandler {
 				.' at line '.$getLastError['line']
 				,'ClassEventShutdown'
 			);
-			ClassEventScreen::addEvent( $getLastError['type'], $getLastError['message'], $getLastError['file'], $getLastError['line'], ClassEventScreen::SCREEN_EXCEPTION );
+			ClassEventScreen::addEvent( $getLastError['type'], $getLastError['message'], $getLastError['file'], $getLastError['line'], ClassEventScreen::SCREEN_SHUTDOWN );
 		}
 	}
 // ---------------------------------------------------------------------------------------

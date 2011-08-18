@@ -60,6 +60,7 @@ class ClassEventScreen implements InterfaceEventScreen {
 	const SCREEN_INFO = 1;
 	const SCREEN_ERROR = 2;
 	const SCREEN_EXCEPTION = 3;
+	const SCREEN_SHUTDOWN = 4;
 // ---------------------------------------------------------------------------------------
 	public static function addEvent(
 		$propertyNumber, $propertyContent, $propertyLocation = '', $propertyPosition = '',
@@ -81,6 +82,10 @@ class ClassEventScreen implements InterfaceEventScreen {
 			}
 			case self::SCREEN_EXCEPTION:{
 				print self::_screenException( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );
+				return true;
+			}
+			case self::SCREEN_SHUTDOWN:{
+				print self::_screenShutdown( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition );
 				return true;
 			}
 		}
@@ -119,6 +124,18 @@ class ClassEventScreen implements InterfaceEventScreen {
 	private static function _screenException( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
 		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto; margin-bottom: 1px; background-color:#702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; text-align: left; overflow: auto;">'
 		."\n".'<strong style="color:#DDA0A0;">Unexpected Error:</strong><br /><br />'
+		.preg_replace_callback( '!\#([1-9]{1}|[0-9]{2,}) !is', create_function('$exception_replace','return str_replace("#","<br/>#",$exception_replace[0]);'), Font::MixedToUtf8(print_r($propertyContent,true)) )
+		.'<br />'
+			.'<span style="font-family: monospace; font-size: 10px;color:#DDA0A0;">'
+				.'Code ['.$propertyNumber.']'
+				.' thrown in '.$propertyLocation
+				.' at line '.$propertyPosition
+			.'</span>'
+		.'</div>'."\n";
+	}
+	private static function _screenShutdown( $propertyNumber, $propertyContent, $propertyLocation, $propertyPosition ) {
+		print "\n".'<div style="position:relative; top: 0; z-index: 20; padding: 5px; margin: auto; margin-bottom: 1px; background-color:#702020; color:#DDA0A0; border: 1px solid #B73B55; border-top: 1px solid #C03E58; border-bottom: 1px solid #A83A57; font-family: monospace; font-size:14px; text-align: left; overflow: auto;">'
+		."\n".'<strong style="color:#DDA0A0;">Shutdown Error:</strong><br /><br />'
 		.preg_replace_callback( '!\#([1-9]{1}|[0-9]{2,}) !is', create_function('$exception_replace','return str_replace("#","<br/>#",$exception_replace[0]);'), Font::MixedToUtf8(print_r($propertyContent,true)) )
 		.'<br />'
 			.'<span style="font-family: monospace; font-size: 10px;color:#DDA0A0;">'

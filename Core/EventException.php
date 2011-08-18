@@ -53,6 +53,7 @@ interface InterfaceEventException {
  */
 class ClassEventException extends \Exception implements InterfaceEventException {
 	private static $_propertyNumberList = array(
+			-1=>'FATAL',
 			0=>'SYSTEM',1=>'ERROR',2=>'WARNING',4=>'PARSER',
 			8=>'NOTICE',16=>'CORE ERROR',32=>'CORE WARNING',64=>'COMPILE ERROR',
 			128=>'COMPILE WARNING',256=>'USER ERROR',512=>'USER WARNING',1024=>'USER NOTICE',
