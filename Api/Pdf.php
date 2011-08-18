@@ -164,6 +164,12 @@ class Pdf {
 	public static function TableShowShade( $Show = null ) {
 		return AIOPdf::ezpdf_table_showshade( $Show );
 	}
+	const TABLE_ALIGN_LEFT = 'left';
+	const TABLE_ALIGN_RIGHT = 'right';
+	const TABLE_ALIGN_CENTER = 'center';
+	public static function TableAlign( $Align = self::TABLE_ALIGN_CENTER ) {
+		return AIOPdf::ezpdf_table_align( $Align );
+	}
 	/**
 	 * @static
 	 * @return void
