@@ -42,6 +42,7 @@ namespace AIOSystem\Api;
 use \AIOSystem\Core\ClassSystemFile as AIOSystemFile;
 use \AIOSystem\Core\ClassSystemDirectory as AIOSystemDirectory;
 use \AIOSystem\Core\ClassDebugTimer as AIODebugTimer;
+use \AIOSystem\Module\System\SysInfo;
 /**
  * @package AIOSystem\Api
  */
@@ -56,11 +57,11 @@ class System {
 	/**
 	 * @param string $Directory
 	 * @param array $Type
-	 * @param bool $Recursive
+	 * @param bool|int $Recursive - integer = max. level of depth, bool = toggle full depth
 	 * @return \AIOSystem\Core\ClassSystemFile[]
 	 */
-	public static function FileList( $Directory, $Type = array(), $Recursive = false ) {
-		return AIOSystemDirectory::getFileList( $Directory, $Type, $Recursive );
+	public static function FileList( $Directory, $Type = array(), $Recursive = false, $useFileObject = true ) {
+		return AIOSystemDirectory::getFileList( $Directory, $Type, $Recursive, $useFileObject );
 	}
 	/**
 	 * @param \AIOSystem\Core\ClassSystemFile[] $FileList
@@ -143,6 +144,13 @@ class System {
 	 */
 	public static function DebugTimer( $Name = 'DebugTimer', $Average = false ) {
 		return AIODebugTimer::Timer( $Name, $Average );
+	}
+	/**
+	 * @static
+	 * @return string
+	 */
+	public static function SysInfo() {
+		return SysInfo::Instance();
 	}
 }
 ?>

@@ -47,7 +47,7 @@ use \AIOSystem\Api\Event;
  * @subpackage System
  */
 interface InterfaceSystemDirectory {
-	public static function getFileList( $propertyDirectoryName, $propertyFileTypeList = array(), $isRecursive = false );
+	public static function getFileList( $propertyDirectoryName, $propertyFileTypeList = array(), $isRecursive = false, $useFileObject = true );
 	public static function applyFileListFilter( $propertyFileList, $propertyFilterList = array() );
 // ---------------------------------------------------------------------------------------
 	public static function adjustDirectorySyntax( $Directory, $TrailingSeparator = true, $DirectorySeparator = ClassSystemDirectory::DIRECTORY_SEPARATOR_SLASH  );
@@ -68,7 +68,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 	 * @param bool|int $isRecursive - integer = max. level of depth, bool = toggle full depth
 	 * @return \AIOSystem\Core\ClassSystemFile[]|bool
 	 */
-	public static function getFileList( $propertyDirectoryName, $propertyFileTypeList = array(), $isRecursive = false ) {
+	public static function getFileList( $propertyDirectoryName, $propertyFileTypeList = array(), $isRecursive = false, $useFileObject = true ) {
 		$getFileList = array();
 		if( !is_object( $directoryHandler = @dir( $propertyDirectoryName ) ) ) {
 			return false;
@@ -80,7 +80,7 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 						if( is_num( $isRecursive ) ) {
 							$isRecursive--;
 						}
-						$getFileList = array_merge( $getFileList, (array)self::getFileList( $propertyDirectoryName.'/'.$directoryEntryName, $propertyFileTypeList, $isRecursive ) );
+						$getFileList = array_merge( $getFileList, (array)self::getFileList( $propertyDirectoryName.'/'.$directoryEntryName, $propertyFileTypeList, $isRecursive, $useFileObject ) );
 					}
 				} else {
 					if( ! empty( $propertyFileTypeList ) ) {
@@ -103,7 +103,11 @@ class ClassSystemDirectory implements InterfaceSystemDirectory {
 						$isMatch = true;
 					}
 					if( $isMatch ) {
-						$getFileList[] = System::File( $propertyDirectoryName.'/'.$directoryEntryName );
+						if( $useFileObject ) {
+							$getFileList[] = System::File( $propertyDirectoryName.'/'.$directoryEntryName );
+						} else {
+							$getFileList[] = $propertyDirectoryName.'/'.$directoryEntryName;
+						}
 					}
 				}
 			}
