@@ -187,11 +187,9 @@ class ClassSystemFile implements InterfaceSystemFile {
 	 * @return boolean
 	 */
 	public function removeFile() {
-		Event::Message(__LINE__,__METHOD__);
 		if( file_exists( $this->propertyFileLocation() ) ) {
 			$Return = ClassSystemWrite::removeFile( $this->propertyFileLocation() );
 			//unlink( $this->propertyFileLocation() );
-			Event::Message(__LINE__,__METHOD__);
 			unset($this);
 			return $Return;
 		}
