@@ -46,7 +46,7 @@ use \AIOSystem\Api\Event;
 /**
  * @package AIOSystem
  */
-class ClassApi {
+class Api {
 	const API_PREFIX_NAMESPACE = __NAMESPACE__;
 	const API_PREFIX_CLASS = 'Class';
 	const API_PREFIX_INTERFACE = 'Interface';
@@ -135,7 +135,7 @@ class ClassApi {
 /**
  * Setup API (auto)
  */
-ClassApi::Setup();
+Api::Setup();
 
 
 // ---------------------------------------------------------------------------------------
