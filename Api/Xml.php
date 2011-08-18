@@ -106,6 +106,9 @@ class Xml {
 	public static function ListChild( \AIOSystem\Core\ClassXmlNode &$From, $Name, $AttributeList = array(), $isDescendant = null ) {
 		return $From->groupXmlNode( $Name, $AttributeList, $isDescendant );
 	}
+	public static function ListChildAll( \AIOSystem\Core\ClassXmlNode &$From ) {
+		return $From->propertyChildList();
+	}
 	public static function AddChild( \AIOSystem\Core\ClassXmlNode &$ParentNode, \AIOSystem\Core\ClassXmlNode &$ChildNode ) {
 		return $ParentNode->appendXmlNode( $ChildNode );
 	}
