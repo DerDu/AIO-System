@@ -40,9 +40,11 @@
  */
 namespace AIOSystem\Api;
 use \AIOSystem\Core\ClassSocket as AIOSocket;
+use \AIOSystem\Module\Soap\Client as SoapClient;
+use \AIOSystem\Module\Soap\Server as SoapServer;
 /**
  * Socket
- *  
+ *
  * @package AIOSystem\Api
  */
 class Socket {
@@ -73,7 +75,6 @@ class Socket {
 	}
 	/**
 	 * @static
-	 * @return void
 	 */
 	public static function Close() {
 		return AIOSocket::closeSocket();
@@ -83,7 +84,7 @@ class Socket {
 	 * @param null|string $Socket
 	 * @return string
 	 */
-	public static function Socket( $Socket = null ) {
+	public static function SocketId( $Socket = null ) {
 		return AIOSocket::propertySocketIdentifier( $Socket );
 	}
 	public static function HttpGet( $File ) {
@@ -92,6 +93,29 @@ class Socket {
         $GET .= "Connection: Close\r\n\r\n";
 		self::Write( $GET );
 		return preg_replace( "/^.*?\r\n\r\n/is", '', self::Read() );
+	}
+/*
+	/**
+	 * @static
+	 * @param $WsdlHost http://example.com/service.asmx?wsdl
+	 * @return \AIOSystem\Module\Soap\Client
+	 */
+/*	public static function WebService( $WsdlHost, $useExtension = false ) {
+		return AIOSoapClient::Instance( $WsdlHost, $useExtension );
+	}
+*/
+
+	public static function SoapClient( $WSDLHost, $Options = array(), $Debug = false ) {
+		return SoapClient::Instance( $WSDLHost, $Options, $Debug );
+	}
+	public static function SoapServer( $WSDLHost, $WSDLFile = null, $WSDLClass = null ) {
+		if( class_exists( $WSDLClass ) ) {
+			$SoapServer = SoapServer::Instance();
+			$SoapServer->CreateWSDLDocument( $WSDLFile, $WSDLClass );
+			$SoapServer->Run( $WSDLHost );
+		} else {
+			SoapServer::Instance( $WSDLHost );
+		}
 	}
 }
 ?>
