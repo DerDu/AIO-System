@@ -175,43 +175,40 @@ class Database {
 	 * </code>
 	 *
 	 * Type:
-	 *
-	 * C:  Varchar, capped to 255 characters.
-	 * X:  Larger varchar, capped to 4000 characters (to be compatible with Oracle).
-	 * XL: For Oracle, returns CLOB, otherwise the largest varchar size.
-	 * C2: Multibyte varchar
-	 * X2: Multibyte varchar (largest size)
-	 * B:  BLOB (binary large object)
-	 * D:  Date (some databases do not support this, and we return a datetime type)
-	 * T:  Datetime or Timestamp accurate to the second.
-	 * TS: Datetime or Timestamp supporting Sub-second accuracy.
-	 *     Supported by Oracle, PostgreSQL and SQL Server currently.
-	 *     Otherwise equivalent to T.
-	 * L:  Integer field suitable for storing booleans (0 or 1)
-	 * I:  Integer (mapped to I4)
-	 * I1: 1-byte integer
-	 * I2: 2-byte integer
-	 * I4: 4-byte integer
-	 * I8: 8-byte integer
-	 * F:  Floating point number
-	 * N:  Numeric or decimal number
+	 * <ul>
+	 *  <li>C:  Varchar, capped to 255 characters.</li>
+	 *  <li>X:  Larger varchar, capped to 4000 characters (to be compatible with Oracle).</li>
+	 *  <li>XL: For Oracle, returns CLOB, otherwise the largest varchar size.</li>
+	 *  <li>C2: Multibyte varchar</li>
+	 *  <li>X2: Multibyte varchar (largest size)</li>
+	 *  <li>B:  BLOB (binary large object)</li>
+	 *  <li>D:  Date (some databases do not support this, and we return a datetime type)</li>
+	 *  <li>T:  Datetime or Timestamp accurate to the second.</li>
+	 *  <li>TS: Datetime or Timestamp supporting Sub-second accuracy. Supported by Oracle, PostgreSQL and SQL Server currently. Otherwise equivalent to T.</li>
+	 *  <li>L:  Integer field suitable for storing booleans (0 or 1)</li>
+	 *  <li>I:  Integer (mapped to I4)</li>
+	 *  <li>I1: 1-byte integer</li>
+	 *  <li>I2: 2-byte integer</li>
+	 *  <li>I4: 4-byte integer</li>
+	 *  <li>I8: 8-byte integer</li>
+	 *  <li>F:  Floating point number</li>
+	 *  <li>N:  Numeric or decimal number</li>
+	 * </ul>
 	 *
 	 * Options:
-	 *
-	 * AUTO            For autoincrement number. Emulated with triggers if not available.
-	 *                 Sets NOTNULL also.
-	 * AUTOINCREMENT   Same as auto.
-	 * KEY             Primary key field. Sets NOTNULL also. Compound keys are supported.
-	 * PRIMARY         Same as KEY.
-	 * DEF             Synonym for DEFAULT for lazy typists.
-	 * DEFAULT         The default value. Character strings are auto-quoted unless
-	 *                 the string begins and ends with spaces, eg ' SYSDATE '.
-	 * NOTNULL         If field is not null.
-	 * DEFDATE         Set default value to call function to get today's date.
-	 * DEFTIMESTAMP    Set default to call function to get today's datetime.
-	 * NOQUOTE         Prevents autoquoting of default string values.
-	 * CONSTRAINTS     Additional constraints defined at the end of the field
-	 *                 definition.
+	 * <ul>
+	 *  <li>AUTO            <br/>For autoincrement number. Emulated with triggers if not available. Sets NOTNULL also.</li>
+	 *  <li>AUTOINCREMENT   <br/>Same as auto.</li>
+	 *  <li>KEY             <br/>Primary key field. Sets NOTNULL also. Compound keys are supported.</li>
+	 *  <li>PRIMARY         <br/>Same as KEY.</li>
+	 *  <li>DEF             <br/>Synonym for DEFAULT for lazy typists.</li>
+	 *  <li>DEFAULT         <br/>The default value. Character strings are auto-quoted unless the string begins and ends with spaces, eg ' SYSDATE '.</li>
+	 *  <li>NOTNULL         <br/>If field is not null.</li>
+	 *  <li>DEFDATE         <br/>Set default value to call function to get today's date.</li>
+	 *  <li>DEFTIMESTAMP    <br/>Set default to call function to get today's datetime.</li>
+	 *  <li>NOQUOTE         <br/>Prevents autoquoting of default string values.</li>
+	 *  <li>CONSTRAINTS     <br/>Additional constraints defined at the end of the field definition.</li>
+	 * </ul>
 	 *
 	 * @static
 	 * @param string $Name
