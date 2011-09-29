@@ -68,7 +68,7 @@ class ClassXmlParser implements InterfaceXmlParser {
 			$propertyXmlContent = file_get_contents( $propertyXml );
 		}
 		// Try String
-		elseif( is_string( $propertyXml ) && preg_match( '!\<\?xml.*?\?\>!is', $propertyXml ) ) {
+		elseif( is_string( $propertyXml ) ) {
 			$propertyXmlContent = $propertyXml;
 		}
 		// Try Object
@@ -98,8 +98,9 @@ class ClassXmlParser implements InterfaceXmlParser {
 					break;
 				}
 				case "CLOSE": {
-					if( ( $CoreXmlNodeList = self::_closeTag( $_searchTag ) ) !== null )
-					return $CoreXmlNodeList;
+					if( ( $CoreXmlNodeList = self::_closeTag( $_searchTag ) ) !== null ) {
+						return $CoreXmlNodeList;
+					}
 					break;
 				}
 				case "SHORT": {
