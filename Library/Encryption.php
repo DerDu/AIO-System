@@ -81,6 +81,7 @@ class ClassEncryption implements InterfaceEncryption {
 		$_codeSessionEncryption = self::_codeSessionEncryption( $propertyContent );
 		$countContentLength = strlen( $propertyContent );
 		for( $runContentLength = 0; $runContentLength < $countContentLength; $runContentLength++ ) {
+			set_time_limit( 60 );
 			$_runSessionEncryption .= chr( ord( $propertyContent[$runContentLength] ) ^ ord( $_codeSessionEncryption[$runContentLength] ) );
 		} return $_runSessionEncryption;
 	}
