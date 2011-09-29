@@ -1,8 +1,6 @@
 <?php
 /**
- * This file contains the API:Archive
- *
- // ---------------------------------------------------------------------------------------
+ * ---------------------------------------------------------------------------------------
  * LICENSE (BSD)
  *
  * Copyright (c) 2011, Gerd Christian Kunze
@@ -34,25 +32,32 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-// ---------------------------------------------------------------------------------------
+ * ---------------------------------------------------------------------------------------
  *
  * @package AIOSystem\Api
  */
 namespace AIOSystem\Api;
-use \AIOSystem\Module\Zip\ClassZipUnpack as AIOZip;
+use \AIOSystem\Module\Zip\ZipUnpack;
 /**
- * @package AIOSystem\Api
+ * This file contains the API:Archive
+ *
+ * @author      Gerd Christian Kunze
+ * @category    PHP
+ * @copyright   2011
+ * @license     LICENSE
+ * @link        https://github.com/DerDu/AIO-System
+ * @package     AIOSystem\Api
  */
 class Archive {
 	/**
 	 * This method is able to unzip a compressed file and delivers an array of file objects
 	 *
 	 * @static
-	 * @param string $FileLocation
+	 * @param string $FileLocation the compressed file location
 	 * @return \AIOSystem\Core\ClassSystemFile[]
 	 */
 	public static function ZipUnpack( $FileLocation ) {
-		return AIOZip::Open( $FileLocation );
+		return ZipUnpack::Open( $FileLocation );
 	}
 }
 ?>
