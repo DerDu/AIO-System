@@ -47,24 +47,29 @@ use \AIOSystem\Module\Excel\DataTable as DataTable;
  * @package AIOSystem\Api
  */
 class Html {
+	const STYLE_MEDIA_ALL = 'all';
+	const STYLE_MEDIA_SCREEN = 'screen';
+	const STYLE_MEDIA_HANDHELD = 'handheld';
+	const STYLE_MEDIA_PROJECTION = 'projection';
+	const STYLE_MEDIA_PRINT = 'print';
 	/**
 	 * @static
 	 * @param string $Directory
 	 * @param bool $Recursive
 	 * @return string
 	 */
-	public static function Style( $Directory, $Recursive = false ) {
+	public static function Style( $Directory, $Recursive = false, $Media = self::STYLE_MEDIA_ALL ) {
 		$FileList = array();
 		if( is_dir( realpath($Directory) ) ) {
 			$FileList = System::FileList( realpath($Directory), array('css'), $Recursive );
 		} else if( is_file( realpath($Directory) ) ) {
 			//return '<link rel="stylesheet" href="'.Seo::Path( $Directory ).'"/>';
-			return '<link rel="stylesheet" href="'.Seo::Path(
+			return '<link rel="stylesheet" type="text/css" href="'.Seo::Path(
 					System::RelativeDirectory(
 						System::DirectorySyntax( realpath($Directory), DIRECTORY_SEPARATOR ),
 						System::DirectorySyntax( System::DirectoryRoot(), DIRECTORY_SEPARATOR )
 					)
-				,-1 ).'"/>';
+				,-1 ).'" media="'.$Media.'"/>';
 		} else {
 			trigger_error('Style not available! '.$Directory );
 		}
@@ -72,12 +77,12 @@ class Html {
 		/** @var \AIOSystem\Core\ClassSystemFile $File */
 		foreach( (array)$FileList as $File ) {
 			//$Return .= '<link rel="stylesheet" href="'.Seo::Path( $Directory.System::DirectorySyntax( DIRECTORY_SEPARATOR.System::RelativeDirectory( $File->propertyFileLocation(), realpath($Directory) ),false) ).'"/>';
-			$Return .= '<link rel="stylesheet" href="'.Seo::Path(
+			$Return .= '<link rel="stylesheet" type="text/css" href="'.Seo::Path(
 					System::RelativeDirectory(
 						System::DirectorySyntax( $File->propertyFileLocation(), DIRECTORY_SEPARATOR ),
 						System::DirectorySyntax( System::DirectoryRoot(), DIRECTORY_SEPARATOR )
 					)
-				,-1).'"/>';
+				,-1).'" media="'.$Media.'"/>';
 		}
 		return $Return;
 	}
