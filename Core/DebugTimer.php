@@ -75,6 +75,11 @@ class ClassDebugTimer implements InterfaceDebugTimer {
 	private function Stop() {
 		return (microtime(true) - $this->TimerStart);
 	}
+	public function Lap() {
+		$Timer = (array)Session::Read( 'AIODebugTimer-'.$this->TimerName );
+		array_push( $Timer, $this->Stop() );
+		Session::Write( 'AIODebugTimer-'.$this->TimerName, $Timer );
+	}
 	public function __toString()
 	{
 		$Return = (string)str_pad_right($this->TimerName,25)
