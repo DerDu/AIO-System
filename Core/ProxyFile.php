@@ -3,7 +3,7 @@
  * FileProxy
  *
  * Based on http://www.php.net/manual/de/function.fopen.php#47224
- * 
+ *
 // ---------------------------------------------------------------------------------------
  * LICENSE (BSD)
  *
@@ -78,6 +78,18 @@ class ClassProxyFile implements InterfaceProxyFile {
 		} else {
 			return false;
 		}
+	}
+	/**
+	 * @static
+	 * @return array
+	 */
+	public static function getCredentials() {
+		return array(
+			'proxy_host' => self::propertyHost(),
+			'proxy_port' => self::propertyPort(),
+			'proxy_login' => self::propertyUser(),
+			'proxy_password' => self::propertyPass()
+		);
 	}
 	/**
 	 * @static
