@@ -58,9 +58,13 @@ class ClassJson implements InterfaceJson {
 	 * @param  mixed $Content
 	 * @return string
 	 */
-	public static function Encode( $Content ) {
+	public static function Encode( $Content, $NoObject = false ) {
 		self::_jsonClass();
-		return \FastJSON::encode( $Content );
+		if( $NoObject ) {
+			return str_replace(array('{','}'),array('[',']'), \FastJSON::encode( $Content ) );
+		} else {
+			return \FastJSON::encode( $Content );
+		}
 	}
 	/**
 	 * @static
