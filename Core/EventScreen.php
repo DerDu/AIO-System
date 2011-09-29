@@ -67,6 +67,20 @@ class ClassEventScreen implements InterfaceEventScreen {
 		$propertyEventScreenType = ClassEventScreen::SCREEN_ERROR
 	) {
 		if( ! ini_get('display_errors') ) return false;
+
+		//var_dump( $propertyContent, gettype( $propertyContent ) );
+		if( is_bool( $propertyContent ) ) {
+			if( $propertyContent === true ) {
+				$propertyContent = '(true)';
+			}
+			if( $propertyContent === false ) {
+				$propertyContent = '(false)';
+			}
+		}
+		if( is_null( $propertyContent ) ) {
+			$propertyContent = '(NULL)';
+		}
+
 		switch( $propertyEventScreenType ) {
 			case self::SCREEN_DEBUG:{
 				print self::_screenDebug( $propertyContent, $propertyLocation, $propertyPosition );
