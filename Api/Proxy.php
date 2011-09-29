@@ -72,5 +72,12 @@ class Proxy {
 	public static function HttpGet( $Url ) {
 		return AIOProxy::getFileProxy( $Url );
 	}
+	/**
+	 * @static
+	 * @return array
+	 */
+	public static function Credentials() {
+		return AIOProxy::getCredentials();
+	}
 }
 ?>
