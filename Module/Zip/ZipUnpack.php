@@ -49,7 +49,7 @@ use \AIOSystem\Api\Cache;
 interface InterfaceZipUnpack {
 	/**
 	 * Unpack zip file
-	 * 
+	 *
 	 * @static
 	 * @abstract
 	 * @param string $File
@@ -61,7 +61,7 @@ interface InterfaceZipUnpack {
  * @package AIOSystem\Module
  * @subpackage Zip
  */
-class ClassZipUnpack implements InterfaceZipUnpack {
+class ZipUnpack implements InterfaceZipUnpack {
 	/**
 	 * @static
 	 * @param string $File
@@ -127,7 +127,7 @@ class ClassZipUnpack implements InterfaceZipUnpack {
 			$object_file = System::File(
 				System::CreateDirectory( Cache::Location().$parse_zip_decompressed['file_dirname'] ).$parse_zip_decompressed['file_basename']
 			);
-			$object_file->propertyFileContent( $parse_zip_decompressed['file_content'] );
+			$object_file->FileContent( $parse_zip_decompressed['file_content'] );
 			$object_file->writeFile();
 			array_push( $parse_zip_result, $object_file );
 		}
