@@ -47,7 +47,6 @@ use \AIOSystem\Api\Event;
  * @package AIOSystem
  */
 class Api {
-	const API_PREFIX_NAMESPACE = __NAMESPACE__;
 	const API_PREFIX_CLASS = 'Class';
 	const API_PREFIX_INTERFACE = 'Interface';
 	const API_PREFIX_WIDGET = 'Widget';
@@ -63,7 +62,7 @@ class Api {
 	public static function Setup(){
 		self::$propertySetup = true;
 		spl_autoload_register( array(__CLASS__,'AutoLoader') );
-		require_once('Library\PhpFunction.php');
+		require_once( __DIR__. '/Library/PhpFunction.php');
 		Session::Start();
 		Event::RegisterHandler( E_ALL, true );
 		Seo::Request();
@@ -78,8 +77,8 @@ class Api {
 	 * @param  string $propertyClassName
 	 * @return bool
 	 */
-	public static function AutoLoader( $propertyClassName ) {
-		$propertyClassName = str_replace( self::API_PREFIX_NAMESPACE, '', $propertyClassName );
+	private static function AutoLoader( $propertyClassName ) {
+		$propertyClassName = str_replace( __NAMESPACE__, '', $propertyClassName );
 		$propertyClassName = explode( '\\', $propertyClassName );
 		$ClassName = array_pop( $propertyClassName );
 		$ClassName = preg_replace(
@@ -106,6 +105,7 @@ class Api {
 	 * @static
 	 * @return string
 	 */
+	/*
 	public static function WidgetStyle() {
 		$WidgetStyleList = Session::Read( __METHOD__ );
 		if( $WidgetStyleList === null ) {
@@ -115,7 +115,7 @@ class Api {
 				if( is_dir( $Directory.'Style' ) ) {
 					$WidgetStyle = System::FileList( $Directory.'Style', 'css' );
 					/** @var \AIOSystem\Core\ClassSystemFile $WidgetStyleFile */
-					foreach( (array)$WidgetStyle as $WidgetStyleFile ) {
+	/*				foreach( (array)$WidgetStyle as $WidgetStyleFile ) {
 						$StyleFile = Seo::Path( $WidgetStyleFile->propertyFileLocation() );
 						if( !in_array( $StyleFile, $WidgetStyleList ) ) {
 							array_push( $WidgetStyleList, $StyleFile );
@@ -130,7 +130,7 @@ class Api {
 			$Return .= '<link rel="stylesheet" href="'.$StyleLocation.'"/>'."\n";
 		}
 		return $Return;
-	}
+	}*/
 }
 /**
  * Setup API (auto)
