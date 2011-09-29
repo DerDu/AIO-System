@@ -84,6 +84,12 @@ class ClassStackQueue implements InterfaceStackQueue {
 		return array_shift( $this->_propertyStackQueue );
 	}
 	/**
+	 * @return mixed
+	 */
+	public function shiftData() {
+		return array_pop( $this->_propertyStackQueue );
+	}
+	/**
 	 * @param null|int $propertyQueueIndex
 	 * @return mixed|null
 	 */
